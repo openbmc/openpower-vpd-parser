@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd34791_1a44b75d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "We have only one thread waiting on the queue. Why notify_all not notify_one?",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2dec117_d444a801",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "The API is marked noexcept, in that case wrap it under try/catch inside the while loop to avoid any unintended exception which can cause the program to terminate.",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffedf43_05000f5e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "What does task refer to is not clear with the variable name.\nIt is basically a result as your type name suggests.",
+      "range": {
+        "startLine": 226,
+        "startChar": 39,
+        "endLine": 226,
+        "endChar": 45
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640b458c_8abad03c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "Remove extra \"e\" from variable name.",
+      "range": {
+        "startLine": 247,
+        "startChar": 20,
+        "endLine": 247,
+        "endChar": 40
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e7b299_a3bd85cc",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "Why this needs to be a ToDo? Are you going to implement this in a\u003dsome other function?",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3a3f2a_1e889bda",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-10T04:58:41Z",
+      "side": 1,
+      "message": "none of the parameters used here changes in loop,why is it required to re-calculate in every iteration?",
+      "range": {
+        "startLine": 255,
+        "startChar": 12,
+        "endLine": 258,
+        "endChar": 80
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
