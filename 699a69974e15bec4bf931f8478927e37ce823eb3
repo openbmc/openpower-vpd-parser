@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63a4f553_ba104f8d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "Currently, only processChassisResults() in main thread waits on m_completionCv, so notify_one() is sufficient here. Updated.",
+      "parentUuid": "dbd34791_1a44b75d",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2dec117_d444a801",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-10T04:58:41Z",
       "side": 1,
       "message": "The API is marked noexcept, in that case wrap it under try/catch inside the while loop to avoid any unintended exception which can cause the program to terminate.",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3db154a4_6246ceea",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2dec117_d444a801",
       "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,30 @@
       "writtenOn": "2026-06-10T04:58:41Z",
       "side": 1,
       "message": "What does task refer to is not clear with the variable name.\nIt is basically a result as your type name suggests.",
+      "range": {
+        "startLine": 226,
+        "startChar": 39,
+        "endLine": 226,
+        "endChar": 45
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f82e7f_54b3551a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated the name",
+      "parentUuid": "3ffedf43_05000f5e",
       "range": {
         "startLine": 226,
         "startChar": 39,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2d35e57_7d7f21f8",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640b458c_8abad03c",
+      "range": {
+        "startLine": 247,
+        "startChar": 20,
+        "endLine": 247,
+        "endChar": 40
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43e7b299_a3bd85cc",
@@ -100,6 +184,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57bf1b95_7a8ee56e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "The TODO was left intentionally because updating m_frusCount requires the corresponding asynchronous tracking/decrement flow to be fully integrated. Incrementing the count here without completing that flow would prevent processChassisResults() from reaching its completion condition and returning. For this commit, I kept the existing completion behavior intact and deferred FRU count tracking to a follow-up change.",
+      "parentUuid": "43e7b299_a3bd85cc",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c3a3f2a_1e889bda",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 4
@@ -111,6 +213,30 @@
       "writtenOn": "2026-06-10T04:58:41Z",
       "side": 1,
       "message": "none of the parameters used here changes in loop,why is it required to re-calculate in every iteration?",
+      "range": {
+        "startLine": 255,
+        "startChar": 12,
+        "endLine": 258,
+        "endChar": 80
+      },
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b652aa5_d9e3bd7b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T08:49:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated.",
+      "parentUuid": "2c3a3f2a_1e889bda",
       "range": {
         "startLine": 255,
         "startChar": 12,
