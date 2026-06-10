@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0b2d8f2_f60d5eff",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-10T04:45:49Z",
+      "side": 1,
+      "message": "The --validateRedundantEeprom operation is unambiguous and it only works with EEPROM paths. Unlike read/write operations that can target either Dbus or hardware, this validation always operates on physical EEPROMs.",
+      "parentUuid": "4c7d0e91_01bca8f9",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6fc85cc_3e33336d",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 2
