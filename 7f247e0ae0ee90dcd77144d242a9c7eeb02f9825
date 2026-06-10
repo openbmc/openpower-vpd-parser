@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c62b602b_f6a6066d",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-10T14:59:08Z",
+      "side": 1,
+      "message": "Suggestion: use C++23 approach `std::println(std::stderr,\u003cformatted string\u003e);` avoids intermediate string memory allocations",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b5d32f7_ff3876dd",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 4
@@ -48,6 +65,23 @@
       "writtenOn": "2026-06-10T09:30:43Z",
       "side": 1,
       "message": "input can itself a redundant path, so avoid saying primary path.\nsame for below as well.",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23b4606_1e8018d5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-10T14:59:08Z",
+      "side": 1,
+      "message": "Suggestion: use C++23 approach `std::println(std::stdcout,\u003cformatted string\u003e);` avoids intermediate string memory allocations",
       "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
