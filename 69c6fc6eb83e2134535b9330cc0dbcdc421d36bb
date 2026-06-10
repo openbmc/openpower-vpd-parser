@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f727398_f55df3c5",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-10T14:40:00Z",
+      "side": 1,
+      "message": "If `m_failedTag` is empty, why do we assume `m_failedTag` \u003d `gpioPresence`?\n\nA comment here would be helpful.",
+      "revId": "69c6fc6eb83e2134535b9330cc0dbcdc421d36bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
