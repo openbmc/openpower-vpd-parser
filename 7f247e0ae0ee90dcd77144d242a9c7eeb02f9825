@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e3fca1_e52efc39",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T09:30:43Z",
+      "side": 1,
+      "message": "should this api part to tool_utils ?",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f91b4f73_e252d07c",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T09:30:43Z",
+      "side": 1,
+      "message": "do we need this check, will manager method take care of it ?",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b5d32f7_ff3876dd",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T09:30:43Z",
+      "side": 1,
+      "message": "input can itself a redundant path, so avoid saying primary path.\nsame for below as well.",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce78433_dc17bef9",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-10T09:30:43Z",
+      "side": 1,
+      "message": "input can itself a redundant path, so avoid saying primary path.",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
