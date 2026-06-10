@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4744ade0_2c37e293",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-10T16:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef946e5e_99469d0d",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f91b4f73_e252d07c",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Acnowledged , removed it",
       "parentUuid": "f91b4f73_e252d07c",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca92b03f_f17394ec",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-10T16:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e729be3_b6a039b5",
       "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7364cae_d91a2c5b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-10T16:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00c8c187_c9fefe8d",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fce78433_dc17bef9",
@@ -171,6 +225,24 @@
       "side": 1,
       "message": "updated",
       "parentUuid": "fce78433_dc17bef9",
+      "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8c9989_f0e2730b",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-10T16:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81eaac29_5292ccb8",
       "revId": "7f247e0ae0ee90dcd77144d242a9c7eeb02f9825",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
