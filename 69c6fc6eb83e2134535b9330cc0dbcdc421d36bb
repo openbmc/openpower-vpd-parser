@@ -16,6 +16,24 @@
       "message": "If `m_failedTag` is empty, why do we assume `m_failedTag` \u003d `gpioPresence`?\n\nA comment here would be helpful.",
       "revId": "69c6fc6eb83e2134535b9330cc0dbcdc421d36bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e1eb71_961a08f5",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-11T07:16:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f727398_f55df3c5",
+      "revId": "69c6fc6eb83e2134535b9330cc0dbcdc421d36bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
