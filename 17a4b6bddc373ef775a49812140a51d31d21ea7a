@@ -37,6 +37,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e788e9ec_7b44d8e1",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T07:44:07Z",
+      "side": 1,
+      "message": "as this is c++23 feature, specifying version as c++23 in meson explicitly would be better.",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ff16ac_3f2c1814",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T07:44:07Z",
+      "side": 1,
+      "message": "description also contains same wordings, can we have shorter title \"Validate EEPROM\" instead ?",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a731eb7_36947597",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 7
