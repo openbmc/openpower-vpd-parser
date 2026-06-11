@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f5fbc6c_5c461584",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-11T09:05:47Z",
+      "side": 1,
+      "message": "We can save the size of the map in a variable here and use it for the empty check at line 224 and the size use at line 232. \n\nThough unlikely, but if the chassis to motherboard EEPROM map becomes empty in between line 224 and 232, it will result in a divide by zero at line 232.",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "433cab58_9aa8e430",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 6
@@ -20,6 +37,57 @@
         "endLine": 232,
         "endChar": 75
       },
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd112ac4_27aa0919",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-11T09:05:47Z",
+      "side": 1,
+      "message": "Instead of an infinite loop and then checking for exit conditions at line 251 using `m_chassisCount` and `m_frusCount`, we can keep the loop running condition as\n\n`while(m_chassisCount || m_frusCount)`\n\nThis makes it clear that the loop runs till there are no more chassis or frus to process and also reduces LOC.",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e72c6c8_57a6587e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-11T09:05:47Z",
+      "side": 1,
+      "message": "If some chassis is absent, should we have an `else` block and log a message so that it is clear that we are skipping FRUs collection pool for that chassis?",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f665ff4e_f5b837d3",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-11T09:05:47Z",
+      "side": 1,
+      "message": "This block decrements the counter and notifies. Can this be moved to line 271, after the \"actions on the chassis result are complete\"? This way `l_decChassisCnt` variable won\u0027t be needed.",
       "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
