@@ -153,6 +153,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "258a0922_6f4058e0",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T14:01:48Z",
+      "side": 1,
+      "message": "add log in collection file instead of journal.",
+      "parentUuid": "b5c1ad33_9c6e89cd",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f665ff4e_f5b837d3",
