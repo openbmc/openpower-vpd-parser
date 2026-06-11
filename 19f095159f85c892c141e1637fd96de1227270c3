@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c1beaa_483b1e7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T15:58:59Z",
+      "side": 1,
+      "message": "this section is not clear, is only /system path should be published \u0026 ignore publishing remaining sub FRUs paths in system VPD collection flow ?",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05a9b31_e2316ecf",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T15:58:59Z",
+      "side": 1,
+      "message": "as API reseting other non \u0027system\u0027 sub FRUs, should API name be kept accordingly ?",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ba1cbb_965f016b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T15:58:59Z",
+      "side": 1,
+      "message": "can be kept out of the for loop, as consumer api sets value to zero at the beginning.",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
