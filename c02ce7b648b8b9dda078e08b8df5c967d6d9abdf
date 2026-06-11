@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48d8aa2e_a9a7b897",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T09:28:19Z",
+      "side": 1,
+      "message": "I see better to read from API provided by config manager directly, I don\u0027t see saving size in variable or calling another time to get the value makes much difference.",
+      "parentUuid": "0f5fbc6c_5c461584",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "433cab58_9aa8e430",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 6
@@ -84,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf1712f7_d7460a47",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T09:28:19Z",
+      "side": 1,
+      "message": "no need to iterate loop until all the m_chassisCount and m_frusCount count decremented to zero every time, conditional_variable will block the execution until condition met.",
+      "parentUuid": "dd112ac4_27aa0919",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e72c6c8_57a6587e",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 6
@@ -95,6 +131,24 @@
       "writtenOn": "2026-06-11T09:05:47Z",
       "side": 1,
       "message": "If some chassis is absent, should we have an `else` block and log a message so that it is clear that we are skipping FRUs collection pool for that chassis?",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c1ad33_9c6e89cd",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T09:28:19Z",
+      "side": 1,
+      "message": "the log when chassis is absent is done as a part of parseAndPublish worker api. No need to add duplicate logs",
+      "parentUuid": "8e72c6c8_57a6587e",
       "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -112,6 +166,24 @@
       "writtenOn": "2026-06-11T09:05:47Z",
       "side": 1,
       "message": "This block decrements the counter and notifies. Can this be moved to line 271, after the \"actions on the chassis result are complete\"? This way `l_decChassisCnt` variable won\u0027t be needed.",
+      "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b7d9f4_971ce19b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-11T09:28:19Z",
+      "side": 1,
+      "message": "l_decChassisCnt makes sure chassis result is poped out and decrement is covered with this flag, otherwise its unknown if there is an exception even before poping out the result from queue and this will end up reducing chassis without processing the result.",
+      "parentUuid": "f665ff4e_f5b837d3",
       "revId": "c02ce7b648b8b9dda078e08b8df5c967d6d9abdf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
