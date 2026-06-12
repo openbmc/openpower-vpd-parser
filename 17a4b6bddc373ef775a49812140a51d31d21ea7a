@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fbb1846_2a835dc0",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-12T07:21:56Z",
+      "side": 1,
+      "message": "The root meson.build already sets: \u0027cpp_std\u003dc++23\u0027.This applies in the entire project, including subdirectories.",
+      "parentUuid": "e788e9ec_7b44d8e1",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03ff16ac_3f2c1814",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 7
@@ -82,6 +100,24 @@
       "writtenOn": "2026-06-11T06:59:54Z",
       "side": 1,
       "message": "1. should we shorten the option, which is easier to write as well, like --validate.\n\n2. -v generally used for verbose or version option, if vpd-tool wants to implement verbose later and generically used flag(-v) won\u0027t be available.\nHence should we consider using other letter for this flag ?",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2266dc_8156f315",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-12T07:21:56Z",
+      "side": 1,
+      "message": "--validate is too generic instead --validateRedundantEeprom is self-documenting and immediately clear . --validate would be ambiguous to user it does not explain (validate what?). \nAnd for shorter and quick option we have \u0027-e\u0027 (updated from \u0027-v\u0027)",
+      "parentUuid": "7a731eb7_36947597",
       "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
