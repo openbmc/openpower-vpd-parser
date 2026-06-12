@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39969d7_affaf90d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-12T07:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "707b7fd8_60707684",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a47f411_3eda44fe",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-11T06:59:54Z",
       "side": 1,
       "message": "Do we need a call in the API name ?",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72cd534_25680029",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-12T07:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a47f411_3eda44fe",
       "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +119,24 @@
       "writtenOn": "2026-06-11T07:44:07Z",
       "side": 1,
       "message": "description also contains same wordings, can we have shorter title \"Validate EEPROM\" instead ?",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ea7110a_4855620e",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-12T07:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03ff16ac_3f2c1814",
       "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
