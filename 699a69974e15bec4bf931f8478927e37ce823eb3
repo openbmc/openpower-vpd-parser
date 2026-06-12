@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef15f3b1_7f4647a0",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-12T06:09:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "63a4f553_ba104f8d",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2dec117_d444a801",
@@ -196,6 +214,24 @@
       "side": 1,
       "message": "The TODO was left intentionally because updating m_frusCount requires the corresponding asynchronous tracking/decrement flow to be fully integrated. Incrementing the count here without completing that flow would prevent processChassisResults() from reaching its completion condition and returning. For this commit, I kept the existing completion behavior intact and deferred FRU count tracking to a follow-up change.",
       "parentUuid": "43e7b299_a3bd85cc",
+      "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c78eda4_182614b6",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-12T06:09:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "57bf1b95_7a8ee56e",
       "revId": "699a69974e15bec4bf931f8478927e37ce823eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
