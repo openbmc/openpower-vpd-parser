@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f1b9d7b_29bc439f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-12T09:08:07Z",
+      "side": 1,
+      "message": "here not completely ignoring publishing other frus data, instead updating/resetting some of the properties value with default value right?",
+      "parentUuid": "e4150641_a3de1fee",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e05a9b31_e2316ecf",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
@@ -73,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72306bc1_fd699c4e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-12T09:08:07Z",
+      "side": 1,
+      "message": "resetNonSystemInvPaths, or resetDataOnNonSysInvPaths, clearNonSystemInvData \nclearDataForNonSystemPaths",
+      "parentUuid": "30261a96_38afbcba",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ba1cbb_965f016b",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "The variable is consumed inside the loop only. Why should we declare it outside?",
       "parentUuid": "e6ba1cbb_965f016b",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55794f2d_26850c20",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-12T09:08:07Z",
+      "side": 1,
+      "message": "One advantage of declaring it outside the loop is avoiding repeated construction/destruction of the variable.\n\nSince l_errCode is reset by the consumer before being updated on each iteration, reusing the same object should be safe. However, I agree that its usage is limited to the loop body, so keeping it inside is also reasonable. Your call.",
+      "parentUuid": "82e23fcb_e098c892",
       "revId": "19f095159f85c892c141e1637fd96de1227270c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
