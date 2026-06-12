@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4150641_a3de1fee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-12T05:24:47Z",
+      "side": 1,
+      "message": "\u003e/system path should be published \n\nYes, that\u0027s why I mentioned \"system inventory path\". The rest of the paragraph covers the sub FRUs paths.",
+      "parentUuid": "b9c1beaa_483b1e7d",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e05a9b31_e2316ecf",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30261a96_38afbcba",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-12T05:24:47Z",
+      "side": 1,
+      "message": "Please suggest name.",
+      "parentUuid": "e05a9b31_e2316ecf",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ba1cbb_965f016b",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-11T15:58:59Z",
       "side": 1,
       "message": "can be kept out of the for loop, as consumer api sets value to zero at the beginning.",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82e23fcb_e098c892",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-12T05:24:47Z",
+      "side": 1,
+      "message": "The variable is consumed inside the loop only. Why should we declare it outside?",
+      "parentUuid": "e6ba1cbb_965f016b",
       "revId": "19f095159f85c892c141e1637fd96de1227270c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
