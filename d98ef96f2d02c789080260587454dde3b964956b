@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33183f28_ed194220",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-12T05:14:56Z",
+      "side": 1,
+      "message": "Should this log go to collection file? Since this is in collection flow.",
+      "revId": "d98ef96f2d02c789080260587454dde3b964956b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
