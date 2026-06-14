@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "parser_interface.hpp"
 #include "types.hpp"
 
@@ -23,12 +24,33 @@ class KeywordVpdParser : public ParserInterface
     /**
      * @brief Constructor
      *
-     * @param kwVpdVector - move it to object's m_keywordVpdVector
+     * @param[in] i_kwVpdVector - VPD data
+     * @param[in] i_vpdFilePath - Path to VPD EEPROM
      */
-    KeywordVpdParser(const types::BinaryVector& kwVpdVector) :
-        m_keywordVpdVector(kwVpdVector),
-        m_vpdIterator(m_keywordVpdVector.begin())
-    {}
+    KeywordVpdParser(const types::BinaryVector& i_kwVpdVector,
+                     const std::string& i_vpdFilePath = "") :
+        m_keywordVpdVector(i_kwVpdVector), m_vpdFilePath(i_vpdFilePath),
+        m_vpdIterator(m_keywordVpdVector.begin()),
+        m_logger(Logger::getLoggerInstance())
+    {
+        if (!m_vpdFilePath.empty())
+        {
+            try
+            {
+                m_vpdFileStream.exceptions(
+                    std::ifstream::badbit | std::ifstream::failbit);
+                m_vpdFileStream.open(m_vpdFilePath,
+                                     std::ios::in | std::ios::out |
+                                         std::ios::binary);
+            }
+            catch (const std::fstream::failure& l_ex)
+            {
+                logging::logMessage(std::format(
+                    "Failed to open VPD file for write operations: {}",
+                    l_ex.what()));
+            }
+        }
+    }
 
     /**
      * @brief A wrapper function to parse the keyword VPD binary data.
@@ -53,6 +75,21 @@ class KeywordVpdParser : public ParserInterface
      */
     types::DbusVariantType readKeywordFromHardware(
         const types::ReadVpdParams i_paramsToReadData) override;
+
+    /**
+     * @brief API to write keyword's value on hardware.
+     *
+     * @param[in] i_paramsToWriteData - Data required to perform write.
+     *
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     * if the input parameter type is incompatible or the keyword is not found.
+     * @throw DataException if keyword is not found or write fails.
+     *
+     * @return On success returns number of bytes written on hardware, On
+     * failure throws exception.
+     */
+    int writeKeywordOnHardware(
+        const types::WriteVpdParams i_paramsToWriteData) override;
 
   private:
     /**
@@ -101,10 +138,43 @@ class KeywordVpdParser : public ParserInterface
      */
     void checkNextBytesValidity(uint8_t numberOfBytes);
 
+    /**
+     * @brief Find and update keyword value in the VPD vector
+     *
+     * @param[in] i_keywordName - Keyword name to find and update
+     * @param[in] i_keywordData - New data to write
+     * @param[in,out] io_vpdVector - VPD vector to modify
+     *
+     * @throw DataException if keyword is not found
+     *
+     * @return Number of bytes written
+     */
+    size_t setKeywordValue(const types::Keyword& i_keywordName,
+                           const types::BinaryVector& i_keywordData,
+                           types::BinaryVector& io_vpdVector);
+
+    /**
+     * @brief Calculate and update checksum in the VPD vector
+     *
+     * @param[in,out] io_vpdVector - VPD vector to update with new checksum
+     *
+     * @throw DataException if VPD structure is invalid
+     */
+    void updateChecksum(types::BinaryVector& io_vpdVector);
+
     /*Vector of keyword VPD data*/
     const types::BinaryVector& m_keywordVpdVector;
 
+    /*Path to VPD file*/
+    const std::string m_vpdFilePath;
+
+    /*Stream to the VPD file for write operations*/
+    std::fstream m_vpdFileStream;
+
     /*Iterator to VPD data*/
     types::BinaryVector::const_iterator m_vpdIterator;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd
