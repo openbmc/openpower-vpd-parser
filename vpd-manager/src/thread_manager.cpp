@@ -227,7 +227,7 @@ void ThreadManager::processChassisResults() noexcept
         return;
     }
 
-    // @toto: l_maxThreadsPerChassis should be calculated based on the number of
+    // @todo: l_maxThreadsPerChassis should be calculated based on the number of
     // chassis present in the system.
     const size_t l_maxThreadsPerChassis = std::max<size_t>(
         1, constants::MAX_THREADS /
@@ -261,12 +261,22 @@ void ThreadManager::processChassisResults() noexcept
             }
 
             const auto& l_chassisEepromPath = std::get<1>(l_chassisResult);
+            const auto& l_chassisJson = std::get<2>(l_chassisResult);
+
+            if (l_chassisJson["frus"].size() <= constants::VALUE_1)
+            {
+                m_logger->logMessage(std::format(
+                    "There are no FRUs to collect VPD, for the chassis [{}].",
+                    l_chassisEepromPath));
+            }
 
             // Collect FRUs for present chassis
-            if (std::get<0>(l_chassisResult))
+            else if (std::get<0>(l_chassisResult))
             {
-                const auto& l_chassisJson = std::get<2>(l_chassisResult);
-                // ToDo: Update m_frusCount based on the chassis Json.
+                // Increment the FRU counter before staring FRUs VPD collection.
+                // Exclude chassis/motherboard VPD, which was already collected
+                m_frusCount += l_chassisJson["frus"].size() -
+                               constants::VALUE_1;
 
                 launchFruCollectionPool(l_chassisEepromPath, l_chassisJson,
                                         l_maxThreadsPerChassis);
@@ -338,29 +348,95 @@ void ThreadManager::launchFruCollectionPool(
     }
 
     // Decrement the FRU counter if no threads were launched
-    if (!l_anyThreadLaunched)
+    if (!l_anyThreadLaunched &&
+        i_chassisJson["frus"].size() > constants::VALUE_1)
     {
-        //@todo Decrement the FRU counter and notify waiting thread.
+        m_frusCount -= i_chassisJson["frus"].size() - constants::VALUE_1;
+        m_completionCv.notify_one();
     }
 }
 
 void ThreadManager::processFruCollection(
-    [[maybe_unused]] const std::shared_ptr<FruThreadContext>&
-        i_fruThreadContext)
+    const std::shared_ptr<FruThreadContext>& i_fruThreadContext) noexcept
 {
-    /**
-     * @todo:
-     * - Retrieve the next available FRU from the shared context.
-     * - Collect VPD for the retrieved FRU.
-     * - Update the pending FRU count and notify the waiting thread.
-     * - Continue until no unprocessed FRUs remain.
-     * - Cleanup m_frusCount if there any exceptions. Account for any remaining
-     * pending FRUs from the final exiting thread.
-     *
-     * @note Multiple threads run this function sharing the same FRU list.
-     * @note The chassis EEPROM is excluded from processing since its VPD has
-     * already been collected during chassis VPD collection.
-     */
+    if (!i_fruThreadContext)
+    {
+        m_logger->logMessage(
+            "Received null FRU thread context. Skipping FRU VPD collection.");
+        return;
+    }
+
+    try
+    {
+        while (true)
+        {
+            // Get next FRU to process
+            std::string l_fruPath = getNextFruPath(i_fruThreadContext);
+
+            if (l_fruPath.empty())
+            {
+                break;
+            }
+
+            uint16_t l_errCode = 0;
+            auto [l_isPresent, l_collectionStatus] = Worker{}.collectFruVpd(
+                l_fruPath, i_fruThreadContext->m_chassisJson, l_errCode);
+
+            // Update FRU count and notify waiting thread
+            if (m_frusCount > 0)
+            {
+                --m_frusCount;
+            }
+            m_completionCv.notify_one();
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Exception in FRU collection thread for chassis "
+                        "[{}], error: {}",
+                        i_fruThreadContext->m_chassisEeepromPath, l_ex.what()));
+    }
+}
+
+std::string ThreadManager::getNextFruPath(
+    const std::shared_ptr<FruThreadContext>& i_fruThreadContext) const noexcept
+{
+    try
+    {
+        if (!i_fruThreadContext)
+        {
+            m_logger->logMessage("Invalid input is given");
+            return std::string{};
+        }
+
+        std::string l_fruPath;
+
+        std::lock_guard<std::mutex> l_lock(i_fruThreadContext->m_fruItrMutex);
+
+        while (i_fruThreadContext->m_fruItr != i_fruThreadContext->m_frus.end())
+        {
+            l_fruPath = i_fruThreadContext->m_fruItr->first;
+            ++i_fruThreadContext->m_fruItr;
+
+            // Skip chassis EEPROM as it was already collected
+            if (l_fruPath == i_fruThreadContext->m_chassisEeepromPath)
+            {
+                l_fruPath.clear();
+                continue;
+            }
+
+            break;
+        }
+
+        return l_fruPath;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Error while getting next FRU path, reason: {}", l_ex.what()));
+        return std::string{};
+    }
 }
 
 } // namespace vpd
