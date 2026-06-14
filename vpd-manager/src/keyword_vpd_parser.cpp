@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <numeric>
+#include <ranges>
 #include <string>
 
 namespace vpd
@@ -142,6 +143,181 @@ types::DbusVariantType KeywordVpdParser::readKeywordFromHardware(
 
     throw DataException(
         std::format("Keyword [{}] is not found in VPD", *l_keyword));
+}
+
+int KeywordVpdParser::writeKeywordOnHardware(
+    const types::WriteVpdParams i_paramsToWriteData)
+{
+    types::Keyword l_keywordName;
+    types::BinaryVector l_keywordData;
+
+    if (const types::KwData* l_kwData =
+            std::get_if<types::KwData>(&i_paramsToWriteData))
+    {
+        l_keywordName = std::get<0>(*l_kwData);
+        l_keywordData = std::get<1>(*l_kwData);
+    }
+    else
+    {
+        throw types::DbusInvalidArgument();
+    }
+
+    if (l_keywordName.empty() || l_keywordData.empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
+    if (m_keywordVpdVector.empty())
+    {
+        throw DataException("VPD vector is empty.");
+    }
+
+    if (m_vpdFilePath.empty())
+    {
+        throw DataException("VPD file path not provided");
+    }
+
+    if (!m_vpdFileStream.is_open())
+    {
+        throw DataException("File not open for write operations.");
+    }
+
+    // Create a mutable copy of the VPD vector for checksum calculation
+    types::BinaryVector l_vpdVector = m_keywordVpdVector;
+
+    size_t l_bytesWritten =
+        setKeywordValue(l_keywordName, l_keywordData, l_vpdVector);
+
+    updateChecksum(l_vpdVector);
+
+    m_logger->logMessage(
+        std::format("{} bytes updated successfully on hardware for keyword: {}",
+                    l_bytesWritten, l_keywordName));
+
+    return l_bytesWritten;
+}
+
+size_t KeywordVpdParser::setKeywordValue(
+    const types::Keyword& i_keywordName,
+    const types::BinaryVector& i_keywordData, types::BinaryVector& io_vpdVector)
+{
+    auto l_iterator = io_vpdVector.begin();
+
+    if (*l_iterator != constants::KW_VPD_START_TAG)
+    {
+        throw DataException("Invalid keyword VPD start tag.");
+    }
+
+    std::ranges::advance(l_iterator, sizeof(constants::KW_VPD_START_TAG),
+                         io_vpdVector.end());
+
+    uint16_t l_dataSize = (*(l_iterator + 1) << 8 | *l_iterator);
+
+    std::ranges::advance(l_iterator, constants::TWO_BYTES + l_dataSize,
+                         io_vpdVector.end());
+
+    if (*l_iterator != constants::KW_VPD_PAIR_START_TAG &&
+        *l_iterator != constants::ALT_KW_VPD_PAIR_START_TAG)
+    {
+        throw DataException("Invalid Keyword-value pair start tag.");
+    }
+
+    std::ranges::advance(l_iterator, constants::ONE_BYTE, io_vpdVector.end());
+
+    auto l_totalSize = (*(l_iterator + 1) << 8 | *l_iterator);
+
+    if (l_totalSize == 0)
+    {
+        throw DataException("Data size is 0, badly formed keyword VPD");
+    }
+
+    std::ranges::advance(l_iterator, constants::TWO_BYTES, io_vpdVector.end());
+
+    while (l_totalSize > 0)
+    {
+        std::string l_currentKeyword(
+            l_iterator, std::ranges::next(l_iterator, constants::TWO_BYTES,
+                                          io_vpdVector.end()));
+        std::ranges::advance(l_iterator, constants::TWO_BYTES,
+                             io_vpdVector.end());
+
+        size_t l_kwSize = *l_iterator;
+        std::ranges::advance(l_iterator, constants::ONE_BYTE,
+                             io_vpdVector.end());
+
+        if (l_currentKeyword == i_keywordName)
+        {
+            const auto l_lengthToUpdate = i_keywordData.size() <= l_kwSize
+                                              ? i_keywordData.size()
+                                              : l_kwSize;
+
+            const auto i_keywordDataEnd = std::ranges::next(
+                i_keywordData.cbegin(), l_lengthToUpdate, i_keywordData.cend());
+
+            std::copy(i_keywordData.cbegin(), i_keywordDataEnd, l_iterator);
+
+            const auto l_kwdDataOffset =
+                std::distance(io_vpdVector.begin(), l_iterator);
+            m_vpdFileStream.seekp(l_kwdDataOffset, std::ios::beg);
+            m_vpdFileStream.write(
+                reinterpret_cast<const char*>(i_keywordData.data()),
+                l_lengthToUpdate);
+            m_vpdFileStream.flush();
+
+            return l_lengthToUpdate;
+        }
+
+        std::ranges::advance(l_iterator, l_kwSize, io_vpdVector.end());
+        l_totalSize -= constants::TWO_BYTES + constants::ONE_BYTE + l_kwSize;
+    }
+
+    throw DataException(
+        std::format("Keyword [{}] is not found in VPD", i_keywordName));
+}
+
+void KeywordVpdParser::updateChecksum(types::BinaryVector& io_vpdVector)
+{
+    auto l_iterator = io_vpdVector.begin();
+
+    // Navigate to checksum start position
+    std::ranges::advance(l_iterator, sizeof(constants::KW_VPD_START_TAG),
+                         io_vpdVector.end());
+
+    uint16_t l_dataSize = (*(l_iterator + 1) << 8 | *l_iterator);
+
+    std::ranges::advance(l_iterator, constants::TWO_BYTES + l_dataSize,
+                         io_vpdVector.end());
+
+    auto l_checkSumStart = l_iterator;
+
+    std::ranges::advance(l_iterator, constants::ONE_BYTE, io_vpdVector.end());
+
+    auto l_totalSize = (*(l_iterator + 1) << 8 | *l_iterator);
+
+    std::ranges::advance(l_iterator, constants::TWO_BYTES + l_totalSize,
+                         io_vpdVector.end());
+
+    if (*l_iterator != constants::KW_VAL_PAIR_END_TAG)
+    {
+        throw DataException("Invalid Small resource type end");
+    }
+
+    auto l_checkSumEnd = l_iterator;
+
+    // Calculate checksum
+    uint8_t l_checkSumCalculated = 0;
+    l_checkSumCalculated =
+        std::accumulate(l_checkSumStart, l_checkSumEnd, l_checkSumCalculated);
+    l_checkSumCalculated = ~l_checkSumCalculated + 1;
+
+    *(l_iterator + constants::ONE_BYTE) = l_checkSumCalculated;
+
+    const auto l_checksumOffset =
+        std::distance(io_vpdVector.begin(), l_iterator + constants::ONE_BYTE);
+    m_vpdFileStream.seekp(l_checksumOffset, std::ios::beg);
+    m_vpdFileStream.write(reinterpret_cast<const char*>(&l_checkSumCalculated),
+                          1);
+    m_vpdFileStream.flush();
 }
 
 types::KeywordVpdMap KeywordVpdParser::populateVpdMap()
