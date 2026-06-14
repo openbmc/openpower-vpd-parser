@@ -116,7 +116,7 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
 
         case vpdType::KEYWORD_VPD:
         {
-            return std::make_shared<KeywordVpdParser>(i_vpdVector);
+            return std::make_shared<KeywordVpdParser>(i_vpdVector, i_vpdFilePath);
         }
 
         case vpdType::DDR5_DDIMM_MEMORY_VPD:
