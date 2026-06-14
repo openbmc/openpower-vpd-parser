@@ -229,6 +229,23 @@ class ThreadManager
      */
     void processFruCollection(
         const std::shared_ptr<FruThreadContext>& i_fruThreadContext) noexcept;
+
+    /**
+     * @brief Get next FRU path from shared context
+     *
+     * Retrieves and advances the shared FRU iterator from the
+     * FruThreadContext object in a thread-safe manner. The chassis EEPROM
+     * path is skipped and not returned by this function. Multiple FRU
+     * collection threads use this API to coordinate work distribution.
+     *
+     * @param[in] i_fruThreadContext - Shared FRU thread context.
+     *
+     * @return The next FRU path to process, or an empty string if no more
+     *         FRU paths are available.
+     *
+     */
+    std::string getNextFruPath(const std::shared_ptr<FruThreadContext>&
+                                   i_fruThreadContext) const noexcept;
 };
 
 } // namespace vpd
