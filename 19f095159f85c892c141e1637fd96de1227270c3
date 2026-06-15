@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58499a18_1302d31c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-15T15:20:59Z",
+      "side": 1,
+      "message": "\"NonSystemInvPaths\" can refer to all inventory paths other than system inventory paths, so can refer to other FRUs. Also this API is meant to function in Split Mode, so can\u0027t trim out \"SplitMode\"\n\nSince this API handles FRU containing system inventory path : \n\n`handleSystemInvSplitMode()`",
+      "parentUuid": "72306bc1_fd699c4e",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ba1cbb_965f016b",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
