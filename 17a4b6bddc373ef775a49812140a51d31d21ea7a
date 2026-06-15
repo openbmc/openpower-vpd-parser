@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4566884_e92ca9dd",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-15T10:45:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5fbb1846_2a835dc0",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03ff16ac_3f2c1814",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "--validate is too generic instead --validateRedundantEeprom is self-documenting and immediately clear . --validate would be ambiguous to user it does not explain (validate what?). \nAnd for shorter and quick option we have \u0027-e\u0027 (updated from \u0027-v\u0027)",
       "parentUuid": "7a731eb7_36947597",
+      "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b02680_fa40c101",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-15T10:45:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3c2266dc_8156f315",
       "revId": "17a4b6bddc373ef775a49812140a51d31d21ea7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
