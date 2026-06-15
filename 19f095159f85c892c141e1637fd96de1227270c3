@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "040b85f8_b53ed172",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-15T14:25:20Z",
+      "side": 1,
+      "message": "Yes. The following statement in the commit message explains this:\n\n\u003eIn\ncases of split mode system, file mode VPD will be enabled and system VPD\nwill be read from a file on the filesystem, so only the system VPD\nshould be published under the system inventory path and other sub FRUs\nunder the EEPROM containing system VPD should be published with default\nvalues.",
+      "parentUuid": "9f1b9d7b_29bc439f",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e05a9b31_e2316ecf",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "One advantage of declaring it outside the loop is avoiding repeated construction/destruction of the variable.\n\nSince l_errCode is reset by the consumer before being updated on each iteration, reusing the same object should be safe. However, I agree that its usage is limited to the loop body, so keeping it inside is also reasonable. Your call.",
       "parentUuid": "82e23fcb_e098c892",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f937c6_3af9f382",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-15T14:25:20Z",
+      "side": 1,
+      "message": "\u003e One advantage of declaring it outside the loop is avoiding repeated construction/destruction of the variable.\n\nIt\u0027s just a `uint16_t` so not much gained by declaring it outside. Will keep it inside as its only required here.",
+      "parentUuid": "55794f2d_26850c20",
       "revId": "19f095159f85c892c141e1637fd96de1227270c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
