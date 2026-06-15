@@ -592,15 +592,19 @@ inline bool validateBaseActionInputs(
  * @param[in,out] io_result - Result structure to update
  */
 inline void updateNonPresenceTagOutput(
-    [[maybe_unused]] const std::string& i_tagName,
-    [[maybe_unused]] uint16_t i_tagErrorCode,
-    [[maybe_unused]] const std::string& i_fruPath,
-    [[maybe_unused]] types::BaseActionResult& io_result) noexcept
+    const std::string& i_tagName, uint16_t i_tagErrorCode,
+    const std::string& i_fruPath, types::BaseActionResult& io_result) noexcept
 {
-    /**
-     * ToDo: This API based on the processing outcome, will fill the result
-     * structure for non presence tag.
-     */
+    io_result.success = false;
+    io_result.failedTag = i_tagName;
+    io_result.failedTagErrorCode = i_tagErrorCode;
+
+    if (i_tagErrorCode)
+    {
+        logging::logMessage(
+            i_tagName + " failed for [" + i_vpdFilePath + "]. Reason " +
+            commonUtility::getErrCodeMsg(i_tagErrorCode));
+    }
 }
 
 /**
