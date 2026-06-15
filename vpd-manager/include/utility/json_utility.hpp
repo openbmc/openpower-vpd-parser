@@ -588,19 +588,15 @@ inline bool validateBaseActionInputs(
  *
  * @param[in] i_tagName - Name of the tag being processed
  * @param[in] i_tagErrorCode - Error code from tag execution
- * @param[in] i_fruPath - EEPROM file path (for logging)
  * @param[in,out] io_result - Result structure to update
  */
 inline void updateNonPresenceTagOutput(
-    [[maybe_unused]] const std::string& i_tagName,
-    [[maybe_unused]] uint16_t i_tagErrorCode,
-    [[maybe_unused]] const std::string& i_fruPath,
-    [[maybe_unused]] types::BaseActionResult& io_result) noexcept
+    const std::string& i_tagName, uint16_t i_tagErrorCode,
+    types::BaseActionResult& io_result) noexcept
 {
-    /**
-     * ToDo: This API based on the processing outcome, will fill the result
-     * structure for non presence tag.
-     */
+    io_result.m_success = false;
+    io_result.m_failedTag = i_tagName;
+    io_result.m_failedTagErrorCode = i_tagErrorCode;
 }
 
 /**
@@ -766,9 +762,15 @@ inline types::BaseActionResult executeBaseAction_new(
                 continue;
             }
 
+            if (o_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(std::format(
+                    "Tag: {} failed for fru {}. Reason: {}", l_tagName,
+                    i_fruPath, commonUtility::getErrCodeMsg(o_errCode)));
+            }
+
             // Tag failed - record the failure
-            updateNonPresenceTagOutput(l_tagName, o_errCode, i_fruPath,
-                                       l_actionRes);
+            updateNonPresenceTagOutput(l_tagName, o_errCode, l_actionRes);
 
             // Execute gpioPresence if defined and not yet processed
             if (l_tagsJson.contains("gpioPresence") && !l_gpioPresenceProcessed)
