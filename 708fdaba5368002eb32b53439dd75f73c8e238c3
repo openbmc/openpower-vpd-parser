@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f78c5413_c59e4f1c",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "if m_keywordVpdVector is a mandatory parameter, why not checking emptiness here itself ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0325f3_4fbf12f0",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "update what, is \u0027keyword name\u0027 would be enough ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f7e64a_082c546c",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "instead can we say keywordValue which is consistently used across the repo ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c9a590_47c1fce7",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "brief about why this api is required would be helpful",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3ca6f5_148085ce",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "filePath would be enough here as the class name already has VPD in it, same for below variable as well ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35f5e6d_60937e88",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "why copy, not using m_keywordVpdVector itself ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7107dd4d_ef57f482",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "what is VPD is malformed, and next byte is not available? same for below as well",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25dbe31b_2944de1d",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-16T14:30:53Z",
+      "side": 1,
+      "message": "what if constants::KW_VPD_START_TAG length is not available to advance, same for below as well ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
