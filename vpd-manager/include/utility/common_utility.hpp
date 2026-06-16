@@ -122,6 +122,9 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
         std::array<char, constants::CMD_BUFFER_LENGTH> l_buffer;
 
         std::string l_cmd = i_path + getCommand(i_args...);
+        
+        // Redirect stderr to /dev/null to suppress error messages in journal
+        l_cmd += " 2>/dev/null";
 
         std::unique_ptr<FILE, decltype(&pclose)> l_cmdPipe(
             popen(l_cmd.c_str(), "r"), pclose);
