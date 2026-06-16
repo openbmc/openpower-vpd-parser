@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa940b8e_61506cef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-16T15:02:16Z",
+      "side": 1,
+      "message": "I got that from the implementation that a new structure has been added but could you please also explain what is your intent or thought process behind adding this structure and how are you planning to consume it in detail? This will help me understand the thought process and review the code accordingly.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 67
+      },
+      "revId": "f5a54b4976008f423b7f10ac5f46c0155a1d0ea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
