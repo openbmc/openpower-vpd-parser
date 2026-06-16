@@ -98,7 +98,10 @@ class ThreadManager
         const nlohmann::json m_chassisJson;     // Chassis configuration
         const nlohmann::json::object_t& m_frus; // FRU list reference
         nlohmann::json::object_t::const_iterator m_fruItr; // Shared iterator
-        std::mutex m_fruItrMutex; // Iterator protection
+        std::mutex m_fruItrMutex;                 // Iterator protection
+        std::atomic<size_t> m_threadsLaunched{0}; // No of threads launched
+        std::atomic<size_t> m_pendingFrusCount{
+            m_chassisJson["frus"].size() - constants::VALUE_1};
     };
 
     // Shared pointer to ConfigManager object
