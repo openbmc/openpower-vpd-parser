@@ -309,9 +309,18 @@ void ThreadManager::launchFruCollectionPool(
 
     try
     {
+        if (!i_chassisJson.contains("frus"))
+        {
+            throw std::runtime_error(std::format(
+                "Mandatory tag is missing from JSON, for chassis [{}]",
+                i_chassisEeepromPath));
+        }
+
         // Create shared context for FRU collection thread pool
         auto l_fruThreadContext = std::make_shared<FruThreadContext>(
             i_chassisEeepromPath, i_chassisJson);
+
+        l_fruThreadContext->m_threadsLaunched = i_maxThreadsPerChassis;
 
         // Launch thread pool for parallel FRU VPD collection
         for (size_t l_index = 0; l_index < i_maxThreadsPerChassis; ++l_index)
@@ -326,6 +335,8 @@ void ThreadManager::launchFruCollectionPool(
             }
             catch (const std::exception& l_ex)
             {
+                --l_fruThreadContext->m_threadsLaunched;
+
                 m_logger->logMessage(std::format(
                     "Failed to launch FRU collection thread #{} for chassis "
                     "[{}], error: {}",
@@ -339,6 +350,12 @@ void ThreadManager::launchFruCollectionPool(
             "Failed to create FRU collection thread pool for chassis "
             "[{}], error: {}",
             i_chassisEeepromPath, l_ex.what()));
+    }
+    catch (...)
+    {
+        m_logger->logMessage(std::format(
+            "Unknown exception occured while launching FRU thread pool for chassis [{}]",
+            i_chassisEeepromPath));
     }
 
     // Decrement the FRU counter if no threads were launched
@@ -382,13 +399,31 @@ void ThreadManager::processFruCollection(
     }
     catch (const std::exception& l_ex)
     {
-        // @todo Cleanup m_frusCount on FRU thread
-        // exceptions. Account for any
-        // remaining pending FRUs from the final exiting thread.
         m_logger->logMessage(
             std::format("Exception in FRU collection thread for chassis "
                         "[{}], error: {}",
                         i_fruThreadContext->m_chassisEeepromPath, l_ex.what()));
+    }
+    catch (...)
+    {
+        m_logger->logMessage(std::format(
+            "Unknown exception in FRU collection thread for chassis [{}]",
+            i_fruThreadContext->m_chassisEeepromPath));
+    }
+
+    // Cleanup FRU count in case of error while processing FRUs
+    // in a final exit thread
+    if (--i_fruThreadContext->m_threadsLaunched == 0)
+    {
+        // To make sure only one thread will cleanup
+        const auto l_pending =
+            i_fruThreadContext->m_pendingFrusCount.exchange(0);
+
+        if (l_pending)
+        {
+            m_frusCount -= l_pending;
+            m_completionCv.notify_one();
+        }
     }
 }
 
