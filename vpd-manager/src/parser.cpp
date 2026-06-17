@@ -9,6 +9,7 @@
 #include <utility/json_utility.hpp>
 #include <utility/vpd_specific_utility.hpp>
 
+#include <format>
 #include <fstream>
 #include <string>
 
@@ -237,25 +238,22 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             if (l_errCode)
             {
                 logging::logMessage(
-                    "Failed to get Dbus property name for given keyword, error : " +
+                    "Failed to get Dbus property name for given keyword, error : {}." +
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            // Create D-bus object map
-            types::ObjectMap l_dbusObjMap = {std::make_pair(
-                l_inventoryObjPath,
-                types::InterfaceMap{std::make_pair(
-                    l_interfaceName, types::PropertyMap{std::make_pair(
-                                         l_propertyName, l_keywordValue)})})};
+            vpdSpecificUtility::updateKeywordOnDBus(
+                m_vpdFilePath,
+                types::WriteVpdParams(std::make_tuple(
+                    l_recordName, l_propertyName,
+                    std::get<std::vector<uint8_t>>(l_keywordValue))),
+                m_parsedJson, l_errCode);
 
-            // Call method to update on dbus
-            if (!dbusUtility::publishVpdOnDBus(std::move(l_dbusObjMap)))
+            if (l_errCode)
             {
-                // Update to dbus failed.
-                std::string l_errMsg(
-                    "publishVpdOnDBus is failed for object path: " +
-                    l_inventoryObjPath);
-                throw std::runtime_error(l_errMsg);
+                m_logger->logMessage(std::format(
+                    "Failed to update keyword value on D-Bus, error : ",
+                    commonUtility::getErrCodeMsg(l_errCode)));
             }
         }
 
