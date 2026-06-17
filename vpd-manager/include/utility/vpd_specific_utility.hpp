@@ -13,6 +13,7 @@
 #include <utility/event_logger_utility.hpp>
 
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <ranges>
 #include <regex>
@@ -2011,5 +2012,120 @@ inline std::string expandMtsLocationCode(uint16_t& o_errCode)
     return l_expanded.replace(l_pos, 3, l_tmKwdValue + "." + l_seKwdValue);
 }
 
+/**
+ * @brief API to update keyword value on DBus for inventory paths.
+ *
+ * This API updates the keyword value on DBus for all inventory paths
+ * associated with the given FRU path. It iterates through all inventory paths
+ * for the given EEPROM path and updates the property if:
+ * - The "inherit" tag is true for the inventory path, OR
+ * - The record is part of the "copyRecords" tag and not in "skipRecords" list
+ *
+ * @param[in] i_fruPath - EEPROM path of the FRU.
+ * @param[in] i_paramsToWriteData - Write VPD parameters
+ * @param[in] i_cfgJsonObj - Config JSON object.
+ * @param[out] o_errCode - To set error code incase of failure.
+ *
+ * @return void
+ */
+inline void updateKeywordOnDBus(
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
+{
+    o_errCode = 0;
+    try
+    {
+        if (i_fruPath.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return;
+        }
+
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            o_errCode = error_code::INVALID_JSON;
+            return;
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        {
+            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            return;
+        }
+
+        const types::IpzData* l_ipzData =
+            std::get_if<types::IpzData>(&i_paramsToWriteData);
+
+        if (!l_ipzData)
+        {
+            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            return;
+        }
+
+        //  iterate through all inventory paths for given EEPROM path,
+        //  if for an inventory path, "inherit" tag is true OR the record
+        //  is part of "copyRecords" tag, update the inventory path's
+        //  com.ibm.ipzvpd.<record>,keyword property
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        auto l_populateInterfaceMap =
+            [&l_objectInterfaceMap,
+             &l_ipzData = std::as_const(l_ipzData)](const auto& l_Fru) {
+                // check if record is part of copyRecords list.
+                const bool l_recordFound =
+                    l_Fru.contains("copyRecords") &&
+                    std::find(l_Fru["copyRecords"].begin(),
+                              l_Fru["copyRecords"].end(),
+                              std::get<0>(*l_ipzData)) !=
+                        l_Fru["copyRecords"].end();
+
+                // check if record is not part of skipRecord list
+                const bool l_notSkipRecord =
+                    !l_Fru.contains("skipRecords") ||
+                    std::find(l_Fru["skipRecords"].begin(),
+                              l_Fru["skipRecords"].end(),
+                              std::get<0>(*l_ipzData)) ==
+                        l_Fru["skipRecords"].end();
+
+                // update for inherited FRUs or if the record is part of
+                // copyRecord tag
+                if (l_Fru.value("inherit", true) ||
+                    (l_recordFound && l_notSkipRecord))
+                {
+                    l_objectInterfaceMap.emplace(
+                        sdbusplus::object_path{l_Fru["inventoryPath"]},
+                        types::InterfaceMap{
+                            {std::string{constants::ipzVpdInf +
+                                         std::get<0>(*l_ipzData)},
+                             types::PropertyMap{{std::get<1>(*l_ipzData),
+                                                 std::get<2>(*l_ipzData)}}}});
+                }
+            };
+
+        // iterate through all FRUs except the base FRU
+        std::for_each(i_sysCfgJsonObj["frus"][i_fruPath].begin(),
+                      i_sysCfgJsonObj["frus"][i_fruPath].end(),
+                      l_populateInterfaceMap);
+
+        if (!l_objectInterfaceMap.empty())
+        {
+            if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+            {
+                o_errCode = error_code::DBUS_FAILURE;
+                return;
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to update keyword on DBus for path [{}], error : {}.",
+            i_fruPath, l_ex.what()));
+        return;
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
