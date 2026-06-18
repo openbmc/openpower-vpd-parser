@@ -88,6 +88,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66af43f8_dc80fbc8",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2029,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-18T16:24:24Z",
+      "side": 1,
+      "message": "is this needed ?",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d85c478_9f8033c8",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -122,6 +139,23 @@
       "writtenOn": "2026-06-18T10:07:08Z",
       "side": 1,
       "message": "Ideally, we should do a `nullptr` check for `l_ipzData` inside the lambda as well. There is a check at line 2060, but if the lambda is moved around due to refactoring, may result in `nullptr` dereference.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d01b33_3522e767",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-18T16:24:24Z",
+      "side": 1,
+      "message": "can we say l_isPartOfCopyRecords gives direct meaning from where this info is extracted.",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -317,6 +351,23 @@
         "endLine": 2114,
         "endChar": 40
       },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2e3643_47b93d85",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-18T16:24:24Z",
+      "side": 1,
+      "message": "Including record and keyword name will be more useful while debugging.",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
