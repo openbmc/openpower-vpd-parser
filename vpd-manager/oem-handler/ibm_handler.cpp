@@ -294,8 +294,16 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             if (l_timerRetry == MAX_RETRY)
             {
                 l_timer.cancel();
-                logging::logMessage("Taking too long. Active thread = " +
-                                    std::to_string(l_threadCount));
+                m_logger->logMessage(
+                    std::format(
+                        "Timed out while waiting for all FRU VPD collections to complete after {}s, Active thread count={}",
+                        MAX_RETRY * 10, std::to_string(l_threadCount)),
+                    PlaceHolder::ASYNC_PEL,
+                    types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                        vpd::types::SeverityType::Warning, 0,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt});
 #ifdef ENABLE_FILE_LOGGING
                 // terminate collection logger
                 m_logger->terminateVpdCollectionLogging();
