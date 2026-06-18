@@ -88,6 +88,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d85c478_9f8033c8",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "please consider it renaming, for clarity.\nExecuting this section for each subFRU or eachInventoryPath.",
+      "range": {
+        "startLine": 2075,
+        "startChar": 51,
+        "endLine": 2075,
+        "endChar": 69
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ea70c96_ba1f1231",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -99,6 +122,29 @@
       "writtenOn": "2026-06-18T10:07:08Z",
       "side": 1,
       "message": "Ideally, we should do a `nullptr` check for `l_ipzData` inside the lambda as well. There is a check at line 2060, but if the lambda is moved around due to refactoring, may result in `nullptr` dereference.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b764e94_3dc18217",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2081,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "use can use std::ranges::find()",
+      "range": {
+        "startLine": 2079,
+        "startChar": 20,
+        "endLine": 2081,
+        "endChar": 54
+      },
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -128,6 +174,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26cf0d3d_8431b7ac",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "You can use std::ranges::find(",
+      "range": {
+        "startLine": 2087,
+        "startChar": 20,
+        "endLine": 2089,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "608c100c_da8f940c",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -144,6 +213,29 @@
         "startChar": 19,
         "endLine": 2095,
         "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71939397_e043e705",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "Creates temporary string for concatenation,\nuse direct - constants::ipzVpdInf + std::get\u003c0\u003e(*l_ipzData),",
+      "range": {
+        "startLine": 2100,
+        "startChar": 29,
+        "endLine": 2100,
+        "endChar": 40
       },
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -208,6 +300,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61787032_7edb80b6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "std::move?\nUndefined behavior if \"move\" resolves to wrong function.",
+      "range": {
+        "startLine": 2114,
+        "startChar": 37,
+        "endLine": 2114,
+        "endChar": 40
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf849861_26798d32",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "Do we need it as vpdSpecificUtility?\nupdateKeywordOnDBus is being called by updateVpdKeyword only. can we keep it here ?",
+      "range": {
+        "startLine": 245,
+        "startChar": 12,
+        "endLine": 245,
+        "endChar": 30
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e986d540_98cf8d0b",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "If this fails, shall we not let the caller know about it.\nWe are only returning \n     l_bytesUpdatedOnHardware;\n     \nIf hardware updated but Dbus failed, how we are handling the mismatch ?",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 26
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4de5919a_c2a2f67f",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 3
@@ -219,6 +380,52 @@
       "writtenOn": "2026-06-18T10:07:08Z",
       "side": 1,
       "message": "Currently, we throw an exception to propagate the error if update to D-Bus fails, we should preserve that behavior.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06187f58_b0bc7080",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "We are logging this message inside updateKeywordOnDbus already.\nwith exception.what().\nAgain logging here adding no value.",
+      "range": {
+        "startLine": 254,
+        "startChar": 14,
+        "endLine": 256,
+        "endChar": 62
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "408b045b_e030cfc8",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-18T11:26:02Z",
+      "side": 1,
+      "message": "Previous code is throwing if dbus update failed.\nBut in case we throw from here, reboot Guard will stay Enabled. so need to handle it here.",
+      "range": {
+        "startLine": 257,
+        "startChar": 10,
+        "endLine": 257,
+        "endChar": 13
+      },
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
