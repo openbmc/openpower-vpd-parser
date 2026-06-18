@@ -5,8 +5,10 @@
 #include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
+#include "types.hpp"
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
+#include "utility/event_logger_utility.hpp"
 
 #include <CLI/CLI.hpp>
 
@@ -175,8 +177,14 @@ int main(int argc, char** argv)
     catch (const std::exception& l_ex)
     {
         const auto l_logger = vpd::Logger::getLoggerInstance();
-        l_logger->logMessage("Exiting from wait-vpd-parser, reason: " +
-                             std::string(l_ex.what()));
+        l_logger->logMessage(
+            std::format("Exiting from wait-vpd-parser, reason: {}",
+                        l_ex.what()),
+            vpd::PlaceHolder::PEL,
+            vpd::types::PelInfoTuple{vpd::EventLogger::getErrorType(l_ex),
+                                     vpd::types::SeverityType::Warning, 0,
+                                     std::nullopt, std::nullopt, std::nullopt,
+                                     std::nullopt, std::nullopt});
         return vpd::constants::VALUE_1;
     }
 }
