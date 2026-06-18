@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd060113_173078b9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:36:24Z",
+      "side": 1,
+      "message": "The API will add the interface if not present? So just update does not give the full picture.\nSugg - \"AddorRestoreAvailableProperty\"?",
+      "range": {
+        "startLine": 1295,
+        "startChar": 17,
+        "endLine": 1295,
+        "endChar": 43
+      },
+      "revId": "3c5d5f0c5c1cecfd3cd5ec3c61bc99e0c876d7fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eb72a40_93abb6b1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:36:24Z",
+      "side": 1,
+      "message": "A blank line between functions.",
+      "revId": "3c5d5f0c5c1cecfd3cd5ec3c61bc99e0c876d7fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42e92e06_27b09866",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:36:24Z",
+      "side": 1,
+      "message": "Let\u0027s avoid logging PEL for this. I understand that this has been taken from Asset Tag code but that was written before and now the idea is to reduce PEL logging as far as possible in the system vpd collection path.\n\nA simple logging should be good enough. Also add a Todo stating that can we have \"\u0026\" option in logMessage API in case we want to log at multiple places.",
+      "range": {
+        "startLine": 1331,
+        "startChar": 8,
+        "endLine": 1339,
+        "endChar": 47
+      },
+      "revId": "3c5d5f0c5c1cecfd3cd5ec3c61bc99e0c876d7fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "348e44b1_c413d521",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:36:24Z",
+      "side": 1,
+      "message": "It also adds if it is not there and restores instead of updating?",
+      "range": {
+        "startLine": 279,
+        "startChar": 15,
+        "endLine": 279,
+        "endChar": 72
+      },
+      "revId": "3c5d5f0c5c1cecfd3cd5ec3c61bc99e0c876d7fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
