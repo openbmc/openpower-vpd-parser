@@ -629,7 +629,7 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
 
         if (-1 == m_manager->updateKeyword(
                       SYSTEM_VPD_FILE_PATH,
-                      types::IpzData(constants::vsysInf,
+                      types::IpzData(constants::recVSYS,
                                      constants::kwdClearNVRAM_CreateLPAR,
                                      l_valToUpdateInVpd)))
         {
@@ -775,7 +775,7 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal,
 
         if (-1 == m_manager->updateKeyword(
                       SYSTEM_VPD_FILE_PATH,
-                      types::IpzData(constants::vsysInf,
+                      types::IpzData(constants::recVSYS,
                                      constants::kwdClearNVRAM_CreateLPAR,
                                      l_valToUpdateInVpd)))
         {
@@ -918,7 +918,7 @@ void IbmBiosHandler::saveKeepAndClearToVpd(
         if (-1 ==
             m_manager->updateKeyword(
                 SYSTEM_VPD_FILE_PATH,
-                types::IpzData(constants::vsysInf, constants::kwdKeepAndClear,
+                types::IpzData(constants::recVSYS, constants::kwdKeepAndClear,
                                l_valToUpdateInVpd)))
         {
             m_logger->logMessage(
