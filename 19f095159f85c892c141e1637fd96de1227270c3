@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95e3c575_e8e098cd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T17:10:52Z",
+      "side": 1,
+      "message": "I agree with @anupama.b.r1@ibm.com to some extent.\n\na) \"SplitMode\" in the function name does not make sense as there is no constraint in the function which limit it to split mode. The method in itself reset the paths irrespective of from where it is called.\n\nb) \"UpdateSystemInv\" - It updates everything other than system inventory, which again is contradictory to what it does.\n\nAlso, I did not understand the below statement.\n\n\u003e Since this API handles FRU containing system inventory path\n\n\nsystem inventory path is /xyz/openbmc_project_project/inventory/system, which is prefix of all the FRUs inventory path. So I did not understand what you meant by that sentence.\n\nAfter looking at the implementation, it looks like - it resets all the non system inventory path from the given input.",
+      "parentUuid": "58499a18_1302d31c",
+      "revId": "19f095159f85c892c141e1637fd96de1227270c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ba1cbb_965f016b",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 5
