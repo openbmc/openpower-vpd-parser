@@ -30,8 +30,9 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
         }
         else
         {
-            throw std::runtime_error(
-                "Timed out waiting for VPD collection status");
+            throw std::runtime_error(std::format(
+                "Timed out after {} while waiting for VPD collection status",
+                m_timeout));
         }
     }
     catch (const std::exception& l_ex)
