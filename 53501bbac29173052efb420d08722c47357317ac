@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac037d9_8f91e598",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "\u003e primary inventory path\n\nWe use terms \"primary\", \"redundant\" to refer to EEPROM paths. Should this be \"base FRU inventory path\"?",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f23333b9_bc146554",
@@ -14,6 +31,74 @@
       "writtenOn": "2026-06-18T09:23:11Z",
       "side": 1,
       "message": "I have few comments, please check.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08d2bf2_2fe41549",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "\u003eDBus\n\nnit: D-Bus",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e739bd_64a44bf9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "\u003eupdate keyword value on DBus for inventory paths.\n\n\"update keyword value on DBus for all associated inventory paths.\" maybe more descriptive.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9167d4fc_b93e576c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "nit : \n\n\u003e i_cfgJsonObj\n\ni_sysCfgJsonObj",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea70c96_ba1f1231",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "Ideally, we should do a `nullptr` check for `l_ipzData` inside the lambda as well. There is a check at line 2060, but if the lambda is moved around due to refactoring, may result in `nullptr` dereference.",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +151,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cf9b776_8063d61c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2107,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "Comment mentions \"except the base FRU\" but I see we are iterating through all FRUs",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "773eaacd_14631dca",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -83,6 +185,40 @@
         "endLine": 2114,
         "endChar": 66
       },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a59109_5e78e934",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "We should call `dbusUtility::publishVpdOnDBus()` to keep the code generic and be consistent with existing behavior.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de5919a_c2a2f67f",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-18T10:07:08Z",
+      "side": 1,
+      "message": "Currently, we throw an exception to propagate the error if update to D-Bus fails, we should preserve that behavior.",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
