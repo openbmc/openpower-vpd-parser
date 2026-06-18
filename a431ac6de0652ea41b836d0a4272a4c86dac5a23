@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27eb990d_76d7c076",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:25:14Z",
+      "side": 1,
+      "message": "Looks like it is being asked to introduce.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "871cf728_efb6a75a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:25:14Z",
+      "side": 1,
+      "message": "Who should add?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0340e7c2_0793b72c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:25:14Z",
+      "side": 1,
+      "message": "Can you handle any exception in \"processFruCollection\" locally in that function itself? Or is there a requirement to keep it here?\nIt will keep this function clean and will contain all the exceptions in \"processFruCollection\" in that function itself.",
+      "range": {
+        "startLine": 322,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 21
+      },
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb200ca_56bba63b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-18T18:25:14Z",
+      "side": 1,
+      "message": "m_frusCount is decremented where I don\u0027t see it getting incremented/assigned anywhere in the code. Instead there are ToDo\u0027s with respect to that which makes this commit incomplete and actually error prone at this stage.\n\nAny specific reason why the m_frusCount is still a ToDo?",
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
