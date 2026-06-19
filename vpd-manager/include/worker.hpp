@@ -552,6 +552,9 @@ class Worker
     std::unordered_map<std::string, types::PreActionResult>
         m_fruPreActionResults;
 
+    // Mutex to guard m_fruPreActionResults map for thread-safe access
+    std::mutex m_preActionResultsMutex;
+
     /* Enable below code when thread manager is enabled and handle in cpp.*/
 #if 0
     types::PreActionResult m_fruPreActionResult;

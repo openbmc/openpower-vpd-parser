@@ -781,9 +781,6 @@ bool Worker::processPreAction(const std::string& i_vpdFruPath,
 
                 // Don't update present property yet
                 // Will decide based on EEPROM existence.
-
-                l_fruPreActionResult.m_presenceStatus =
-                    l_actionResult.m_presenceStatus;
                 break;
             }
             case types::PresenceStatus::NOT_APPLICABLE:
@@ -792,8 +789,13 @@ bool Worker::processPreAction(const std::string& i_vpdFruPath,
             }
         }
 
-        m_fruPreActionResults.emplace(i_vpdFruPath,
-                                      std::move(l_fruPreActionResult));
+        l_fruPreActionResult.m_presenceStatus = l_actionResult.m_presenceStatus;
+
+        {
+            std::lock_guard<std::mutex> lock(m_preActionResultsMutex);
+            m_fruPreActionResults.emplace(i_vpdFruPath,
+                                          std::move(l_fruPreActionResult));
+        }
 
         if (o_errCode)
         {
@@ -888,14 +890,12 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                 " Empty VPD file path passed. Abort parseVpdFile");
         }
 
-        bool isPreActionRequired = false;
         if (!m_parsedJson.empty())
         {
             if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                               "preAction", "collection",
                                               l_errCode))
             {
-                isPreActionRequired = true;
                 if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
                 {
                     if (l_errCode == error_code::DEVICE_NOT_PRESENT)
@@ -941,15 +941,79 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
             }
         }
 
+        // Check Pre-action result, in case this FRU has Presence status as
+        // UNKNOWN, set the Presence property true/false based on VPD File
+        // exists or not.
+
+        std::optional<types::PreActionResult> l_preActionResult;
+        {
+            std::lock_guard<std::mutex> lock(m_preActionResultsMutex);
+            auto l_it = m_fruPreActionResults.find(i_vpdFilePath);
+            if (l_it != m_fruPreActionResults.end())
+            {
+                l_preActionResult = l_it->second;
+            }
+        }
+
         if (!std::filesystem::exists(i_vpdFilePath))
         {
-            if (isPreActionRequired)
+            if (l_preActionResult.has_value() &&
+                l_preActionResult->m_presenceStatus ==
+                    types::PresenceStatus::UNKNOWN)
             {
+                setPresentProperty(i_vpdFilePath, false);
+
+                // Update UNKNOWN to ABSENT in the map
+                {
+                    std::lock_guard<std::mutex> lock(m_preActionResultsMutex);
+                    auto l_it = m_fruPreActionResults.find(i_vpdFilePath);
+                    if (l_it != m_fruPreActionResults.end())
+                    {
+                        l_it->second.m_presenceStatus =
+                            types::PresenceStatus::ABSENT;
+                    }
+                }
+
                 throw EepromException(std::format(
-                    " Could not find EEPROM: {} after preAction. Abort parsing of VPD file.",
+                    "Could not find EEPROM: {} after preAction. Abort parsing of VPD file.",
                     i_vpdFilePath));
             }
+
             return types::VPDMapVariant{};
+        }
+        else if (std::filesystem::exists(i_vpdFilePath))
+        {
+            if (l_preActionResult.has_value())
+            {
+                if (l_preActionResult->m_presenceStatus ==
+                    types::PresenceStatus::UNKNOWN)
+                {
+                    setPresentProperty(i_vpdFilePath, true);
+
+                    // Update UNKNOWN to PRESENT in the map
+                    {
+                        std::lock_guard<std::mutex> lock(
+                            m_preActionResultsMutex);
+                        auto l_it = m_fruPreActionResults.find(i_vpdFilePath);
+                        if (l_it != m_fruPreActionResults.end())
+                        {
+                            l_it->second.m_presenceStatus =
+                                types::PresenceStatus::PRESENT;
+                        }
+                    }
+                }
+
+                // Handle case where GPIO presence succeeded but other tags
+                // failed
+                if (l_preActionResult->m_errorCode)
+                {
+                    throw FirmwareException(std::format(
+                        "Pre-Action failed with error: {}. Aborting parsing of VPD file {}.",
+                        commonUtility::getErrCodeMsg(
+                            l_preActionResult->m_errorCode),
+                        i_vpdFilePath));
+                }
+            }
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1193,24 +1257,18 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
         else
         {
-            // Log PEL only processing was ok but data/ECC had some issue or
-            // some runtime exception took place which is not normal.
-            // Commenting Async PELs for the time being, till we handle presence
-            // locally.
-            m_logger->logMessage(std::format(
-                "ParseAndPublish VPD failed. Reason: {}.", l_ex.what()));
-            /* m_logger->logMessage(
-                 std::string("ParseAndPublish VPD failed for [reason] ") +
-                     EventLogger::getErrorMsg(l_ex),
-                 PlaceHolder::ASYNC_PEL,
-                 types::PelInfoTuple{
-                     EventLogger::getErrorType(l_ex),
-                     (typeid(l_ex) == typeid(DataException)) ||
-                             (typeid(l_ex) == typeid(EccException))
-                         ? types::SeverityType::Warning
-                         : types::SeverityType::Informational,
-                     0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-                     std::nullopt}); */
+            m_logger->logMessage(
+                std::string("ParseAndPublish VPD failed for [reason] ") +
+                    EventLogger::getErrorMsg(l_ex),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{
+                    EventLogger::getErrorType(l_ex),
+                    (typeid(l_ex) == typeid(DataException)) ||
+                            (typeid(l_ex) == typeid(EccException))
+                        ? types::SeverityType::Warning
+                        : types::SeverityType::Informational,
+                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                    std::nullopt});
         }
 
         // TODO: Figure out a way to clear data in case of any failure at
@@ -1950,16 +2008,16 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         m_activeCollectionThreadCount--;
         m_mutex.unlock();
 #endif
+        {
+            std::lock_guard<std::mutex> lock(m_preActionResultsMutex);
+            auto l_it = m_fruPreActionResults.find(i_fruPath);
 
-        /**
-         * @todo This part of code will be removed from this API once the FRU
-         * presence detection logic is implemented in parseAndPublish API.
-         * Currently thread manager class utilizes this presence status to
-         * perfrom chassis based FRU collection based on the present status of
-         * chassis.
-         */
-        l_fruPresent = dbusUtility::isInventoryPresent(
-            i_cfgJsonObj["frus"][i_fruPath].at(0)["inventoryPath"]);
+            if (l_it != m_fruPreActionResults.end() &&
+                l_it->second.m_presenceStatus == types::PresenceStatus::PRESENT)
+            {
+                l_fruPresent = true;
+            }
+        }
 
         if (std::get<0>(l_parseResult))
         {
