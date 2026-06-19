@@ -533,6 +533,28 @@ class Worker
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
 
+    /**
+     * Maps FRU EEPROM paths to their pre-action execution outcomes, preserving
+     * error codes and presence status information for use during VPD
+     * collection.
+     *
+     * Enables information sharing between processPreAction
+     * and other Worker methods (e.g., parseVpdFile, processPostAction) without
+     * requiring additional parameter passing or repeated GPIO checks.
+     *
+     * Each result contains:
+     * - FRU EEPROM path
+     * - Error code from base action execution (if any tag failed)
+     * - Presence status (particularly when GPIO detection returns UNKNOWN)
+     */
+    std::unordered_map<std::string, types::PreActionResult>
+        m_fruPreActionResults;
+
+    /* Enable below code when thread manager is enabled and handle in cpp.*/
+#if 0
+    types::PreActionResult  m_fruPreActionResult;
+#endif
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
