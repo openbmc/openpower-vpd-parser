@@ -896,6 +896,12 @@ bool Worker::processPostAction(
         return false;
     }
 
+    if (!i_parsedVpd.has_value())
+    {
+        logging::logMessage("Empty VPD Map");
+        return false;
+    }
+
     // Check if post action tag is to be triggered in the flow of collection
     // based on some CCIN value?
     uint16_t l_errCode = 0;
@@ -904,17 +910,11 @@ bool Worker::processPostAction(
             .at(0)["postAction"][i_flagToProcess]
             .contains("ccin"))
     {
-        if (!i_parsedVpd.has_value())
-        {
-            logging::logMessage("Empty VPD Map");
-            return false;
-        }
-
         // CCIN match is required to process post action for this FRU as it
         // contains the flag.
         if (!vpdSpecificUtility::findCcinInVpd(
                 m_parsedJson["frus"][i_vpdFruPath].at(
-                    0)["postAction"]["collection"],
+                    0)["postAction"][i_flagToProcess],
                 i_parsedVpd.value(), l_errCode))
         {
             if (l_errCode)
@@ -931,16 +931,18 @@ bool Worker::processPostAction(
         }
     }
 
-    if (!jsonUtility::executeBaseAction(m_parsedJson, "postAction",
-                                        i_vpdFruPath, i_flagToProcess,
-                                        l_errCode))
+    types::BaseActionResult l_actionResult = jsonUtility::executeBaseAction_new(
+        m_parsedJson, "postAction", i_vpdFruPath, i_flagToProcess, l_errCode);
+    // Handle post action execution failure
+    if (!l_actionResult.m_success)
     {
-        logging::logMessage(
-            "Execution of post action failed for path: " + i_vpdFruPath +
-            " . Reason: " + commonUtility::getErrCodeMsg(l_errCode));
-
-        // If post action was required and failed only in that case return
-        // false. In all other case post action is considered passed.
+        m_logger->logMessage(std::format(
+            "processPostAction: Execution failed for FRU [{}]. "
+            "Failed tag: '{}', Reason: {}",
+            i_vpdFruPath,
+            l_actionResult.m_failedTag.empty() ? "unknown"
+                                               : l_actionResult.m_failedTag,
+            commonUtility::getErrCodeMsg(l_actionResult.m_failedTagErrorCode)));
         return false;
     }
 
