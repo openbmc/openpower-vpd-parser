@@ -277,6 +277,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b13fa152_24829742",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T14:17:59Z",
+      "side": 1,
+      "message": "if lambda is refactored then we can add the check",
+      "parentUuid": "0ea70c96_ba1f1231",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72d01b33_3522e767",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -335,6 +353,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c051f967_ff5942a7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2081,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T14:17:59Z",
+      "side": 1,
+      "message": "std::ranges::find works on the container",
+      "parentUuid": "9b764e94_3dc18217",
+      "range": {
+        "startLine": 2079,
+        "startChar": 20,
+        "endLine": 2081,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51ed795d_3a6b22eb",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -369,6 +411,30 @@
       "writtenOn": "2026-06-18T11:26:02Z",
       "side": 1,
       "message": "You can use std::ranges::find(",
+      "range": {
+        "startLine": 2087,
+        "startChar": 20,
+        "endLine": 2089,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42157d68_b2a7cb23",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T14:17:59Z",
+      "side": 1,
+      "message": "std::ranges::find requires the range element type to satisfy stricter comparison concepts with the search value. \n\nSince copyRecords and skipRecords are nlohmann::json arrays, the JSON element type does not satisfy those constraints when searched with a std::string, causing compilation failure. \n\nstd::find works directly with the JSON iterators without requiring conversion to a typed container.",
+      "parentUuid": "26cf0d3d_8431b7ac",
       "range": {
         "startLine": 2087,
         "startChar": 20,
@@ -685,6 +751,30 @@
       "writtenOn": "2026-06-18T11:26:02Z",
       "side": 1,
       "message": "Do we need it as vpdSpecificUtility?\nupdateKeywordOnDBus is being called by updateVpdKeyword only. can we keep it here ?",
+      "range": {
+        "startLine": 245,
+        "startChar": 12,
+        "endLine": 245,
+        "endChar": 30
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d87a51a0_a5f57798",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T14:17:59Z",
+      "side": 1,
+      "message": "updateKeywordOnDBus API responsibility is to update keyword value on D-Bus.\n\nThe Parser class is primarily responsible for parser selection and exposing VPD parsing/update APIs. Adding D-Bus inventory update logic to Parser would couple parsing and D-Bus publication responsibilities.\n\nIn future, updateKeywordOnDBus API can be used by other classes also to update keyword value on DBus. So, added it in vpdSpecificUtility",
+      "parentUuid": "bf849861_26798d32",
       "range": {
         "startLine": 245,
         "startChar": 12,
