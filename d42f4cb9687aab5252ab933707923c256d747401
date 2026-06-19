@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8541953f_f9531b87",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T10:08:07Z",
+      "side": 1,
+      "message": "Yes that’s correct. While reading the log, does it needs to be a complete statement ?. So anyone who is looking into log can understand without going to source code and that line number.\nAs it’s minor nit, Am approving.",
+      "parentUuid": "2a20f4b4_ebda4c2d",
+      "revId": "d42f4cb9687aab5252ab933707923c256d747401",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87426766_0e293333",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
