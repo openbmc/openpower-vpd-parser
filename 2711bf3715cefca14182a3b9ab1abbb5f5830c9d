@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dffbe98f_a188f3be",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "some better name?\nsetAvailableProperty()?\ninitAvailableProperty()?",
+      "range": {
+        "startLine": 1296,
+        "startChar": 17,
+        "endLine": 1296,
+        "endChar": 46
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cebee2a_52756ac6",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "declare it just before USE - l_availabilityInf",
+      "range": {
+        "startLine": 1301,
+        "startChar": 5,
+        "endLine": 1302,
+        "endChar": 40
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d6417f_4ca34008",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "Or you can pass it as it is and cast it a vector.\nUse inline initializer list {constants::availabilityInf} directly in the function call",
+      "range": {
+        "startLine": 1302,
+        "startChar": 12,
+        "endLine": 1302,
+        "endChar": 39
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe4f2c7_b874fc2c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "It\u0027s a vector for 1 string.\nwe can Create vector ONCE, reuse. in case we add more calls to this API for any FRUs. \nas always only 1 and same interface - constants::availabilityInf\n\n        static const std::vector\u003cstd::string\u003e l_availabilityInterfaces \u003d {\n            constants::availabilityInf",
+      "range": {
+        "startLine": 1301,
+        "startChar": 7,
+        "endLine": 1302,
+        "endChar": 40
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49becfc8_e1e5913f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "can we simply do this check-\nif (l_mapperObjectMap.contains(constants::pimServiceName)) \n{\n    continue;\n}",
+      "range": {
+        "startLine": 1310,
+        "startChar": 11,
+        "endLine": 1320,
+        "endChar": 13
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e9abc20_b0c15287",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-19T07:56:51Z",
+      "side": 1,
+      "message": "if Available property update fails and throws exception , shall we have a PEL for it?",
+      "range": {
+        "startLine": 1334,
+        "startChar": 7,
+        "endLine": 1336,
+        "endChar": 45
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
