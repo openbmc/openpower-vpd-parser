@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a20f4b4_ebda4c2d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-19T09:46:57Z",
+      "side": 1,
+      "message": "The trace is meant for developers to debug. This will have source code details (file name, line number). Isn\u0027t that enough context to understand the trace?",
+      "parentUuid": "81701195_70d0d0be",
+      "revId": "d42f4cb9687aab5252ab933707923c256d747401",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87426766_0e293333",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-19T08:57:56Z",
       "side": 1,
       "message": "should this \"non system inventory path\" ?",
+      "revId": "d42f4cb9687aab5252ab933707923c256d747401",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "348e81b6_388e7746",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-19T09:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87426766_0e293333",
       "revId": "d42f4cb9687aab5252ab933707923c256d747401",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
