@@ -672,6 +672,66 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     }
 }
 
+std::string Worker::getInventoryPath(const std::string& i_vpdFilePath) const
+{
+    try
+    {
+        // Check if JSON contains the FRU path
+        if (m_parsedJson.contains("frus") &&
+            m_parsedJson["frus"].contains(i_vpdFilePath))
+        {
+            // Extract inventory path from JSON configuration
+            return m_parsedJson["frus"][i_vpdFilePath].at(0).value(
+                "inventoryPath", "");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Exception while retrieving inventory path for [{}]: {}",
+            i_vpdFilePath, l_ex.what()));
+    }
+
+    return std::string{};
+}
+
+void Worker::clearViniCcinData(const std::string& i_vpdFilePath)
+{
+    try
+    {
+        const auto l_inventoryPath = getInventoryPath(i_vpdFilePath);
+
+        if (l_inventoryPath.empty())
+        {
+            m_logger->logMessage(std::format(
+                "Cannot clear VINI/CCIN data: empty inventory path for FRU [{}]",
+                i_vpdFilePath));
+            return;
+        }
+
+        // Create object map with empty CCIN keyword to clear the data
+        types::ObjectMap l_pimObjMap{
+            {l_inventoryPath,
+             {{constants::kwdVpdInf,
+               {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
+
+        // Publish empty CCIN to D-Bus via PIM
+        if (!dbusUtility::publishVpdOnDBus(std::move(l_pimObjMap)))
+        {
+            m_logger->logMessage(std::format(
+                "Failed to clear VINI/CCIN data on D-Bus for FRU [{}] "
+                "at inventory path [{}]",
+                i_vpdFilePath, l_inventoryPath));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Exception while clearing VINI/CCIN data for FRU [{}]: {}",
+            i_vpdFilePath, l_ex.what()));
+    }
+}
+
 bool Worker::processPreAction(const std::string& i_vpdFilePath,
                               const std::string& i_flagToProcess,
                               uint16_t& i_errCode)
@@ -683,51 +743,121 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
         return false;
     }
 
-    if ((!jsonUtility::executeBaseAction(m_parsedJson, "preAction",
-                                         i_vpdFilePath, i_flagToProcess,
-                                         i_errCode)) &&
-        (i_flagToProcess.compare("collection") == constants::STR_CMP_SUCCESS))
+    try
     {
-        // TODO: Need a way to delete inventory object from Dbus and persisted
-        // data section in case any FRU is not present or there is any
-        // problem in collecting it. Once it has been deleted, it can be
-        // re-created in the flow of priming the inventory. This needs to be
-        // done either here or in the exception section of "parseAndPublishVPD"
-        // API. Any failure in the process of collecting FRU will land up in the
-        // exception of "parseAndPublishVPD".
+        types::BaseActionResult l_actionResult =
+            jsonUtility::executeBaseAction_new(m_parsedJson, "preAction",
+                                               i_vpdFilePath, i_flagToProcess,
+                                               i_errCode);
 
-        // If the FRU is not there, clear the VINI/CCIN data.
-        // Entity manager probes for this keyword to look for this
-        // FRU, now if the data is persistent on BMC and FRU is
-        // removed this can lead to ambiguity. Hence clearing this
-        // Keyword if FRU is absent.
-        const auto& inventoryPath =
-            m_parsedJson["frus"][i_vpdFilePath].at(0).value("inventoryPath",
-                                                            "");
-
-        if (!inventoryPath.empty())
+        // Handle base action execution failure (non-presence related errors)
+        if (!l_actionResult.m_success)
         {
-            types::ObjectMap l_pimObjMap{
-                {inventoryPath,
-                 {{constants::kwdVpdInf,
-                   {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
+            // Log detailed failure information
+            m_logger->logMessage(std::format(
+                "Base action failed for FRU [{}]. Failed tag: '{}', Reason: {}",
+                i_vpdFilePath,
+                l_actionResult.m_failedTag.empty() ? "unknown"
+                                                   : l_actionResult.m_failedTag,
+                commonUtility::getErrCodeMsg(
+                    l_actionResult.m_failedTagErrorCode)));
 
-            // Call dbus method to update on dbus
-            if (!dbusUtility::publishVpdOnDBus(std::move(l_pimObjMap)))
+            i_errCode = l_actionResult.m_failedTagErrorCode;
+
+            // Clearing stale data in the exception section of "parseAndPublishVPD".
+
+	    // parseVpdFile will throw a firmware exception and execut PostFailAction
+	    // in as part of exception handling. so not required PostFailAction execution here.
+
+            return false;
+        }
+
+        const auto l_inventoryPath = getInventoryPath(i_vpdFilePath);
+        if (l_inventoryPath.empty())
+        {
+            m_logger->logMessage(std::format(
+                "Error: Not found inventory path for FRU [{}], cannot update Present property",
+                i_vpdFilePath));
+
+            return false;
+        }
+
+        // Process based on GPIO presence detection result
+        switch (l_actionResult.m_presenceStatus)
+        {
+            case types::PresenceStatus::ABSENT:
             {
-                logging::logMessage(
-                    "Call to PIM failed for file " + i_vpdFilePath);
+                m_logger->logMessage(std::format(
+                    "FRU [{}] detected as ABSENT via GPIO presence check",
+                    i_vpdFilePath));
+
+                setPresentProperty(l_inventoryPath, false);
+                m_logger->logMessage(std::format(
+                    "Updated Present property as false, for inventory path: {}",
+                    l_inventoryPath));
+
+                // Clear VINI/CCIN data to prevent entity manager confusion
+                // Entity manager probes for CCIN; persistent data can cause
+                // ambiguity when FRU is removed
+                clearViniCcinData(i_vpdFilePath);
+
+                // postFailAction will be executed in parseVpdFile
+                i_errCode = error_code::DEVICE_NOT_PRESENT;
+                return false;
+            }
+
+            case types::PresenceStatus::PRESENT:
+            {
+                setPresentProperty(l_inventoryPath, true);
+                m_logger->logMessage(std::format(
+                    "Updated Present property as true, for inventory path: {}",
+                    l_inventoryPath));
+
+                return true;
+            }
+
+            case types::PresenceStatus::UNKNOWN:
+            {
+                // GPIO presence check failed or returned indeterminate result
+                m_logger->logMessage(std::format(
+                    "FRU [{}] presence status is UNKNOWN. GPIO error code details: {}. Proceeding with VPD collection to determine presence.",
+                    i_vpdFilePath,
+                    lcommonUtility::getErrCodeMsg(
+                        _actionResult.m_gpioPresenceErrorCode)));
+
+                // Don't update present property yet
+                // Let VPD collection success/failure determine actual presence:
+                // - If VPD collection succeeds → FRU is present
+                // - If VPD collection fails → FRU is likely absent
+
+                // Store presence status with respective FRU.
+                m_fruPresenceMap[l_inventoryPath] =
+                    l_actionResult.m_presenceStatus;
+
+                return true;
+            }
+
+            case types::PresenceStatus::NOT_APPLICABLE:
+            {
+                // No GPIO presence detection configured for this FRU
+                m_logger->logMessage(std::format(
+                    "FRU [{}] has no GPIO presence detection configured. "
+                    "Proceeding with VPD collection.",
+                    i_vpdFilePath));
+
+                return true;
             }
         }
-        else
-        {
-            logging::logMessage(
-                "Inventory path is empty in Json for file " + i_vpdFilePath);
-        }
 
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("PreAction failed for FRU: {}, Reason: {}",
+                        i_vpdFilePath, l_ex.what()));
         return false;
     }
-    return true;
 }
 
 bool Worker::processPostAction(
