@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81701195_70d0d0be",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1427,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T08:57:56Z",
+      "side": 1,
+      "message": "will \"skipping updating reset data on dbus\" or \"skipping update on dbus\" gives the full understanding ?",
+      "revId": "d42f4cb9687aab5252ab933707923c256d747401",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87426766_0e293333",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T08:57:56Z",
+      "side": 1,
+      "message": "should this \"non system inventory path\" ?",
+      "revId": "d42f4cb9687aab5252ab933707923c256d747401",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
