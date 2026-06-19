@@ -533,6 +533,32 @@ class Worker
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
 
+    /**
+     * @brief Get D-Bus inventory path for a given VPD file path.
+     *
+     * Retrieves the inventory path from the parsed JSON configuration
+     * for the specified EEPROM path.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     *
+     * @return Inventory path if found, empty string otherwise.
+     */
+    std::string getInventoryPath(const std::string& i_vpdFilePath) const;
+
+    /**
+     * @brief Clear VINI/CCIN data for an absent FRU.
+     *
+     * Clears the CCIN keyword data on D-Bus to prevent entity manager
+     * from incorrectly detecting a removed FRU as present based on
+     * persistent data.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     */
+    void clearViniCcinData(const std::string& i_vpdFilePath);
+
+    // Map of FRU and it's presence status
+    std::unordered_map<std::string, types::PresenceStatus> m_fruPresenceMap;
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
