@@ -292,5 +292,21 @@ struct BaseActionResult
 
 // Tuple of <Is FRU Present, EEPROM Path, chassis Json object>
 using ChassisCollectionResult = std::tuple<bool, std::string, nlohmann::json>;
+
+/**
+ * @brief Result structure for pre action execution.
+ *
+ * This structure contains detailed information about if an inventory path
+ * failed to process base action or if its presence status couldn't be decided
+ * in base action.
+ */
+struct PreActionResult
+{
+    std::string m_invObjPath;
+    uint16_t m_errorCode = 0;
+    PresenceStatus m_presenceStatus = PresenceStatus::NOT_APPLICABLE;
+};
+
+
 } // namespace types
 } // namespace vpd
