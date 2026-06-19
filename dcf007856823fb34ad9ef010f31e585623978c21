@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1b2e5f_88e3c0e7",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:04:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23106153_a7de95e2",
+      "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76fc6cc0_4e403a88",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a266dd51_c56d7586",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:04:13Z",
+      "side": 1,
+      "message": "Acknowledged, updated the doxygen",
+      "parentUuid": "76fc6cc0_4e403a88",
+      "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89adfd96_84a9ee71",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-19T07:43:35Z",
       "side": 1,
       "message": "Why do we need the `l_chassisJson` variable? Its only used in one place.",
+      "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "948dcb8f_3d7b0051",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:04:13Z",
+      "side": 1,
+      "message": "this variable will be consumed to update the FRUs count as well. Changes will be coming in subsequent commits",
+      "parentUuid": "89adfd96_84a9ee71",
       "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02c23fed_dd67ad0c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:04:13Z",
+      "side": 1,
+      "message": "for loop can handle this scenario. with this flow, common code will decrement the FRU count if no thread is launched at line 341",
+      "parentUuid": "a7ae9b86_e3373cca",
+      "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3b0b830_c4a3e1c0",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 9
@@ -82,6 +154,24 @@
       "writtenOn": "2026-06-19T07:43:35Z",
       "side": 1,
       "message": "Should we decrement FRU counter here? If a thread throws exception, counter will not decrement and main thread will keep waiting.",
+      "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "115bc386_422a4cef",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:04:13Z",
+      "side": 1,
+      "message": "exception here means thread is not launched, if not even single thread is launched FRU count will be decremented at line 343. Error scenario inside the threads will be handled in the thread (processFruCollection API) itself, that will be covered in sub-sequent commits",
+      "parentUuid": "b3b0b830_c4a3e1c0",
       "revId": "dcf007856823fb34ad9ef010f31e585623978c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
