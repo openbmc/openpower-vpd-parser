@@ -533,6 +533,30 @@ class Worker
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
 
+    /**
+     * @brief Clear VINI:CCIN data for an absent FRU.
+     *
+     * Clears the CCIN keyword data on D-Bus to prevent interested service
+     * listening on this, from incorrectly detecting a removed FRU as present
+     * based on stale persistent data.
+     *
+     * @param[in] i_vpdFruPath - EEPROM file path.
+     */
+    void clearViniCcinData(const std::string& i_vpdFruPath);
+
+    // FRU path and error code of base action execution if any tag failed,
+    // with presence status.
+    // If base action execution has no tag failed, but still presence status
+    // is unknown, then we store the information to access it later.
+
+    std::unordered_map<std::string, types::PreActionResult>
+        m_fruPreActionResults;
+
+    /* Enable below code when thread manager is enabled and handle in cpp.*/
+#if 0
+    types::PreActionResult m_fruPreActionResult;
+#endif
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
