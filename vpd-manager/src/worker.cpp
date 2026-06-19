@@ -818,7 +818,7 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                 // ambiguity when FRU is removed
                 clearViniCcinData(i_vpdFilePath);
 
-		//postFailAction will be executed in parseVpdFile
+                // postFailAction will be executed in parseVpdFile
                 i_errCode = error_code::DEVICE_NOT_PRESENT;
                 return false;
             }
@@ -846,7 +846,8 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                 // - If VPD collection succeeds → FRU is present
                 // - If VPD collection fails → FRU is likely absent
 
-		m_fruPresenceMap[l_inventoryPath] = l_actionResult.m_presenceStatus;
+                m_fruPresenceMap[l_inventoryPath] =
+                    l_actionResult.m_presenceStatus;
 
                 // Log GPIO error details for diagnostics
                 if (l_actionResult.m_gpioPresenceErrorCode != 0)
@@ -1014,15 +1015,35 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
             }
         }
 
+        // If VPD File doesn't exist and preAction has been executed, then check
+        // FRU map. In case this FRU has Presence status as UNKNOWN, set the
+        // Presence property false.
         if (!std::filesystem::exists(i_vpdFilePath))
         {
             if (isPreActionRequired)
             {
+                if (auto l_it = m_fruPresenceMap.find(i_vpdFilePath);
+                    l_it != m_fruPresenceMap.end() &&
+                    l_it->second == types::PresenceStatus::UNKNOWN)
+                {
+                    setPresentProperty(i_vpdFilePath, false);
+                }
+
                 throw EepromException(std::format(
                     " Could not find EEPROM: {} after preAction. Abort parsing of VPD file.",
                     i_vpdFilePath));
             }
+
             return types::VPDMapVariant{};
+        }
+        else if (std::filesystem::exists(i_vpdFilePath) && isPreActionRequired)
+        {
+            if (auto l_it = m_fruPresenceMap.find(i_vpdFilePath);
+                l_it != m_fruPresenceMap.end() &&
+                l_it->second == types::PresenceStatus::UNKNOWN)
+            {
+                setPresentProperty(i_vpdFilePath, true);
+            }
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1152,6 +1173,19 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                     "Call to publish on VPD on Dbus failed for EEPROM {}.",
                     i_vpdFilePath));
             }
+
+            // Set CollectionStatus as Completed as VPD successfully published
+            // on DBus.
+            vpdSpecificUtility::setCollectionStatusProperty(
+                i_vpdFilePath, types::VpdCollectionStatus::Completed,
+                m_parsedJson, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to set collection status as completed for path: {},Reason: {}.",
+                    i_vpdFilePath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
         }
         else
         {
@@ -1175,18 +1209,18 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             m_logger->logMessage("Empty parsedVpdMap received for path [" +
                                      i_vpdFilePath + "]. Check PEL for reason.",
                                  PlaceHolder::COLLECTION);
-        }
 
-        vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, types::VpdCollectionStatus::Completed, m_parsedJson,
-            l_errCode);
+            // Set CollectionStatus as Failed as received parsedVpdMap empty.
+            vpdSpecificUtility::setCollectionStatusProperty(
+                i_vpdFilePath, types::VpdCollectionStatus::Failed, m_parsedJson,
+                l_errCode);
 
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                i_vpdFilePath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to set collection status as failed for path: {},Reason: {}.",
+                    i_vpdFilePath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
         }
 
         m_semaphore.release();
@@ -1824,6 +1858,16 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
                     std::string(i_dbusObjPath) +
                     "] error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
+
+            vpdSpecificUtility::setCollectionStatusProperty(
+                l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
+                l_errCode);
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to set collection status as failed for path: {},Reason: {} ",
+                    l_fruPath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
         }
         else
         {
@@ -1845,17 +1889,16 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
                     "publishVpdOnDBus failed. Single FRU VPD collection failed for " +
                     std::string(i_dbusObjPath));
             }
-        }
 
-        vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
-            l_errCode);
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            vpdSpecificUtility::setCollectionStatusProperty(
+                l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
+                l_errCode);
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to set collection status as completed for path: {},Reason: {} ",
+                    l_fruPath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
         }
     }
     catch (const std::exception& l_error)
