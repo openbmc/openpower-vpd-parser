@@ -953,15 +953,48 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
             }
         }
 
+        // If VPD File doesn't exist and preAction has been executed, then check
+        // FRU map. In case this FRU has Presence status as UNKNOWN, set the
+        // Presence property false.
         if (!std::filesystem::exists(i_vpdFilePath))
         {
             if (isPreActionRequired)
             {
+                if (auto l_it = m_fruPresenceMap.find(i_vpdFilePath);
+                    l_it != m_fruPresenceMap.end() &&
+                    l_it->second == types::PresenceStatus::UNKNOWN)
+                {
+                    setPresentProperty(i_vpdFilePath, false);
+                }
+
                 throw EepromException(std::format(
                     " Could not find EEPROM: {} after preAction. Abort parsing of VPD file.",
                     i_vpdFilePath));
             }
+
             return types::VPDMapVariant{};
+        }
+        else if (std::filesystem::exists(i_vpdFilePath) && isPreActionRequired)
+        {
+            if (auto l_it = m_fruPresenceMap.find(i_vpdFilePath);
+                l_it != m_fruPresenceMap.end() &&
+                l_it->second == types::PresenceStatus::UNKNOWN)
+            {
+                setPresentProperty(i_vpdFilePath, true);
+            }
+
+            // There can be a case of gpio-presence executed but other processes i.e.
+            // setGpio or systemCmd got failed. In that case preAction received a tag failed
+            // from executeBaseAction but prosessed with Presence state and retruned true.
+            // Now presence is handled but we can't collect VPD for this vpdFilePath, so
+            // throwing an firmware exception here.
+	    if(l_errCode)
+            {
+                throw FirmwareException(std::format(
+                    "Pre-Action failed with error: {}. Aborting parsing of VPD file {}.",
+                    commonUtility::getErrCodeMsg(l_errCode),
+                    i_vpdFilePath));
+            }
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1122,10 +1155,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         if (l_errCode)
         {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                i_vpdFilePath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage(std::format(
+                "Failed to set collection status as completed for path: {},Reason: {}.",
+                i_vpdFilePath, commonUtility::getErrCodeMsg(l_errCode)));
         }
 
         m_semaphore.release();
@@ -1205,24 +1237,18 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
         else
         {
-            // Log PEL only processing was ok but data/ECC had some issue or
-            // some runtime exception took place which is not normal.
-            // Commenting Async PELs for the time being, till we handle presence
-            // locally.
-            m_logger->logMessage(std::format(
-                "ParseAndPublish VPD failed. Reason: {}.", l_ex.what()));
-            /* m_logger->logMessage(
-                 std::string("ParseAndPublish VPD failed for [reason] ") +
-                     EventLogger::getErrorMsg(l_ex),
-                 PlaceHolder::ASYNC_PEL,
-                 types::PelInfoTuple{
-                     EventLogger::getErrorType(l_ex),
-                     (typeid(l_ex) == typeid(DataException)) ||
-                             (typeid(l_ex) == typeid(EccException))
-                         ? types::SeverityType::Warning
-                         : types::SeverityType::Informational,
-                     0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-                     std::nullopt}); */
+            m_logger->logMessage(
+                std::string("ParseAndPublish VPD failed for [reason] ") +
+                    EventLogger::getErrorMsg(l_ex),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{
+                    EventLogger::getErrorType(l_ex),
+                    (typeid(l_ex) == typeid(DataException)) ||
+                            (typeid(l_ex) == typeid(EccException))
+                        ? types::SeverityType::Warning
+                        : types::SeverityType::Informational,
+                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                    std::nullopt});
         }
 
         // TODO: Figure out a way to clear data in case of any failure at
@@ -1791,10 +1817,9 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             l_errCode);
         if (l_errCode)
         {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage(std::format(
+                "Failed to set collection status as completed for path: {},Reason: {} ",
+                l_fruPath, commonUtility::getErrCodeMsg(l_errCode)));
         }
     }
     catch (const std::exception& l_error)
