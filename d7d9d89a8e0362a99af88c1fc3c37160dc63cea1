@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "847cfff4_dc3e93cc",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-19T09:10:19Z",
+      "side": 1,
+      "message": "the api is updating/filling details to BaseActionResult, why don\u0027t the caller decides wether needs log or not ?",
+      "revId": "d7d9d89a8e0362a99af88c1fc3c37160dc63cea1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41f7fe65_83a9f646",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 3
