@@ -293,6 +293,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "366e16fe_d5b11e65",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T14:21:02Z",
+      "side": 1,
+      "message": "Ignore this, Added nullptr check.",
+      "parentUuid": "b13fa152_24829742",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72d01b33_3522e767",
