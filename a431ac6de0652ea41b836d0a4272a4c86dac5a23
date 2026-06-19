@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ba663e_a2f9ff6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-19T07:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "871cf728_efb6a75a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0340e7c2_0793b72c",
@@ -118,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9966f6af_4ed9e1ca",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-19T07:44:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d40e118e_ccbf6bb6",
+      "range": {
+        "startLine": 322,
+        "startChar": 20,
+        "endLine": 331,
+        "endChar": 21
+      },
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffb200ca_56bba63b",
@@ -149,6 +197,24 @@
       "side": 1,
       "message": "Agreed. \nI\u0027ve updated this as a TODO.\n\nThe reason m_frusCount handling is still incomplete is that the corresponding decrement after FRU VPD collection has not been implemented yet. Currently, if no adjustment is made, the waiting thread can end up in an infinite wait because the expected FRU completion count is never satisfied.\n\nI\u0027ll address the full m_frusCount lifecycle (increment/decrement and exception paths) in the follow-up implementation.",
       "parentUuid": "ffb200ca_56bba63b",
+      "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6344c68b_4227ce24",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-19T07:44:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a686105_4fb02caa",
       "revId": "a431ac6de0652ea41b836d0a4272a4c86dac5a23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
