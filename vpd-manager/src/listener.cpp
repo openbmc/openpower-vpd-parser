@@ -34,8 +34,8 @@ void Listener::registerHostStateChangeCallback() const noexcept
 {
     try
     {
-        static std::shared_ptr<sdbusplus::bus::match_t> l_hostState =
-            std::make_shared<sdbusplus::bus::match_t>(
+        static std::shared_ptr<sdbusplus::match> l_hostState =
+            std::make_shared<sdbusplus::match>(
                 *m_asioConnection,
                 sdbusplus::bus::match::rules::propertiesChanged(
                     constants::hostObjectPath, constants::hostInterface),
@@ -119,8 +119,8 @@ void Listener::registerAssetTagChangeCallback() const noexcept
 {
     try
     {
-        static std::shared_ptr<sdbusplus::bus::match_t> l_assetMatch =
-            std::make_shared<sdbusplus::bus::match_t>(
+        static std::shared_ptr<sdbusplus::match> l_assetMatch =
+            std::make_shared<sdbusplus::match>(
                 *m_asioConnection,
                 sdbusplus::bus::match::rules::propertiesChanged(
                     constants::systemInvPath, constants::assetTagInf),
@@ -222,8 +222,8 @@ void Listener::registerPresenceChangeCallback() noexcept
 
         for (const auto& l_inventoryPath : l_listOfFrus)
         {
-            std::shared_ptr<sdbusplus::bus::match_t> l_fruPresenceMatch =
-                std::make_shared<sdbusplus::bus::match_t>(
+            std::shared_ptr<sdbusplus::match> l_fruPresenceMatch =
+                std::make_shared<sdbusplus::match>(
                     *m_asioConnection,
                     sdbusplus::bus::match::rules::propertiesChanged(
                         l_inventoryPath, constants::inventoryItemInf),
@@ -372,8 +372,8 @@ void Listener::registerCollectionStatusChangeCallback(
                 "Cannot register collection status callback on null connection");
         }
 
-        std::shared_ptr<sdbusplus::bus::match_t> l_matchObj =
-            std::make_shared<sdbusplus::bus::match_t>(
+        std::shared_ptr<sdbusplus::match> l_matchObj =
+            std::make_shared<sdbusplus::match>(
                 static_cast<sdbusplus::bus_t&>(*m_asioConnection),
                 "type='signal',member='PropertiesChanged',"
                 "interface='org.freedesktop.DBus.Properties',"
@@ -413,8 +413,8 @@ void Listener::registerPropChangeCallBack(
             throw std::runtime_error("Invalid service name or interface name");
         }
 
-        std::shared_ptr<sdbusplus::bus::match_t> l_matchObj =
-            std::make_unique<sdbusplus::bus::match_t>(
+        std::shared_ptr<sdbusplus::match> l_matchObj =
+            std::make_unique<sdbusplus::match>(
                 static_cast<sdbusplus::bus_t&>(*m_asioConnection),
                 "type='signal',member='PropertiesChanged',"
                 "interface='org.freedesktop.DBus.Properties',"

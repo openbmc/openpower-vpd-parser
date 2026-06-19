@@ -217,9 +217,9 @@ using InvalidRecordEntry = std::pair<Record,ErrorType>;
 /* List of invalid record entries*/
 using InvalidRecordList = std::vector<InvalidRecordEntry>;
 /* Map of inventory path -> Present property match object */
-using FruPresenceMatchObjectMap = std::map<Path, std::shared_ptr<sdbusplus::bus::match_t>>;
+using FruPresenceMatchObjectMap = std::map<Path, std::shared_ptr<sdbusplus::match>>;
 /* A map of interface to match object*/
-using MatchObjectInterfaceMap = std::map<std::string,std::shared_ptr<sdbusplus::bus::match_t>>;
+using MatchObjectInterfaceMap = std::map<std::string,std::shared_ptr<sdbusplus::match>>;
 /* A map of service name to match object interface map*/
 using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 
