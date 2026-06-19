@@ -808,9 +808,10 @@ int IpzVpdParser::writeKeywordOnHardware(
                         std::get<2>(l_inputRecordDetails),
                         std::get<3>(l_inputRecordDetails), l_vpdVector);
 
-        logging::logMessage(std::to_string(l_sizeWritten) +
-                            " bytes updated successfully on hardware for " +
-                            l_recordName + ":" + l_keywordName);
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "{} bytes updated successfully on hardware path {} for {}:{}",
+            std::to_string(l_sizeWritten), m_vpdFilePath, l_recordName,
+            l_keywordName));
     }
     catch (const std::exception& l_exception)
     {
