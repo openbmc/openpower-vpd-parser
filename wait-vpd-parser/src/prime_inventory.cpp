@@ -66,8 +66,10 @@ bool PrimeInventory::isPrimingRequired() const noexcept
         {
             for (const auto& l_Fru : l_itemFRUS.value())
             {
-                if (l_Fru.contains("ccin") || (l_Fru.contains("noprime") &&
-                                               l_Fru.value("noprime", false)))
+                if (l_Fru.contains("ccin") ||
+                    (l_Fru.contains("noprime") &&
+                     l_Fru.value("noprime", false)) ||
+                    l_Fru.contains("isRedundant"))
                 {
                     continue;
                 }
