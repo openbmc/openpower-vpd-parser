@@ -533,6 +533,41 @@ class Worker
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
 
+    /**
+     * @brief Get D-Bus inventory path for a given VPD file path.
+     *
+     * Retrieves the inventory path from the parsed JSON configuration
+     * for the specified EEPROM path.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     *
+     * @return Inventory path if found, empty string otherwise.
+     */
+    std::string getInventoryPath(const std::string& i_vpdFilePath) const;
+
+    /**
+     * @brief Clear VINI:CCIN data for an absent FRU.
+     *
+     * Clears the CCIN keyword data on D-Bus to prevent interested service
+     * listening on this, from incorrectly detecting a removed FRU as present
+     * based on stale persistent data.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     */
+    void clearViniCcinData(const std::string& i_vpdFilePath);
+
+    // FRU path and error code of base action execution if any tag failed,
+    // with presence status.
+    // If base action execution has no tag failed, but still presence status
+    // is unknown, then we store the information to access it later.
+
+    std::vector<types::PreActionResult> m_fruPreActionResults;
+
+    /* Enable below code when thread manager is enabled and handle in cpp.*/
+#if 0
+    types::PreActionResult m_fruPreActionResult;
+#endif
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
