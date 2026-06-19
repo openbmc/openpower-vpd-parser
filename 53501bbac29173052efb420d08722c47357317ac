@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bf7a0765_281dffba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cac037d9_8f91e598",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f23333b9_bc146554",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -69,6 +87,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d57055_0845d17c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c08d2bf2_2fe41549",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7237d060_bdbf7263",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2016,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95e739bd_64a44bf9",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9167d4fc_b93e576c",
@@ -86,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2de6075_01f434b5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9167d4fc_b93e576c",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66af43f8_dc80fbc8",
@@ -99,6 +171,24 @@
       "writtenOn": "2026-06-18T16:24:24Z",
       "side": 1,
       "message": "is this needed ?",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4679b625_5a703b31",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2029,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66af43f8_dc80fbc8",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -126,6 +216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6a80f0_877f30dc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d85c478_9f8033c8",
+      "range": {
+        "startLine": 2075,
+        "startChar": 51,
+        "endLine": 2075,
+        "endChar": 69
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ea70c96_ba1f1231",
@@ -143,6 +257,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c61a0b_29d27d9f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2076,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ea70c96_ba1f1231",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72d01b33_3522e767",
@@ -156,6 +288,24 @@
       "writtenOn": "2026-06-18T16:24:24Z",
       "side": 1,
       "message": "can we say l_isPartOfCopyRecords gives direct meaning from where this info is extracted.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25bc721e_318c44e0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2077,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72d01b33_3522e767",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -254,6 +404,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ac7e11d_818882b0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "No, this will not work\n\ninherit value is false for skipRecord. please check the JSON",
+      "parentUuid": "608c100c_da8f940c",
+      "range": {
+        "startLine": 2094,
+        "startChar": 19,
+        "endLine": 2095,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71939397_e043e705",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -265,6 +439,30 @@
       "writtenOn": "2026-06-18T11:26:02Z",
       "side": 1,
       "message": "Creates temporary string for concatenation,\nuse direct - constants::ipzVpdInf + std::get\u003c0\u003e(*l_ipzData),",
+      "range": {
+        "startLine": 2100,
+        "startChar": 29,
+        "endLine": 2100,
+        "endChar": 40
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18bb4965_08fbc383",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71939397_e043e705",
       "range": {
         "startLine": 2100,
         "startChar": 29,
@@ -288,6 +486,24 @@
       "writtenOn": "2026-06-18T10:07:08Z",
       "side": 1,
       "message": "Comment mentions \"except the base FRU\" but I see we are iterating through all FRUs",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22f7959_4d9beccf",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2107,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf9b776_8063d61c",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -355,6 +571,72 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a7661e0_6ec2dbc2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23a59109_5e78e934",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1adc621f_59d9a1b6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61787032_7edb80b6",
+      "range": {
+        "startLine": 2114,
+        "startChar": 37,
+        "endLine": 2114,
+        "endChar": 40
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8ec8c1f_79bcc756",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "773eaacd_14631dca",
+      "range": {
+        "startLine": 2114,
+        "startChar": 17,
+        "endLine": 2114,
+        "endChar": 66
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f2e3643_47b93d85",
@@ -368,6 +650,24 @@
       "writtenOn": "2026-06-18T16:24:24Z",
       "side": 1,
       "message": "Including record and keyword name will be more useful while debugging.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6798be1_b204e472",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2125,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f2e3643_47b93d85",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -420,6 +720,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fea09109_954ca27f",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "l_bytesUpdatedOnHardware will return -1 incase of any exception occurs while updating the value at all the places.\n\nWe can check logs if any mismatch happens.\n\nThis API is to update the keyword, handling the mismatch is not a job of this API.",
+      "parentUuid": "e986d540_98cf8d0b",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 26
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4de5919a_c2a2f67f",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 3
@@ -431,6 +755,24 @@
       "writtenOn": "2026-06-18T10:07:08Z",
       "side": 1,
       "message": "Currently, we throw an exception to propagate the error if update to D-Bus fails, we should preserve that behavior.",
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df60b27_d9a493a6",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "Done, updated to throw exception",
+      "parentUuid": "4de5919a_c2a2f67f",
       "revId": "53501bbac29173052efb420d08722c47357317ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -460,6 +802,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4185b40_15b42f72",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "We are only logging in case of standard exception. In all other case we are returning the error code and returning from there.\n\nIn updateKeywordOnDbus API log is required incase of exception to know what is the error.",
+      "parentUuid": "06187f58_b0bc7080",
+      "range": {
+        "startLine": 254,
+        "startChar": 14,
+        "endLine": 256,
+        "endChar": 62
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "408b045b_e030cfc8",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 3
@@ -471,6 +837,30 @@
       "writtenOn": "2026-06-18T11:26:02Z",
       "side": 1,
       "message": "Previous code is throwing if dbus update failed.\nBut in case we throw from here, reboot Guard will stay Enabled. so need to handle it here.",
+      "range": {
+        "startLine": 257,
+        "startChar": 10,
+        "endLine": 257,
+        "endChar": 13
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "051bb9c1_3f21a21a",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-19T12:50:31Z",
+      "side": 1,
+      "message": "No, reboot guard will not stay enabled if we throw the exception from here.\n\nThe exception thrown here is catched at line no:281 and logs the message, reboot guard is disabled at line no: 292.",
+      "parentUuid": "408b045b_e030cfc8",
       "range": {
         "startLine": 257,
         "startChar": 10,
