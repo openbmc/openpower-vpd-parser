@@ -584,6 +584,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c03a09c_fee01a9d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-06-22T09:17:16Z",
+      "side": 1,
+      "message": "Inherit does not work as you say , inherit means a full copy , selected copy and skip tags will not have inherit as true",
+      "parentUuid": "8d94ceca_20fe2971",
+      "range": {
+        "startLine": 2094,
+        "startChar": 19,
+        "endLine": 2095,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71939397_e043e705",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -960,6 +984,30 @@
       "side": 1,
       "message": "This API- updateVpdKeyword\ndoes Hardware Update  \nand \nDbus update for those FRUs.\nIf it is updated on hardware and failed on DBUS update, we ned to sync them.\ncan\u0027t leave it mismatched.  \ncan\u0027t say - handling the mismatch is not a job of this API.",
       "parentUuid": "fea09109_954ca27f",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 26
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2bf839_7ccb8d3c",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-06-22T09:17:16Z",
+      "side": 1,
+      "message": "currently we do not handle half baked writes , so I would say it is fine as this is how it has been earlier.",
+      "parentUuid": "7c9851d4_dbf163fd",
       "range": {
         "startLine": 251,
         "startChar": 0,
