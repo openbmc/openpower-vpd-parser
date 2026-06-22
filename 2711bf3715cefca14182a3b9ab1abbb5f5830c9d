@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb3abecd_b90a335d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "As this api\u0027s job is to set property only once and not always , rest of the time we will be checking if the property exists on dbus then we will not set again , will simply return. Hence changing the name to setAvailableProperty or initAvailableProperty may lead to mean different functionality of this api .",
+      "parentUuid": "dffbe98f_a188f3be",
+      "range": {
+        "startLine": 1296,
+        "startChar": 17,
+        "endLine": 1296,
+        "endChar": 46
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cebee2a_52756ac6",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 11
@@ -93,6 +117,78 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "815e9aa8_d310291e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cebee2a_52756ac6",
+      "range": {
+        "startLine": 1301,
+        "startChar": 5,
+        "endLine": 1302,
+        "endChar": 40
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63492fe8_65f1021c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbe4f2c7_b874fc2c",
+      "range": {
+        "startLine": 1301,
+        "startChar": 7,
+        "endLine": 1302,
+        "endChar": 40
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b95526_59eed3b5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "Acknowledged .",
+      "parentUuid": "b2d6417f_4ca34008",
+      "range": {
+        "startLine": 1302,
+        "startChar": 12,
+        "endLine": 1302,
+        "endChar": 39
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49becfc8_e1e5913f",
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8e44a9f_043c1602",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "No, contains() is available for associative containers like; map/unordered_map .\nIt is not available for std::vector.",
+      "parentUuid": "49becfc8_e1e5913f",
+      "range": {
+        "startLine": 1310,
+        "startChar": 11,
+        "endLine": 1320,
+        "endChar": 13
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e9abc20_b0c15287",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 11
@@ -129,6 +249,30 @@
       "writtenOn": "2026-06-19T07:56:51Z",
       "side": 1,
       "message": "if Available property update fails and throws exception , shall we have a PEL for it?",
+      "range": {
+        "startLine": 1334,
+        "startChar": 7,
+        "endLine": 1336,
+        "endChar": 45
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5f0354_282cc31d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-22T09:18:40Z",
+      "side": 1,
+      "message": "No Since, now we should avoid PEL logging as far as possible in the system VPD collection path. Hence added a simple logging .",
+      "parentUuid": "5e9abc20_b0c15287",
       "range": {
         "startLine": 1334,
         "startChar": 7,
