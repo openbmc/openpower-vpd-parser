@@ -21,10 +21,10 @@ void BiosHandler<T>::checkAndListenPldmService()
 {
     // Setup a call back match on NameOwnerChanged to determine when PLDM is
     // up.
-    static std::shared_ptr<sdbusplus::bus::match_t> l_nameOwnerMatch =
-        std::make_shared<sdbusplus::bus::match_t>(
+    static std::shared_ptr<sdbusplus::match> l_nameOwnerMatch =
+        std::make_shared<sdbusplus::match>(
             *m_asioConn,
-            sdbusplus::bus::match::rules::nameOwnerChanged(
+            sdbusplus::match_rules::nameOwnerChanged(
                 constants::pldmServiceName),
             [this](sdbusplus::message_t& l_msg) {
                 if (l_msg.is_method_error())
@@ -69,10 +69,10 @@ void BiosHandler<T>::checkAndListenPldmService()
 template <typename T>
 void BiosHandler<T>::listenBiosAttributes()
 {
-    static std::shared_ptr<sdbusplus::bus::match_t> l_biosMatch =
-        std::make_shared<sdbusplus::bus::match_t>(
+    static std::shared_ptr<sdbusplus::match> l_biosMatch =
+        std::make_shared<sdbusplus::match>(
             *m_asioConn,
-            sdbusplus::bus::match::rules::propertiesChanged(
+            sdbusplus::match_rules::propertiesChanged(
                 constants::biosConfigMgrObjPath,
                 constants::biosConfigMgrInterface),
             [this](sdbusplus::message_t& l_msg) {
