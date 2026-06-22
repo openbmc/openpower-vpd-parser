@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8ae18e1_8939e9c4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-22T08:10:15Z",
+      "side": 1,
+      "message": "Added todo",
+      "parentUuid": "6a157a82_17a5725f",
+      "revId": "0721dd4e26f8c2b4b93d7e8b3603d1fb1924b165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b397443c_6b31b3e1",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-22T07:11:58Z",
       "side": 1,
       "message": "should we leave todo for keyword type or handle here itself ?",
+      "revId": "0721dd4e26f8c2b4b93d7e8b3603d1fb1924b165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0491390_8c3406b6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2136,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-22T08:10:15Z",
+      "side": 1,
+      "message": "Added a todo",
+      "parentUuid": "b397443c_6b31b3e1",
       "revId": "0721dd4e26f8c2b4b93d7e8b3603d1fb1924b165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
