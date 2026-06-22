@@ -393,6 +393,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8ca571e_95d65971",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2081,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c051f967_ff5942a7",
+      "range": {
+        "startLine": 2079,
+        "startChar": 20,
+        "endLine": 2081,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51ed795d_3a6b22eb",
@@ -463,6 +487,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b92f44_0651122c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "42157d68_b2a7cb23",
+      "range": {
+        "startLine": 2087,
+        "startChar": 20,
+        "endLine": 2089,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "608c100c_da8f940c",
@@ -500,6 +548,30 @@
       "side": 1,
       "message": "No, this will not work\n\ninherit value is false for skipRecord. please check the JSON",
       "parentUuid": "608c100c_da8f940c",
+      "range": {
+        "startLine": 2094,
+        "startChar": 19,
+        "endLine": 2095,
+        "endChar": 54
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d94ceca_20fe2971",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "processSkipRecordsFlag() : Processes all records EXCEPT those in skipRecords array.\nso in that case, inherit value is true.\nJson doesn\u0027t pair up inherit tag with skipRecord, it means inherit is true by default. \nThat\u0027s the design how it works. Please check it in json.\n\n\"inherit value is false for skipRecord. \" - if No inherit then no sense of skip?",
+      "parentUuid": "6ac7e11d_818882b0",
       "range": {
         "startLine": 2094,
         "startChar": 19,
@@ -803,6 +875,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b35ddc_a95130a1",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d87a51a0_a5f57798",
+      "range": {
+        "startLine": 245,
+        "startChar": 12,
+        "endLine": 245,
+        "endChar": 30
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e986d540_98cf8d0b",
@@ -840,6 +936,30 @@
       "side": 1,
       "message": "l_bytesUpdatedOnHardware will return -1 incase of any exception occurs while updating the value at all the places.\n\nWe can check logs if any mismatch happens.\n\nThis API is to update the keyword, handling the mismatch is not a job of this API.",
       "parentUuid": "e986d540_98cf8d0b",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 26
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9851d4_dbf163fd",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "This API- updateVpdKeyword\ndoes Hardware Update  \nand \nDbus update for those FRUs.\nIf it is updated on hardware and failed on DBUS update, we ned to sync them.\ncan\u0027t leave it mismatched.  \ncan\u0027t say - handling the mismatch is not a job of this API.",
+      "parentUuid": "fea09109_954ca27f",
       "range": {
         "startLine": 251,
         "startChar": 0,
@@ -932,6 +1052,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee4af097_b7655424",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "Got Acknowledged when made it to throw a runtime_error.",
+      "parentUuid": "d4185b40_15b42f72",
+      "range": {
+        "startLine": 254,
+        "startChar": 14,
+        "endLine": 256,
+        "endChar": 62
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "408b045b_e030cfc8",
@@ -969,6 +1113,30 @@
       "side": 1,
       "message": "No, reboot guard will not stay enabled if we throw the exception from here.\n\nThe exception thrown here is catched at line no:281 and logs the message, reboot guard is disabled at line no: 292.",
       "parentUuid": "408b045b_e030cfc8",
+      "range": {
+        "startLine": 257,
+        "startChar": 10,
+        "endLine": 257,
+        "endChar": 13
+      },
+      "revId": "53501bbac29173052efb420d08722c47357317ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abd8f96b_5105e37d",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "051bb9c1_3f21a21a",
       "range": {
         "startLine": 257,
         "startChar": 10,
