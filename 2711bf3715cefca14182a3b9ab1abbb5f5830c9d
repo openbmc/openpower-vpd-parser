@@ -236,6 +236,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "888c92b6_822291a3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:34:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d8e44a9f_043c1602",
+      "range": {
+        "startLine": 1310,
+        "startChar": 11,
+        "endLine": 1320,
+        "endChar": 13
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e9abc20_b0c15287",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "No Since, now we should avoid PEL logging as far as possible in the system VPD collection path. Hence added a simple logging .",
       "parentUuid": "5e9abc20_b0c15287",
+      "range": {
+        "startLine": 1334,
+        "startChar": 7,
+        "endLine": 1336,
+        "endChar": 45
+      },
+      "revId": "2711bf3715cefca14182a3b9ab1abbb5f5830c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b696b580_7ab91ead",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-22T09:34:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ce5f0354_282cc31d",
       "range": {
         "startLine": 1334,
         "startChar": 7,
