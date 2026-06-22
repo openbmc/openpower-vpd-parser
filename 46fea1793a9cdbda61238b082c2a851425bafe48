@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805c6884_f3eb60ec",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-22T14:05:43Z",
+      "side": 1,
+      "message": "isRedundant is a flag, path needs to be skipped only if isRedundant is marked as true",
+      "revId": "46fea1793a9cdbda61238b082c2a851425bafe48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
