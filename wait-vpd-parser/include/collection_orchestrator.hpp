@@ -152,7 +152,7 @@ class CollectionOrchestrator final
     std::once_flag m_stopOnceFlag;
 
     // match object required by Collection Status listener
-    std::unique_ptr<sdbusplus::bus::match_t> m_collectionStatusMatch{nullptr};
+    std::unique_ptr<sdbusplus::match> m_collectionStatusMatch{nullptr};
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};

@@ -102,9 +102,9 @@ void CollectionOrchestrator::registerVpdCollectionStatusListener()
 {
     try
     {
-        m_collectionStatusMatch = std::make_unique<sdbusplus::bus::match_t>(
+        m_collectionStatusMatch = std::make_unique<sdbusplus::match>(
             *m_asioConn,
-            sdbusplus::bus::match::rules::propertiesChanged(
+            sdbusplus::match_rules::propertiesChanged(
                 OBJPATH, vpd::types::CommonProgress::Progress::interface),
             [this](sdbusplus::message_t& l_msg) {
                 vpdCollectionStatusCallback(l_msg);
