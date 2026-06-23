@@ -284,29 +284,8 @@ void PrimeInventory::populateInterfaces(
             }
             else if (l_propValuePair.value().is_string())
             {
-                if (l_property.compare("LocationCode") == 0)
-                {
-                    std::string l_value =
-                        vpd::vpdSpecificUtility::getExpandedLocationCode(
-                            l_propValuePair.value().get<std::string>(),
-                            i_parsedVpdMap, l_errCode);
-
-                    if (l_errCode)
-                    {
-                        m_logger->logMessage(
-                            "Failed to get expanded location code for location code - " +
-                            l_propValuePair.value().get<std::string>() +
-                            " ,error : " +
-                            vpd::commonUtility::getErrCodeMsg(l_errCode));
-                    }
-
-                    l_propertyMap.emplace(l_property, l_value);
-                }
-                else
-                {
-                    l_propertyMap.emplace(
-                        l_property, l_propValuePair.value().get<std::string>());
-                }
+                l_propertyMap.emplace(
+                    l_property, l_propValuePair.value().get<std::string>());
             }
             else if (l_propValuePair.value().is_array())
             {
