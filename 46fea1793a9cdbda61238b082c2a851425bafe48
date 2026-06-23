@@ -16,6 +16,24 @@
       "message": "isRedundant is a flag, path needs to be skipped only if isRedundant is marked as true",
       "revId": "46fea1793a9cdbda61238b082c2a851425bafe48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2da46f7_e2474f5c",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-23T06:21:12Z",
+      "side": 1,
+      "message": "Acknowledged .",
+      "parentUuid": "805c6884_f3eb60ec",
+      "revId": "46fea1793a9cdbda61238b082c2a851425bafe48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
