@@ -171,6 +171,9 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // append the sub FRUs
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
+        // Validate the chassis-specific JSON after construction
+        ConfigManager::JsonValidator::validateConfigJson(l_chassisJson);
+
         // build unexpanded location code to inventory path map
         return buildLocCodeToInvPathsMap(l_subFruJsonArray);
     }
@@ -244,6 +247,215 @@ std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
             i_unexpandedLocationCode, l_ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+void ConfigManager::JsonValidator::validateConfigJson(
+    const nlohmann::json& i_jsonObj)
+{
+    // Check if "frus" section exists (mandatory)
+    if (!i_jsonObj.contains("frus"))
+    {
+        throw JsonException{
+            "JSON validation failed: Missing required 'frus' section"};
+    }
+
+    // Check if "frus" is an object
+    if (!i_jsonObj["frus"].is_object())
+    {
+        throw JsonException{
+            "JSON validation failed: 'frus' section must be an object"};
+    }
+
+    // Check if "frus" is not empty
+    if (i_jsonObj["frus"].empty())
+    {
+        throw JsonException{
+            "JSON validation failed: 'frus' section cannot be empty"};
+    }
+
+    // Validate each FRU entry in "frus"
+    const auto& l_frus = i_jsonObj["frus"];
+    for (const auto& [l_eepromPath, l_fruArray] : l_frus.items())
+    {
+        // Check if FRU value is an array
+        if (!l_fruArray.is_array())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: FRU '{}' must be an array",
+                l_eepromPath)};
+        }
+
+        // Check if FRU array is not empty
+        if (l_fruArray.empty())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: FRU '{}' array cannot be empty",
+                l_eepromPath)};
+        }
+
+        // Validate each sub-FRU in the array
+        for (size_t i = 0; i < l_fruArray.size(); ++i)
+        {
+            const auto& l_subFru = l_fruArray[i];
+
+            // Check if sub-FRU is an object
+            if (!l_subFru.is_object())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: Sub-FRU at index {} in '{}' must be an object",
+                    i, l_eepromPath)};
+            }
+
+            // Validate sub-FRU structure
+            validateSubFruJson(l_subFru, l_eepromPath, i);
+        }
+    }
+}
+
+void ConfigManager::JsonValidator::validateSubFruJson(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // Validate mandatory tags
+    validateMandatoryTags(i_subFruJson, i_eepromPath, i_index);
+
+    // Validate optional tags
+    validateOptionalTags(i_subFruJson, i_eepromPath, i_index);
+}
+
+void ConfigManager::JsonValidator::validateMandatoryTags(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // Check for mandatory field: inventoryPath
+    if (!i_subFruJson.contains("inventoryPath"))
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'inventoryPath' field",
+            i_index, i_eepromPath)};
+    }
+
+    // Validate inventoryPath is a string
+    if (!i_subFruJson["inventoryPath"].is_string())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'inventoryPath' in sub-FRU at index {} in '{}' must be a string",
+            i_index, i_eepromPath)};
+    }
+
+    // Check for mandatory field: serviceName
+    if (!i_subFruJson.contains("serviceName"))
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'serviceName' field",
+            i_index, i_eepromPath)};
+    }
+
+    // Validate serviceName is a string
+    if (!i_subFruJson["serviceName"].is_string())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'serviceName' in sub-FRU at index {} in '{}' must be a string",
+            i_index, i_eepromPath)};
+    }
+}
+
+void ConfigManager::JsonValidator::validateOptionalTags(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // Validate optional field: extraInterfaces (if present, must be an object)
+    if (i_subFruJson.contains("extraInterfaces") &&
+        !i_subFruJson["extraInterfaces"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'extraInterfaces' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "preAction" exists, validate it's an object
+    if (i_subFruJson.contains("preAction") &&
+        !i_subFruJson["preAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'preAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "postAction" exists, validate it's an object
+    if (i_subFruJson.contains("postAction") &&
+        !i_subFruJson["postAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'postAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "postFailAction" exists, validate it's an object
+    if (i_subFruJson.contains("postFailAction") &&
+        !i_subFruJson["postFailAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'postFailAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "copyRecords" exists, validate it's an array
+    if (i_subFruJson.contains("copyRecords") &&
+        !i_subFruJson["copyRecords"].is_array())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'copyRecords' in sub-FRU at index {} in '{}' must be an array",
+            i_index, i_eepromPath)};
+    }
+
+    // If boolean fields exist, validate they are boolean type
+    const std::vector<std::string> l_boolFields = {
+        "isSystemVpd",       "replaceableAtStandby", "replaceableAtRuntime",
+        "pollingRequired",   "hotPlugging",          "concurrentlyMaintainable",
+        "powerOffOnly",      "embedded",             "synthesized",
+        "noprime",           "handlePresence",       "monitorPresence",
+        "essentialFru",      "readOnly",             "inherit"};
+
+    for (const auto& l_field : l_boolFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_boolean())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a boolean",
+                l_field, i_index, i_eepromPath)};
+        }
+    }
+
+    // If string fields exist, validate they are string type
+    const std::vector<std::string> l_stringFields = {
+        "redundantEeprom", "cpuType", "busType", "driverType", "devAddress"};
+
+    for (const auto& l_field : l_stringFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_string())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a string",
+                l_field, i_index, i_eepromPath)};
+        }
+    }
+
+    // If integer fields exist, validate they are number type
+    const std::vector<std::string> l_intFields = {"offset", "size"};
+
+    for (const auto& l_field : l_intFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_number_integer())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be an integer",
+                l_field, i_index, i_eepromPath)};
+        }
     }
 }
 } // namespace vpd
