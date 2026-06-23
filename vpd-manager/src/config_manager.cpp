@@ -171,6 +171,9 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // append the sub FRUs
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
+        // Validate the chassis-specific JSON after construction
+        ConfigManager::JsonValidator::validateConfigJson(l_chassisJson);
+
         // build unexpanded location code to inventory path map
         return buildLocCodeToInvPathsMap(l_subFruJsonArray);
     }
@@ -245,5 +248,107 @@ std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
+}
+
+void ConfigManager::JsonValidator::validateConfigJson(
+    const nlohmann::json& i_jsonObj)
+{
+    // Check if "frus" section exists (mandatory)
+    if (!i_jsonObj.contains("frus"))
+    {
+        throw JsonException{
+            "JSON validation failed: Missing required 'frus' section"};
+    }
+
+    // Check if "frus" is an object
+    if (!i_jsonObj["frus"].is_object())
+    {
+        throw JsonException{
+            "JSON validation failed: 'frus' section must be an object"};
+    }
+
+    // Check if "frus" is not empty
+    if (i_jsonObj["frus"].empty())
+    {
+        throw JsonException{
+            "JSON validation failed: 'frus' section cannot be empty"};
+    }
+
+    // Validate each FRU entry in "frus"
+    const auto& l_frus = i_jsonObj["frus"];
+    for (const auto& [l_eepromPath, l_fruArray] : l_frus.items())
+    {
+        // Check if FRU value is an array
+        if (!l_fruArray.is_array())
+        {
+            throw JsonException{
+                std::format("JSON validation failed: FRU '{}' must be an array",
+                            l_eepromPath)};
+        }
+
+        // Check if FRU array is not empty
+        if (l_fruArray.empty())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: FRU '{}' array cannot be empty",
+                l_eepromPath)};
+        }
+
+        // Validate each sub-FRU in the array
+        for (size_t i = 0; i < l_fruArray.size(); ++i)
+        {
+            const auto& l_subFru = l_fruArray[i];
+
+            // Check if sub-FRU is an object
+            if (!l_subFru.is_object())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: Sub-FRU at index {} in '{}' must be an object",
+                    i, l_eepromPath)};
+            }
+
+            // Validate sub-FRU structure
+            validateSubFruJson(l_subFru, l_eepromPath, i);
+        }
+    }
+}
+
+void ConfigManager::JsonValidator::validateSubFruJson(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // Validate mandatory tags
+    validateMandatoryTags(i_subFruJson, i_eepromPath, i_index);
+
+    // Validate optional tags
+    validateOptionalTags(i_subFruJson, i_eepromPath, i_index);
+}
+
+void ConfigManager::JsonValidator::validateMandatoryTags(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // TODO: Implement validation for mandatory tags
+    // - inventoryPath (string)
+    // - serviceName (string)
+    (void)i_subFruJson;
+    (void)i_eepromPath;
+    (void)i_index;
+}
+
+void ConfigManager::JsonValidator::validateOptionalTags(
+    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
+    size_t i_index)
+{
+    // TODO: Implement validation for optional tags
+    // - extraInterfaces (object)
+    // - preAction, postAction, postFailAction (objects)
+    // - copyRecords (array)
+    // - Boolean fields: isSystemVpd, replaceableAtStandby, etc.
+    // - String fields: redundantEeprom, cpuType, busType, etc.
+    // - Integer fields: offset, size
+    (void)i_subFruJson;
+    (void)i_eepromPath;
+    (void)i_index;
 }
 } // namespace vpd

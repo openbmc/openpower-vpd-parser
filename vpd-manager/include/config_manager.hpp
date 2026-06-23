@@ -78,6 +78,9 @@ class ConfigManager final
                 i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
         }
 
+        // Validate the system configuration JSON
+        JsonValidator::validateConfigJson(m_systemConfigJson);
+
         buildConfigMaps();
     }
 
@@ -148,6 +151,77 @@ class ConfigManager final
     }
 
   private:
+    /**
+     * @brief Private nested class for JSON validation
+     *
+     * This class encapsulates all JSON validation logic for configuration
+     * and sub-FRU JSON objects.
+     */
+    class JsonValidator
+    {
+      public:
+        /**
+         * @brief Validate configuration JSON object for basic sanity checks
+         *
+         * This method performs basic validation of the configuration JSON
+         * object to ensure it contains required sections and has proper
+         * structure.
+         *
+         * @param[in] i_jsonObj - Configuration JSON object to validate
+         *
+         * @throw JsonException if validation fails
+         */
+        static void validateConfigJson(const nlohmann::json& i_jsonObj);
+
+        /**
+         * @brief Validate sub-FRU JSON object for mandatory and optional fields
+         *
+         * This method validates a sub-FRU JSON object by calling both
+         * validateMandatoryTags and validateOptionalTags methods.
+         *
+         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
+         * @param[in] i_eepromPath - EEPROM path for error reporting
+         * @param[in] i_index - Sub-FRU index for error reporting
+         *
+         * @throw JsonException if validation fails
+         */
+        static void validateSubFruJson(const nlohmann::json& i_subFruJson,
+                                       const std::string& i_eepromPath,
+                                       size_t i_index);
+
+        /**
+         * @brief Validate mandatory tags in sub-FRU JSON object
+         *
+         * This method validates that all mandatory fields are present and
+         * have correct types.
+         *
+         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
+         * @param[in] i_eepromPath - EEPROM path for error reporting
+         * @param[in] i_index - Sub-FRU index for error reporting
+         *
+         * @throw JsonException if validation fails
+         */
+        static void validateMandatoryTags(const nlohmann::json& i_subFruJson,
+                                          const std::string& i_eepromPath,
+                                          size_t i_index);
+
+        /**
+         * @brief Validate optional tags in sub-FRU JSON object
+         *
+         * This method validates optional fields only if they are present
+         * in the JSON object.
+         *
+         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
+         * @param[in] i_eepromPath - EEPROM path for error reporting
+         * @param[in] i_index - Sub-FRU index for error reporting
+         *
+         * @throw JsonException if validation fails
+         */
+        static void validateOptionalTags(const nlohmann::json& i_subFruJson,
+                                         const std::string& i_eepromPath,
+                                         size_t i_index);
+    };
+
     /**
      * @brief API to build configuration maps
      *
