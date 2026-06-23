@@ -254,11 +254,6 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
 
             m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed");
 
-            /**Temp code */
-            m_logger->logMessage("Start updating expanded location code");
-            updateExpandedLocationCode();
-            /**Temp code ends*/
-
             updateVpdCollectionStatus(types::VpdCollectionStatus::Completed);
 
             if (m_backupAndRestoreObj)
@@ -1291,103 +1286,4 @@ void IbmHandler::updateVpdCollectionStatus(
     m_progressInterface->signal_property("Status");
 }
 
-/**Temp Code */
-void IbmHandler::updateExpandedLocationCode()
-{
-    // Get all the path published under PIM
-    auto l_objects = dbusUtility::GetSubTreePaths(constants::pimPath, 0,
-                                                  {constants::locationCodeInf});
-
-    // Set to hold absent chassis paths, so that we don't flood journal.
-    std::unordered_set<std::string> l_absentChassis;
-    std::string l_expandedLocCode;
-
-    for (const auto& l_inventoryPath : l_objects)
-    {
-        try
-        {
-            uint16_t l_errCode = 0;
-
-            if (l_inventoryPath.compare(constants::systemInvPath) ==
-                constants::VALUE_0)
-            {
-                l_expandedLocCode =
-                    vpdSpecificUtility::expandMtsLocationCode(l_errCode);
-                if (l_expandedLocCode.empty())
-                {
-                    if (l_errCode == error_code::DBUS_FAILURE ||
-                        l_errCode == error_code::INVALID_LOCATION_CODE_FORMAT)
-                    {
-                        m_logger->logMessage(std::format(
-                            "Failed to update location code for Inventory: {}. Reason {}. Skipping",
-                            l_inventoryPath,
-                            commonUtility::getErrCodeMsg(l_errCode)));
-                    }
-                    continue;
-                }
-            }
-            else
-            {
-                auto l_chassisString = vpdSpecificUtility::getChassisId(
-                    l_inventoryPath, l_errCode);
-                if (l_chassisString.empty())
-                {
-                    // Possible only for system VPD. Processed already.
-                    continue;
-                }
-
-                auto l_chassisPathForFru = std::format(
-                    "{}/{}", constants::systemVpdInvPath, l_chassisString);
-
-                // check if the chassis to which FRU belongs is present. If not
-                // skip processing.
-                if (!dbusUtility::isInventoryPresent(l_chassisPathForFru))
-                {
-                    if (l_absentChassis.insert(l_chassisPathForFru).second)
-                    {
-                        m_logger->logMessage(std::format(
-                            "Chassis {} not present. Skip location expansion.",
-                            l_chassisPathForFru));
-                    }
-                    continue;
-                }
-
-                l_expandedLocCode = vpdSpecificUtility::expandFcsLocationCode(
-                    l_chassisPathForFru, l_inventoryPath, l_errCode);
-                if (l_expandedLocCode.empty())
-                {
-                    if (l_errCode == error_code::DBUS_FAILURE ||
-                        l_errCode == error_code::INVALID_LOCATION_CODE_FORMAT)
-                    {
-                        m_logger->logMessage(std::format(
-                            "Failed to update location code for Inventory: {}. Reason {}. Skipping",
-                            l_inventoryPath,
-                            commonUtility::getErrCodeMsg(l_errCode)));
-                    }
-                    continue;
-                }
-            }
-        }
-        catch (const std::exception& l_ex)
-        {
-            std::cerr << "Location code expansion failed for path: " +
-                             l_inventoryPath + "reason: " + l_ex.what()
-                      << std::endl;
-            continue;
-        }
-
-        types::ObjectMap l_objectMap = {
-            {sdbusplus::object_path(l_inventoryPath),
-             {{constants::locationCodeInf,
-               {{"LocationCode", l_expandedLocCode}}}}}};
-
-        // Call dbus method to update on dbus
-        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
-        {
-            m_logger->logMessage(std::format(
-                "Dbus call to publish expanded location code for inventory path {} failed.",
-                l_inventoryPath));
-        }
-    }
-}
 } // namespace vpd

@@ -198,7 +198,7 @@ bool PrimeInventory::primeInventory(
     if (i_fruJsonObj.contains("extraInterfaces"))
     {
         populateInterfaces(i_fruJsonObj["extraInterfaces"], l_interfaces,
-                           std::monostate{});
+                           std::monostate{}, std::string(l_fruObjectPath));
     }
 
     vpd::types::PropertyMap l_propertyValueMap;
@@ -258,7 +258,8 @@ bool PrimeInventory::primeInventory(
 void PrimeInventory::populateInterfaces(
     const nlohmann::json& i_interfaceJson,
     vpd::types::InterfaceMap& io_interfaceMap,
-    const vpd::types::VPDMapVariant& i_parsedVpdMap) const noexcept
+    const vpd::types::VPDMapVariant& i_parsedVpdMap,
+    const std::string& i_inventoryPath) const noexcept
 {
     if (i_interfaceJson.empty())
     {
@@ -286,7 +287,8 @@ void PrimeInventory::populateInterfaces(
                 {
                     std::string l_value =
                         vpd::vpdSpecificUtility::getExpandedLocationCode(
-                            l_propValuePair.value().get<std::string>(),
+                            i_inventoryPath,
+			    l_propValuePair.value().get<std::string>(),
                             i_parsedVpdMap, l_errCode);
 
                     if (l_errCode)

@@ -159,7 +159,8 @@ void Worker::populateKwdVPDpropertyMap(const types::KeywordVpdMap& keyordVPDMap,
 
 void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                                 types::InterfaceMap& interfaceMap,
-                                const types::VPDMapVariant& parsedVpdMap)
+                                const types::VPDMapVariant& parsedVpdMap,
+				const std::string& i_inventoryPath)
 {
     for (const auto& interfacesPropPair : interfaceJson.items())
     {
@@ -182,7 +183,8 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                 {
                     std::string value =
                         vpdSpecificUtility::getExpandedLocationCode(
-                            propValuePair.value().get<std::string>(),
+                            i_inventoryPath,
+			    propValuePair.value().get<std::string>(),
                             parsedVpdMap, l_errCode);
 
                     if (l_errCode)
@@ -380,7 +382,13 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
                                     types::InterfaceMap& interfaces,
                                     const types::VPDMapVariant& parsedVpdMap)
 {
-    populateInterfaces(singleFru["extraInterfaces"], interfaces, parsedVpdMap);
+    std::string l_invPath;
+   
+    if (singleFru.contains("inventoryPath"))
+	  l_invPath  = singleFru["inventoryPath"];
+    
+    populateInterfaces(singleFru["extraInterfaces"], interfaces, parsedVpdMap, l_invPath);
+    
     if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
         if (singleFru["extraInterfaces"].contains(
@@ -435,7 +443,8 @@ void Worker::processCopyRecordFlag(const nlohmann::json& singleFru,
 }
 
 void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
-                                types::InterfaceMap& interfaces)
+                                types::InterfaceMap& interfaces,
+				const std::string& i_inventoryPath)
 {
     if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
@@ -453,7 +462,7 @@ void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
     if (m_parsedJson.contains("commonInterfaces"))
     {
         populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
-                           parsedVpdMap);
+                           parsedVpdMap, i_inventoryPath);
     }
 }
 
@@ -626,7 +635,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
 
             if (aFru.value("inherit", true))
             {
-                processInheritFlag(parsedVpdMap, interfaces);
+                processInheritFlag(parsedVpdMap, interfaces, inventoryPath);
             }
             else if (aFru.contains("copyRecords"))
             {
@@ -646,12 +655,12 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
                 m_parsedJson.contains("commonInterfaces"))
             {
                 populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
-                                   parsedVpdMap);
+                                   parsedVpdMap, inventoryPath);
             }
 
             if (aFru.contains("extraInterfaces"))
             {
-                // Process extra interfaces w.r.t a FRU.
+		// Process extra interfaces w.r.t a FRU.
                 processExtraInterfaces(aFru, interfaces, parsedVpdMap);
             }
 

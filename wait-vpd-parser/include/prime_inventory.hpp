@@ -72,11 +72,13 @@ class PrimeInventory
      * @param[in] i_interfaceJson - JSON containing interfaces to be populated.
      * @param[in,out] io_interfaceMap - Map to hold populated interfaces.
      * @param[in] i_parsedVpdMap - Parsed VPD as a map.
+     * @param[in] i_inventoryPath - inventory path.
      */
     void populateInterfaces(
         const nlohmann::json& i_interfaceJson,
         vpd::types::InterfaceMap& io_interfaceMap,
-        const vpd::types::VPDMapVariant& i_parsedVpdMap) const noexcept;
+        const vpd::types::VPDMapVariant& i_parsedVpdMap,
+        const std::string& i_inventoryPath) const noexcept;
 
     /**
      * @brief API to check if present property should be handled for given FRU.
