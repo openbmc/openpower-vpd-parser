@@ -365,15 +365,107 @@ void ConfigManager::JsonValidator::validateOptionalTags(
     const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
     size_t i_index)
 {
-    // TODO: Implement validation for optional tags
-    // - extraInterfaces (object)
-    // - preAction, postAction, postFailAction (objects)
-    // - copyRecords (array)
-    // - Boolean fields: isSystemVpd, replaceableAtStandby, etc.
-    // - String fields: redundantEeprom, cpuType, busType, etc.
-    // - Integer fields: offset, size
-    (void)i_subFruJson;
-    (void)i_eepromPath;
-    (void)i_index;
+    // Validate optional field: extraInterfaces (if present, must be an object)
+    if (i_subFruJson.contains("extraInterfaces") &&
+        !i_subFruJson["extraInterfaces"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'extraInterfaces' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "preAction" exists, validate it's an object
+    if (i_subFruJson.contains("preAction") &&
+        !i_subFruJson["preAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'preAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "postAction" exists, validate it's an object
+    if (i_subFruJson.contains("postAction") &&
+        !i_subFruJson["postAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'postAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "postFailAction" exists, validate it's an object
+    if (i_subFruJson.contains("postFailAction") &&
+        !i_subFruJson["postFailAction"].is_object())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'postFailAction' in sub-FRU at index {} in '{}' must be an object",
+            i_index, i_eepromPath)};
+    }
+
+    // If "copyRecords" exists, validate it's an array
+    if (i_subFruJson.contains("copyRecords") &&
+        !i_subFruJson["copyRecords"].is_array())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'copyRecords' in sub-FRU at index {} in '{}' must be an array",
+            i_index, i_eepromPath)};
+    }
+
+    // If boolean fields exist, validate they are boolean type
+    const std::vector<std::string> l_boolFields = {
+        "isSystemVpd",
+        "replaceableAtStandby",
+        "replaceableAtRuntime",
+        "pollingRequired",
+        "hotPlugging",
+        "concurrentlyMaintainable",
+        "powerOffOnly",
+        "embedded",
+        "synthesized",
+        "noprime",
+        "handlePresence",
+        "monitorPresence",
+        "essentialFru",
+        "readOnly",
+        "inherit"};
+
+    for (const auto& l_field : l_boolFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_boolean())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a boolean",
+                l_field, i_index, i_eepromPath)};
+        }
+    }
+
+    // If string fields exist, validate they are string type
+    const std::vector<std::string> l_stringFields = {
+        "redundantEeprom", "cpuType", "busType", "driverType", "devAddress"};
+
+    for (const auto& l_field : l_stringFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_string())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a string",
+                l_field, i_index, i_eepromPath)};
+        }
+    }
+
+    // If integer fields exist, validate they are number type
+    const std::vector<std::string> l_intFields = {"offset", "size"};
+
+    for (const auto& l_field : l_intFields)
+    {
+        if (i_subFruJson.contains(l_field) &&
+            !i_subFruJson[l_field].is_number_integer())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be an integer",
+                l_field, i_index, i_eepromPath)};
+        }
+    }
 }
 } // namespace vpd
