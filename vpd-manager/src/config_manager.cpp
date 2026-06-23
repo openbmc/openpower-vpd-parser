@@ -328,12 +328,37 @@ void ConfigManager::JsonValidator::validateMandatoryTags(
     const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
     size_t i_index)
 {
-    // TODO: Implement validation for mandatory tags
-    // - inventoryPath (string)
-    // - serviceName (string)
-    (void)i_subFruJson;
-    (void)i_eepromPath;
-    (void)i_index;
+    // Check for mandatory field: inventoryPath
+    if (!i_subFruJson.contains("inventoryPath"))
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'inventoryPath' field",
+            i_index, i_eepromPath)};
+    }
+
+    // Validate inventoryPath is a string
+    if (!i_subFruJson["inventoryPath"].is_string())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'inventoryPath' in sub-FRU at index {} in '{}' must be a string",
+            i_index, i_eepromPath)};
+    }
+
+    // Check for mandatory field: serviceName
+    if (!i_subFruJson.contains("serviceName"))
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'serviceName' field",
+            i_index, i_eepromPath)};
+    }
+
+    // Validate serviceName is a string
+    if (!i_subFruJson["serviceName"].is_string())
+    {
+        throw JsonException{std::format(
+            "JSON validation failed: 'serviceName' in sub-FRU at index {} in '{}' must be a string",
+            i_index, i_eepromPath)};
+    }
 }
 
 void ConfigManager::JsonValidator::validateOptionalTags(
