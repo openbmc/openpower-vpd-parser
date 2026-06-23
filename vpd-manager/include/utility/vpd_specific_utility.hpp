@@ -341,340 +341,6 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
     return l_rc;
 }
 
-/**
- * @brief API to expand unexpanded location code with ND/SC support.
- *
- * Supports: Ufcs-ND0-SCx, Ufcs-ND0-SCxx, Ufcs-ND0-NDx, Ufcs-ND0-NDxx (with
- * optional suffixes)
- *
- * @param[in] unexpandedLocationCode - Unexpanded location code.
- * @param[in] parsedVpdMap - Parsed VPD map.
- * @param[out] o_errCode - To set error code in case of error.
- * @return Expanded location code. In case of error, unexpanded is returned.
- */
-inline std::string getExpandedLocationCode(
-    const std::string& unexpandedLocationCode,
-    const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
-{
-    o_errCode = 0;
-    (void)unexpandedLocationCode;
-    (void)parsedVpdMap;
-#if 0
-    if (unexpandedLocationCode.empty())
-    {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return unexpandedLocationCode;
-    }
-    try
-    {
-        // Determine location code type and position
-        size_t pos = unexpandedLocationCode.find("fcs");
-        bool isFcs = (pos != std::string::npos);
-        if (!isFcs)
-        {
-            pos = unexpandedLocationCode.find("mts");
-            if (pos == std::string::npos)
-            {
-                o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
-                return unexpandedLocationCode;
-            }
-        }
-        // Set record and keyword parameters based on type
-        const std::string& recordName =
-            isFcs ? constants::recVCEN : constants::recVSYS;
-        const std::string& kwd1 = isFcs ? constants::kwdFC : constants::kwdTM;
-        const std::string& kwdInterface =
-            isFcs ? constants::vcenInf : constants::vsysInf;
-        const std::string kwd2 = constants::kwdSE;
-        // Retrieve keyword values
-        std::string firstKwdValue, secondKwdValue;
-        bool useDBus = true;
-        // Try to get from parsed VPD map first
-        if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
-        {
-            // Check if map is not empty and contains the required record
-            if (!ipzVpdMap->empty())
-            {
-                auto recordItr = ipzVpdMap->find(recordName);
-                if (recordItr != ipzVpdMap->end())
-                {
-                    // Map has the record, use it
-                    firstKwdValue =
-                        getKwVal(recordItr->second, kwd1, o_errCode);
-                    if (o_errCode != 0)
-                        return unexpandedLocationCode;
-                    secondKwdValue =
-                        getKwVal(recordItr->second, kwd2, o_errCode);
-                    if (o_errCode != 0)
-                        return unexpandedLocationCode;
-                    useDBus = false;
-                }
-            }
-        }
-        // Fallback to DBus if map is empty or doesn't have record
-        if (useDBus)
-        {
-            // TODO Start later to remove once main code is in
-            std::string dbusPath = std::string(constants::systemVpdInvPath);
-            if (recordName == constants::recVCEN)
-            {
-                // Extract chassis instance from location code (e.g., "07" from
-                // "Ufcs-N07-BD00-PM00")
-                size_t pos = unexpandedLocationCode.find("Ufcs-N");
-                if (pos != std::string::npos)
-                {
-                    // Extract 2 digits after "Ufcs-N"
-                    size_t digitPos = pos + 6; // Length of "Ufcs-N" is 6
-                    if (digitPos + 2 <= unexpandedLocationCode.length())
-                    {
-                        std::string chassisInstance =
-                            unexpandedLocationCode.substr(digitPos, 2);
-                        // Convert "00"-"09" to "0"-"9",
-                        // keep "10"-"99" as is
-                        if (chassisInstance[0] == '0')
-                        {
-                            // Remove leading zero
-                            chassisInstance = chassisInstance.substr(1);
-                        }
-                        dbusPath += "/chassis" + chassisInstance;
-                    }
-                }
-                else
-                {
-                    // Extract chassis instance from location code (e.g., "0"
-                    // from "Ufcs-SC0-BD00")
-                    size_t pos = unexpandedLocationCode.find("Ufcs-SC");
-                    if (pos != std::string::npos)
-                    {
-                        // Extract 1 digit after "Ufcs-SC"
-                        size_t digitPos = pos + 7; // Length of "Ufcs-SC" is 7
-                        if (digitPos + 1 <= unexpandedLocationCode.length())
-                        {
-                            std::string chassisInstance =
-                                unexpandedLocationCode.substr(digitPos, 1);
-                            dbusPath += "/chassis" + chassisInstance;
-                        }
-                    }
-                }
-            }
-            // TODO End
-            auto mapperRetValue =
-                dbusUtility::getObjectMap(dbusPath, {kwdInterface});
-            if (mapperRetValue.empty())
-            {
-                o_errCode = error_code::DBUS_FAILURE;
-                return unexpandedLocationCode;
-            }
-            const std::string& serviceName = std::get<0>(mapperRetValue[0]);
-            // Helper lambda to read and convert DBus property
-            auto readKwdValue = [&](const std::string& kwd) -> std::string {
-                auto retVal = dbusUtility::readDbusProperty(
-                    serviceName, std::string(constants::systemVpdInvPath),
-                    kwdInterface, kwd);
-                if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
-                {
-                    return std::string(
-                        reinterpret_cast<const char*>(kwdVal->data()),
-                        kwdVal->size());
-                }
-                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
-                return "";
-            };
-            firstKwdValue = readKwdValue(kwd1);
-            if (o_errCode != 0)
-                return unexpandedLocationCode;
-            secondKwdValue = readKwdValue(kwd2);
-            if (o_errCode != 0)
-                return unexpandedLocationCode;
-        }
-        // Build expanded location code
-        std::string expanded = unexpandedLocationCode;
-        if (isFcs)
-        {
-            // FCS: Must have -NDx, -NDxx, -SCx, or -SCxx pattern
-            std::string suffix = unexpandedLocationCode.substr(pos + 3);
-            std::regex nScPattern(R"(^-((N|SC)\d{1,2})(-.*)?)");
-            std::smatch match;
-            if (!std::regex_search(suffix, match, nScPattern))
-            {
-                o_errCode = error_code::INVALID_LOCATION_CODE_FORMAT;
-                return unexpandedLocationCode;
-            }
-            // Build: FC[0:4].Nxx.SE or FC[0:4].SCx.SE (+ optional suffix)
-            // Calculate replacement length: 3 (for "Ufc") + 1 (for "s") + 1
-            // (for "-")
-            // + match length
-            expanded.replace(pos, 4 + suffix.length(),
-                             firstKwdValue.substr(0, 4) + "." + match[1].str() +
-                                 "." + secondKwdValue + match[3].str());
-        }
-        else
-        {
-            // MTS: Replace dashes with dots in TM value
-            std::replace(firstKwdValue.begin(), firstKwdValue.end(), '-', '.');
-            expanded.replace(pos, 3, firstKwdValue + "." + secondKwdValue);
-        }
-        return expanded;
-    }
-    catch (const std::exception& ex)
-    {
-        o_errCode = error_code::STANDARD_EXCEPTION;
-        return unexpandedLocationCode;
-    }
-#endif
-    return unexpandedLocationCode;
-}
-
-#if 0
-/**
- * @brief API to expand unpanded location code.
- *
- * Note: The API handles all the exception internally, in case of any error
- * unexpanded location code will be returned as it is.
- *
- * @param[in] unexpandedLocationCode - Unexpanded location code.
- * @param[in] parsedVpdMap - Parsed VPD map.
- * @param[out] o_errCode - To set error code in case of error.
- * @return Expanded location code. In case of any error, unexpanded is returned
- * as it is.
- */
-inline std::string getExpandedLocationCode(
-    const std::string& unexpandedLocationCode,
-    const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
-{
-    o_errCode = 0;
-    if (unexpandedLocationCode.empty())
-    {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return unexpandedLocationCode;
-    }
-
-    auto expanded{unexpandedLocationCode};
-
-    try
-    {
-        // Expanded location code is formed by combining two keywords
-        // depending on type in unexpanded one. Second one is always "SE".
-        std::string kwd1, kwd2{constants::kwdSE};
-
-        // interface to search for required keywords;
-        std::string kwdInterface;
-
-        // record which holds the required keywords.
-        std::string recordName;
-
-        auto pos = unexpandedLocationCode.find("fcs");
-        if (pos != std::string::npos)
-        {
-            kwd1 = constants::kwdFC;
-            kwdInterface = constants::vcenInf;
-            recordName = constants::recVCEN;
-        }
-        else
-        {
-            pos = unexpandedLocationCode.find("mts");
-            if (pos != std::string::npos)
-            {
-                kwd1 = constants::kwdTM;
-                kwdInterface = constants::vsysInf;
-                recordName = constants::recVSYS;
-            }
-            else
-            {
-                o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
-                return expanded;
-            }
-        }
-
-        std::string firstKwdValue, secondKwdValue;
-
-        if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap);
-            ipzVpdMap && (*ipzVpdMap).find(recordName) != (*ipzVpdMap).end())
-        {
-            auto itrToVCEN = (*ipzVpdMap).find(recordName);
-            firstKwdValue = getKwVal(itrToVCEN->second, kwd1, o_errCode);
-            if (firstKwdValue.empty())
-            {
-                o_errCode = error_code::KEYWORD_NOT_FOUND;
-                return expanded;
-            }
-
-            secondKwdValue = getKwVal(itrToVCEN->second, kwd2, o_errCode);
-            if (secondKwdValue.empty())
-            {
-                o_errCode = error_code::KEYWORD_NOT_FOUND;
-                return expanded;
-            }
-        }
-        else
-        {
-            std::vector<std::string> interfaceList = {kwdInterface};
-
-            types::MapperGetObject mapperRetValue = dbusUtility::getObjectMap(
-                std::string(constants::systemVpdInvPath), interfaceList);
-
-            if (mapperRetValue.empty())
-            {
-                o_errCode = error_code::DBUS_FAILURE;
-                return expanded;
-            }
-
-            const std::string& serviceName = std::get<0>(mapperRetValue.at(0));
-
-            auto retVal = dbusUtility::readDbusProperty(
-                serviceName, std::string(constants::systemVpdInvPath),
-                kwdInterface, kwd1);
-
-            if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
-            {
-                firstKwdValue.assign(
-                    reinterpret_cast<const char*>(kwdVal->data()),
-                    kwdVal->size());
-            }
-            else
-            {
-                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
-                return expanded;
-            }
-
-            retVal = dbusUtility::readDbusProperty(
-                serviceName, std::string(constants::systemVpdInvPath),
-                kwdInterface, kwd2);
-
-            if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
-            {
-                secondKwdValue.assign(
-                    reinterpret_cast<const char*>(kwdVal->data()),
-                    kwdVal->size());
-            }
-            else
-            {
-                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
-                return expanded;
-            }
-        }
-
-        if (unexpandedLocationCode.find("fcs") != std::string::npos)
-        {
-            // TODO: See if ND0 can be placed in the JSON
-            expanded.replace(
-                pos, 3, firstKwdValue.substr(0, 4) + ".ND0." + secondKwdValue);
-        }
-        else
-        {
-            replace(firstKwdValue.begin(), firstKwdValue.end(), '-', '.');
-            expanded.replace(pos, 3, firstKwdValue + "." + secondKwdValue);
-        }
-    }
-    catch (const std::exception& ex)
-    {
-        o_errCode = error_code::STANDARD_EXCEPTION;
-    }
-
-    return expanded;
-}
-
-#endif
 
 /**
  * @brief An API to get VPD in a vector.
@@ -1841,175 +1507,301 @@ inline std::string getChassisId(const std::string& i_inventoryObjPath,
     }
 }
 
-// Temporary code. Replace once actual implementation gets in to process
-// chassis.
-/**
- * @brief Expands an FCS (Feature Card/Serial) location code.
+/*
+ * @brief API to find the Keywords value in VPD map.
+ * 
+ * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[in] l_recordName - Record name for those keywords.
+ * @param[in] l_kwd1 - Keyword1 to read.
+ * @param[in] l_kwd2 - Keyword2 to read.
  *
- * Replaces the "fcs" placeholder with FC keyword (first 4 chars),
- * chassis/node identifier, and serial number from VCEN record.
- *
- * @param[in] i_chassisObjPath - Obj path of chassis which holds the inventory.
- * @param[in] i_inventoryPath - Inventory path of a FRU.
- * @param[out] o_errCode - Error code, 0 on success.
- * @return Expanded location code string.
+ * @return Values of 2 keywords. In case of error, returns empty.
  */
-inline std::string expandFcsLocationCode(const std::string& i_chassisObjPath,
-                                         const std::string& i_inventoryPath,
-                                         uint16_t& o_errCode) noexcept
+inline std::pair<std::string, std::string> getDataFromVPDMap(
+    const types::VPDMapVariant& i_parsedVpdMap,
+    const std::string& l_recordName,
+    const std::string& l_kwd1,
+    const std::string& l_kwd2)
 {
-    o_errCode = 0;
-
-    if (i_chassisObjPath.empty() || i_inventoryPath.empty())
+    std::string l_firstKwdValue, l_secondKwdValue;
+    const auto l_logger = Logger::getLoggerInstance();
+    
+    if (const auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return std::string{};
-    }
-
-    const auto& l_retValue = dbusUtility::readDbusProperty(
-        constants::pimServiceName, i_inventoryPath, constants::locationCodeInf,
-        "LocationCode");
-
-    auto l_locCode = std::get_if<std::string>(&l_retValue);
-    if (l_locCode == nullptr)
-    {
-        /**If failed, return empty string. So the caller will not update Dbus
-         * and Dbus will continue to have what it already has.*/
-        o_errCode = error_code::DBUS_FAILURE;
-        return std::string{};
-    }
-
-    // Need to address the situation where these keywords are updated via
-    // VPD-Tool update on hardware command. In that case VPD will get updated in
-    // next boot but location code will not as this check will return the
-    // execution from here itself.
-    size_t l_pos = l_locCode->find("fcs");
-    if (l_pos == std::string::npos)
-    {
-        // Implies location code is already expanded.
-        return *l_locCode;
-    }
-
-    auto readKwdValue = [&](const std::string& kwd) -> std::string {
-        auto retVal = dbusUtility::readDbusProperty(
-            constants::pimServiceName, i_chassisObjPath, constants::vcenInf,
-            kwd);
-        if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
+        if (auto recordItr = ipzVpdMap->find(l_recordName);
+            recordItr != ipzVpdMap->end())
         {
-            return std::string(reinterpret_cast<const char*>(kwdVal->data()),
-                               kwdVal->size());
+            uint16_t l_tempErrCode = 0;
+            l_firstKwdValue = getKwVal(recordItr->second, l_kwd1, l_tempErrCode);
+            
+            // Check error after first keyword read
+            if (l_tempErrCode != 0)
+            {
+                l_logger->logMessage(std::format(
+                    "Error reading keyword {} from VPD map, error code: {}", 
+                    l_kwd1, l_tempErrCode));
+                return {"", ""};
+            }
+            
+            l_tempErrCode = 0;
+            l_secondKwdValue = getKwVal(recordItr->second, l_kwd2, l_tempErrCode);
+            
+            // Check error after second keyword read
+            if (l_tempErrCode != 0)
+            {
+                l_logger->logMessage(std::format(
+                    "Error reading keyword {} from VPD map, error code: {}", 
+                    l_kwd2, l_tempErrCode));
+                return {"", ""};
+            }
+            
+            if (l_firstKwdValue.empty() || l_secondKwdValue.empty())
+            {
+                l_logger->logMessage(
+                    std::format("Keyword1: {}, value: {}. Keyword2: {}, value: {}",
+                               l_kwd1, l_firstKwdValue, l_kwd2, l_secondKwdValue));
+            }
         }
-        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
-        return std::string{};
-    };
-
-    const std::string l_fcKwdValue = readKwdValue(constants::kwdFC);
-    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
-    {
-        Logger::getLoggerInstance()->logMessage(
-            std::format("Failed to read kwd {} for path {}.", constants::kwdFC,
-                        i_inventoryPath));
-        return std::string{};
     }
-
-    const std::string l_seKwdValue = readKwdValue(constants::kwdSE);
-    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
-    {
-        Logger::getLoggerInstance()->logMessage(
-            std::format("Failed to read kwd {} for path {}.", constants::kwdSE,
-                        i_inventoryPath));
-        return std::string{};
-    }
-
-    // Build expanded FCS location code
-    std::string l_suffix = l_locCode->substr(l_pos + 3);
-    // Regex to match chassis/node identifier patterns in FCS location codes:
-    // -Nx, -Nxx (node), -SCx, -SCxx, optionally followed by
-    // additional segments
-    std::regex l_nScPattern(R"(^-((ND?|SC)\d{1,2})(-.*)?)");
-
-    std::smatch l_match;
-    if (!std::regex_search(l_suffix, l_match, l_nScPattern))
-    {
-        o_errCode = error_code::INVALID_LOCATION_CODE_FORMAT;
-        return std::string{};
-    }
-
-    std::string l_expanded = *l_locCode;
-    return l_expanded.replace(
-        l_pos, 4 + l_suffix.length(),
-        l_fcKwdValue.substr(0, 4) + "." + l_match[1].str() + "." +
-            l_seKwdValue + l_match[3].str());
+    
+    return {l_firstKwdValue, l_secondKwdValue};
 }
 
 /**
- * @brief Expands an MTS (Machine Type/Serial) location code.
+ * @brief API to read the Keywords value from Dbus.
+ * 
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] isFcs - Is this FCS or MTS Location code.
+ * @param[in] l_kwdInterface - Interface based on LocationCode type.
+ * @param[in] l_kwd1 - Keyword1 to read.
+ * @param[in] l_kwd2 - Keyword2 to read.
+ * @param[out] o_errCode - To set error code in case of error.
  *
- * Replaces the "mts" placeholder with TM keyword (dashes replaced by dots)
- * and serial number from VSYS record.
- * This is limited to system VPD path.
- *
- * @param[out] o_errCode - Error code, 0 on success.
- * @return Expanded location code string. Empty string on error.
+ * @return Values of 2 keywords. In case of error, returns empty.
  */
-inline std::string expandMtsLocationCode(uint16_t& o_errCode)
+inline std::pair<std::string, std::string> getDataFromDbus(
+    const std::string& i_inventoryPath,
+    bool isFcs,
+    const std::string& l_kwdInterface,
+    const std::string& l_kwd1,
+    const std::string& l_kwd2,
+    uint16_t& o_errCode)
+{
+    const auto l_logger = Logger::getLoggerInstance();
+    uint16_t l_errorCode = 0;
+    std::string l_invPath;
+    
+    if (i_inventoryPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return {"", ""};
+    }
+    
+    if (isFcs)
+    {
+        const auto l_chassisId = getChassisId(i_inventoryPath, l_errorCode);
+        if (l_chassisId.empty() && l_errorCode)
+        {
+            return {"", ""};
+        }
+        
+        l_invPath = std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+        
+        if (!dbusUtility::isInventoryPresent(l_invPath))
+        {
+            l_logger->logMessage(std::format(
+                "Chassis {} not present. Skip location expansion.", l_invPath));
+            return {"", ""};
+        }
+    }
+    else
+    {
+        l_invPath = constants::systemVpdInvPath;
+    }
+    
+    const auto l_mapperRetValue =
+        dbusUtility::getObjectMap(l_invPath, {l_kwdInterface});
+    
+    if (l_mapperRetValue.empty())
+    {
+        o_errCode = error_code::DBUS_FAILURE;
+        return {"", ""};
+    }
+    
+    const std::string& l_serviceName = l_mapperRetValue.begin()->first;
+    
+    // Helper lambda to read and convert DBus property - DRY principle
+    auto readKwdValue = [&](const std::string& i_kwd) -> std::string {
+        auto l_retVal = dbusUtility::readDbusProperty(
+            l_serviceName, l_invPath, l_kwdInterface, i_kwd);
+        
+        if (const auto l_kwdVal = std::get_if<types::BinaryVector>(&l_retVal))
+        {
+            return std::string(
+                reinterpret_cast<const char*>(l_kwdVal->data()),
+                l_kwdVal->size());
+        }
+        
+        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+        l_logger->logMessage(std::format("Failed to read kwd {} from Dbus", i_kwd));
+        return "";
+    };
+    
+    // Read both keywords using the same lambda - eliminates duplicate code
+    std::string l_firstKwdValue = readKwdValue(l_kwd1);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return {"", ""};
+    }
+    
+    std::string l_secondKwdValue = readKwdValue(l_kwd2);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return {"", ""};
+    }
+    
+    return {l_firstKwdValue, l_secondKwdValue};
+}
+
+/**
+ * @brief API to expand unexpanded location code
+ * 
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return Expanded location code. In case of error, unexpanded is returned.
+ */
+inline std::string getExpandedLocationCode(
+    const std::string& i_inventoryPath,
+    const std::string& i_unexpandedLocationCode,
+    const types::VPDMapVariant& i_parsedVpdMap,
+    uint16_t& o_errCode)
 {
     o_errCode = 0;
-
-    const auto& l_retValue = dbusUtility::readDbusProperty(
-        constants::pimServiceName, constants::systemInvPath,
-        constants::locationCodeInf, "LocationCode");
-
-    auto l_locCode = std::get_if<std::string>(&l_retValue);
-    if (l_locCode == nullptr)
+    const auto l_logger = Logger::getLoggerInstance();
+    
+    if (i_unexpandedLocationCode.empty())
     {
-        /**If failed, return empty string. So the caller will not update Dbus
-         * and Dbus will continue to have what it already has.*/
-        o_errCode = error_code::DBUS_FAILURE;
-        return std::string{};
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return i_unexpandedLocationCode;
     }
-
-    size_t l_pos = l_locCode->find("mts");
-    if (l_pos == std::string::npos)
+    
+    try
     {
-        // Implies location code is already expanded.
-        return *l_locCode;
-    }
-
-    auto readKwdValue = [&](const std::string& kwd) -> std::string {
-        auto retVal = dbusUtility::readDbusProperty(
-            constants::pimServiceName, constants::systemVpdInvPath,
-            constants::vsysInf, kwd);
-        if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
+        // Determine location code type and position
+        size_t pos = i_unexpandedLocationCode.find("fcs");
+        bool isFcs = (pos != std::string::npos);
+        
+        if (!isFcs)
         {
-            return std::string(reinterpret_cast<const char*>(kwdVal->data()),
-                               kwdVal->size());
+            pos = i_unexpandedLocationCode.find("mts");
+            if (pos == std::string::npos)
+            {
+                o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
+                return i_unexpandedLocationCode;
+            }
         }
-        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
-        return std::string{};
-    };
+        
+        // Set record and keyword parameters based on type
+        const std::string& l_recordName = isFcs ? constants::recVCEN : constants::recVSYS;
+        const std::string& l_kwd1 = isFcs ? constants::kwdFC : constants::kwdTM;
+        const std::string& l_kwdInterface = isFcs ? constants::vcenInf : constants::vsysInf;
+        const std::string l_kwd2 = constants::kwdSE;
+        
+        std::string l_firstKwdValue, l_secondKwdValue;
+        bool l_useDBus = true;
+        
+        // Try to get from parsed VPD map first
+        std::tie(l_firstKwdValue, l_secondKwdValue) = 
+            getDataFromVPDMap(i_parsedVpdMap, l_recordName, l_kwd1, l_kwd2);
+        
+        if (!l_firstKwdValue.empty() && !l_secondKwdValue.empty())
+        {
+            l_useDBus = false;
+        }
+        
+        // Fallback to DBus if map is empty or doesn't have record
+        if (l_useDBus)
+        {
+            std::tie(l_firstKwdValue, l_secondKwdValue) = 
+                getDataFromDbus(i_inventoryPath, isFcs, l_kwdInterface, 
+                               l_kwd1, l_kwd2, o_errCode);
+            
+            if (o_errCode != 0 || l_firstKwdValue.empty() || l_secondKwdValue.empty())
+            {
+                return i_unexpandedLocationCode;
+            }
+        }
+        
+        // Validate l_firstKwdValue length before substr operation
+        if (isFcs && l_firstKwdValue.size() < 4)
+        {
+            l_logger->logMessage(std::format(
+                "FC keyword value '{}' is too short (expected at least 4 characters)", 
+                l_firstKwdValue));
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return i_unexpandedLocationCode;
+        }
+        
+        // Build expanded location code
+        std::string l_expandedLC = i_unexpandedLocationCode;
+        if (isFcs)
+        {
+            std::string l_suffix =
+		    i_unexpandedLocationCode.substr(pos +
+				                    constants::LOCATION_CODE_PREFIX_LENGTH);
 
-    std::string l_tmKwdValue = readKwdValue(constants::kwdTM);
-    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
-    {
-        Logger::getLoggerInstance()->logMessage(std::format(
-            "Failed to read kwd {} for system VPD path.", constants::kwdTM));
-        return std::string{};
+            if (l_suffix.empty())
+            {
+                l_expandedLC.replace(pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                                     l_firstKwdValue.substr(constants::FIRST_POSITION,
+					                    constants::FC_KEYWORD_FIRST_4_BYTE) +
+                                     "." + l_secondKwdValue);
+            }
+            else if (!l_suffix.empty() && l_suffix[constants::FIRST_POSITION] == '-')
+            {
+                //TODO:Temp code till Json has NDx, SCx. remove below code
+                // Static regex for better performance - compiled once
+                static const std::regex nScPattern(R"(^-((ND?\d{1,2}|SC\d{1,2}))(-.*)?)");
+                std::smatch match;
+                
+                if (std::regex_search(l_suffix, match, nScPattern))
+                {
+                    // Build: FC[0:4].Nxx.SE + remaining l_suffix
+                    l_expandedLC.replace(pos,
+				         constants::LOCATION_CODE_PREFIX_LENGTH + l_suffix.length(),
+                                         l_firstKwdValue.substr(constants::FIRST_POSITION,
+                                                                constants::FC_KEYWORD_FIRST_4_BYTE) +
+                                         "." + match[1].str() + "." +
+                                         l_secondKwdValue + match[3].str());
+                }
+                else
+                {
+                    l_expandedLC.replace(pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                                         l_firstKwdValue.substr(constants::FIRST_POSITION,
+                                                                constants::FC_KEYWORD_FIRST_4_BYTE) +
+                                         "." + l_secondKwdValue);
+                }
+            }
+        }
+        else
+        {
+            // MTS: Replace dashes with dots in TM value
+            std::replace(l_firstKwdValue.begin(), l_firstKwdValue.end(), '-', '.');
+            l_expandedLC.replace(pos, constants::LOCATION_CODE_PREFIX_LENGTH, l_firstKwdValue + "." + l_secondKwdValue);
+        }
+        
+        return l_expandedLC;
     }
-
-    std::string l_seKwdValue = readKwdValue(constants::kwdSE);
-    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    catch (const std::exception& l_ex)
     {
-        Logger::getLoggerInstance()->logMessage(std::format(
-            "Failed to read kwd {} for system VPD path.", constants::kwdSE));
-        return std::string{};
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        l_logger->logMessage(std::format(
+            "getExpandedLocationCode failed. Reason: {}", l_ex.what()));
+        return i_unexpandedLocationCode;
     }
-
-    // Build expanded MTS location code
-    std::replace(l_tmKwdValue.begin(), l_tmKwdValue.end(), '-', '.');
-
-    std::string l_expanded = *l_locCode;
-    return l_expanded.replace(l_pos, 3, l_tmKwdValue + "." + l_seKwdValue);
 }
 
 /**

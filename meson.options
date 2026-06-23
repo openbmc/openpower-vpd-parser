@@ -44,7 +44,7 @@ option(
 option(
     'SYSTEM_VPD_FILE_PATH',
     type: 'string',
-    value: '/sys/bus/i2c/drivers/at24/8-0050/eeprom',
+    value: '/sys/bus/i2c/drivers/at24/8-0053/eeprom',
     description: 'EEPROM path of system VPD.',
 )
 option(
