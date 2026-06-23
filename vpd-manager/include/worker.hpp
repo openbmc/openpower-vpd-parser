@@ -292,9 +292,11 @@ class Worker
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] interfaces - Map to hold interface along with its
      * properties.
+     * @param[in] i_inventoryPath - inventory path.
      */
     void processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
-                            types::InterfaceMap& interfaces);
+                            types::InterfaceMap& interfaces,
+                            const std::string& i_inventoryPath);
 
     /**
      * @brief API to process json's "copyRecord" flag.
@@ -336,10 +338,12 @@ class Worker
      * @param[in] interfaceJson - JSON containing interfaces to be populated.
      * @param[out] interfaceMap - Map to hold populated interfaces.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
+     * @param[in] i_inventoryPath - inventory Path.
      */
     void populateInterfaces(const nlohmann::json& interfaceJson,
                             types::InterfaceMap& interfaceMap,
-                            const types::VPDMapVariant& parsedVpdMap);
+                            const types::VPDMapVariant& parsedVpdMap,
+                            const std::string& i_inventoryPath);
 
     /**
      * @brief Check if the given CPU is an IO only chip.
