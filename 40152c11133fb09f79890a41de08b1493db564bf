@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4204a74_028f421a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:50:06Z",
+      "side": 1,
+      "message": "We already have an API getInventoryObjPathFromJson in json Utility. why a new API is required here",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b91477a5_ac860d0c",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
