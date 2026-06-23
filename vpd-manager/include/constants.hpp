@@ -249,6 +249,9 @@ static constexpr auto power_vs_50003_json =
 static constexpr auto power_vs_50001_json =
     "/usr/share/vpd/50001_power_vs.json";
 
+static constexpr auto fcsTypeLc = "fcs";
+static constexpr auto mtsTypeLc = "mts";
+
 static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
