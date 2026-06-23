@@ -50,6 +50,7 @@ test_sources = [
     '../vpd-manager/src/ipz_parser.cpp',
     '../vpd-manager/src/keyword_vpd_parser.cpp',
     '../vpdecc/vpdecc.c',
+    '../vpd-manager/src/config_manager.cpp',
 ]
 
 tests = [
@@ -58,6 +59,7 @@ tests = [
     'utest_ddimm_parser.cpp',
     'utest_ipz_parser.cpp',
     'utest_json_utility.cpp',
+    'utest_config_manager_validator.cpp',
 ]
 
 foreach test_file : tests
