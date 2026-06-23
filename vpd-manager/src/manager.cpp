@@ -189,12 +189,9 @@ Manager::Manager(
         m_gpioMonitor =
             std::make_shared<GpioMonitor>(m_configManager, m_ioContext);
 
-#if 0
         // Initialize thread manager
-        m_threadManager =
-            std::make_unique<ThreadManager>(m_configManager,
-            m_progressInterface);
-#endif
+        m_threadManager = std::make_unique<ThreadManager>(m_configManager,
+                                                          m_progressInterface);
     }
     catch (const std::exception& l_ex)
     {
