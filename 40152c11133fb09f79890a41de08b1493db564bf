@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b90848_2ff6f044",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "nit: detailed",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91477a5_ac860d0c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "Need to handle the present property in the failed case also.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40362fd6_83084e86",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "We already have logs in the utility APIs for the failed tags, do we need the log here again, it will be duplicate.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f94aeab_e48676db",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "Do we need this informational logs? this will flood the journal",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fefec439_b5d2417d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "Do we need this informational logs? this will flood the journal",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e72ecf0_fadd39bb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "Do we need this informational logs? this will flood the journal.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20697a00_65db29f8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-23T08:19:47Z",
+      "side": 1,
+      "message": "Do we need this informational logs? this will flood the journal",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
