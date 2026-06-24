@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5b57f07_4872df60",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T07:09:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2814ea13_e9072ad8",
+      "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "150cb3ca_9110c95f",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "will be required in subsequent comment to get the FRU count",
       "parentUuid": "150cb3ca_9110c95f",
+      "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53283ea_30ebe989",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T07:09:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "45c67823_c2c38a6c",
       "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
