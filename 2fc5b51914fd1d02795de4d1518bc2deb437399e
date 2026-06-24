@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4161f465_2323ec01",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T06:25:41Z",
+      "side": 1,
+      "message": "What does this `@throw` signify? If the constructor can throw, it should be specified there.",
+      "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d421a59_c21ff592",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T06:25:41Z",
+      "side": 1,
+      "message": "What if the passed `m_chassisJson` object doesn\u0027t have \"frus\" tag?",
+      "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150cb3ca_9110c95f",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T06:25:41Z",
+      "side": 1,
+      "message": "Is the `l_chassisJson` variable required? It\u0027s only used in one place.",
+      "revId": "2fc5b51914fd1d02795de4d1518bc2deb437399e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
