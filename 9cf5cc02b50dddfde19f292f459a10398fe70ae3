@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a386fb4_cc61e8a6",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-24T08:41:45Z",
+      "side": 1,
+      "message": "`updatePresenceTagOutput` and `updateNonPresenceTagOutput` methods are both updating fields of struct BaseActionResult. Given that these two methods have the  purpose of updating the data members of BaseActionResult . Should we encapsulate these two methods in struct BaseActionResult itself?\n\nCaller can then call l_baseActionResult.updatePresenceTagOutput()  for example.",
+      "revId": "9cf5cc02b50dddfde19f292f459a10398fe70ae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
