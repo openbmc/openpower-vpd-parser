@@ -69,6 +69,24 @@
       "parentUuid": "e1b03d75_deb1186f",
       "revId": "5f10fc012bbaa92e4cfeea758546d459a06d3901",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fad8cc_2ac0992f",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-25T16:44:45Z",
+      "side": 1,
+      "message": "What it has to do with D-Bus connection?\nWhy the flow needs to wait for the PEL code to return? The flow further does not depend on that.",
+      "parentUuid": "04f58621_792471d6",
+      "revId": "5f10fc012bbaa92e4cfeea758546d459a06d3901",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
