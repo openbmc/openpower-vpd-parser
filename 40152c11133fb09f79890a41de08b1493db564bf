@@ -37,6 +37,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ebb567c_a7b70654",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-25T17:09:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e4204a74_028f421a",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "561aa6e4_806182ae",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-25T17:09:56Z",
+      "side": 1,
+      "message": "The code should make use of \"executeBaseAction\" so ideally the executeBaseAction_new needs to be renamed and old one needs to be deprecated.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b91477a5_ac860d0c",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -65,6 +100,46 @@
       "writtenOn": "2026-06-23T08:19:47Z",
       "side": 1,
       "message": "We already have logs in the utility APIs for the failed tags, do we need the log here again, it will be duplicate.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49e4d80a_30d41a5b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-25T17:09:56Z",
+      "side": 1,
+      "message": "Pre action failed for...",
+      "range": {
+        "startLine": 758,
+        "startChar": 17,
+        "endLine": 758,
+        "endChar": 35
+      },
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb201122_39482404",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-25T17:09:56Z",
+      "side": 1,
+      "message": "Do we need this assignment?",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
