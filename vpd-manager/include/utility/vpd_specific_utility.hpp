@@ -1144,6 +1144,8 @@ inline bool isPowerVsImage()
  * @param[in] i_sysCfgJsonObj - System config JSON.
  * @param[out] o_errCode - To set error code in case of error.
  *
+ * @throw nlohmann::json::out_of_range if "inventoryPath" key is missing from
+ * a FRU entry in the JSON.
  */
 inline void updateKwdOnInheritedFrus(
     const std::string& i_fruPath,
@@ -1194,7 +1196,7 @@ inline void updateKwdOnInheritedFrus(
                 if (l_Fru.value("inherit", true))
                 {
                     l_objectInterfaceMap.emplace(
-                        sdbusplus::object_path{l_Fru["inventoryPath"]},
+                        sdbusplus::object_path{l_Fru.value("inventoryPath", "")},
                         types::InterfaceMap{
                             {std::string{constants::ipzVpdInf +
                                          std::get<0>(*l_ipzData)},
@@ -1594,6 +1596,9 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
  * @param[in] i_value - State to set.
  * @param[in] i_sysCfgJsonObj - System config json object.
  * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @throw nlohmann::json::out_of_range if "inventoryPath" key is missing from
+ * a FRU entry in the JSON.
  */
 inline void setCollectionStatusProperty(
     const std::string& i_vpdPath, const types::VpdCollectionStatus& i_value,
@@ -1642,9 +1647,9 @@ inline void setCollectionStatusProperty(
         return;
     }
 
-    for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
+    for (const auto& l_Fru : i_sysCfgJsonObj["frus"].at(l_eepromPath))
     {
-        sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
+        sdbusplus::object_path l_fruObjectPath(l_Fru.value("inventoryPath", ""));
 
         types::PropertyMap l_propertyValueMap;
         l_propertyValueMap.emplace(
