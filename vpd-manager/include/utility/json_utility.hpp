@@ -292,6 +292,8 @@ inline bool executePostFailAction(
  * tag has been called.
  * @param[out] o_errCode - To set error code in case of error.
  * @return Execution status.
+ *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
  */
 inline bool processSystemCmdTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
@@ -308,8 +310,8 @@ inline bool processSystemCmdTag(
 
     try
     {
-        if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                   0)[i_baseAction][i_flagToProcess]["systemCmd"])
+        if (!((i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                   0).at(i_baseAction).at(i_flagToProcess).at("systemCmd"))
                   .contains("cmd")))
         {
             o_errCode = error_code::MISSING_FLAG;
@@ -317,8 +319,8 @@ inline bool processSystemCmdTag(
         }
 
         const std::string& l_systemCommand =
-            i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
+            i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                0).at(i_baseAction).at(i_flagToProcess).at("systemCmd").at("cmd");
 
         commonUtility::executeCmd(l_systemCommand, o_errCode);
     }
@@ -343,6 +345,8 @@ inline bool processSystemCmdTag(
  * tag has been called.
  * @param[out] o_errCode - To set error code in case of error
  * @return Execution status.
+ *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
  */
 inline bool processGpioPresenceTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
@@ -360,11 +364,11 @@ inline bool processGpioPresenceTag(
             return false;
         }
 
-        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+        if (!(((i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                    0).at(i_baseAction).at(i_flagToProcess).at("gpioPresence"))
                    .contains("pin")) &&
-              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+              ((i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                    0).at(i_baseAction).at(i_flagToProcess).at("gpioPresence"))
                    .contains("value"))))
         {
             o_errCode = error_code::JSON_MISSING_GPIO_INFO;
@@ -372,13 +376,13 @@ inline bool processGpioPresenceTag(
         }
 
         // get the pin name
-        l_presencePinName = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["gpioPresence"]["pin"];
+        l_presencePinName = i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+            0).at(i_baseAction).at(i_flagToProcess).at("gpioPresence").at("pin");
 
         // get the pin value
         uint8_t l_presencePinValue =
-            i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["gpioPresence"]["value"];
+            i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                0).at(i_baseAction).at(i_flagToProcess).at("gpioPresence").at("value");
 
         gpiod::line l_presenceLine = gpiod::find_line(l_presencePinName);
 
@@ -450,6 +454,8 @@ inline bool processGpioPresenceTag(
  * tag has been called.
  * @param[out] o_errCode - To set error code in case of error
  * @return Execution status.
+ *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
  */
 inline bool procesSetGpioTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
@@ -467,23 +473,23 @@ inline bool procesSetGpioTag(
             return false;
         }
 
-        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+        if (!(((i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                    0).at(i_baseAction).at(i_flagToProcess).at("setGpio"))
                    .contains("pin")) &&
-              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+              ((i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+                    0).at(i_baseAction).at(i_flagToProcess).at("setGpio"))
                    .contains("value"))))
         {
             o_errCode = error_code::JSON_MISSING_GPIO_INFO;
             return false;
         }
 
-        l_pinName = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["setGpio"]["pin"];
+        l_pinName = i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+            0).at(i_baseAction).at(i_flagToProcess).at("setGpio").at("pin");
 
         // Get the value to set
-        uint8_t l_pinValue = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
+        uint8_t l_pinValue = i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+            0).at(i_baseAction).at(i_flagToProcess).at("setGpio").at("value");
 
         logging::logMessage(
             "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
@@ -546,6 +552,8 @@ namespace
  * @param[out] o_errCode - Error code set in case of validation errors
  *
  * @return true if validation passes, false otherwise
+ *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
  */
 inline bool validateBaseActionInputs(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
@@ -567,13 +575,13 @@ inline bool validateBaseActionInputs(
         return false;
     }
 
-    if (!i_parsedConfigJson["frus"][i_fruPath].at(0).contains(i_action))
+    if (!i_parsedConfigJson["frus"].at(i_fruPath).at(0).contains(i_action))
     {
         o_errCode = error_code::MISSING_ACTION_TAG;
         return false;
     }
 
-    if (!(i_parsedConfigJson["frus"][i_fruPath].at(0))[i_action].contains(
+    if (!(i_parsedConfigJson["frus"].at(i_fruPath).at(0)).at(i_action).contains(
             i_flagToProcess))
     {
         o_errCode = error_code::MISSING_FLAG;
@@ -666,6 +674,8 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
 /**
  * @brief Process base action with error reporting and presence detection.
  *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
+ *
  * This is an enhanced version of executeBaseAction that provides detailed
  * information about tag execution failures and GPIO presence detection results.
  *
@@ -721,8 +731,8 @@ inline types::BaseActionResult executeBaseAction_new(
     }
 
     const nlohmann::json& l_tagsJson =
-        (i_parsedConfigJson["frus"][i_fruPath].at(
-            0))[i_action][i_flagToProcess];
+        (i_parsedConfigJson["frus"].at(i_fruPath).at(
+            0)).at(i_action).at(i_flagToProcess);
 
     // Flag to track if gpio presence has been processed.
     bool l_gpioPresenceProcessed = false;
@@ -800,6 +810,8 @@ inline types::BaseActionResult executeBaseAction_new(
  * under PreAction tag of config JSON.
  * @param[out] o_errCode - To set error code in case of error.
  * @return - success or failure
+ *
+ * @throw nlohmann::json::out_of_range if a required JSON key is missing.
  */
 inline bool executeBaseAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
@@ -818,13 +830,13 @@ inline bool executeBaseAction(
         o_errCode = error_code::FILE_NOT_FOUND;
         return false;
     }
-    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
+    if (!i_parsedConfigJson["frus"].at(i_vpdFilePath).at(0).contains(i_action))
     {
         o_errCode = error_code::MISSING_ACTION_TAG;
         return false;
     }
 
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
+    if (!(i_parsedConfigJson["frus"].at(i_vpdFilePath).at(0)).at(i_action).contains(
             i_flagToProcess))
     {
         o_errCode = error_code::MISSING_FLAG;
@@ -832,8 +844,8 @@ inline bool executeBaseAction(
     }
 
     const nlohmann::json& l_tagsJson =
-        (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0))[i_action][i_flagToProcess];
+        (i_parsedConfigJson["frus"].at(i_vpdFilePath).at(
+            0)).at(i_action).at(i_flagToProcess);
 
     for (const auto& l_tag : l_tagsJson.items())
     {
@@ -1262,7 +1274,8 @@ inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
     {
         for (const auto& l_inventoryItem : l_frus.value())
         {
-            if (l_inventoryPath.compare(l_inventoryItem["inventoryPath"]) ==
+            if (l_inventoryPath.compare(
+                    l_inventoryItem.value("inventoryPath", "")) ==
                 constants::STR_CMP_SUCCESS)
             {
                 if (l_inventoryItem.contains("serviceName"))
