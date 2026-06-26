@@ -20,6 +20,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3722e475_dd98dc3e",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "should we avoid service name and keep it generic, should be just say interested service will be listening on this ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10847c52_04aef222",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "vpdFilePath indicates FRU path or inventory path, which path is used here ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45dc713_f907c6d7",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "CCIN is itself is an data, clearViniCcin would be enough ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65637604_31e6e920",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "Nit: FRU path",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4204a74_028f421a",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -49,6 +117,57 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "e4204a74_028f421a",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32772858_070c5e15",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "Nit VINI:CCIN",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b7e5328_81a1531a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "Nit: VINI:CCIN",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2afbc8f_634a2862",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "to avoid any modification of result, can it be mark it as const ?",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -146,6 +265,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cbb2b7a_29e4314c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "why do we need this comment here ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f94aeab_e48676db",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -197,6 +333,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "564cc929_a00929c3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "Mark this as todo",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef6fa76_ae2d1197",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "VPD collection can fail for ECC check or invalid data, but present property should be based on the file path exists or not.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20697a00_65db29f8",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -208,6 +378,23 @@
       "writtenOn": "2026-06-23T08:19:47Z",
       "side": 1,
       "message": "Do we need this informational logs? this will flood the journal",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d634944_91217a0a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-26T10:43:54Z",
+      "side": 1,
+      "message": "do we need return here, should it covered from switch block itself  ?",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
