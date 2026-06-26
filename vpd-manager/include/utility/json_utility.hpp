@@ -1262,8 +1262,8 @@ inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
     {
         for (const auto& l_inventoryItem : l_frus.value())
         {
-            if (l_inventoryPath.compare(l_inventoryItem["inventoryPath"]) ==
-                constants::STR_CMP_SUCCESS)
+            if (l_inventoryPath.compare(l_inventoryItem.value(
+                    "inventoryPath", "")) == constants::STR_CMP_SUCCESS)
             {
                 if (l_inventoryItem.contains("serviceName"))
                 {
