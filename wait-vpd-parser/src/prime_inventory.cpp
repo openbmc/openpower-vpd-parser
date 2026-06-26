@@ -115,7 +115,7 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
             }
 
             // Prime the inventry for FRUs
-            for (const auto& l_Fru : m_sysCfgJsonObj["frus"][l_vpdFilePath])
+            for (const auto& l_Fru : m_sysCfgJsonObj["frus"].at(l_vpdFilePath))
             {
                 // Skip priming of redundant EEPROM
                 if (l_Fru.value("isRedundant", false))
@@ -127,7 +127,7 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
                 {
                     m_logger->logMessage(
                         "Priming of inventory failed for FRU " +
-                        std::string(l_Fru["inventoryPath"]));
+                        l_Fru.value("inventoryPath", ""));
                 }
             }
         }
@@ -164,7 +164,8 @@ bool PrimeInventory::primeInventory(
     }
 
     vpd::types::InterfaceMap l_interfaces;
-    sdbusplus::object_path l_fruObjectPath(i_fruJsonObj["inventoryPath"]);
+    sdbusplus::object_path l_fruObjectPath(
+        i_fruJsonObj.value("inventoryPath", ""));
 
     if (i_fruJsonObj.contains("ccin"))
     {
@@ -184,14 +185,14 @@ bool PrimeInventory::primeInventory(
         // Clear data under PIM if already exists.
         uint16_t l_errCode = 0;
         vpd::vpdSpecificUtility::resetDataUnderPIM(
-            std::string(i_fruJsonObj["inventoryPath"]), l_interfaces,
+            i_fruJsonObj.value("inventoryPath", ""), l_interfaces,
             i_fruJsonObj.value("handlePresence", true), l_errCode);
 
         if (l_errCode)
         {
             m_logger->logMessage(
                 "Failed to reset data under PIM for path [" +
-                std::string(i_fruJsonObj["inventoryPath"]) +
+                i_fruJsonObj.value("inventoryPath", "") +
                 "], error : " + vpd::commonUtility::getErrCodeMsg(l_errCode));
         }
     }
@@ -233,9 +234,12 @@ bool PrimeInventory::primeInventory(
                              vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    processFunctionalProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
-    processEnabledProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
-    processAvailableProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
+    processFunctionalProperty(i_fruJsonObj.value("inventoryPath", ""),
+                              l_interfaces);
+    processEnabledProperty(i_fruJsonObj.value("inventoryPath", ""),
+                           l_interfaces);
+    processAvailableProperty(i_fruJsonObj.value("inventoryPath", ""),
+                             l_interfaces);
 
     // Emplace the default state of FRU VPD collection
     vpd::types::PropertyMap l_fruCollectionProperty = {
