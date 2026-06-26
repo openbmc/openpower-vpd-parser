@@ -380,10 +380,10 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
                                     types::InterfaceMap& interfaces,
                                     const types::VPDMapVariant& parsedVpdMap)
 {
-    populateInterfaces(singleFru["extraInterfaces"], interfaces, parsedVpdMap);
+    populateInterfaces(singleFru.at("extraInterfaces"), interfaces, parsedVpdMap);
     if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
-        if (singleFru["extraInterfaces"].contains(
+        if (singleFru.at("extraInterfaces").contains(
                 "xyz.openbmc_project.Inventory.Item.Cpu"))
         {
             auto itrToRec = (*ipzVpdMap).find("CP00");
@@ -400,8 +400,8 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
             {
                 if (isCPUIOGoodOnly(pgKeywordValue))
                 {
-                    interfaces["xyz.openbmc_project.Inventory.Item"]
-                              ["PrettyName"] = "IO Module";
+                    interfaces["xyz.openbmc_project.Inventory.Item"]["PrettyName"] =
+                        "IO Module";
                 }
             }
             else
@@ -421,7 +421,7 @@ void Worker::processCopyRecordFlag(const nlohmann::json& singleFru,
 {
     if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
-        for (const auto& record : singleFru["copyRecords"])
+        for (const auto& record : singleFru.at("copyRecords"))
         {
             const std::string& recordName = record;
             if ((*ipzVpdMap).find(recordName) != (*ipzVpdMap).end())
@@ -452,7 +452,7 @@ void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
 
     if (m_parsedJson.contains("commonInterfaces"))
     {
-        populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
+        populateInterfaces(m_parsedJson.at("commonInterfaces"), interfaces,
                            parsedVpdMap);
     }
 }
@@ -483,7 +483,7 @@ bool Worker::processFruWithCCIN(const nlohmann::json& singleFru,
                   ::toupper);
 
         std::vector<std::string> ccinList;
-        for (std::string ccin : singleFru["ccin"])
+        for (std::string ccin : singleFru.at("ccin"))
         {
             transform(ccin.begin(), ccin.end(), ccin.begin(), ::toupper);
             ccinList.push_back(ccin);
@@ -612,9 +612,9 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     {
         types::InterfaceMap interfaces;
 
-        for (const auto& aFru : m_parsedJson["frus"][vpdFilePath])
+        for (const auto& aFru : m_parsedJson["frus"].at(vpdFilePath))
         {
-            const auto& inventoryPath = aFru["inventoryPath"];
+            const auto& inventoryPath = aFru.at("inventoryPath");
             sdbusplus::object_path fruObjectPath(inventoryPath);
             if (aFru.contains("ccin"))
             {
@@ -645,7 +645,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
                 aFru.value("inheritCI", false) &&
                 m_parsedJson.contains("commonInterfaces"))
             {
-                populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
+                populateInterfaces(m_parsedJson.at("commonInterfaces"), interfaces,
                                    parsedVpdMap);
             }
 
@@ -702,8 +702,8 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
         // removed this can lead to ambiguity. Hence clearing this
         // Keyword if FRU is absent.
         const auto& inventoryPath =
-            m_parsedJson["frus"][i_vpdFilePath].at(0).value("inventoryPath",
-                                                            "");
+            m_parsedJson["frus"].at(i_vpdFilePath).at(0).value("inventoryPath",
+                                                               "");
 
         if (!inventoryPath.empty())
         {
@@ -745,8 +745,8 @@ bool Worker::processPostAction(
     // based on some CCIN value?
     uint16_t l_errCode = 0;
 
-    if (m_parsedJson["frus"][i_vpdFruPath]
-            .at(0)["postAction"][i_flagToProcess]
+    if (m_parsedJson["frus"].at(i_vpdFruPath)
+            .at(0).at("postAction").value(i_flagToProcess, nlohmann::json{})
             .contains("ccin"))
     {
         if (!i_parsedVpd.has_value())
@@ -758,8 +758,8 @@ bool Worker::processPostAction(
         // CCIN match is required to process post action for this FRU as it
         // contains the flag.
         if (!vpdSpecificUtility::findCcinInVpd(
-                m_parsedJson["frus"][i_vpdFruPath].at(
-                    0)["postAction"]["collection"],
+                m_parsedJson["frus"].at(i_vpdFruPath).at(
+                    0).at("postAction").at("collection"),
                 i_parsedVpd.value(), l_errCode))
         {
             if (l_errCode)
@@ -850,8 +850,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
 
             // Skip if VPD collection if VPD path is redundant path and
             // i_processRedundant is set to false.
-            if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
-                                                                false) &&
+            if (m_parsedJson["frus"].at(i_vpdFilePath).at(0).value("isRedundant",
+                                                                   false) &&
                 !i_processRedundant)
             {
                 return types::VPDMapVariant{};
@@ -961,8 +961,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
-        if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
-                                                            false) &&
+        if (m_parsedJson["frus"].at(i_vpdFilePath).at(0).value("isRedundant",
+                                                               false) &&
             !i_processRedundant)
         {
             const bool l_status = processRedundantPreAction(i_vpdFilePath);
@@ -1138,7 +1138,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         // Update Present property for this FRU only if we handle Present
         // property for the FRU.
         if (isPresentPropertyHandlingRequired(
-                m_parsedJson["frus"][i_vpdFilePath].at(0)))
+                m_parsedJson["frus"].at(i_vpdFilePath).at(0)))
         {
             setPresentProperty(i_vpdFilePath, false);
         }
@@ -1428,9 +1428,9 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         // If the given path is EEPROM path.
         if (m_parsedJson["frus"].contains(i_vpdPath))
         {
-            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
+            for (const auto& l_Fru : m_parsedJson["frus"].at(i_vpdPath))
             {
-                sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
+                sdbusplus::object_path l_fruObjectPath(l_Fru.at("inventoryPath"));
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                              l_interfaces);

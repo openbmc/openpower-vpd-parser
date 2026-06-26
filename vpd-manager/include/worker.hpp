@@ -97,6 +97,8 @@ class Worker
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] objectInterfaceMap - Object and its interfaces map.
      * @param[in] vpdFilePath - EEPROM path of FRU.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     void populateDbus(const types::VPDMapVariant& parsedVpdMap,
                       types::ObjectMap& objectInterfaceMap,
@@ -256,6 +258,8 @@ class Worker
      * @param[in] singleFru - JSON block for a single FRU.
      * @param[out] interfaces - Map to hold interface along with its properties.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     void processExtraInterfaces(const nlohmann::json& singleFru,
                                 types::InterfaceMap& interfaces,
@@ -279,6 +283,8 @@ class Worker
      *
      * @param[in] singleFru - Fru whose CCIN value needs to be matched.
      * @param[in] parsedVpdMap - Parsed VPD map.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     bool processFruWithCCIN(const nlohmann::json& singleFru,
                             const types::VPDMapVariant& parsedVpdMap);
@@ -292,6 +298,8 @@ class Worker
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] interfaces - Map to hold interface along with its
      * properties.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     void processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
                             types::InterfaceMap& interfaces);
@@ -305,6 +313,8 @@ class Worker
      * @param[in] singleFru - FRU being processed.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] interfaces - Map to hold interface along with its properties.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     void processCopyRecordFlag(const nlohmann::json& singleFru,
                                const types::VPDMapVariant& parsedVpdMap,
@@ -358,6 +368,8 @@ class Worker
     /**
      * @brief API to process preAction(base_action) defined in config JSON.
      *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
+     *
      * @note sequence of tags under any given flag of preAction is EXTREMELY
      * important to ensure proper processing. The API will process all the
      * nested items under the base action sequentially. Also if any of the tag
@@ -392,6 +404,8 @@ class Worker
 
     /**
      * @brief API to process postAction(base_action) defined in config JSON.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      *
      * @note Sequence of tags under any given flag of postAction is EXTREMELY
      * important to ensure proper processing. The API will process all the
@@ -467,6 +481,8 @@ class Worker
      *
      * @param[in] i_vpdPath - EEPROM or inventory path.
      * @param[in] i_value - value to be set.
+     *
+     * @throw nlohmann::json::out_of_range if a required JSON key is missing.
      */
     void setPresentProperty(const std::string& i_fruPath, const bool& i_value);
 
