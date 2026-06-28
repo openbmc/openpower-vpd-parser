@@ -50,22 +50,6 @@ class IbmHandler
         const types::VpdCollectionMode& i_vpdCollectionMode);
 
     /**
-     * @brief API to collect all FRUs VPD.
-     *
-     * This api will call worker API to perform VPD collection for all FRUs
-     * present in the system config JSON and publish it on DBus. Also updates
-     * the Dbus VPD collection status property hosted under vpd-manager.
-     *
-     * Note:
-     * System VPD collection will always be skipped.
-     * If host is in power on state, FRUs marked as 'powerOffOnly' in the
-     * system config JSON will be skipped.
-     *
-     * @throw JsonException, runtime_error
-     */
-    void collectAllFruVpd();
-
-    /**
      * @brief API to register listener objects.
      *
      * @param[in] i_eventListener - shared pointer to Listener object
@@ -153,23 +137,6 @@ class IbmHandler
      * system inventory path reset to default values.
      */
     void resetNonSystemInvPaths(types::ObjectMap& io_objectMap) const noexcept;
-
-    /**
-     * @brief Set timer to detect and set VPD collection status for the system.
-     *
-     * Collection of FRU VPD is triggered in a separate thread. Resulting in
-     * multiple threads at  a given time. The API creates a timer which on
-     * regular interval will check if all the threads were collected back and
-     * sets the status of the VPD collection for the system accordingly.
-     *
-     * @throw std::runtime_error
-     */
-    void SetTimerToDetectVpdCollectionStatus();
-
-    /**
-     * @brief API to process VPD collection thread failed EEPROMs.
-     */
-    void processFailedEeproms();
 
     /**
      * @brief API to check and update PowerVS VPD.

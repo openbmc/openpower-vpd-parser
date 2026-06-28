@@ -63,18 +63,6 @@ class Worker
     ~Worker() = default;
 
     /**
-     * @brief API to process all FRUs presnt in config JSON file.
-     *
-     * This API based on config JSON passed/selected for the system, will
-     * trigger parser for all the FRUs and publish it on DBus.
-     *
-     * Note: Config JSON file path should be passed to worker class constructor
-     * to make use of this API.
-     *
-     */
-    void collectFrusFromJson();
-
-    /**
      * @brief API to parse VPD data
      *
      * @param[in] i_vpdFilePath - Path to the VPD file.
@@ -115,16 +103,6 @@ class Worker
                       const std::string& i_dbusObjPath);
 
     /**
-     * @brief API to get status of VPD collection process.
-     *
-     * @return - True when done, false otherwise.
-     */
-    inline bool isAllFruCollectionDone() const
-    {
-        return m_isAllFruCollected;
-    }
-
-    /**
      * @brief API to get system config JSON
      *
      * This API returns read only reference to parsed  system configuration
@@ -138,34 +116,6 @@ class Worker
     inline const nlohmann::json& getSysCfgJsonObj() const
     {
         return m_parsedJson;
-    }
-
-    /**
-     * @brief API to get active thread count.
-     *
-     * Each FRU is collected in a separate thread. This API gives the active
-     * thread collecting FRU's VPD at any given time.
-     *
-     * @return Count of active threads.
-     */
-    size_t getActiveThreadCount() const
-    {
-        return m_activeCollectionThreadCount;
-    }
-
-    /**
-     * @brief API to get list of EEPROMs for which thread creation failed.
-     *
-     * This API returns reference to list of EEPROM paths for which VPD
-     * collection thread creation has failed. Manager needs to process this list
-     * of EEPROMs and take appropriate action.
-     *
-     * @return reference to list of EEPROM paths for which VPD collection thread
-     * creation has failed
-     */
-    inline std::forward_list<std::string>& getFailedEepromPaths() noexcept
-    {
-        return m_failedEepromPaths;
     }
 
     /**

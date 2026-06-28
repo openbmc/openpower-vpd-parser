@@ -211,116 +211,6 @@ void IbmHandler::initIbmListenerObject(
     }
 }
 
-void IbmHandler::SetTimerToDetectVpdCollectionStatus()
-{
-    // Keeping max retry for 20 minutes. TODO: Make it configurable based on
-    // system type.
-    // TODO need to keep an optimal value once we near GA.
-    static constexpr auto MAX_RETRY = 120;
-
-    static boost::asio::steady_timer l_timer(*m_ioContext);
-    static uint8_t l_timerRetry = 0;
-
-    auto l_asyncCancelled = l_timer.expires_after(std::chrono::seconds(10));
-
-    (l_asyncCancelled == 0)
-        ? logging::logMessage("Collection Timer started")
-        : logging::logMessage("Collection Timer re-started");
-
-    l_timer.async_wait([this](const boost::system::error_code& ec) {
-        if (ec == boost::asio::error::operation_aborted)
-        {
-            throw std::runtime_error(
-                "Timer to detect thread collection status was aborted");
-        }
-
-        if (ec)
-        {
-            throw std::runtime_error(
-                "Timer to detect thread collection failed");
-        }
-
-        if (m_worker->isAllFruCollectionDone())
-        {
-            // total time taken to complete
-            logging::logMessage("Total time to complete  = " +
-                                std::to_string(l_timerRetry * 10) + " seconds");
-            // cancel the timer
-            l_timer.cancel();
-            processFailedEeproms();
-
-            // update VPD for powerVS system.
-            ConfigurePowerVsSystem();
-
-            m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed");
-
-            /**Temp code */
-            m_logger->logMessage("Start updating expanded location code");
-            updateExpandedLocationCode();
-            /**Temp code ends*/
-
-            updateVpdCollectionStatus(types::VpdCollectionStatus::Completed);
-
-            if (m_backupAndRestoreObj)
-            {
-                m_backupAndRestoreObj->backupAndRestore();
-            }
-
-            if (m_eventListener)
-            {
-                // Check if system config JSON specifies
-                // correlatedPropertiesJson
-                if (m_sysCfgJsonObj.contains("correlatedPropertiesConfigPath"))
-                {
-                    // register correlated properties callback with specific
-                    // correlated properties JSON
-                    m_eventListener->registerCorrPropCallBack(
-                        m_sysCfgJsonObj["correlatedPropertiesConfigPath"]);
-                }
-                else
-                {
-                    m_logger->logMessage(
-                        "Correlated properties JSON path is not defined in system config JSON. Correlated properties listener is disabled.");
-                }
-            }
-#ifdef ENABLE_FILE_LOGGING
-            // terminate collection logger
-            m_logger->terminateVpdCollectionLogging();
-#endif
-        }
-        else
-        {
-            auto l_threadCount = m_worker->getActiveThreadCount();
-            if (l_timerRetry == MAX_RETRY)
-            {
-                l_timer.cancel();
-                m_logger->logMessage(
-                    std::format(
-                        "Timed out while waiting for all FRU VPD collections to complete after {}s, Active thread count={}",
-                        MAX_RETRY * 10, std::to_string(l_threadCount)),
-                    PlaceHolder::ASYNC_PEL,
-                    types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                        vpd::types::SeverityType::Warning, 0,
-                                        std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt,
-                                        std::nullopt});
-#ifdef ENABLE_FILE_LOGGING
-                // terminate collection logger
-                m_logger->terminateVpdCollectionLogging();
-#endif
-            }
-            else
-            {
-                l_timerRetry++;
-                logging::logMessage("Collection is in progress for [" +
-                                    std::to_string(l_threadCount) + "] FRUs.");
-
-                SetTimerToDetectVpdCollectionStatus();
-            }
-        }
-    });
-}
-
 void IbmHandler::checkAndUpdatePowerVsVpd(
     const nlohmann::json& i_powerVsJsonObj,
     std::vector<std::string>& o_failedPathList)
@@ -516,18 +406,6 @@ void IbmHandler::ConfigurePowerVsSystem()
     catch (const std::exception& l_ex)
     {
         // TODO log appropriate PEL
-    }
-}
-
-void IbmHandler::processFailedEeproms()
-{
-    if (m_worker.get() != nullptr)
-    {
-        // TODO:
-        // - iterate through list of EEPROMs for which thread creation has
-        // failed
-        // - For each failed EEPROM, trigger VPD collection
-        m_worker->getFailedEepromPaths().clear();
     }
 }
 
@@ -1249,15 +1127,6 @@ void IbmHandler::performInitialSetup()
                                 std::nullopt, std::nullopt, std::nullopt,
                                 l_callout});
     }
-}
-
-void IbmHandler::collectAllFruVpd()
-{
-    // Setting status to "InProgress", before trigeering VPD collection.
-    updateVpdCollectionStatus(types::VpdCollectionStatus::InProgress);
-
-    m_worker->collectFrusFromJson();
-    SetTimerToDetectVpdCollectionStatus();
 }
 
 void IbmHandler::collectionStatusChangeCallback(
