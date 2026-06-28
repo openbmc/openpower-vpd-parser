@@ -194,12 +194,9 @@ Manager::Manager(
         m_gpioMonitor =
             std::make_shared<GpioMonitor>(m_configManager, m_ioContext);
 
-#if 0
         // Initialize thread manager
-        m_threadManager =
-            std::make_unique<ThreadManager>(m_configManager,
-            m_progressInterface);
-#endif
+        m_threadManager = std::make_unique<ThreadManager>(m_configManager,
+                                                          m_progressInterface);
     }
     catch (const std::exception& l_ex)
     {
@@ -994,28 +991,8 @@ bool Manager::collectAllFruVpd() const noexcept
             types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
                                 0, std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt, std::nullopt});
-
-// ToDo: Handle with OEM interface
-#ifdef IBM_SYSTEM
-        if (m_ibmHandler.get() != nullptr)
-        {
-            m_ibmHandler->collectAllFruVpd();
-            return true;
-        }
-        else
-        {
-            throw std::runtime_error(
-                "Not found any OEM handler to collect all FRUs VPD.");
-        }
-#endif
-        // TODO: Enable this once ThreadManager implementation is completed
         // Call ThreadManager API to trigger multi-threaded VPD collection
-        // for all FRUs in the system. This api will replace worker's
-        // `collectFrusFromJson` api. This is currently disabled because:
-        // 1. ThreadManager initialization is commented out above
-        // 2. The underlying implementation needs to be completed
-
-#if 0
+        // for all FRUs in the system.
         if (m_threadManager.get() != nullptr)
         {
             m_threadManager->collectAllFruVpd();
@@ -1024,10 +1001,8 @@ bool Manager::collectAllFruVpd() const noexcept
         else
         {
             throw std::runtime_error(
-                "thread manager is not instanitated for FRU VPD collection");
-
+                "ThreadManager is not instantiated for FRU VPD collection");
         }
-#endif
     }
     catch (const std::exception& l_ex)
     {
