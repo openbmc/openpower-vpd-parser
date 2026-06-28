@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7d95c88_94ff2438",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60b90848_2ff6f044",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3722e475_dd98dc3e",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e40effae_01cd20ca",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3722e475_dd98dc3e",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10847c52_04aef222",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "vpdFilePath indicates FRU path or inventory path, which path is used here ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "784734db_4bee2c76",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "It is mentioned there. It\u0027s EEPROM file path.",
+      "parentUuid": "10847c52_04aef222",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fd71267_46dae1dd",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Record-Keyword_value is a set. here we mentioned VINI-CCIN and want to Clear its data.",
+      "parentUuid": "a45dc713_f907c6d7",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65637604_31e6e920",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 4
@@ -82,6 +154,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "Nit: FRU path",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd1cdbca_2f3438f9",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65637604_31e6e920",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -121,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1607dbac_365c7402",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4ebb567c_a7b70654",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32772858_070c5e15",
@@ -134,6 +242,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "Nit VINI:CCIN",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ec533f3_5339536a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "32772858_070c5e15",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -155,6 +281,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b2d3490_ea3bda67",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "9b7e5328_81a1531a",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2afbc8f_634a2862",
@@ -168,6 +312,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "to avoid any modification of result, can it be mark it as const ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2fed4f0_6757104f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d2afbc8f_634a2862",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -189,6 +351,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69276c2f_cc767652",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "yes, I have removed old API and renamed new one.",
+      "parentUuid": "561aa6e4_806182ae",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b91477a5_ac860d0c",
@@ -202,6 +382,24 @@
       "writtenOn": "2026-06-23T08:19:47Z",
       "side": 1,
       "message": "Need to handle the present property in the failed case also.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777404ae_b380fcbf",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91477a5_ac860d0c",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -225,6 +423,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d6da1c7_c5558565",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Yes, the intention is for PreAction to explicitly highlight the failure case. Since the base action doesn’t log any message, having the log here helps make the failure more visible and easier to track. It just sets the tags.",
+      "parentUuid": "40362fd6_83084e86",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49e4d80a_30d41a5b",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -236,6 +452,30 @@
       "writtenOn": "2026-06-25T17:09:56Z",
       "side": 1,
       "message": "Pre action failed for...",
+      "range": {
+        "startLine": 758,
+        "startChar": 17,
+        "endLine": 758,
+        "endChar": 35
+      },
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb433e85_6d78a715",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49e4d80a_30d41a5b",
       "range": {
         "startLine": 758,
         "startChar": 17,
@@ -265,6 +505,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9571d0a_8cab57d8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "yes, this assignment is necessary for proper error propagation to the caller.",
+      "parentUuid": "fb201122_39482404",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cbb2b7a_29e4314c",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -276,6 +534,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "why do we need this comment here ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b68742d_de2c14fc",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "This comment was added for reviewer , for clarity. Will remove it.",
+      "parentUuid": "7cbb2b7a_29e4314c",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -297,6 +573,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ab6908_0f808cbc",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "I kept it for reviewer to understand the flow. Not required in final code.",
+      "parentUuid": "0f94aeab_e48676db",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fefec439_b5d2417d",
@@ -314,6 +608,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a8031ab_8a60d84d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "I kept it for reviewer to understand the flow. Not required in final code.",
+      "parentUuid": "fefec439_b5d2417d",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e72ecf0_fadd39bb",
@@ -327,6 +639,24 @@
       "writtenOn": "2026-06-23T08:19:47Z",
       "side": 1,
       "message": "Do we need this informational logs? this will flood the journal.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c38f21_6aa6ed7b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "I kept it for reviewer to understand the flow. Not required in final code.",
+      "parentUuid": "1e72ecf0_fadd39bb",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -350,6 +680,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c439345_d1741f00",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "This is not a TODO. This is for clarity that why we are not taking any action here.",
+      "parentUuid": "564cc929_a00929c3",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ef6fa76_ae2d1197",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -361,6 +709,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "VPD collection can fail for ECC check or invalid data, but present property should be based on the file path exists or not.",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d7daec_64d8a9c4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "Yes, right. Present property is updated based on File existence only.\nVPD collection will only reflect in collection flag.",
+      "parentUuid": "2ef6fa76_ae2d1197",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -382,6 +748,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e262cf0_dc6b161f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "I kept it for reviewer to understand the flow. Not required in final code.",
+      "parentUuid": "20697a00_65db29f8",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d634944_91217a0a",
@@ -395,6 +779,24 @@
       "writtenOn": "2026-06-26T10:43:54Z",
       "side": 1,
       "message": "do we need return here, should it covered from switch block itself  ?",
+      "revId": "40152c11133fb09f79890a41de08b1493db564bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c5f643_526a5354",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-28T18:41:16Z",
+      "side": 1,
+      "message": "NO, We need this explicitly here, as I have not kept a default section in switch block.",
+      "parentUuid": "6d634944_91217a0a",
       "revId": "40152c11133fb09f79890a41de08b1493db564bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
