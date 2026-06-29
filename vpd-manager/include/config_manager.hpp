@@ -30,11 +30,12 @@ class ConfigManager final
 {
   public:
     /**
-     * @brief Passkey class to restrict instantiation to Manager class only
+     * @brief Passkey class to restrict lifecycle control to Manager class only
      *
      * This is a nested class that can only be constructed by Manager.
-     * It acts as a "key" that must be passed to ConfigManager's
-     * constructor, ensuring only Manager can create instances.
+     * It acts as a "key" that must be passed to initialize() and
+     * reinitialize(), ensuring only Manager can create or replace the
+     * singleton instance.
      */
     class ManagerPassKey
     {
@@ -52,41 +53,6 @@ class ConfigManager final
         friend class Manager;
     };
 
-    /**
-     * @brief Constructor with passkey - can only be called by Manager
-     *
-     * This constructor is public but requires a ManagerPassKey that only
-     * Manager can create, effectively restricting instantiation to Manager.
-     *
-     * @param[in] i_key - Constructor key
-     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON
-     *
-     * @throw std::runtime_error
-     */
-    explicit ConfigManager([[maybe_unused]] const ManagerPassKey& i_key,
-                           const std::string& i_sysConfigJsonPath) :
-        m_logger{Logger::getLoggerInstance()}
-    {
-        uint16_t l_errCode{constants::VALUE_0};
-
-        m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
-
-        if (l_errCode != constants::VALUE_0)
-        {
-            throw JsonException{std::format(
-                "ConfigManager initialization failed. Reason: Failed to parse JSON from path {}. Error : {}",
-                i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
-        }
-
-        // Validate the system configuration JSON
-        JsonValidator::validateConfigJson(m_systemConfigJson);
-
-        buildConfigMaps();
-
-        // validate the chassis-specific JSONs
-        validateChassisSpecificJsons();
-    }
-
     // deleted methods
     ConfigManager(const ConfigManager&) = delete;
     ConfigManager& operator=(const ConfigManager&) = delete;
@@ -97,6 +63,56 @@ class ConfigManager final
      * @brief Destructor
      */
     ~ConfigManager() = default;
+
+    /**
+     * @brief Get the singleton instance.
+     *
+     * Returns the shared_ptr to the ConfigManager singleton if it has
+     * been initialized by Manager via initialize(), nullptr otherwise.
+     *
+     * @return Shared pointer to the singleton instance, or nullptr.
+     */
+    static std::shared_ptr<ConfigManager> getInstance() noexcept;
+
+    /**
+     * @brief Initialize the singleton with the given JSON path.
+     *
+     * Creates the singleton ConfigManager instance, parses and validates
+     * the JSON at i_sysConfigJsonPath, and builds all configuration maps.
+     * Can only be called by Manager (enforced via ManagerPassKey).
+     *
+     * Replaces any previously initialized instance.
+     *
+     * @param[in] i_key - Constructor key, only constructible by Manager.
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     *
+     * @throw JsonException on parse or validation failure.
+     *
+     * @return Shared pointer to the newly created singleton instance.
+     */
+    static std::shared_ptr<ConfigManager> initialize(
+        [[maybe_unused]] const ManagerPassKey& i_key,
+        const std::string& i_sysConfigJsonPath);
+
+    /**
+     * @brief Re-initialize the singleton with a new JSON path.
+     *
+     * Clears the existing configuration maps and reloads from the JSON at
+     * i_sysConfigJsonPath. Intended for use after the correct system JSON
+     * symlink has been set up (e.g. after system VPD collection selects the
+     * system-specific JSON). Can only be called by Manager (enforced via
+     * ManagerPassKey).
+     *
+     * @pre initialize() must have been called before reinitialize().
+     *
+     * @param[in] i_key - Constructor key, only constructible by Manager.
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     *
+     * @throw std::runtime_error if called before initialize().
+     * @throw JsonException on parse or validation failure.
+     */
+    static void reinitialize([[maybe_unused]] const ManagerPassKey& i_key,
+                             const std::string& i_sysConfigJsonPath);
 
     /**
      * @brief API to get chassis based config JSON.
@@ -310,6 +326,26 @@ class ConfigManager final
      */
     static nlohmann::json getParsedJson(const std::string& i_jsonPath,
                                         uint16_t& o_errCode) noexcept;
+
+    /**
+     * @brief Load, validate and build maps from the given JSON path.
+     *
+     * Shared implementation used by both initialize() and reinitialize().
+     * Parses the JSON, validates it, and rebuilds all configuration maps.
+     * Callers are responsible for clearing maps before calling this when
+     * re-initializing.
+     *
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     *
+     * @throw JsonException on parse or validation failure.
+     */
+    void loadJson(const std::string& i_sysConfigJsonPath);
+
+    // Private default constructor — instances are created only via initialize()
+    ConfigManager() : m_logger{Logger::getLoggerInstance()} {}
+
+    // Singleton instance
+    static std::shared_ptr<ConfigManager> m_instance;
 
     // System config JSON
     nlohmann::json m_systemConfigJson;
