@@ -153,9 +153,13 @@ Manager::Manager(
             },
             [this](const auto&) { return m_vpdCollectionStatus; });
 
-        // system config JSON object. For IBM systems, this is populated by OEM
-        // handler, otherwise this is populated by default inventory JSON.
-        std::string l_systemConfigJsonPath{INVENTORY_JSON_DEFAULT};
+        ConfigManager::ManagerPassKey l_configMgrKey;
+
+        // initialize ConfigManager with the default JSON so that any
+        // JSON utility APIs invoked during system VPD collection (before the
+        // correct symlink is known) have a valid singleton instance.
+        m_configManager =
+            ConfigManager::initialize(l_configMgrKey, INVENTORY_JSON_DEFAULT);
 
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
@@ -165,16 +169,17 @@ Manager::Manager(
             m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
             m_ioContext, m_asioConnection, m_vpdCollectionMode);
 
-        // Once IBM handler is initialized, the sym link points to correct
-        // system config JSON path
-        l_systemConfigJsonPath = INVENTORY_JSON_SYM_LINK;
+        // once IBM handler is initialized, the symlink points to the
+        // correct system-specific JSON. Call initialize() again to build
+        // configuration maps with the correct system-specific configuration
+        // JSON
+        m_configManager =
+            ConfigManager::initialize(l_configMgrKey, INVENTORY_JSON_SYM_LINK);
 #else
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_progressInterface->set_property(
             "Status", std::string(constants::vpdCollectionCompleted));
 #endif
-
-        initConfigManager(l_systemConfigJsonPath);
 
 #ifdef IBM_SYSTEM
 
@@ -210,13 +215,6 @@ Manager::Manager(
                                 std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt});
     }
-}
-
-void Manager::initConfigManager(const std::string& i_systemConfigJsonPath)
-{
-    ConfigManager::ManagerPassKey l_configMgrKey;
-    m_configManager =
-        std::make_shared<ConfigManager>(l_configMgrKey, i_systemConfigJsonPath);
 }
 
 void Manager::readVpdCollectionMode() noexcept
