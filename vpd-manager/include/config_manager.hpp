@@ -4,12 +4,13 @@
 #include "logger.hpp"
 #include "types.hpp"
 #include "utility/common_utility.hpp"
-#include "utility/json_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
 #include <expected>
+#include <filesystem>
 #include <format>
+#include <fstream>
 #include <map>
 #include <string>
 #include <string_view>
@@ -68,8 +69,7 @@ class ConfigManager final
     {
         uint16_t l_errCode{constants::VALUE_0};
 
-        m_systemConfigJson =
-            jsonUtility::getParsedJson(i_sysConfigJsonPath, l_errCode);
+        m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
 
         if (l_errCode != constants::VALUE_0)
         {
@@ -299,6 +299,34 @@ class ConfigManager final
      * details relevant to given chassis only.
      */
     void validateChassisSpecificJsons() const noexcept;
+
+    /**
+     * @brief Parse a JSON file from the given path.
+     *
+     * Checks for file existence, non-emptiness and read access before
+     * parsing. Sets o_errCode on any failure and returns an empty JSON
+     * object in that case.
+     *
+     * @param[in] i_jsonPath - Absolute path to the JSON file.
+     * @param[out] o_errCode - Error code set on failure, 0 on success.
+     *
+     * @return Parsed JSON object on success, empty JSON on failure.
+     */
+    static nlohmann::json getParsedJson(const std::string& i_jsonPath,
+                                        uint16_t& o_errCode) noexcept;
+
+    /**
+     * @brief API to get unexpanded location code for given FRU JSON object
+     *
+     * @param[in] i_fruJsonObj - sub JSON object which represents a single FRU
+     * in the system config JSON
+     *
+     * @return On success, returns unexpanded location code, otherwise returns
+     * an error code
+     */
+    static std::expected<std::string, error_code>
+        getUnexpandedLocationCodeForFru(
+            const nlohmann::json& i_fruJsonObj) noexcept;
 
     // System config JSON
     nlohmann::json m_systemConfigJson;
