@@ -3,7 +3,6 @@
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
-#include "utility/json_utility.hpp"
 
 #include <format>
 
@@ -197,7 +196,7 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
 
                 // get the unexpanded location code
                 const auto l_locationCode =
-                    jsonUtility::getUnexpandedLocationCodeForFru(l_subFruJson);
+                    getUnexpandedLocationCodeForFru(l_subFruJson);
                 if (l_locationCode.has_value())
                 {
                     m_unexpandedLocCodeToInvPathsMap[l_locationCode.value()]
@@ -242,6 +241,89 @@ std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
         m_logger->logMessage(std::format(
             "Failed to get inventory paths for unexpanded location code {}. Error: {}",
             i_unexpandedLocationCode, l_ex.what()));
+
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+nlohmann::json ConfigManager::getParsedJson(const std::string& i_jsonPath,
+                                            uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+
+    if (i_jsonPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return nlohmann::json{};
+    }
+
+    if (!std::filesystem::exists(i_jsonPath))
+    {
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return nlohmann::json{};
+    }
+
+    if (std::filesystem::is_empty(i_jsonPath))
+    {
+        o_errCode = error_code::EMPTY_FILE;
+        return nlohmann::json{};
+    }
+
+    std::ifstream l_jsonFile(i_jsonPath);
+    if (!l_jsonFile)
+    {
+        o_errCode = error_code::FILE_ACCESS_ERROR;
+        return nlohmann::json{};
+    }
+
+    try
+    {
+        return nlohmann::json::parse(l_jsonFile);
+    }
+    catch (const std::exception&)
+    {
+        o_errCode = error_code::JSON_PARSE_ERROR;
+        return nlohmann::json{};
+    }
+}
+
+std::expected<std::string, error_code>
+    ConfigManager::getUnexpandedLocationCodeForFru(
+        const nlohmann::json& i_fruJsonObj) noexcept
+{
+    try
+    {
+        if (!i_fruJsonObj.contains("extraInterfaces"))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        // look for extraInterfaces object
+        const auto& l_extraInterfacesObj = i_fruJsonObj["extraInterfaces"];
+
+        if (!l_extraInterfacesObj.contains(constants::locationCodeInf))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        const auto& l_locationCodeInfEntry =
+            l_extraInterfacesObj[constants::locationCodeInf];
+
+        if (!l_locationCodeInfEntry.contains("LocationCode"))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        return l_locationCodeInfEntry["LocationCode"];
+    }
+    catch (const std::exception& l_ex)
+    {
+        const std::string l_inventoryPath{
+            i_fruJsonObj.value("inventoryPath", "")};
+
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to get unexpanded location code for FRU: {}. Error: {}",
+            l_inventoryPath, l_ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
