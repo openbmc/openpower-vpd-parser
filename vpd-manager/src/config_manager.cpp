@@ -8,6 +8,62 @@
 
 namespace vpd
 {
+
+// Static singleton instance — null until initialize() is called
+std::atomic<std::shared_ptr<ConfigManager>> ConfigManager::m_instance{nullptr};
+
+std::shared_ptr<ConfigManager> ConfigManager::getInstance() noexcept
+{
+    return m_instance.load();
+}
+
+std::shared_ptr<ConfigManager> ConfigManager::initialize(
+    [[maybe_unused]] const ManagerPassKey& i_key,
+    const std::string& i_sysConfigJsonPath)
+{
+    // Build the new instance entirely on the side so that any concurrent
+    // reader holding a snapshot of m_instance continues to see the old,
+    // fully-populated data right up until the atomic pointer swap below.
+    // This eliminates the empty-JSON window that the old clear()+loadJson()
+    // sequence inside reinitialize() introduced (Con 2), and removes the
+    // ordering precondition that reinitialize() imposed (Con 3).
+    auto l_newInstance =
+        std::shared_ptr<ConfigManager>(new ConfigManager());
+    l_newInstance->loadJson(i_sysConfigJsonPath);
+
+    // Flag is true when Phase 1 default JSON is loaded; false after Phase 2
+    // loads the system-specific symlinked JSON.
+    l_newInstance->m_isDefaultJson =
+        (i_sysConfigJsonPath == INVENTORY_JSON_DEFAULT);
+
+    // Single atomic pointer swap — readers see either the old complete
+    // state or the new complete state, never an intermediate state.
+    m_instance.store(l_newInstance);
+    return m_instance.load();
+}
+
+void ConfigManager::loadJson(const std::string& i_sysConfigJsonPath)
+{
+    uint16_t l_errCode{constants::VALUE_0};
+
+    m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
+
+    if (l_errCode != constants::VALUE_0)
+    {
+        throw JsonException{std::format(
+            "ConfigManager failed to load JSON from path {}. Error: {}",
+            i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
+    }
+
+    // Validate the system configuration JSON
+    JsonValidator::validateConfigJson(m_systemConfigJson);
+
+    buildConfigMaps();
+
+    // Validate the chassis-specific JSONs
+    validateChassisSpecificJsons();
+}
+
 const nlohmann::json& ConfigManager::getJsonObj(
     const std::optional<std::string>& i_vpdPath) const noexcept
 {
