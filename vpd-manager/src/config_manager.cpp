@@ -247,6 +247,47 @@ std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
     }
 }
 
+nlohmann::json ConfigManager::getParsedJson(const std::string& i_jsonPath,
+                                             uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+
+    if (i_jsonPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return nlohmann::json{};
+    }
+
+    if (!std::filesystem::exists(i_jsonPath))
+    {
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return nlohmann::json{};
+    }
+
+    if (std::filesystem::is_empty(i_jsonPath))
+    {
+        o_errCode = error_code::EMPTY_FILE;
+        return nlohmann::json{};
+    }
+
+    std::ifstream l_jsonFile(i_jsonPath);
+    if (!l_jsonFile)
+    {
+        o_errCode = error_code::FILE_ACCESS_ERROR;
+        return nlohmann::json{};
+    }
+
+    try
+    {
+        return nlohmann::json::parse(l_jsonFile);
+    }
+    catch (const std::exception&)
+    {
+        o_errCode = error_code::JSON_PARSE_ERROR;
+        return nlohmann::json{};
+    }
+}
+
 void ConfigManager::validateChassisSpecificJsons() const noexcept
 {
     // iterate through all chassis-specific JSONs and validate each of them
