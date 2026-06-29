@@ -7,11 +7,13 @@
 
 #include <nlohmann/json.hpp>
 
+#include <atomic>
 #include <expected>
 #include <filesystem>
 #include <format>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -30,11 +32,11 @@ class ConfigManager final
 {
   public:
     /**
-     * @brief Passkey class to restrict instantiation to Manager class only
+     * @brief Passkey class to restrict lifecycle control to Manager class only
      *
      * This is a nested class that can only be constructed by Manager.
-     * It acts as a "key" that must be passed to ConfigManager's
-     * constructor, ensuring only Manager can create instances.
+     * It acts as a "key" that must be passed to initialize(), ensuring
+     * only Manager can create or replace the singleton instance.
      */
     class ManagerPassKey
     {
@@ -52,41 +54,6 @@ class ConfigManager final
         friend class Manager;
     };
 
-    /**
-     * @brief Constructor with passkey - can only be called by Manager
-     *
-     * This constructor is public but requires a ManagerPassKey that only
-     * Manager can create, effectively restricting instantiation to Manager.
-     *
-     * @param[in] i_key - Constructor key
-     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON
-     *
-     * @throw std::runtime_error
-     */
-    explicit ConfigManager([[maybe_unused]] const ManagerPassKey& i_key,
-                           const std::string& i_sysConfigJsonPath) :
-        m_logger{Logger::getLoggerInstance()}
-    {
-        uint16_t l_errCode{constants::VALUE_0};
-
-        m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
-
-        if (l_errCode != constants::VALUE_0)
-        {
-            throw JsonException{std::format(
-                "ConfigManager initialization failed. Reason: Failed to parse JSON from path {}. Error : {}",
-                i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
-        }
-
-        // Validate the system configuration JSON
-        JsonValidator::validateConfigJson(m_systemConfigJson);
-
-        buildConfigMaps();
-
-        // validate the chassis-specific JSONs
-        validateChassisSpecificJsons();
-    }
-
     // deleted methods
     ConfigManager(const ConfigManager&) = delete;
     ConfigManager& operator=(const ConfigManager&) = delete;
@@ -97,6 +64,54 @@ class ConfigManager final
      * @brief Destructor
      */
     ~ConfigManager() = default;
+
+    /**
+     * @brief Get the singleton instance.
+     *
+     * Returns the shared_ptr to the ConfigManager singleton if it has
+     * been initialized by Manager via initialize(), nullptr otherwise.
+     *
+     * @return Shared pointer to the singleton instance, or nullptr.
+     */
+    static std::shared_ptr<ConfigManager> getInstance() noexcept;
+
+    /**
+     * @brief Initialize (or re-initialize) the singleton with the given JSON
+     * path.
+     *
+     * On the first call, creates the singleton instance, parses and validates
+     * the JSON at i_sysConfigJsonPath, and builds all configuration maps.
+     * On subsequent calls, builds a fresh ConfigManager object entirely on
+     * the side and then atomically swaps it into m_instance, so there is
+     * never a window in which the singleton holds an empty or partially-built
+     * JSON. Can only be called by Manager (enforced via ManagerPassKey).
+     *
+     * @param[in] i_key - Lifecycle key, only constructible by Manager.
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     *
+     * @throw JsonException on parse or validation failure.
+     *
+     * @return Shared pointer to the (newly installed) singleton instance.
+     */
+    static std::shared_ptr<ConfigManager> initialize(
+        [[maybe_unused]] const ManagerPassKey& i_key,
+        const std::string& i_sysConfigJsonPath);
+
+    /**
+     * @brief Query whether the singleton is currently holding the default
+     * (Phase 1) JSON rather than the system-specific (Phase 2) JSON.
+     *
+     * Returns true from the first initialize() call until the second
+     * initialize() call supplies the symlinked system-specific path.
+     * Callers and tests can assert on this flag to verify which phase is
+     * active.
+     *
+     * @return true if the default JSON is loaded, false after Phase 2.
+     */
+    bool isUsingDefaultJson() const noexcept
+    {
+        return m_isDefaultJson;
+    }
 
     /**
      * @brief API to get chassis based config JSON.
@@ -327,6 +342,31 @@ class ConfigManager final
     static std::expected<std::string, error_code>
         getUnexpandedLocationCodeForFru(
             const nlohmann::json& i_fruJsonObj) noexcept;
+
+    /**
+     * @brief Load, validate and build maps from the given JSON path.
+     *
+     * Called by initialize() on the freshly-constructed instance.
+     * Parses the JSON at i_sysConfigJsonPath, validates it, and builds all
+     * configuration maps from scratch.
+     *
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     *
+     * @throw JsonException on parse or validation failure.
+     */
+    void loadJson(const std::string& i_sysConfigJsonPath);
+
+    // Private default constructor — instances are created only via initialize()
+    ConfigManager() : m_logger{Logger::getLoggerInstance()} {}
+
+    // Singleton instance — atomically replaced by initialize() on each call.
+    // std::atomic<std::shared_ptr<T>> (C++20) is the non-deprecated way to
+    // perform a lock-free pointer swap without a separate mutex.
+    static std::atomic<std::shared_ptr<ConfigManager>> m_instance;
+
+    // True while the singleton holds the default (Phase 1) JSON; false after
+    // Phase 2 initialize() supplies the system-specific symlinked JSON.
+    bool m_isDefaultJson{false};
 
     // System config JSON
     nlohmann::json m_systemConfigJson;
