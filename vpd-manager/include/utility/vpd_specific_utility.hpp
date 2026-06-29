@@ -1526,13 +1526,72 @@ inline std::pair<std::string, std::string> getDataFromDbus(
     const std::string& l_kwdInterface, const std::string& l_kwd1,
     const std::string& l_kwd2, uint16_t& o_errCode)
 {
-    (void)i_inventoryPath;
-    (void)i_isFcs;
-    (void)l_kwdInterface;
-    (void)l_kwd1;
-    (void)l_kwd2;
-    (void)o_errCode;
-    return {"", ""};
+    const auto l_logger = Logger::getLoggerInstance();
+    uint16_t l_errorCode = 0;
+    std::string l_invPath;
+
+    if (i_inventoryPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return {"", ""};
+    }
+
+    if (i_isFcs)
+    {
+        const auto l_chassisId = getChassisId(i_inventoryPath, l_errorCode);
+        if (l_chassisId.empty() && l_errorCode)
+        {
+            return {"", ""};
+        }
+
+        l_invPath =
+            std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+    }
+    else
+    {
+        l_invPath = constants::systemVpdInvPath;
+    }
+
+    const auto l_mapperRetValue =
+        dbusUtility::getObjectMap(l_invPath, {l_kwdInterface});
+
+    if (l_mapperRetValue.empty())
+    {
+        o_errCode = error_code::DBUS_FAILURE;
+        return {"", ""};
+    }
+
+    const std::string& l_serviceName = l_mapperRetValue.begin()->first;
+
+    auto readKwdValue = [&](const std::string& i_kwd) -> std::string {
+        auto l_retVal = dbusUtility::readDbusProperty(l_serviceName, l_invPath,
+                                                      l_kwdInterface, i_kwd);
+
+        if (const auto l_kwdVal = std::get_if<types::BinaryVector>(&l_retVal))
+        {
+            return std::string(reinterpret_cast<const char*>(l_kwdVal->data()),
+                               l_kwdVal->size());
+        }
+
+        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+        l_logger->logMessage(
+            std::format("Failed to read kwd {} from Dbus", i_kwd));
+        return "";
+    };
+
+    std::string l_firstKwdValue = readKwdValue(l_kwd1);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return {"", ""};
+    }
+
+    std::string l_secondKwdValue = readKwdValue(l_kwd2);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return {"", ""};
+    }
+
+    return {l_firstKwdValue, l_secondKwdValue};
 }
 
 /**
@@ -1550,13 +1609,60 @@ inline std::string buildExpandedLC(
     const std::string& i_unexpandedLocationCode, bool i_isFcs, size_t i_pos,
     const std::string& i_firstKwdValue, const std::string& i_secondKwdValue)
 {
-    (void)i_unexpandedLocationCode;
-    (void)i_isFcs;
-    (void)i_pos;
-    (void)i_firstKwdValue;
-    (void)i_secondKwdValue;
+    std::string l_expandedLC = i_unexpandedLocationCode;
+    if (i_isFcs)
+    {
+        std::string l_suffix = i_unexpandedLocationCode.substr(
+            i_pos + constants::LOCATION_CODE_PREFIX_LENGTH);
 
-    return "";
+        if (l_suffix.empty())
+        {
+            l_expandedLC.replace(
+                i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                       constants::FC_KEYWORD_FIRST_4_BYTE) +
+                    "." + i_secondKwdValue);
+        }
+        else if (!l_suffix.empty() &&
+                 l_suffix[constants::FIRST_POSITION] == '-')
+        {
+            // TODO:Temp code till Json has NDx, SCx. remove below code
+            static const std::regex nScPattern(
+                R"(^-((ND?\d{1,2}|SC\d{1,2}))(-.*)?)");
+            std::smatch match;
+
+            if (std::regex_search(l_suffix, match, nScPattern))
+            {
+                // Build: FC[0:4].Nxx.SE + remaining l_suffix
+                l_expandedLC.replace(
+                    i_pos,
+                    constants::LOCATION_CODE_PREFIX_LENGTH + l_suffix.length(),
+                    i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + match[1].str() + "." + i_secondKwdValue +
+                        match[3].str());
+            }
+            else
+            {
+                l_expandedLC.replace(
+                    i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                    i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + i_secondKwdValue);
+            }
+        }
+    }
+    else
+    {
+        // MTS: Replace dashes with dots in TM value
+        std::string l_firstKwdValueCopy = i_firstKwdValue;
+        std::replace(l_firstKwdValueCopy.begin(), l_firstKwdValueCopy.end(),
+                     '-', '.');
+        l_expandedLC.replace(i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                             l_firstKwdValueCopy + "." + i_secondKwdValue);
+    }
+
+    return l_expandedLC;
 }
 
 /**
