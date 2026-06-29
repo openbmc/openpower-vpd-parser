@@ -8,6 +8,67 @@
 
 namespace vpd
 {
+
+// Static singleton instance — null until initialize() is called
+std::shared_ptr<ConfigManager> ConfigManager::m_instance{nullptr};
+
+std::shared_ptr<ConfigManager> ConfigManager::getInstance() noexcept
+{
+    return m_instance;
+}
+
+std::shared_ptr<ConfigManager> ConfigManager::initialize(
+    [[maybe_unused]] const ManagerPassKey& i_key,
+    const std::string& i_sysConfigJsonPath)
+{
+    // Construct a fresh instance and load the JSON into it
+    m_instance = std::shared_ptr<ConfigManager>(new ConfigManager());
+    m_instance->loadJson(i_sysConfigJsonPath);
+    return m_instance;
+}
+
+void ConfigManager::reinitialize(
+    [[maybe_unused]] const ManagerPassKey& i_key,
+    const std::string& i_sysConfigJsonPath)
+{
+    if (!m_instance)
+    {
+        throw std::runtime_error(
+            "ConfigManager::reinitialize() called before initialize()");
+    }
+
+    // Clear all maps so loadJson() builds them from scratch
+    m_instance->m_systemConfigJson = nlohmann::json{};
+    m_instance->m_chassisIdToJsonMap.clear();
+    m_instance->m_eepromToChassisIdMap.clear();
+    m_instance->m_unexpandedLocCodeToInvPathsMap.clear();
+    m_instance->m_chassisToMotherboardEepromMap.clear();
+
+    m_instance->loadJson(i_sysConfigJsonPath);
+}
+
+void ConfigManager::loadJson(const std::string& i_sysConfigJsonPath)
+{
+    uint16_t l_errCode{constants::VALUE_0};
+
+    m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
+
+    if (l_errCode != constants::VALUE_0)
+    {
+        throw JsonException{std::format(
+            "ConfigManager failed to load JSON from path {}. Error: {}",
+            i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
+    }
+
+    // Validate the system configuration JSON
+    JsonValidator::validateConfigJson(m_systemConfigJson);
+
+    buildConfigMaps();
+
+    // Validate the chassis-specific JSONs
+    validateChassisSpecificJsons();
+}
+
 const nlohmann::json& ConfigManager::getJsonObj(
     const std::optional<std::string>& i_vpdPath) const noexcept
 {
