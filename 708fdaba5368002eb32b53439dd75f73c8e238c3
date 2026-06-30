@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5075e96d_465b98d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a232807_2a1f0e36",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5275a94d_550ba5a4",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-25T16:01:18Z",
       "side": 1,
       "message": "there should be space in between as this does not mean the function name here?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e71615_e7b03756",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5275a94d_550ba5a4",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "850235e6_e0abcdb9",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a0325f3_4fbf12f0",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05f7e64a_082c546c",
@@ -120,6 +174,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40693fd0_b664dee7",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c9a590_47c1fce7",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a3ca6f5_148085ce",
@@ -133,6 +205,24 @@
       "writtenOn": "2026-06-16T14:30:53Z",
       "side": 1,
       "message": "filePath would be enough here as the class name already has VPD in it, same for below variable as well ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc442786_41fe51ed",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "The existing member variable has VPD in it, followed the same pattern",
+      "parentUuid": "8a3ca6f5_148085ce",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +246,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50352cfd_70ce4efa",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "In both the cases the same error (DbusInvalidArgument) is thrown, so combined both the checks.",
+      "parentUuid": "db69e1e7_cb215546",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32d1e757_b1b1467d",
         "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
         "patchSetId": 4
@@ -167,6 +275,24 @@
       "writtenOn": "2026-06-25T16:01:18Z",
       "side": 1,
       "message": "Again ambiguous logging, does not tell what actually failed.",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee42a3da_5c749f77",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32d1e757_b1b1467d",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -184,6 +310,24 @@
       "writtenOn": "2026-06-16T14:30:53Z",
       "side": 1,
       "message": "why copy, not using m_keywordVpdVector itself ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e12243d_90f41d12",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-30T05:06:06Z",
+      "side": 1,
+      "message": "m_keywordVpdVector is the const variable, as mentioned in the comment we need to update the vector with the new value to update the checksum",
+      "parentUuid": "e35f5e6d_60937e88",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
