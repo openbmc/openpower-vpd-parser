@@ -160,12 +160,10 @@ class ThreadManager
      *
      * @param[in] i_chassisId - Unique identifier of the chassis.
      * @param[in] i_eepromPath - EEPROM path associated with the chassis.
-     * @param[in] i_chassisJson - Chassis based JSON object.
      * @param[in] i_isPresent - Indicates whether the chassis is present.
      */
     void updateSystemView(const std::string& i_chassisId,
                           const std::string& i_eepromPath,
-                          const nlohmann::json& i_chassisJson,
                           const bool i_isPresent) noexcept;
 
     /**
