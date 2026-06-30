@@ -897,14 +897,12 @@ inline std::string getRedundantEepromPathFromJson(
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,
  * this API returns FRU EEPROM path if present in JSON.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object
  * @param[in] i_vpdPath - Path to where VPD is stored.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success return valid path, on failure return empty string.
  */
-inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
-                                      const std::string& i_vpdPath,
+inline std::string getFruPathFromJson(const std::string& i_vpdPath,
                                       uint16_t& o_errCode)
 {
     o_errCode = 0;
@@ -914,29 +912,39 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
         return std::string{};
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return std::string{};
+    }
+
+    const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
     // check if given path is FRU path
-    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    if (l_parsedConfigJson["frus"].contains(i_vpdPath))
     {
         return i_vpdPath;
     }
 
     const nlohmann::json& l_fruList =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+        l_parsedConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
 
     for (const auto& l_fru : l_fruList.items())
     {
         const auto l_fruPath = l_fru.key();
 
         // check if given path is redundant FRU path or inventory path
-        if (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
+        if (i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
                              "redundantEeprom", "") ||
-            (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
+            (i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
                               "inventoryPath", "")))
         {
             return l_fruPath;
@@ -1130,7 +1138,7 @@ inline std::tuple<std::string, std::string, std::string>
 
     // Get hardware path from system config JSON.
     const types::Path l_fruPath =
-        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, io_vpdPath, o_errCode);
+        jsonUtility::getFruPathFromJson(io_vpdPath, o_errCode);
 
     if (!l_fruPath.empty())
     {
