@@ -42,8 +42,19 @@ int VpdTool::readKeyword(
         types::DbusVariantType l_keywordValue;
         if (i_onHardware)
         {
-            l_keywordValue = utils::readKeywordFromHardware(
-                i_vpdPath, std::make_tuple(i_recordName, i_keywordName));
+            // For hardware read, support both IPZ format (with record) and
+            // Keyword format (without record)
+            if (i_recordName.empty())
+            {
+                l_keywordValue =
+                    utils::readKeywordFromHardware(i_vpdPath, i_keywordName);
+            }
+            else
+            {
+                // IPZ VPD format - read keyword from record
+                l_keywordValue = utils::readKeywordFromHardware(
+                    i_vpdPath, std::make_tuple(i_recordName, i_keywordName));
+            }
         }
         else
         {
@@ -56,6 +67,13 @@ int VpdTool::readKeyword(
             if (l_keywordName.empty())
             {
                 std::cerr << "Invalid keyword given." << std::endl;
+                return l_rc;
+            }
+
+            if (i_recordName.empty())
+            {
+                std::cerr << "Record name is required for DBus read operations."
+                          << std::endl;
                 return l_rc;
             }
 
@@ -423,28 +441,45 @@ int VpdTool::fixSystemVpd() const noexcept
 int VpdTool::writeKeyword(
     std::string i_vpdPath, const std::string& i_recordName,
     const std::string& i_keywordName, const std::string& i_keywordValue,
-    const bool i_onHardware) noexcept
+    const bool i_onHardware, const bool i_isRecordProvided) noexcept
 {
     int l_rc = constants::FAILURE;
     try
     {
-        if (i_vpdPath.empty() || i_recordName.empty() ||
-            i_keywordName.empty() || i_keywordValue.empty())
+        if (i_vpdPath.empty() || i_keywordName.empty() ||
+            i_keywordValue.empty())
         {
             throw std::runtime_error("Received input is empty.");
         }
 
-        auto l_paramsToWrite =
-            std::make_tuple(i_recordName, i_keywordName,
-                            utils::convertToBinary(i_keywordValue));
-
         if (i_onHardware)
         {
+            types::WriteVpdParams l_paramsToWrite;
+            if (!i_isRecordProvided)
+            {
+                l_paramsToWrite = std::make_tuple(
+                    i_keywordName, utils::convertToBinary(i_keywordValue));
+            }
+            else
+            {
+                l_paramsToWrite =
+                    std::make_tuple(i_recordName, i_keywordName,
+                                    utils::convertToBinary(i_keywordValue));
+            }
             l_rc = utils::writeKeywordOnHardware(i_vpdPath, l_paramsToWrite);
         }
         else
         {
+            if (!i_isRecordProvided)
+            {
+                throw std::runtime_error(
+                    "Record name is required for DBus write operations.");
+            }
+
             i_vpdPath = constants::baseInventoryPath + i_vpdPath;
+            auto l_paramsToWrite =
+                std::make_tuple(i_recordName, i_keywordName,
+                                utils::convertToBinary(i_keywordValue));
             l_rc = utils::writeKeyword(i_vpdPath, l_paramsToWrite);
         }
 
