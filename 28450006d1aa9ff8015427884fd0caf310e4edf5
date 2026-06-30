@@ -35,6 +35,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01abc7b4_ec82e4e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e35e5b39_ae7d6ac5",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebc1d2f_fe45ceb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2003b007_6d007fe5",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69b935de_cfcfcddf",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-30T14:53:19Z",
       "side": 1,
       "message": "Nit: provides",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab67e55_8453b48a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69b935de_cfcfcddf",
       "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c39a480_5b2e95f6",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbbea6c7_d8af9700",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dcfea9b_f6a49b1f",
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37e79953_6440deca",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dcfea9b_f6a49b1f",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017a2feb_997e5aaf",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-06-30T14:53:19Z",
       "side": 1,
       "message": "I see this value will be replaced with 0, at line 750.\ndo we need this change ?",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f754278e_90fda1eb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017a2feb_997e5aaf",
       "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2cc390e_ae041b19",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "This case will be handled in parseVpdFile and it will throw FirmwareException.\nPassing it to catch block and then logs the error and return false. - still it will rue handled by the caller only. then better send it direct to the caller.",
+      "parentUuid": "a8f61d9a_7f6db0d4",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f729167d_68afc3c7",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 9
@@ -133,6 +259,24 @@
       "writtenOn": "2026-06-30T14:53:19Z",
       "side": 1,
       "message": "Nit: stale data",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47031587_d73d7c13",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f729167d_68afc3c7",
       "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -150,6 +294,24 @@
       "writtenOn": "2026-06-30T14:53:19Z",
       "side": 1,
       "message": "what if EEPROM is present, but VPD collection is failed.\ncan we add todo in the caller place to handle this scenario ?",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e1ec95_2f76b5e5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-30T21:04:51Z",
+      "side": 1,
+      "message": "this is already handled in other commit, no need of TODO.",
+      "parentUuid": "d9a460b5_127080e4",
       "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
