@@ -217,8 +217,8 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         // The utility method will handle empty JSON case. No explicit
         // handling required here.
         uint16_t l_errCode = 0;
-        auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            l_sysCfgJsonObj, l_fruPath, l_errCode);
+        auto l_inventoryPath =
+            jsonUtility::getInventoryObjPathFromJson(l_fruPath, l_errCode);
 
         // Mark it as failed if inventory path not found in JSON.
         if (l_inventoryPath.empty())
@@ -987,29 +987,13 @@ void IbmHandler::setDeviceTreeAndJson(
 
         setJsonSymbolicLink(l_systemJson);
 
-        const std::string& l_systemVpdInvPath =
-            jsonUtility::getInventoryObjPathFromJson(
-                m_sysCfgJsonObj, SYSTEM_VPD_FILE_PATH, l_errCode);
-
-        if (l_systemVpdInvPath.empty())
-        {
-            if (l_errCode)
-            {
-                throw JsonException(
-                    "System vpd inventory path not found in JSON. Reason:" +
-                        commonUtility::getErrCodeMsg(l_errCode),
-                    INVENTORY_JSON_SYM_LINK);
-            }
-            throw JsonException("System vpd inventory path is missing in JSON",
-                                INVENTORY_JSON_SYM_LINK);
-        }
-
         // TODO: for backward compatibility this should also support motherboard
         // interface.
         std::vector<std::string> l_interfaceList{
             constants::motherboardInterface};
         const types::MapperGetObject& l_sysVpdObjMap =
-            dbusUtility::getObjectMap(l_systemVpdInvPath, l_interfaceList);
+            dbusUtility::getObjectMap(constants::systemInvPath,
+                                      l_interfaceList);
 
         if (!l_sysVpdObjMap.empty())
         {
