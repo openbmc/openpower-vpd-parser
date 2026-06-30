@@ -202,8 +202,8 @@ void ThreadManager::updateSystemView(
     const nlohmann::json& i_chassisJson, const bool i_isPresent) noexcept
 {
     uint16_t l_errCode = 0;
-    const std::string& l_invPath = jsonUtility::getInventoryObjPathFromJson(
-        i_chassisJson, i_eepromPath, l_errCode);
+    const std::string& l_invPath =
+        jsonUtility::getInventoryObjPathFromJson(i_eepromPath, l_errCode);
 
     if (l_errCode || l_invPath.empty())
     {

@@ -327,17 +327,9 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
 {
     for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
     {
-        nlohmann::json l_sysCfgJsonObj{};
-        if (m_worker.get() != nullptr)
-        {
-            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-        }
-
-        // The utility method will handle empty JSON case. No explicit
-        // handling required here.
         uint16_t l_errCode = 0;
-        auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            l_sysCfgJsonObj, l_fruPath, l_errCode);
+        auto l_inventoryPath =
+            jsonUtility::getInventoryObjPathFromJson(l_fruPath, l_errCode);
 
         // Mark it as failed if inventory path not found in JSON.
         if (l_inventoryPath.empty())
@@ -1119,8 +1111,8 @@ void IbmHandler::setDeviceTreeAndJson(
         setJsonSymbolicLink(l_systemJson);
 
         const std::string& l_systemVpdInvPath =
-            jsonUtility::getInventoryObjPathFromJson(
-                m_sysCfgJsonObj, SYSTEM_VPD_FILE_PATH, l_errCode);
+            jsonUtility::getInventoryObjPathFromJson(SYSTEM_VPD_FILE_PATH,
+                                                     l_errCode);
 
         if (l_systemVpdInvPath.empty())
         {

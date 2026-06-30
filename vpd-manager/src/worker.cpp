@@ -1072,8 +1072,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             if (vpdSpecificUtility::isPass1Planar(l_errCode))
             {
                 std::string l_invPath =
-                    jsonUtility::getInventoryObjPathFromJson(
-                        m_parsedJson, i_vpdFilePath, l_errCode);
+                    jsonUtility::getInventoryObjPathFromJson(i_vpdFilePath,
+                                                             l_errCode);
 
                 if (l_errCode != 0)
                 {
@@ -1181,8 +1181,8 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
                 PlaceHolder::COLLECTION);
         }
 
-        std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
-            m_parsedJson, i_vpdFilePath, l_errCode);
+        std::string l_invPath =
+            jsonUtility::getInventoryObjPathFromJson(i_vpdFilePath, l_errCode);
 
         if (l_errCode)
         {
