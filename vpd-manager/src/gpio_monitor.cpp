@@ -74,7 +74,7 @@ void GpioEventHandler::handleTimerExpiry(
 
     uint16_t l_errCode = 0;
     bool l_currentPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_configJson, m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
+        m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
@@ -101,7 +101,7 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
 {
     uint16_t l_errCode = 0;
     m_prevPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_configJson, m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
+        m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
