@@ -953,14 +953,12 @@ inline std::string getRedundantEepromPathFromJson(
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,
  * this API returns FRU EEPROM path if present in JSON.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object
  * @param[in] i_vpdPath - Path to where VPD is stored.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success return valid path, on failure return empty string.
  */
-inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
-                                      const std::string& i_vpdPath,
+inline std::string getFruPathFromJson(const std::string& i_vpdPath,
                                       uint16_t& o_errCode)
 {
     o_errCode = 0;
@@ -970,11 +968,15 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
         return std::string{};
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
+
+    const nlohmann::json& i_sysCfgJsonObj =
+        l_configManager->getJsonObj(i_vpdPath);
 
     // check if given path is FRU path
     if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
@@ -1177,7 +1179,7 @@ inline std::tuple<std::string, std::string, std::string>
     types::Path l_redundantFruPath;
     o_errCode = 0;
 
-    if (i_sysCfgJsonObj.empty() || io_vpdPath.empty())
+    if (io_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::make_tuple(io_vpdPath, l_inventoryObjPath,
@@ -1186,7 +1188,7 @@ inline std::tuple<std::string, std::string, std::string>
 
     // Get hardware path from system config JSON.
     const types::Path l_fruPath =
-        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, io_vpdPath, o_errCode);
+        jsonUtility::getFruPathFromJson(io_vpdPath, o_errCode);
 
     if (!l_fruPath.empty())
     {
