@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35e5b39_ae7d6ac5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "Nit: remove (), instead we can say API.",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2003b007_6d007fe5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "Nit: uses",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69b935de_cfcfcddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "Nit: provides",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbbea6c7_d8af9700",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "Nit: stale persistent data",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dcfea9b_f6a49b1f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "why the name pim added here ?",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "017a2feb_997e5aaf",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "I see this value will be replaced with 0, at line 750.\ndo we need this change ?",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f61d9a_7f6db0d4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "instead we can simply throw error ?, as catch blocks logs the error and returns false.",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f729167d_68afc3c7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "Nit: stale data",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a460b5_127080e4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-30T14:53:19Z",
+      "side": 1,
+      "message": "what if EEPROM is present, but VPD collection is failed.\ncan we add todo in the caller place to handle this scenario ?",
+      "revId": "28450006d1aa9ff8015427884fd0caf310e4edf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
