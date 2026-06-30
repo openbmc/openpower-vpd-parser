@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a6028f_dd190815",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-30T09:17:51Z",
+      "side": 1,
+      "message": "Please log a message to journal here as it is an error scenario. \"i_fruThreadContext\" should not be null at this point.",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5021de_3f9b0f9b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-30T09:17:51Z",
+      "side": 1,
+      "message": "Scope can be reduced as it is being used only at one place. \nThe object can be instantiate in place. for reference, We are using that in gpio_monitor.cpp",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c818a10_caf6edbc",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-30T09:17:51Z",
+      "side": 1,
+      "message": "Throwing from here will need better handing at the caller end as it will break the while loop as well.\nThrowing from a detached thread etc just adds complexity.\nIs it possible to have a less complex approach here as this situation will most likely never happen.\n\nWhy not return an empty string from here and in case of empty string by pass launching the thread and just reduce the FRU count.",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
