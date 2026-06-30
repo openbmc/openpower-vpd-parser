@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config_manager.hpp"
 #include "error_codes.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -20,28 +21,25 @@ namespace jsonUtility
 {
 
 // forward declaration of API for function map.
-bool processSystemCmdTag(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode);
+bool processSystemCmdTag(const std::string& i_vpdFilePath,
+                         const std::string& i_baseAction,
+                         const std::string& i_flagToProcess,
+                         uint16_t& o_errCode);
 
 // forward declaration of API for function map.
 bool processGpioPresenceTag(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode);
+    const std::string& i_vpdFilePath, const std::string& i_baseAction,
+    const std::string& i_flagToProcess, uint16_t& o_errCode);
 
 // forward declaration of API for function map.
-bool procesSetGpioTag(const nlohmann::json& i_parsedConfigJson,
-                      const std::string& i_vpdFilePath,
+bool procesSetGpioTag(const std::string& i_vpdFilePath,
                       const std::string& i_baseAction,
                       const std::string& i_flagToProcess, uint16_t& o_errCode);
 
 // Function pointers to process tags from config JSON.
 typedef bool (*functionPtr)(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode);
+    const std::string& i_vpdFilePath, const std::string& i_baseAction,
+    const std::string& i_flagToProcess, uint16_t& o_errCode);
 
 inline std::unordered_map<std::string, functionPtr> funcionMap{
     {"gpioPresence", processGpioPresenceTag},
@@ -261,9 +259,8 @@ inline bool executePostFailAction(
         auto itrToFunction = funcionMap.find(l_tags.key());
         if (itrToFunction != funcionMap.end())
         {
-            if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                       "postFailAction", i_flagToProcess,
-                                       o_errCode))
+            if (!itrToFunction->second(i_vpdFilePath, "postFailAction",
+                                       i_flagToProcess, o_errCode))
             {
                 if (o_errCode)
                 {
@@ -294,21 +291,36 @@ inline bool executePostFailAction(
  * @return Execution status.
  */
 inline bool processSystemCmdTag(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const std::string& i_vpdFilePath, const std::string& i_baseAction,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-        i_baseAction.empty() || i_flagToProcess.empty())
+    if (i_vpdFilePath.empty() || i_baseAction.empty() ||
+        i_flagToProcess.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return false;
+    }
+
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFilePath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
     try
     {
-        if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        if (!((l_parsedConfigJson["frus"][i_vpdFilePath].at(
                    0)[i_baseAction][i_flagToProcess]["systemCmd"])
                   .contains("cmd")))
         {
@@ -317,7 +329,7 @@ inline bool processSystemCmdTag(
         }
 
         const std::string& l_systemCommand =
-            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+            l_parsedConfigJson["frus"][i_vpdFilePath].at(
                 0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
 
         commonUtility::executeCmd(l_systemCommand, o_errCode);
@@ -345,25 +357,41 @@ inline bool processSystemCmdTag(
  * @return Execution status.
  */
 inline bool processGpioPresenceTag(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const std::string& i_vpdFilePath, const std::string& i_baseAction,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     o_errCode = 0;
     std::string l_presencePinName;
     try
     {
-        if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-            i_baseAction.empty() || i_flagToProcess.empty())
+        if (i_vpdFilePath.empty() || i_baseAction.empty() ||
+            i_flagToProcess.empty())
         {
             o_errCode = error_code::INVALID_INPUT_PARAMETER;
             return false;
         }
 
-        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        auto l_configManager = ConfigManager::getInstance();
+        if (!l_configManager)
+        {
+            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+            return false;
+        }
+
+        const auto l_configJsonResult =
+            l_configManager->getJsonObj(i_vpdFilePath);
+        if (!l_configJsonResult.has_value())
+        {
+            o_errCode = l_configJsonResult.error();
+            return false;
+        }
+
+        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
+        if (!(((l_parsedConfigJson["frus"][i_vpdFilePath].at(
                     0)[i_baseAction][i_flagToProcess]["gpioPresence"])
                    .contains("pin")) &&
-              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+              ((l_parsedConfigJson["frus"][i_vpdFilePath].at(
                     0)[i_baseAction][i_flagToProcess]["gpioPresence"])
                    .contains("value"))))
         {
@@ -372,12 +400,12 @@ inline bool processGpioPresenceTag(
         }
 
         // get the pin name
-        l_presencePinName = i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        l_presencePinName = l_parsedConfigJson["frus"][i_vpdFilePath].at(
             0)[i_baseAction][i_flagToProcess]["gpioPresence"]["pin"];
 
         // get the pin value
         uint8_t l_presencePinValue =
-            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+            l_parsedConfigJson["frus"][i_vpdFilePath].at(
                 0)[i_baseAction][i_flagToProcess]["gpioPresence"]["value"];
 
         gpiod::line l_presenceLine = gpiod::find_line(l_presencePinName);
@@ -421,8 +449,7 @@ inline bool processGpioPresenceTag(
          uint16_t l_errCode = 0;
          EventLogger::createAsyncPelWithInventoryCallout(
             EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
-                                          l_errCode),
+            {{getInventoryObjPathFromJson(i_vpdFilePath, l_errCode),
               types::CalloutPriority::High}},
             std::source_location::current().file_name(),
             std::source_location::current().function_name(), 0, l_errMsg,
@@ -443,7 +470,6 @@ inline bool processGpioPresenceTag(
  *
  * This API enables the GPIO line.
  *
- * @param[in] i_parsedConfigJson - config JSON
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_baseAction - Base action for which this tag has been called.
  * @param[in] i_flagToProcess - Flag nested under the base action for which this
@@ -452,25 +478,41 @@ inline bool processGpioPresenceTag(
  * @return Execution status.
  */
 inline bool procesSetGpioTag(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_baseAction, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const std::string& i_vpdFilePath, const std::string& i_baseAction,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     o_errCode = 0;
     std::string l_pinName;
     try
     {
-        if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-            i_baseAction.empty() || i_flagToProcess.empty())
+        if (i_vpdFilePath.empty() || i_baseAction.empty() ||
+            i_flagToProcess.empty())
         {
             o_errCode = error_code::INVALID_INPUT_PARAMETER;
             return false;
         }
 
-        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        auto l_configManager = ConfigManager::getInstance();
+        if (!l_configManager)
+        {
+            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+            return false;
+        }
+
+        const auto l_configJsonResult =
+            l_configManager->getJsonObj(i_vpdFilePath);
+        if (!l_configJsonResult.has_value())
+        {
+            o_errCode = l_configJsonResult.error();
+            return false;
+        }
+
+        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
+        if (!(((l_parsedConfigJson["frus"][i_vpdFilePath].at(
                     0)[i_baseAction][i_flagToProcess]["setGpio"])
                    .contains("pin")) &&
-              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+              ((l_parsedConfigJson["frus"][i_vpdFilePath].at(
                     0)[i_baseAction][i_flagToProcess]["setGpio"])
                    .contains("value"))))
         {
@@ -478,11 +520,11 @@ inline bool procesSetGpioTag(
             return false;
         }
 
-        l_pinName = i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        l_pinName = l_parsedConfigJson["frus"][i_vpdFilePath].at(
             0)[i_baseAction][i_flagToProcess]["setGpio"]["pin"];
 
         // Get the value to set
-        uint8_t l_pinValue = i_parsedConfigJson["frus"][i_vpdFilePath].at(
+        uint8_t l_pinValue = l_parsedConfigJson["frus"][i_vpdFilePath].at(
             0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
 
         logging::logMessage(
@@ -514,8 +556,7 @@ inline bool procesSetGpioTag(
          uint16_t l_errCode = 0;
          EventLogger::createAsyncPelWithInventoryCallout(
             EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
-                                          l_errCode),
+            {{getInventoryObjPathFromJson(i_vpdFilePath, l_errCode),
               types::CalloutPriority::High}},
             std::source_location::current().file_name(),
             std::source_location::current().function_name(), 0, l_errMsg,
@@ -741,9 +782,8 @@ inline types::BaseActionResult executeBaseAction(
         }
 
         o_errCode = 0;
-        bool l_tagProcessingRes =
-            l_itrToFunction->second(i_parsedConfigJson, i_fruPath, i_action,
-                                    i_flagToProcess, o_errCode);
+        bool l_tagProcessingRes = l_itrToFunction->second(
+            i_fruPath, i_action, i_flagToProcess, o_errCode);
 
         if (l_tagName == "gpioPresence")
         {
@@ -773,8 +813,7 @@ inline types::BaseActionResult executeBaseAction(
 
                 // Process GPIO presence pin explicitly.
                 bool l_gpioRes = processGpioPresenceTag(
-                    i_parsedConfigJson, i_fruPath, i_action, i_flagToProcess,
-                    l_gpioErrorCode);
+                    i_fruPath, i_action, i_flagToProcess, l_gpioErrorCode);
 
                 updatePresenceTagOutput(l_gpioRes, l_gpioErrorCode,
                                         l_actionRes);

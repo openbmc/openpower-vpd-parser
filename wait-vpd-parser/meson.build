@@ -23,6 +23,7 @@ endif
 sources = [
     'src/wait_vpd_parser.cpp',
     '../vpd-manager/src/logger.cpp',
+    '../vpd-manager/src/config_manager.cpp',
     'src/prime_inventory.cpp',
     'src/inventory_backup_handler.cpp',
     'src/collection_orchestrator.cpp',

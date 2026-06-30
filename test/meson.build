@@ -50,6 +50,7 @@ test_sources = [
     '../vpd-manager/src/ipz_parser.cpp',
     '../vpd-manager/src/keyword_vpd_parser.cpp',
     '../vpdecc/vpdecc.c',
+    '../vpd-manager/src/config_manager.cpp',
 ]
 
 tests = [
