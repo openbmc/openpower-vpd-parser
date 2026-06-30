@@ -27,6 +27,7 @@ enum error_code
     INVALID_LOCATION_CODE_FORMAT,
 
     // Generic errors.
+    CONFIG_MANAGER_UNINITIALIZED,
     INVALID_INPUT_PARAMETER,
     DEVICE_NOT_PRESENT,
     DEVICE_PRESENCE_UNKNOWN,
@@ -64,6 +65,8 @@ const std::unordered_map<int, std::string> errorCodeMap = {
      "JSON is missing the action tag to be performed for the FRU."},
     {error_code::FRU_PATH_NOT_FOUND, "The FRU path is not found in the JSON."},
     {error_code::JSON_PARSE_ERROR, "Error while parsing JSON file."},
+    {error_code::CONFIG_MANAGER_UNINITIALIZED,
+     "ConfigManager is not initialized"},
     {error_code::INVALID_INPUT_PARAMETER,
      "Either one of the input parameter is invalid or empty."},
     {error_code::JSON_MISSING_GPIO_INFO, "JSON missing required GPIO info."},
