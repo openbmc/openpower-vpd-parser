@@ -81,8 +81,8 @@ types::EepromInventoryPaths BackupAndRestore::getFruAndInvPaths(
         !l_fruPath.empty())
     {
         uint16_t l_errCode{0};
-        l_invObjPath = jsonUtility::getInventoryObjPathFromJson(
-            m_sysCfgJsonObj, l_fruPath, l_errCode);
+        l_invObjPath =
+            jsonUtility::getInventoryObjPathFromJson(l_fruPath, l_errCode);
 
         if (l_invObjPath.empty())
         {
