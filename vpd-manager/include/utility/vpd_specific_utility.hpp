@@ -1110,7 +1110,7 @@ inline void setCollectionStatusProperty(
     types::ObjectMap l_objectInterfaceMap;
 
     const auto& l_eepromPath =
-        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, i_vpdPath, o_errCode);
+        jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
 
     if (l_eepromPath.empty() || o_errCode)
     {
@@ -1177,8 +1177,8 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
 
     try
     {
-        const std::string& l_fruPath = jsonUtility::getFruPathFromJson(
-            i_sysCfgJsonObj, i_vpdPath, o_errCode);
+        const std::string& l_fruPath =
+            jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
 
         if (o_errCode)
         {
