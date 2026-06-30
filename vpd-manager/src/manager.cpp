@@ -262,8 +262,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
         {
-            l_fruPath = jsonUtility::getFruPathFromJson(l_sysCfgJsonObj,
-                                                        i_vpdPath, l_errCode);
+            l_fruPath = jsonUtility::getFruPathFromJson(i_vpdPath, l_errCode);
         }
     }
 
@@ -705,7 +704,7 @@ types::EepromPathList Manager::getHwPath(
 
     // get the primary EEPROM path
     const auto l_primaryEepromPath =
-        jsonUtility::getFruPathFromJson(l_jsonObj, l_dbusObjPathStr, l_errCode);
+        jsonUtility::getFruPathFromJson(l_dbusObjPathStr, l_errCode);
 
     if (l_primaryEepromPath.empty())
     {
