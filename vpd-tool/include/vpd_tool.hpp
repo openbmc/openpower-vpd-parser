@@ -240,7 +240,7 @@ class VpdTool
      * the hardware. Otherwise read keyword's value from DBus.
      *
      * @param[in] i_vpdPath - DBus object path or EEPROM path.
-     * @param[in] i_recordName - Record name.
+     * @param[in] i_recordName - Record name (optional).
      * @param[in] i_keywordName - Keyword name.
      * @param[in] i_onHardware - True if i_vpdPath is EEPROM path, false
      * otherwise.
@@ -250,7 +250,7 @@ class VpdTool
      * @return On success return 0, otherwise return -1.
      */
     int readKeyword(const std::string& i_vpdPath,
-                    const std::string& i_recordName,
+                    const std::optional<std::string>& i_recordName,
                     const std::string& i_keywordName, const bool i_onHardware,
                     const std::string& i_fileToSave = {});
 
@@ -295,11 +295,12 @@ class VpdTool
      * get updated, also redundant EEPROM(if any) path with new keyword's value.
      *
      * In case of hardware path, only given hardware path gets updated with new
-     * keyword’s value, any backup or redundant EEPROM (if exists) paths won't
+     * keyword's value, any backup or redundant EEPROM (if exists) paths won't
      * get updated.
      *
      * @param[in] i_vpdPath - DBus object path or EEPROM path.
-     * @param[in] i_recordName - Record name.
+     * @param[in] i_recordName - Optional record name. If provided, uses IPZ
+     * format; if not provided (std::nullopt), uses Keyword VPD format.
      * @param[in] i_keywordName - Keyword name.
      * @param[in] i_keywordValue - Keyword value.
      * @param[in] i_onHardware - True if i_vpdPath is EEPROM path, false
@@ -307,7 +308,8 @@ class VpdTool
      *
      * @return On success returns 0, otherwise returns -1.
      */
-    int writeKeyword(std::string i_vpdPath, const std::string& i_recordName,
+    int writeKeyword(std::string i_vpdPath,
+                     const std::optional<std::string>& i_recordName,
                      const std::string& i_keywordName,
                      const std::string& i_keywordValue,
                      const bool i_onHardware) noexcept;
