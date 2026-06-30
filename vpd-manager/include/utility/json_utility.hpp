@@ -309,7 +309,7 @@ inline bool processSystemCmdTag(const std::string& i_vpdFilePath,
     auto l_configManager = ConfigManager::getInstance();
     if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
@@ -373,7 +373,7 @@ inline bool processGpioPresenceTag(const std::string& i_vpdFilePath,
         auto l_configManager = ConfigManager::getInstance();
         if (!l_configManager)
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
             return false;
         }
 
@@ -488,7 +488,7 @@ inline bool procesSetGpioTag(const std::string& i_vpdFilePath,
         auto l_configManager = ConfigManager::getInstance();
         if (!l_configManager)
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
             return false;
         }
 
