@@ -1304,9 +1304,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
      * Remove this assignment once the APIs are updated to accept the JSON
      * object as an input parameter.
      */
-    m_parsedJson = i_configJsonObj;
     const std::string& l_fruPath =
-        jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath, l_errCode);
+        jsonUtility::getFruPathFromJson(i_dbusObjPath, l_errCode);
 
     if (l_errCode)
     {
@@ -1486,11 +1485,8 @@ void Worker::performVpdRecollection(
          * Remove this assignment once the APIs are updated to accept the JSON
          * object as an input parameter.
          */
-        m_parsedJson = i_sysCfgJsonObj;
-
         const auto& l_frusReplaceableAtStandby =
-            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
-                                                           l_errCode);
+            jsonUtility::getListOfFrusReplaceableAtStandby(l_errCode);
 
         if (l_errCode)
         {
@@ -1502,8 +1498,8 @@ void Worker::performVpdRecollection(
 
         for (const auto& l_fruInventoryPath : l_frusReplaceableAtStandby)
         {
-            const auto l_fruPath = jsonUtility::getFruPathFromJson(
-                m_parsedJson, l_fruInventoryPath, l_errCode);
+            const auto l_fruPath =
+                jsonUtility::getFruPathFromJson(l_fruInventoryPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1551,8 +1547,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         }
 
         // Get FRU path for the given D-bus object path from JSON
-        l_fruPath = jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath,
-                                                    l_errCode);
+        l_fruPath = jsonUtility::getFruPathFromJson(i_dbusObjPath, l_errCode);
 
         if (l_fruPath.empty())
         {
