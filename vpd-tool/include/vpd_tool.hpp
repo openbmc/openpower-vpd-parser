@@ -252,7 +252,7 @@ class VpdTool
     int readKeyword(const std::string& i_vpdPath,
                     const std::string& i_recordName,
                     const std::string& i_keywordName, const bool i_onHardware,
-                    const std::string& i_fileToSave = {});
+                    const std::string& i_fileToSave = {}) const noexcept;
 
     /**
      * @brief Dump the given inventory object in JSON format to console.
@@ -295,11 +295,11 @@ class VpdTool
      * get updated, also redundant EEPROM(if any) path with new keyword's value.
      *
      * In case of hardware path, only given hardware path gets updated with new
-     * keyword’s value, any backup or redundant EEPROM (if exists) paths won't
+     * keyword's value, any backup or redundant EEPROM (if exists) paths won't
      * get updated.
      *
      * @param[in] i_vpdPath - DBus object path or EEPROM path.
-     * @param[in] i_recordName - Record name.
+     * @param[in] i_recordName - Record name
      * @param[in] i_keywordName - Keyword name.
      * @param[in] i_keywordValue - Keyword value.
      * @param[in] i_onHardware - True if i_vpdPath is EEPROM path, false
@@ -310,7 +310,7 @@ class VpdTool
     int writeKeyword(std::string i_vpdPath, const std::string& i_recordName,
                      const std::string& i_keywordName,
                      const std::string& i_keywordValue,
-                     const bool i_onHardware) noexcept;
+                     const bool i_onHardware) const noexcept;
 
     /**
      * @brief Reset specific keywords on System VPD to default value.
