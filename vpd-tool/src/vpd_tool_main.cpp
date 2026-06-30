@@ -73,16 +73,19 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag,
  * @brief API to write keyword's value.
  *
  * @param[in] i_hardwareFlag - Flag to perform write on hardware.
+ * @param[in] i_recordOption - Option flag indicating if record was provided.
  * @param[in] i_keywordValueOption - Option to read keyword value from command.
  * @param[in] i_vpdPath - DBus object path or EEPROM path.
- * @param[in] i_recordName - Record to be updated.
+ * @param[in] i_recordName - Record to be updated (optional for Keyword VPD
+ * format).
  * @param[in] i_keywordName - Keyword to be updated.
  * @param[in] i_keywordValue - Value to be updated in keyword.
  *
  * @return Status of writeKeyword operation, failure otherwise.
  */
-int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
-                 const std::string& i_vpdPath, const std::string& i_recordName,
+int writeKeyword(const auto& i_hardwareFlag, const auto& i_recordOption,
+                 const auto& i_keywordValueOption, const std::string& i_vpdPath,
+                 const std::string& i_recordName,
                  const std::string& i_keywordName,
                  const std::string& i_keywordValue)
 {
@@ -137,24 +140,29 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
         }
     }
 
+    bool l_isRecordProvided = (!i_recordOption->empty());
+
     vpd::VpdTool l_vpdToolObj;
     return l_vpdToolObj.writeKeyword(i_vpdPath, i_recordName, i_keywordName,
-                                     i_keywordValue, !i_hardwareFlag->empty());
+                                     i_keywordValue, !i_hardwareFlag->empty(),
+                                     l_isRecordProvided);
 }
 
 /**
  * @brief API to read keyword's value.
  *
- * @param[in] i_hardwareFlag - Flag to perform write on hardware.
+ * @param[in] i_hardwareFlag - Flag to perform read on hardware.
+ * @param[in] i_recordOption - Option flag indicating if record was provided.
  * @param[in] i_vpdPath - DBus object path or EEPROM path.
- * @param[in] i_recordName - Record to be updated.
- * @param[in] i_keywordName - Keyword to be updated.
+ * @param[in] i_recordName - Record to be read (optional for Keyword VPD
+ * format).
+ * @param[in] i_keywordName - Keyword to be read.
  * @param[in] i_filePath - File path to save keyword's read value.
  *
  * @return On success return 0, otherwise return -1.
  */
-int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
-                const std::string& i_recordName,
+int readKeyword(const auto& i_hardwareFlag, const auto& i_recordOption,
+                const std::string& i_vpdPath, const std::string& i_recordName,
                 const std::string& i_keywordName, const std::string& i_filePath)
 {
     std::error_code l_ec;
@@ -175,10 +183,12 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
     }
 
     bool l_isHardwareOperation = (!i_hardwareFlag->empty() ? true : false);
+    bool l_isRecordProvided = (!i_recordOption->empty());
 
     vpd::VpdTool l_vpdToolObj;
     return l_vpdToolObj.readKeyword(i_vpdPath, i_recordName, i_keywordName,
-                                    l_isHardwareOperation, i_filePath);
+                                    l_isHardwareOperation, l_isRecordProvided,
+                                    i_filePath);
 }
 
 /**
@@ -253,6 +263,11 @@ void updateFooter(CLI::App& i_app)
         "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name>\n"
         "        From hardware to file: "
         "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
+        "    Keyword Format:\n"
+        "        From hardware to console: "
+        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name>\n"
+        "        From hardware to file: "
+        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
         "Write:\n"
         "    IPZ Format:\n"
         "        On DBus: "
@@ -263,6 +278,11 @@ void updateFooter(CLI::App& i_app)
         "vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> -V <Keyword Value>\n"
         "        On hardware, take keyword value from file:\n"
         "              vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
+        "    Keyword Format:\n"
+        "        On hardware: "
+        "vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> -V <Keyword Value>\n"
+        "        On hardware, take keyword value from file:\n"
+        "              vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
         "Dump Object:\n"
         "    From DBus to console: "
         "vpd-tool -o -O <DBus Object Path>\n"
@@ -318,7 +338,6 @@ int main(int argc, char** argv)
 
     auto l_readFlag = l_app.add_flag("--readKeyword, -r", "Read keyword")
                           ->needs(l_objectOption)
-                          ->needs(l_recordOption)
                           ->needs(l_keywordOption);
 
     auto l_writeFlag =
@@ -327,7 +346,6 @@ int main(int argc, char** argv)
                 "--writeKeyword, -w,--updateKeyword, -u",
                 "Write keyword,\nNote: In case DBus path is provided, both EEPROM and DBus are updated with the given keyword's value.\nIn case EEPROM path is provided, only the given EEPROM is updated with the given keyword's value.")
             ->needs(l_objectOption)
-            ->needs(l_recordOption)
             ->needs(l_keywordOption);
 
     // ToDo: Take offset value from user for hardware path.
@@ -380,8 +398,8 @@ int main(int argc, char** argv)
 
     if (!l_readFlag->empty())
     {
-        return readKeyword(l_hardwareFlag, l_vpdPath, l_recordName,
-                           l_keywordName, l_filePath);
+        return readKeyword(l_hardwareFlag, l_recordOption, l_vpdPath,
+                           l_recordName, l_keywordName, l_filePath);
     }
 
     if (!l_writeFlag->empty())
@@ -404,12 +422,14 @@ int main(int argc, char** argv)
                 return vpd::constants::FAILURE;
             }
 
-            return writeKeyword(l_hardwareFlag, l_fileOption, l_vpdPath,
-                                l_recordName, l_keywordName, l_keywordValue);
+            return writeKeyword(l_hardwareFlag, l_recordOption, l_fileOption,
+                                l_vpdPath, l_recordName, l_keywordName,
+                                l_keywordValue);
         }
 
-        return writeKeyword(l_hardwareFlag, l_keywordValueOption, l_vpdPath,
-                            l_recordName, l_keywordName, l_keywordValue);
+        return writeKeyword(l_hardwareFlag, l_recordOption,
+                            l_keywordValueOption, l_vpdPath, l_recordName,
+                            l_keywordName, l_keywordValue);
     }
 
     if (!l_dumpObjFlag->empty())
