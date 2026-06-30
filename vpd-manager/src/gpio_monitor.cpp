@@ -36,8 +36,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
         else
         {
             const std::string l_invPath =
-                jsonUtility::getInventoryObjPathFromJson(m_configJson,
-                                                         m_fruPath, l_errCode);
+                jsonUtility::getInventoryObjPathFromJson(m_fruPath, l_errCode);
 
             if (l_errCode)
             {
