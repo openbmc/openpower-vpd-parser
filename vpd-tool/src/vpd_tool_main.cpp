@@ -145,10 +145,10 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
 /**
  * @brief API to read keyword's value.
  *
- * @param[in] i_hardwareFlag - Flag to perform write on hardware.
+ * @param[in] i_hardwareFlag - Flag to perform read on hardware.
  * @param[in] i_vpdPath - DBus object path or EEPROM path.
- * @param[in] i_recordName - Record to be updated.
- * @param[in] i_keywordName - Keyword to be updated.
+ * @param[in] i_recordName - Record to be read.
+ * @param[in] i_keywordName - Keyword to be read.
  * @param[in] i_filePath - File path to save keyword's read value.
  *
  * @return On success return 0, otherwise return -1.
@@ -253,6 +253,11 @@ void updateFooter(CLI::App& i_app)
         "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name>\n"
         "        From hardware to file: "
         "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
+        "    Keyword Format:\n"
+        "        From hardware to console: "
+        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name>\n"
+        "        From hardware to file: "
+        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
         "Write:\n"
         "    IPZ Format:\n"
         "        On DBus: "
@@ -263,6 +268,11 @@ void updateFooter(CLI::App& i_app)
         "vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> -V <Keyword Value>\n"
         "        On hardware, take keyword value from file:\n"
         "              vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
+        "    Keyword Format:\n"
+        "        On hardware: "
+        "vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> -V <Keyword Value>\n"
+        "        On hardware, take keyword value from file:\n"
+        "              vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
         "Dump Object:\n"
         "    From DBus to console: "
         "vpd-tool -o -O <DBus Object Path>\n"
@@ -318,7 +328,6 @@ int main(int argc, char** argv)
 
     auto l_readFlag = l_app.add_flag("--readKeyword, -r", "Read keyword")
                           ->needs(l_objectOption)
-                          ->needs(l_recordOption)
                           ->needs(l_keywordOption);
 
     auto l_writeFlag =
@@ -327,7 +336,6 @@ int main(int argc, char** argv)
                 "--writeKeyword, -w,--updateKeyword, -u",
                 "Write keyword,\nNote: In case DBus path is provided, both EEPROM and DBus are updated with the given keyword's value.\nIn case EEPROM path is provided, only the given EEPROM is updated with the given keyword's value.")
             ->needs(l_objectOption)
-            ->needs(l_recordOption)
             ->needs(l_keywordOption);
 
     // ToDo: Take offset value from user for hardware path.
