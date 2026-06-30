@@ -704,20 +704,8 @@ inline void createSyncPelWithInvCallOut(
             {
                 if (!l_ec)
                 {
-                    nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
-                        INVENTORY_JSON_SYM_LINK, l_errCode);
-
-                    if (l_errCode)
-                    {
-                        logging::logMessage(
-                            "Failed to parse JSON file [ " +
-                            std::string(INVENTORY_JSON_SYM_LINK) +
-                            " ], error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
-                    }
-
                     l_calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
-                        l_parsedJson, std::get<0>(i_callouts[0]), l_errCode);
+                        std::get<0>(i_callouts[0]), l_errCode);
                 }
                 else
                 {
