@@ -1635,14 +1635,19 @@ inline void setCollectionStatusProperty(
     types::ObjectMap l_objectInterfaceMap;
 
     const auto& l_eepromPath =
-        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, i_vpdPath, o_errCode);
+        jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
 
     if (l_eepromPath.empty() || o_errCode)
     {
         return;
     }
 
-    for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
+    auto l_configManager = ConfigManager::getInstance();
+    const nlohmann::json& l_sysCfgJsonObj =
+        l_configManager ? l_configManager->getJsonObj(l_eepromPath)
+                        : i_sysCfgJsonObj;
+
+    for (const auto& l_Fru : l_sysCfgJsonObj["frus"][l_eepromPath])
     {
         sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
@@ -1702,17 +1707,22 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
 
     try
     {
-        const std::string& l_fruPath = jsonUtility::getFruPathFromJson(
-            i_sysCfgJsonObj, i_vpdPath, o_errCode);
+        const std::string& l_fruPath =
+            jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
 
         if (o_errCode)
         {
             return;
         }
 
+        auto l_configManager = ConfigManager::getInstance();
+        const nlohmann::json& l_sysCfgJsonObj =
+            l_configManager ? l_configManager->getJsonObj(l_fruPath)
+                            : i_sysCfgJsonObj;
+
         types::ObjectMap l_objectMap;
 
-        const auto& l_fruItems = i_sysCfgJsonObj["frus"][l_fruPath];
+        const auto& l_fruItems = l_sysCfgJsonObj["frus"][l_fruPath];
 
         for (const auto& l_inventoryItem : l_fruItems)
         {
