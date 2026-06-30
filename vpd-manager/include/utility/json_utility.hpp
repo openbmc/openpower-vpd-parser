@@ -537,7 +537,7 @@ namespace
 /**
  * @brief Validate input parameters for base action execution.
  *
- * This function is private to this file and used only by executeBaseAction_new.
+ * This function is private to this file and used only by executeBaseAction.
  *
  * @param[in] i_parsedConfigJson - Config JSON object
  * @param[in] i_action - Base action to be performed
@@ -706,7 +706,7 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
  * (NOT_APPLICABLE/PRESENT/ABSENT/UNKNOWN)
  *         - gpioPresenceErrorCode: Error code from gpioPresence execution
  */
-inline types::BaseActionResult executeBaseAction_new(
+inline types::BaseActionResult executeBaseAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
     const std::string& i_fruPath, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
@@ -783,80 +783,6 @@ inline types::BaseActionResult executeBaseAction_new(
         }
     }
     return l_actionRes;
-}
-
-/**
- * @brief Process any action, if defined in config JSON.
- *
- * If any FRU(s) requires any special handling, then this base action can be
- * defined for that FRU in the config JSON, processing of which will be handled
- * in this API.
- * Examples of action - preAction, PostAction etc.
- *
- * @param[in] i_parsedConfigJson - config JSON
- * @param[in] i_action - Base action to be performed.
- * @param[in] i_vpdFilePath - EEPROM file path
- * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
- * under PreAction tag of config JSON.
- * @param[out] o_errCode - To set error code in case of error.
- * @return - success or failure
- */
-inline bool executeBaseAction(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
-    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
-{
-    o_errCode = 0;
-    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
-        !i_parsedConfigJson.contains("frus"))
-    {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return false;
-    }
-    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
-    {
-        o_errCode = error_code::FILE_NOT_FOUND;
-        return false;
-    }
-    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
-    {
-        o_errCode = error_code::MISSING_ACTION_TAG;
-        return false;
-    }
-
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
-            i_flagToProcess))
-    {
-        o_errCode = error_code::MISSING_FLAG;
-        return false;
-    }
-
-    const nlohmann::json& l_tagsJson =
-        (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0))[i_action][i_flagToProcess];
-
-    for (const auto& l_tag : l_tagsJson.items())
-    {
-        auto itrToFunction = funcionMap.find(l_tag.key());
-        if (itrToFunction != funcionMap.end())
-        {
-            if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                       i_action, i_flagToProcess, o_errCode))
-            {
-                // In case any of the tag fails to execute. Mark action
-                // as failed for that flag.
-                if (o_errCode)
-                {
-                    logging::logMessage(
-                        l_tag.key() + " failed for [" + i_vpdFilePath +
-                        "]. Reason " + commonUtility::getErrCodeMsg(o_errCode));
-                }
-                return false;
-            }
-        }
-    }
-
-    return true;
 }
 
 /**
