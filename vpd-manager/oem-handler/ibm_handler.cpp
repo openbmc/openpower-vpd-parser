@@ -760,8 +760,8 @@ void IbmHandler::setDeviceTreeAndJson(
         setJsonSymbolicLink(l_systemJson);
 
         const std::string& l_systemVpdInvPath =
-            jsonUtility::getInventoryObjPathFromJson(
-                m_sysCfgJsonObj, SYSTEM_VPD_FILE_PATH, l_errCode);
+            jsonUtility::getInventoryObjPathFromJson(SYSTEM_VPD_FILE_PATH,
+                                                     l_errCode);
 
         if (l_systemVpdInvPath.empty())
         {
