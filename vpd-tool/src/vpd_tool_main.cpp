@@ -1,4 +1,5 @@
 #include "tool_constants.hpp"
+#include "tool_error_codes.hpp"
 #include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
@@ -96,7 +97,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
         {
             std::cerr << "Reason: " + l_ec.message() << std::endl;
         }
-        return vpd::constants::FAILURE;
+        return vpd::error_codes::ErrorCode::EEPROM_PATH_NOT_FOUND;
     }
 
     if (!i_keywordValueOption->empty() && i_keywordValue.empty())
@@ -105,7 +106,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
             << "Please provide keyword value.\nUse --value/--file to give "
                "keyword value. Refer --help."
             << std::endl;
-        return vpd::constants::FAILURE;
+        return vpd::error_codes::ErrorCode::KEYWORD_VALUE_NOT_PROVIDED;
     }
 
     if (i_keywordValueOption->empty())
@@ -114,7 +115,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
             << "Please provide keyword value.\nUse --value/--file to give "
                "keyword value. Refer --help."
             << std::endl;
-        return vpd::constants::FAILURE;
+        return vpd::error_codes::ErrorCode::KEYWORD_VALUE_NOT_PROVIDED;
     }
 
     if (i_keywordName == vpd::constants::KwdIM)
@@ -123,7 +124,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
               vpd::constants::STR_CMP_SUCCESS))
         {
             std::cerr << "Please provide IM value in hex format." << std::endl;
-            return vpd::constants::FAILURE;
+            return vpd::error_codes::ErrorCode::INVALID_INPUT_PARAMETER;
         }
 
         if (std::find(vpd::constants::validImValues.begin(),
@@ -133,7 +134,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
             std::cerr << "Given IM value [" << i_keywordValue
                       << "] doesn't match with any of the valid system type."
                       << std::endl;
-            return vpd::constants::FAILURE;
+            return vpd::error_codes::ErrorCode::INVALID_INPUT_PARAMETER;
         }
     }
 
@@ -417,16 +418,19 @@ int main(int argc, char** argv)
                 << "Please provide keyword value.\nUse --value/--file to give "
                    "keyword value. Refer --help."
                 << std::endl;
-            return vpd::constants::FAILURE;
+            return vpd::error_codes::ErrorCode::KEYWORD_VALUE_NOT_PROVIDED;
         }
 
         if (!l_fileOption->empty())
         {
-            l_keywordValue = vpd::utils::readValueFromFile(l_filePath);
-            if (l_keywordValue.empty())
+            const auto& l_kwdValue = vpd::utils::readValueFromFile(l_filePath);
+
+            if (!l_kwdValue)
             {
-                return vpd::constants::FAILURE;
+                return l_kwdValue.error();
             }
+
+            l_keywordValue = l_kwdValue.value();
 
             return writeKeyword(l_hardwareFlag, l_fileOption, l_vpdPath,
                                 l_recordName, l_keywordName, l_keywordValue);
