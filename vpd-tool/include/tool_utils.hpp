@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tool_constants.hpp"
+#include "tool_error_codes.hpp"
 #include "tool_types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -8,6 +9,7 @@
 #include <sdbusplus/exception.hpp>
 
 #include <cctype>
+#include <expected>
 #include <fstream>
 #include <iostream>
 
@@ -424,15 +426,16 @@ inline int writeKeywordOnHardware(
  * @return - Array of binary data on success, throws as exception in case
  * of any error.
  *
- * @throw std::runtime_error, std::out_of_range, std::bad_alloc,
- * std::invalid_argument
+ * @throw std::out_of_range, std::bad_alloc
  */
-inline types::BinaryVector convertToBinary(const std::string& i_value)
+inline std::expected<types::BinaryVector, error_codes::ErrorCode>
+    convertToBinary(const std::string& i_value)
 {
     if (i_value.empty())
     {
-        throw std::runtime_error(
-            "Provide a valid hexadecimal input. (Ex. 0x30313233)");
+        std::cerr << "Provide a valid hexadecimal input. (Ex. 0x30313233)"
+                  << std::endl;
+        return std::unexpected(error_codes::ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
     std::vector<uint8_t> l_binaryValue{};
@@ -441,23 +444,30 @@ inline types::BinaryVector convertToBinary(const std::string& i_value)
     {
         if (i_value.length() % 2 != 0)
         {
-            throw std::runtime_error(
-                "Write option accepts 2 digit hex numbers. (Ex. 0x1 "
-                "should be given as 0x01).");
+            std::cerr << "Write option accepts 2 digit hex numbers. (Ex. 0x1 "
+                         "should be given as 0x01)."
+                      << std::endl;
+
+            return std::unexpected(
+                error_codes::ErrorCode::INVALID_INPUT_PARAMETER);
         }
 
         auto l_value = i_value.substr(2);
 
         if (l_value.empty())
         {
-            throw std::runtime_error(
-                "Provide a valid hexadecimal input. (Ex. 0x30313233)");
+            std::cerr << "Provide a valid hexadecimal input. (Ex. 0x30313233)"
+                      << std::endl;
+            return std::unexpected(
+                error_codes::ErrorCode::INVALID_INPUT_PARAMETER);
         }
 
         if (l_value.find_first_not_of("0123456789abcdefABCDEF") !=
             std::string::npos)
         {
-            throw std::runtime_error("Provide a valid hexadecimal input.");
+            std::cerr << "Provide a valid hexadecimal input." << std::endl;
+            return std::unexpected(
+                error_codes::ErrorCode::INVALID_INPUT_PARAMETER);
         }
 
         for (size_t l_pos = 0; l_pos < l_value.length(); l_pos += 2)
@@ -812,7 +822,8 @@ class Table
  * @return - Data from file if any in string format, else empty string.
  *
  */
-inline std::string readValueFromFile(const std::string& i_filePath)
+inline std::expected<std::string, error_codes::ErrorCode> readValueFromFile(
+    const std::string& i_filePath)
 {
     std::string l_valueRead{};
 
@@ -828,20 +839,20 @@ inline std::string readValueFromFile(const std::string& i_filePath)
         }
 
         std::cerr << l_message << std::endl;
-        return l_valueRead;
+        return std::unexpected(error_codes::ErrorCode::FILE_SYSTEM_ERROR);
     }
 
     if (std::filesystem::is_empty(i_filePath, l_ec))
     {
         std::cerr << "File[" << i_filePath << "] is empty." << std::endl;
-        return l_valueRead;
+        return std::unexpected(error_codes::ErrorCode::EMPTY_FILE);
     }
     else if (l_ec)
     {
         std::cerr << "is_empty file system call failed for file[" << i_filePath
                   << "] , error: " << l_ec.message() << std::endl;
 
-        return l_valueRead;
+        return std::unexpected(error_codes::ErrorCode::FILE_SYSTEM_ERROR);
     }
 
     std::ifstream l_fileStream;
@@ -864,9 +875,9 @@ inline std::string readValueFromFile(const std::string& i_filePath)
 
         std::cerr << "File read operation failed for path[" << i_filePath
                   << "], error: " << l_ex.what() << std::endl;
-    }
 
-    return l_valueRead;
+        return std::unexpected(error_codes::ErrorCode::FILE_SYSTEM_ERROR);
+    }
 }
 
 /**
