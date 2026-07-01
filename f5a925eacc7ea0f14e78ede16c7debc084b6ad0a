@@ -16,6 +16,24 @@
       "message": "should we keep this as const member in JsonValidator, gives more visibility of what all present at class level ?",
       "revId": "f5a925eacc7ea0f14e78ede16c7debc084b6ad0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329d4cf0_5a2ccc39",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:16:32Z",
+      "side": 1,
+      "message": "What\u0027s the benefit of doing that? This data will only be consumed inside this method.",
+      "parentUuid": "509df8e5_be4e4e05",
+      "revId": "f5a925eacc7ea0f14e78ede16c7debc084b6ad0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
