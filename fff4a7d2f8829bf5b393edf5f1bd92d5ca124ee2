@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21fef48f_29e86360",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T05:29:47Z",
+      "side": 1,
+      "message": "Acknowledged, updated",
+      "parentUuid": "14a6028f_dd190815",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb5021de_3f9b0f9b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5abeb286_4f6d384c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T05:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb5021de_3f9b0f9b",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c818a10_caf6edbc",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-30T09:17:51Z",
       "side": 1,
       "message": "Throwing from here will need better handing at the caller end as it will break the while loop as well.\nThrowing from a detached thread etc just adds complexity.\nIs it possible to have a less complex approach here as this situation will most likely never happen.\n\nWhy not return an empty string from here and in case of empty string by pass launching the thread and just reduce the FRU count.",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567d5113_27643a20",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T05:29:47Z",
+      "side": 1,
+      "message": "I think throwing is the better approach,\n1. Makes the impossible visible — logged in the catch block of caller processFruCollection with the chassis path for diagnostics.\n2. Keeps normal and error semantics distinct — an empty return from getNextFruPath should mean \"iterator exhausted\", not \"something went wrong\".\n\nThe subsequent commit, m_frusCount cleanup will takes place for any pending FRUs for the chassis whose VPD collection is not triggered from the caller processFruCollection API.",
+      "parentUuid": "9c818a10_caf6edbc",
       "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
