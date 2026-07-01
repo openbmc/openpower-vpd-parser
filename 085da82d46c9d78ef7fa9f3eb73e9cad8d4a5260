@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf19af8d_0d054fb0",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T07:20:01Z",
+      "side": 1,
+      "message": "validateConfigJson failes it throws an exception, but this api is noexcept, how to we handle if there any failures while json validation for any chassis ?",
+      "revId": "085da82d46c9d78ef7fa9f3eb73e9cad8d4a5260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
