@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c83b009_b5d5206d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:13:23Z",
+      "side": 1,
+      "message": "\u003e Enable concurrent FRU VPD\n\nThe commit header says \"parallel\". There is a difference between \"parallel\" and \"concurrent\". Please specify which approach this commit follows.",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "984c6bb3_a8f169f2",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:13:23Z",
+      "side": 1,
+      "message": "There should be a check for zero before decrementing the counter. Since `m_frusCount` is a `size_t`, if its decremented below 0, it can underflow to `SIZE_MAX` which can be catastrophic and deadlock the `processChassisResults()` infinite loop.",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa204f5_14dee21e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:13:23Z",
+      "side": 1,
+      "message": "`l_errCode` is declared once and reused across loop iterations. If collectFruVpd sets it on FRU #1 and FRU #2 runs without resetting it, the error code from FRU #1 bleeds into FRU #2\u0027s context",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44a929a_9d73101d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:13:23Z",
+      "side": 1,
+      "message": "Missing `l_errCode` check.",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e6d51e_c7e9d821",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-01T16:13:23Z",
+      "side": 1,
+      "message": "There should be a check for zero before decrementing the counter. Since `m_frusCount` is a `size_t`, if its decremented below 0, it can underflow to `SIZE_MAX` which can be catastrophic and deadlock the `processChassisResults()` infinite loop.",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
