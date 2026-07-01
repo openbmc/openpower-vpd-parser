@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a9a156e_ae686a11",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-01T09:02:29Z",
+      "side": 1,
+      "message": "\u003e as worker object gets created and destroyed on each FRU VPD collection.\n\nNO, currently worker takes care of all the FRUs/threads internally, and so member variables of the Worker class ARE shared among all threads. And that\u0027s why we need this vector.\n\nm_fruPreActionResults; is implemented only for collection,As only collection path PreAction has Gpio-presence tag. when base action couldn\u0027t read Presence and it is sent to pre-action as Unknown, then only we build this data-table.\ndeletion will go to the presence- NA.\nAlso, Deletion is not scope of this story. if required will be done in separate story.",
+      "parentUuid": "9b6c73e6_ccd66f6b",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92c2bff6_910dcf15",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 10
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f87b077b_c9e12c15",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-01T09:02:29Z",
+      "side": 1,
+      "message": "This was stored to handle only UNKNOWN case.",
+      "parentUuid": "92c2bff6_910dcf15",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1cef79a9_4b535b6c",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 10
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-01T06:57:03Z",
       "side": 1,
       "message": "why m_presenceStatus is updated only in this case, is default value NOT_APPLICABLE applied to all other cases ?",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c37a70e_818d4c3b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-01T09:02:29Z",
+      "side": 1,
+      "message": "This is to handle only UNKNOWN case.\nWhen present , it\u0027s present.\nWhen Absent, its absent.\nOnly for UNKNOWN we need to check further.",
+      "parentUuid": "1cef79a9_4b535b6c",
       "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
