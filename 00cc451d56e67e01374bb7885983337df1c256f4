@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b6c73e6_ccd66f6b",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T06:57:03Z",
+      "side": 1,
+      "message": "what\u0027s the need of vector ?\nprocessPreAction is called for \u0027collection\u0027 and \u0027deletion\u0027 path. how do we distinguish the result belong to \u0027collection\u0027 or \u0027deletion\u0027 ? \n\nas worker object gets created and destroyed on each FRU VPD collection.",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c2bff6_910dcf15",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T06:57:03Z",
+      "side": 1,
+      "message": "why only here m_inventoryPath is updated, why value is missing in case if it hits other cases  ?",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cef79a9_4b535b6c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T06:57:03Z",
+      "side": 1,
+      "message": "why m_presenceStatus is updated only in this case, is default value NOT_APPLICABLE applied to all other cases ?",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34fc4e89_83e4b85b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-01T06:57:03Z",
+      "side": 1,
+      "message": "I meant to add comment, why returning true but not false here, its significant.",
+      "revId": "00cc451d56e67e01374bb7885983337df1c256f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
