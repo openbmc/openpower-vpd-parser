@@ -3,6 +3,7 @@
 #include "vpd_tool.hpp"
 
 #include "tool_constants.hpp"
+#include "tool_error_codes.hpp"
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
@@ -446,13 +447,21 @@ int VpdTool::writeKeyword(
     const std::string& i_keywordName, const std::string& i_keywordValue,
     const bool i_onHardware) const noexcept
 {
-    int l_rc = constants::FAILURE;
+    int l_rc = ErrorCode::STANDARD_EXCEPTION;
     try
     {
         if (i_vpdPath.empty() || i_keywordName.empty() ||
             i_keywordValue.empty())
         {
-            throw std::runtime_error("Received input is empty.");
+            std::cerr << "Received input is empty." << std::endl;
+            return ErrorCode::INVALID_INPUT_PARAMETER;
+        }
+
+        const auto& l_binaryVector = utils::convertToBinary(i_keywordValue);
+
+        if (!l_binaryVector)
+        {
+            return l_binaryVector.error();
         }
 
         if (i_onHardware)
@@ -460,16 +469,20 @@ int VpdTool::writeKeyword(
             types::WriteVpdParams l_paramsToWrite;
             if (i_recordName.empty())
             {
-                l_paramsToWrite = std::make_tuple(
-                    i_keywordName, utils::convertToBinary(i_keywordValue));
+                l_paramsToWrite =
+                    std::make_tuple(i_keywordName, l_binaryVector.value());
             }
             else
             {
-                l_paramsToWrite =
-                    std::make_tuple(i_recordName, i_keywordName,
-                                    utils::convertToBinary(i_keywordValue));
+                l_paramsToWrite = std::make_tuple(i_recordName, i_keywordName,
+                                                  l_binaryVector.value());
             }
+
             l_rc = utils::writeKeywordOnHardware(i_vpdPath, l_paramsToWrite);
+            if (l_rc <= 0)
+            {
+                return ErrorCode::DBUS_CALL_FAILED;
+            }
         }
         else
         {
@@ -480,17 +493,18 @@ int VpdTool::writeKeyword(
             }
 
             i_vpdPath = constants::baseInventoryPath + i_vpdPath;
-            auto l_paramsToWrite =
-                std::make_tuple(i_recordName, i_keywordName,
-                                utils::convertToBinary(i_keywordValue));
+            auto l_paramsToWrite = std::make_tuple(i_recordName, i_keywordName,
+                                                   l_binaryVector.value());
             l_rc = utils::writeKeyword(i_vpdPath, l_paramsToWrite);
+
+            if (l_rc <= 0)
+            {
+                return ErrorCode::DBUS_CALL_FAILED;
+            }
         }
 
-        if (l_rc > 0)
-        {
-            std::cout << "Data updated successfully " << std::endl;
-            l_rc = constants::SUCCESS;
-        }
+        std::cout << "Data updated successfully " << std::endl;
+        return l_rc;
     }
     catch (const std::exception& l_ex)
     {
@@ -501,8 +515,8 @@ int VpdTool::writeKeyword(
                           : "")
                   << ", Keyword: " << i_keywordName
                   << " is failed. Exception: " << l_ex.what() << std::endl;
+        return ErrorCode::STANDARD_EXCEPTION;
     }
-    return l_rc;
 }
 
 nlohmann::json VpdTool::getBackupRestoreCfgJsonObj() const noexcept
@@ -1335,10 +1349,19 @@ int VpdTool::handleMoreOption(
 
                     try
                     {
+                        const auto& l_binaryVector =
+                            utils::convertToBinary(l_newValue);
+
+                        if (!l_binaryVector)
+                        {
+                            throw std::runtime_error(
+                                "Failed to get value in binary vector");
+                        }
+
                         l_rc = updateKeywordValue(
                             l_srcVpdPath, l_aRecordKwInfo["sourceRecord"],
                             l_aRecordKwInfo["sourceKeyword"],
-                            utils::convertToBinary(l_newValue));
+                            l_binaryVector.value());
                     }
                     catch (const std::exception& l_ex)
                     {
