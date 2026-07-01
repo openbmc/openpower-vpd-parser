@@ -8,7 +8,7 @@ namespace vpd
  * Error codes start from -2 and can be extended for various
  * vpd-tool operations including writeKeyword, readKeyword, etc.
  */
-enum ErrorCode
+enum class ErrorCode
 {
     INVALID_INPUT_PARAMETER = -2,
     RECORD_NOT_PROVIDED = -3,
@@ -17,6 +17,9 @@ enum ErrorCode
     FILE_SYSTEM_ERROR = -6,
     FILE_NOT_FOUND = -7,
     STANDARD_EXCEPTION = -8,
-    JSON_PARSE_ERROR = -9
+    JSON_PARSE_ERROR = -9,
+    EEPROM_PATH_NOT_FOUND = -10,
+    EMPTY_FILE = -11,
+    KEYWORD_NAME_NOT_PROVIDED = -12
 };
 } // namespace vpd
