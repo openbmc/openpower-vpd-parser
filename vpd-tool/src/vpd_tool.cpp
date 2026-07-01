@@ -3,6 +3,7 @@
 #include "vpd_tool.hpp"
 
 #include "tool_constants.hpp"
+#include "tool_error_codes.hpp"
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
@@ -425,13 +426,14 @@ int VpdTool::writeKeyword(
     const std::string& i_keywordName, const std::string& i_keywordValue,
     const bool i_onHardware) noexcept
 {
-    int l_rc = constants::FAILURE;
+    int l_rc = error_codes::ErrorCode::UNKNOWN_ERROR;
     try
     {
         if (i_vpdPath.empty() || i_recordName.empty() ||
             i_keywordName.empty() || i_keywordValue.empty())
         {
-            throw std::runtime_error("Received input is empty.");
+            std::cerr << "Received input is empty." << std::endl;
+            return error_codes::ErrorCode::EMPTY_INPUT_PARAMETER;
         }
 
         auto l_paramsToWrite =
@@ -441,18 +443,23 @@ int VpdTool::writeKeyword(
         if (i_onHardware)
         {
             l_rc = utils::writeKeywordOnHardware(i_vpdPath, l_paramsToWrite);
+            if (l_rc <= 0)
+            {
+                return error_codes::ErrorCode::HARDWARE_WRITE_FAILED;
+            }
         }
         else
         {
             i_vpdPath = constants::baseInventoryPath + i_vpdPath;
             l_rc = utils::writeKeyword(i_vpdPath, l_paramsToWrite);
+            if (l_rc <= 0)
+            {
+                return error_codes::ErrorCode::DBUS_WRITE_FAILED;
+            }
         }
 
-        if (l_rc > 0)
-        {
-            std::cout << "Data updated successfully " << std::endl;
-            l_rc = constants::SUCCESS;
-        }
+        std::cout << "Data updated successfully " << std::endl;
+        return constants::SUCCESS;
     }
     catch (const std::exception& l_ex)
     {
@@ -461,8 +468,8 @@ int VpdTool::writeKeyword(
                   << ", Record: " << i_recordName
                   << ", Keyword: " << i_keywordName
                   << " is failed. Exception: " << l_ex.what() << std::endl;
+        return error_codes::ErrorCode::EXCEPTION_OCCURRED;
     }
-    return l_rc;
 }
 
 nlohmann::json VpdTool::getBackupRestoreCfgJsonObj() const noexcept
