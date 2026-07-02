@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119403cb_049ef47f",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-02T04:15:56Z",
+      "side": 1,
+      "message": "Instead of an additional boolean flag, can we change `i_recordName` to `std::optional\u003cconst std::string\u0026\u003e` type? This way, we avoid adding extra parameter and aligns the code with the requirement better in my opinion.",
+      "revId": "8ecc99c38c37dd82b3d9c9c16b22171dc1639c42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be1eca5_de8ee8b6",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-02T04:15:56Z",
+      "side": 1,
+      "message": "Instead of an additional boolean flag, can we change i_recordName to `std::optional\u003cconst std::string\u0026\u003e` type? This way, we avoid adding extra parameter and aligns the code with the requirement better in my opinion.",
+      "revId": "8ecc99c38c37dd82b3d9c9c16b22171dc1639c42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
