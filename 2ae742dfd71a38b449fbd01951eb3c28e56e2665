@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ada038_02bcf97d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-02T07:16:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c83b009_b5d5206d",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "984c6bb3_a8f169f2",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d17d0544_69055259",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-02T07:16:15Z",
+      "side": 1,
+      "message": "added check in the caller before updating m_frusCount.",
+      "parentUuid": "984c6bb3_a8f169f2",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fa204f5_14dee21e",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 8
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-01T16:13:23Z",
       "side": 1,
       "message": "`l_errCode` is declared once and reused across loop iterations. If collectFruVpd sets it on FRU #1 and FRU #2 runs without resetting it, the error code from FRU #1 bleeds into FRU #2\u0027s context",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2e2fb1_b4891f30",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-02T07:16:15Z",
+      "side": 1,
+      "message": "l_errCode used for calling collectFruVpd, since the API is setting it to Zero before accessing it, its safe to use across FRU VPD collection.\n\nto reduce the scope, am moving declaration down.",
+      "parentUuid": "3fa204f5_14dee21e",
       "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76676141_b2ad3fba",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-02T07:16:15Z",
+      "side": 1,
+      "message": "we are not processing VPD collection result here, hence not validating the outcome.",
+      "parentUuid": "a44a929a_9d73101d",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22e6d51e_c7e9d821",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 8
@@ -82,6 +154,24 @@
       "writtenOn": "2026-07-01T16:13:23Z",
       "side": 1,
       "message": "There should be a check for zero before decrementing the counter. Since `m_frusCount` is a `size_t`, if its decremented below 0, it can underflow to `SIZE_MAX` which can be catastrophic and deadlock the `processChassisResults()` infinite loop.",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23fd016_52e46dd3",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-02T07:16:15Z",
+      "side": 1,
+      "message": "m_frusCount is incremented with FRUs size, unless if this variable is decremented twice, the situation will never occur. Hence validating is not required.",
+      "parentUuid": "22e6d51e_c7e9d821",
       "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
