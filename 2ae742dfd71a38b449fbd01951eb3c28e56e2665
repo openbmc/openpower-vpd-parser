@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5829e41_f1bfa57e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T09:41:32Z",
+      "side": 1,
+      "message": "Then how and where it will be logged? Won\u0027t we loose what failure was returned by collectFruVpd in the process of collecting the FRU? @anupama.b.r1@ibm.com",
+      "parentUuid": "76676141_b2ad3fba",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22e6d51e_c7e9d821",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 8
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "m_frusCount is incremented with FRUs size, unless if this variable is decremented twice, the situation will never occur. Hence validating is not required.",
       "parentUuid": "22e6d51e_c7e9d821",
+      "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb9ad99_cdbb7303",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T09:41:32Z",
+      "side": 1,
+      "message": "Should we have a check of \"\u003c\u003d0\" instead of just \"!\u003d0\" it will take care of any movement to negative due to any corner case. I don\u0027t see any downside there.\nAlso in that case the extra check for fru size will not be handled.",
+      "parentUuid": "b23fd016_52e46dd3",
       "revId": "2ae742dfd71a38b449fbd01951eb3c28e56e2665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

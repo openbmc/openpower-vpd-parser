@@ -104,6 +104,24 @@
       "parentUuid": "9c818a10_caf6edbc",
       "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac37081c_99fa691e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T09:41:32Z",
+      "side": 1,
+      "message": "I don\u0027t see any impossible being visible only by throwing and not returning empty string, so actually I don\u0027t buy that.\nHaving said that, \n\nThere are few downsides that I see in the throw implementation.\n\n(a)\nThe throw will cause the code to crash as per current implementation.\n\n\nThe code throws from here when \"i_fruThreadContext\" is null. The call reaches catch, there the code is calling \"m_chassisEeepromPath\" using \"i_fruThreadContext\" which is actually null. This will not work.\n\n(b)\nThough this is low priority concern, If it breaks somewhere in between, then because of throw we loose one complete thread from the pool assigned to that chassis.",
+      "parentUuid": "567d5113_27643a20",
+      "revId": "fff4a7d2f8829bf5b393edf5f1bd92d5ca124ee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
