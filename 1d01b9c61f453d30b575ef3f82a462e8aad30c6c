@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94dfb1fe_34def627",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T07:44:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6eba9644_8e9bce2b",
+      "revId": "1d01b9c61f453d30b575ef3f82a462e8aad30c6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19813750_ff56e047",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "1. The \"formatting/creation\" is done by `buildConfigMapsForFru` API which operates on each FRU. The requirement is to validate the chassis specific JSONs.\n2. I didn\u0027t want to overload the build config maps API with the validation logic, and keep building and validation blocks in separate methods.",
       "parentUuid": "19813750_ff56e047",
+      "revId": "1d01b9c61f453d30b575ef3f82a462e8aad30c6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95ca35f_45f45f48",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T07:44:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a3fbaf72_4d5d87ab",
       "revId": "1d01b9c61f453d30b575ef3f82a462e8aad30c6c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
