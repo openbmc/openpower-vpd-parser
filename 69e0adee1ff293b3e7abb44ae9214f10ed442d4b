@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b3df44e_7eebdffc",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "We already have a structure. Why do we need another one? Can\u0027t that be re-used?",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 2
+      },
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42fe1784_ef19e148",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "Please remove the blank line between doxygen and member variable.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce242240_2800803f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "I did not understand use case of this member looking at the doxygen.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04db4e0e_f8545810",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "Why a class level variable is required? Just to exchange data between functions?",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63d8202d_f5243601",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "If there is a requirement to refactor the code then you should have done it a a separate commit. Already the commit is big and these unnecessary noise will just increase the size of patch set.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fb6b632_88ca1637",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "I assume there was a previous comment for making use of \"executeBaseAction\" name the suffix _new was just for the transformation and as it will be finally consumed in this change. We will have to move to actual function name.",
+      "range": {
+        "startLine": 716,
+        "startChar": 25,
+        "endLine": 716,
+        "endChar": 47
+      },
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30896c7b_a58dcb2b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-02T04:57:24Z",
+      "side": 1,
+      "message": "Over all changes look more complex then what is expected from the requirement.\nWhy everything is handled in the \"processPreAction\" itself.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
