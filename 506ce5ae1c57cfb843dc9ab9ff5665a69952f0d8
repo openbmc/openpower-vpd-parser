@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad0a6d5_1c8cbb9b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-03T04:41:18Z",
+      "side": 1,
+      "message": "There is API to read keyword from DBus. Why that can\u0027t that be re-used here?",
+      "range": {
+        "startLine": 1510,
+        "startChar": 3,
+        "endLine": 1510,
+        "endChar": 51
+      },
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d48b54f_1ff8d683",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-03T04:41:18Z",
+      "side": 1,
+      "message": "The function is more than 100 lines, can we re-structure it better?",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e8df90_7b63157a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1595,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-03T04:41:18Z",
+      "side": 1,
+      "message": "Why this is an \"INVALID_INPUT_PARAMETER\" error?",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0ebc853_fd665aa6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-03T04:41:18Z",
+      "side": 1,
+      "message": "If it does not contain then is it ok to process with empty string?\nAlso wrap statement under if under parenthesis.",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
