@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0adea97_0d22137f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T18:55:57Z",
+      "side": 1,
+      "message": "we are using that same dbus utility here underneath -\nauto l_retVal \u003d dbusUtility::readDbusProperty()\nBut this getDataFromDbus API does extra fittings before calling that dbus API.",
+      "parentUuid": "cad0a6d5_1c8cbb9b",
+      "range": {
+        "startLine": 1510,
+        "startChar": 3,
+        "endLine": 1510,
+        "endChar": 51
+      },
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d48b54f_1ff8d683",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-03T04:41:18Z",
       "side": 1,
       "message": "The function is more than 100 lines, can we re-structure it better?",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b1e32e_fbf6084b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T18:55:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2d48b54f_1ff8d683",
       "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f625d32_6d49b803",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1595,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T18:55:57Z",
+      "side": 1,
+      "message": "changed to INVALID_VALUE_READ_FROM_DBUS",
+      "parentUuid": "26e8df90_7b63157a",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0ebc853_fd665aa6",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-07-03T04:41:18Z",
       "side": 1,
       "message": "If it does not contain then is it ok to process with empty string?\nAlso wrap statement under if under parenthesis.",
+      "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5e6e3c_088e6113",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T18:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0ebc853_fd665aa6",
       "revId": "506ce5ae1c57cfb843dc9ab9ff5665a69952f0d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
