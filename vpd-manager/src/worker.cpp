@@ -672,6 +672,32 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     }
 }
 
+void Worker::clearViniCcinData(const std::string& i_invObjPath)
+{
+    try
+    {
+        // Create object map with empty CCIN keyword to clear the data
+        types::ObjectMap l_objectInterfaceMap{
+            {i_invObjPath,
+             {{constants::kwdVpdInf,
+               {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
+
+        // Publish empty CCIN to D-Bus via PIM
+        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectInterfaceMap)))
+        {
+            m_logger->logMessage(std::format(
+                "Failed to clear VINI:CCIN data on D-Bus for inventory path [{}]",
+                i_invObjPath));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Exception while clearing VINI:CCIN data for inventory path [{}]: {}",
+            i_invObjPath, l_ex.what()));
+    }
+}
+
 bool Worker::processPreAction(const std::string& i_vpdFruPath,
                               const std::string& i_flagToProcess,
                               uint16_t& o_errCode)
@@ -729,22 +755,10 @@ bool Worker::processPreAction(const std::string& i_vpdFruPath,
                 setPresentProperty(l_invObjPath, false);
 
                 // Clear VINI:CCIN data to prevent confusion for any service
-                // who probes for CCIN, stale persistent data can cause
-                // ambiguity when FRU is removed.
-                types::ObjectMap l_objectInterfaceMap{
-                    {l_invObjPath,
-                     {{constants::kwdVpdInf,
-                       {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
+                // who probes for CCIN; stale persistent data can cause
+                // ambiguity when FRU is removed
+                clearViniCcinData(l_invObjPath);
 
-                // Call dbus method to update on dbus
-                if (!dbusUtility::publishVpdOnDBus(
-                        std::move(l_objectInterfaceMap)))
-                {
-                    m_logger->logMessage(
-                        "Call to PIM failed for file " + i_vpdFruPath);
-                }
-
-                // postFailAction will be executed in parseVpdFile
                 o_errCode = error_code::DEVICE_NOT_PRESENT;
                 break;
             }
