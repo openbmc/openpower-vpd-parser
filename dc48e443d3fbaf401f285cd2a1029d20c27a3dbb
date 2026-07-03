@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e54af583_977717cd",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-03T07:30:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "234202f4_b94165ab",
+      "range": {
+        "startLine": 239,
+        "startChar": 7,
+        "endLine": 242,
+        "endChar": 71
+      },
+      "revId": "dc48e443d3fbaf401f285cd2a1029d20c27a3dbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c67d92b_9db794b9",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-02T09:41:32Z",
       "side": 1,
       "message": "If we have check of \"\u003c\u003d0\" then we can avoid this code and it will handle the case where values can go to negative due to some corner cases.",
+      "range": {
+        "startLine": 266,
+        "startChar": 12,
+        "endLine": 271,
+        "endChar": 13
+      },
+      "revId": "dc48e443d3fbaf401f285cd2a1029d20c27a3dbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e94de7_dcbb0897",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-03T07:30:01Z",
+      "side": 1,
+      "message": "minimum motherboard will be there for an chassis, so checking for \u003c\u003d1",
+      "parentUuid": "3c67d92b_9db794b9",
       "range": {
         "startLine": 266,
         "startChar": 12,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd83e6cf_2d0f964b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-03T07:30:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b61c62_c57a817f",
+      "revId": "dc48e443d3fbaf401f285cd2a1029d20c27a3dbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c25d83b0_bf464580",
@@ -77,6 +143,24 @@
       "writtenOn": "2026-07-02T09:41:32Z",
       "side": 1,
       "message": "A patch set should be complete in itself. Should not leave known loop holes. I don\u0027t see a reason why \"m_frusCount\" can\u0027t be handled in this commit itself as merging this commit without that leaves a potential defect where m_frusCount may never reach 0.",
+      "revId": "dc48e443d3fbaf401f285cd2a1029d20c27a3dbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec94673_dccb1309",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-03T07:30:01Z",
+      "side": 1,
+      "message": "as discusses, updated the code.",
+      "parentUuid": "c25d83b0_bf464580",
       "revId": "dc48e443d3fbaf401f285cd2a1029d20c27a3dbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
