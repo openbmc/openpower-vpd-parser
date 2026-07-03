@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e0063d0_1f15e7ab",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T12:47:37Z",
+      "side": 1,
+      "message": "NO,Base Result has 5 fields but worker APIs need only 2 fields to process.\nBy creating a separate, minimal struct for each use case, we keep it independent, eliminate confusing \u0027dead fields[don\u0027t need in collection APIs]\u0027 and make the code much cleaner to maintain.\n\nThe standard, industry-best practice for this situation is, receive the 5-field struct, extract the 2 fields it actually needs, and store them into its own clean 2-field structure to use further.",
+      "parentUuid": "9b3df44e_7eebdffc",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 2
+      },
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42fe1784_ef19e148",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 16
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-02T04:57:24Z",
       "side": 1,
       "message": "Please remove the blank line between doxygen and member variable.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6950f1de_e41b5648",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T12:47:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42fe1784_ef19e148",
       "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "I will update the doxygen with more details.\nThis member Is being used in other commit - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/91540/",
       "parentUuid": "ce242240_2800803f",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e75ea7b_27b9c406",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T12:47:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45942a0d_6497e998",
       "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
