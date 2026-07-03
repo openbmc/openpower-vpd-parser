@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45942a0d_6497e998",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T09:15:24Z",
+      "side": 1,
+      "message": "I will update the doxygen with more details.\nThis member Is being used in other commit - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/91540/",
+      "parentUuid": "ce242240_2800803f",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04db4e0e_f8545810",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 16
@@ -77,6 +95,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e6c19b5_abafb0b4",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T09:15:24Z",
+      "side": 1,
+      "message": "We have 2 options: Either we receive it as output argument from all consecutive function calls or store it at 1 place which is accessible to other functions.\nIf we pass data from function to function, there are more traversing.\n\ncollectFruVpd need to collect data from \u003c --- parseAndPublishVPD \u003c--parseVpdFile \u003c-- processPreAction",
+      "parentUuid": "04db4e0e_f8545810",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63d8202d_f5243601",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 16
@@ -88,6 +124,24 @@
       "writtenOn": "2026-07-02T04:57:24Z",
       "side": 1,
       "message": "If there is a requirement to refactor the code then you should have done it a a separate commit. Already the commit is big and these unnecessary noise will just increase the size of patch set.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92b33f5_1877a3e2",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T09:15:24Z",
+      "side": 1,
+      "message": "I will try to make it shorter.",
+      "parentUuid": "63d8202d_f5243601",
       "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +171,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0f23ea7_a313a774",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T09:15:24Z",
+      "side": 1,
+      "message": "This is not changed for some purpose.\nWe use executeBaseAction in postAction too.\nSo this renaming and removing older utility is covered with post-action commit. Already uploaded.",
+      "parentUuid": "4fb6b632_88ca1637",
+      "range": {
+        "startLine": 716,
+        "startChar": 25,
+        "endLine": 716,
+        "endChar": 47
+      },
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30896c7b_a58dcb2b",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 16
@@ -128,6 +206,24 @@
       "writtenOn": "2026-07-02T04:57:24Z",
       "side": 1,
       "message": "Over all changes look more complex then what is expected from the requirement.\nWhy everything is handled in the \"processPreAction\" itself.",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0f4c9e_70585173",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-03T09:15:24Z",
+      "side": 1,
+      "message": "I will try to make it shorter.",
+      "parentUuid": "30896c7b_a58dcb2b",
       "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
