@@ -35,6 +35,7 @@
         "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "isSystemVpd": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
@@ -45,6 +46,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "isSystemVpd": true,
                 "copyRecords": ["VSYS"],
@@ -71,6 +73,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "isSystemVpd": true,
                 "extraInterfaces": {
