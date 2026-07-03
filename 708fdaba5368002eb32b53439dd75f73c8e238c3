@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9db6607e_0763f3b3",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-03T02:13:07Z",
+      "side": 1,
+      "message": "The class is instantited only through the ParserFactory, regardless of whether the operation is parse, read, or write. Since there is a single construction path extended the existing constructor with the file path parameter.",
+      "parentUuid": "bb28d111_95f51aeb",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f78c5413_c59e4f1c",
         "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "writtenOn": "2026-06-16T14:30:53Z",
       "side": 1,
       "message": "if m_keywordVpdVector is a mandatory parameter, why not checking emptiness here itself ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0bad846_c60cc984",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-03T02:13:07Z",
+      "side": 1,
+      "message": "m_vpdFilePath check is specifically to avoid attempting to open a file when file path is empty. Any validation of the vector is being performed where it is actually consumed.",
+      "parentUuid": "f78c5413_c59e4f1c",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -153,6 +189,24 @@
       "writtenOn": "2026-06-16T14:30:53Z",
       "side": 1,
       "message": "instead can we say keywordValue which is consistently used across the repo ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e8991b_64c64cd1",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-03T02:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05f7e64a_082c546c",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -351,6 +405,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e8e6824_7c3e6602",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-03T02:13:07Z",
+      "side": 1,
+      "message": "std::ranges::advance with an end bound will stop at io_vpdVector.end() if there aren\u0027t enough elements to advance.",
+      "parentUuid": "7107dd4d_ef57f482",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25dbe31b_2944de1d",
         "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
         "patchSetId": 4
@@ -362,6 +434,24 @@
       "writtenOn": "2026-06-16T14:30:53Z",
       "side": 1,
       "message": "what if constants::KW_VPD_START_TAG length is not available to advance, same for below as well ?",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5faeadde_47704379",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-03T02:13:07Z",
+      "side": 1,
+      "message": "std::ranges::advance with an end bound will stop at io_vpdVector.end() if there aren\u0027t enough elements to advance.",
+      "parentUuid": "25dbe31b_2944de1d",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
