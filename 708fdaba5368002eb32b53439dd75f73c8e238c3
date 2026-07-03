@@ -318,6 +318,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70e31fe8_b5f535f5",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-03T04:12:48Z",
+      "side": 1,
+      "message": "That I understood from the code that in both the cases same error is being thrown but in that case how the caller will know what was the error? \"l_keywordName\" was empty or \"l_keywordData\" was empty?\n\nThe whole idea behind logging is to debug, how throwing a common error will tell what caused the failure.\nCould you please explain that.",
+      "parentUuid": "50352cfd_70ce4efa",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32d1e757_b1b1467d",
         "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
         "patchSetId": 4
