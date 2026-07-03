@@ -534,6 +534,17 @@ class Worker
                                 types::InterfaceMap& o_interfaces);
 
     /**
+     * @brief Clear VINI:CCIN data for an absent FRU.
+     *
+     * Clears the CCIN keyword data on D-Bus to prevent interested service
+     * listening on this, from incorrectly detecting a removed FRU as present
+     * based on stale persistent data.
+     *
+     * @param[in] i_vpdFruPath - EEPROM file path.
+     */
+    void clearViniCcinData(const std::string& i_vpdFruPath);
+
+    /**
      * Maps FRU EEPROM paths to their pre-action execution outcomes, preserving
      * error codes and presence status information for use during VPD
      * collection.
@@ -549,7 +560,7 @@ class Worker
      */
     std::unordered_map<std::string, types::PreActionResult>
         m_fruPreActionResults;
-
+    
     /* Enable below code when thread manager is enabled and handle in cpp.*/
 #if 0
     types::PreActionResult  m_fruPreActionResult;
