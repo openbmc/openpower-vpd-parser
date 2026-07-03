@@ -672,6 +672,32 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     }
 }
 
+void Worker::clearViniCcinData(const std::string& i_invObjPath) 
+{                        
+    try                    
+    {               
+        // Create object map with empty CCIN keyword to clear the data 
+        types::ObjectMap l_objectInterfaceMap{ 
+            {i_invObjPath, 
+             {{constants::kwdVpdInf, 
+               {{constants::kwdCCIN, types::BinaryVector{}}}}}}}; 
+                
+        // Publish empty CCIN to D-Bus via PIM 
+        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectInterfaceMap))) 
+        {       
+            m_logger->logMessage(std::format( 
+                "Failed to clear VINI:CCIN data on D-Bus for inventory path [{}]", 
+                i_invObjPath)); 
+        }   
+    }       
+    catch (const std::exception& l_ex) 
+    {           
+        m_logger->logMessage(std::format( 
+            "Exception while clearing VINI:CCIN data for inventory path [{}]: {}", 
+            i_invObjPath, l_ex.what())); 
+    } 
+}
+
 bool Worker::processPreAction(const std::string& i_vpdFruPath,
                               const std::string& i_flagToProcess,
                               uint16_t& o_errCode)
@@ -728,29 +754,12 @@ bool Worker::processPreAction(const std::string& i_vpdFruPath,
             {
                 setPresentProperty(l_invObjPath, false);
 
-                // If the FRU is not there, clear the VINI/CCIN data.
-                // Entity manager probes for this keyword to look for this
-                // FRU, now if the data is persistent on BMC and FRU is
-                // removed this can lead to ambiguity. Hence clearing this
-                // Keyword if FRU is absent.
-                const auto& inventoryPath =
-                    m_parsedJson["frus"][i_vpdFilePath].at(0).value("inventoryPath",
-                                                                    "");
-                if (!inventoryPath.empty())
-                {
-                    types::ObjectMap l_pimObjMap{
-                        {inventoryPath,
-                         {{constants::kwdVpdInf,
-                           {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
-                    // Call dbus method to update on dbus
-                    if (!dbusUtility::publishVpdOnDBus(std::move(l_pimObjMap)))
-                    {
-                        logging::logMessage(
-                            "Call to PIM failed for file " + i_vpdFilePath);
-                    }
-                }
+                // Clear VINI:CCIN data to prevent confusion for any service
+                // who probes for CCIN; stale persistent data can cause
+                // ambiguity when FRU is removed
+                clearViniCcinData(l_invObjPath);
 
-                // postFailAction will be executed in parseVpdFile
+		// postFailAction will be executed in parseVpdFile
                 o_errCode = error_code::DEVICE_NOT_PRESENT;
                 break;
             }
