@@ -626,7 +626,7 @@ void IbmHandler::setDeviceTreeAndJson(
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
-    static std::string l_error;
+    std::string l_primaryError;
     uint16_t l_errCode = 0;
     try
     {
@@ -642,6 +642,12 @@ void IbmHandler::setDeviceTreeAndJson(
                 "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
+        // Check if File is accessible. If not accessible, can't parse the VPD.
+        if (!std::filesystem::exists(l_systemVpdPath))
+        {
+            throw EepromException("System VPD eeprom is not accessible");
+        }
+
         // parse system VPD
         std::shared_ptr<Parser> l_vpdParser =
             std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
@@ -649,52 +655,78 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
         {
-            throw std::runtime_error("VPD parsing failed");
+            throw EepromException("System VPD parsing failed");
         }
     }
     catch (const std::exception& l_ex)
     {
-        l_error += std::format(
+        l_primaryError = std::format(
             "System VPD collection failed from path [{}], reason: {}. ",
             i_fruPath, l_ex.what());
 
-        const std::string& l_redundantEepromPath{
-            REDUNDANT_SYSTEM_VPD_FILE_PATH};
-
-        if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
+        if (i_fruPath == SYSTEM_VPD_FILE_PATH)
         {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
+            const std::string& l_redundantEepromPath{
+                REDUNDANT_SYSTEM_VPD_FILE_PATH};
+
+            if (l_redundantEepromPath.empty())
+            {
+                m_logger->logMessage(l_primaryError);
+                throw EepromException(l_primaryError);
+            }
+
+            // Try system VPD collection from redundant path.
+            // On success: log async PEL with primary I2C device callout and
+            // return. On failure: the recursive call throws.
+            try
+            {
+                setDeviceTreeAndJson(l_redundantEepromPath,
+                                     o_parsedSystemVpdMap);
+            }
+            catch (const std::exception& l_redundantEx)
+            {
+                // Both primary and redundant failed — re-throw.
+                const std::string l_redundantError = std::format(
+                    "Redundant path [{}] also failed with error: {}",
+                    l_redundantEepromPath, l_redundantEx.what());
+
+                throw EepromException(l_primaryError + l_redundantError);
+            }
+
+#if 0
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT;
+            l_callout = types::DeviceCalloutData{
+                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                    .parent_path()
+                    .string(),
+                constants::ERRNO_2};
+#endif
+            // Enable above device callout once supported in phosphor-logging.
+            // And remove inventory callout.
+            PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
+            std::optional<types::CalloutData> l_callout =
+                types::InventoryCalloutData{SYSTEM_VPD_FILE_PATH,
+                                            types::CalloutPriority::High};
+
+            // Redundant path succeeded — log warning PEL with primary callout.
+            m_logger->logMessage(
+                l_primaryError +
+                    std::format(
+                        " Successfully collected VPD from redundant path [{}].",
+                        l_redundantEepromPath),
+                l_placeHolder,
+                types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt, l_callout});
+
+            return;
         }
-
-        // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
-
-        return;
-    }
-
-    /* TODO: Revisit the code and update the flow will specific error handling
-       so that specific failure type can be reported in the PEL.
-
-       Also, as per current flow in case redundant path collection fails post
-       this point, current implementation will end up logging two PELs which is
-       not desired and needs to be handled. Update code to log only one PEL
-       irrespective to any failure in the flow.*/
-    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
-    {
-        // TODO: Replace with a device callout once the corresponding API
-        // is implemented.
-        m_logger->logMessage(
-            l_error +
-                std::format(
-                    " Successfully collected VPD from redundant path [{}].",
-                    i_fruPath),
-            PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
-            types::PelInfoTuple{
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-                std::optional<types::CalloutData>{types::InventoryCalloutData{
-                    SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High}}});
+        else
+        {
+            // Called for redundant path — propagate failure to caller(Primary).
+            throw;
+        }
     }
 
     // Implies it is default JSON.
@@ -873,10 +905,19 @@ void IbmHandler::performInitialSetup()
 
         if (typeid(l_ex) == typeid(EepromException))
         {
+#if 0
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT;
+            l_callout = types::DeviceCalloutData{
+                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                    .parent_path()
+                    .string(),
+                constants::ERRNO_2};
+#endif
+            // Enable above device callout once supported in phosphor-logging.
+            // And remove inventory callout.
             l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
-            l_callout =
-                types::InventoryCalloutData{std::string(SYSTEM_VPD_FILE_PATH),
-                                            types::CalloutPriority::High};
+            l_callout = types::InventoryCalloutData{
+                SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High};
         }
 
         m_logger->logMessage(
