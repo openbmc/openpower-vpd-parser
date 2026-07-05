@@ -682,19 +682,30 @@ void IbmHandler::setDeviceTreeAndJson(
        irrespective to any failure in the flow.*/
     if (i_fruPath != SYSTEM_VPD_FILE_PATH)
     {
-        // TODO: Replace with a device callout once the corresponding API
-        // is implemented.
+        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
+        std::optional<types::CalloutData> l_callout =
+            types::InventoryCalloutData{SYSTEM_VPD_FILE_PATH,
+                                        types::CalloutPriority::High};
+        // TODO Enable device callout once supported in phosphor-logging.
+        // And remove inventory callout.
+#if 0
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
+            l_callout = types::DeviceCalloutData{
+                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                    .parent_path()
+                    .string(),
+                std::to_string(l_savedErrno)};
+#endif
         m_logger->logMessage(
             l_error +
                 std::format(
                     " Successfully collected VPD from redundant path [{}].",
                     i_fruPath),
-            PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
-            types::PelInfoTuple{
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-                std::optional<types::CalloutData>{types::InventoryCalloutData{
-                    SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High}}});
+            l_placeHolder,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                l_callout});
     }
 
     // Implies it is default JSON.
@@ -877,6 +888,17 @@ void IbmHandler::performInitialSetup()
             l_callout =
                 types::InventoryCalloutData{std::string(SYSTEM_VPD_FILE_PATH),
                                             types::CalloutPriority::High};
+            // TODO Enable device callout once supported in phosphor-logging.
+            // And remove inventory callout.
+#if 0
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
+            l_callout = types::DeviceCalloutData{
+                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                    .parent_path()
+                    .string(),
+                std::to_string(
+                    static_cast<const SystemException&>(l_ex).getErrno())};
+#endif
         }
 
         m_logger->logMessage(

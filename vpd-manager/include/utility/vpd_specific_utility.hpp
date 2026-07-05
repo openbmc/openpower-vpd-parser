@@ -3,6 +3,7 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
@@ -12,6 +13,7 @@
 #include <utility/dbus_utility.hpp>
 #include <utility/event_logger_utility.hpp>
 
+#include <cerrno>
 #include <filesystem>
 #include <format>
 #include <fstream>
@@ -383,7 +385,10 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
     }
     catch (const std::ifstream::failure& fail)
     {
-        o_errCode = error_code::FILE_SYSTEM_ERROR;
+        o_errCode = static_cast<uint16_t>(fail.code().value());
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Failed to read VPD file [{}], error: {}", vpdFilePath,
+                        fail.code().message()));
         return;
     }
 }
