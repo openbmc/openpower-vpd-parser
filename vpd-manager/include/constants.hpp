@@ -199,6 +199,7 @@ static constexpr uint32_t VPD_COLLECTION_TIMEOUT_SEC = 1800; // 30 minutes
 
 static constexpr auto FAILURE = -1;
 static constexpr auto SUCCESS = 0;
+static constexpr auto ERRNO_2 = "2";
 
 constexpr auto bmcStateService = "xyz.openbmc_project.State.BMC";
 constexpr auto bmcZeroStateObject = "/xyz/openbmc_project/state/bmc0";
