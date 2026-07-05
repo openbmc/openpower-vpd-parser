@@ -73,8 +73,9 @@ std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
 
     if (l_errCode)
     {
-        m_logger->logMessage("Failed to get VPD in vector, error : " +
-                             commonUtility::getErrCodeMsg(l_errCode));
+        throw SystemException(
+            static_cast<int>(l_errCode),
+            "Failed to get VPD in vector for: " + m_vpdModeBasedFruPath);
     }
 
     // This will detect the type of parser required.
