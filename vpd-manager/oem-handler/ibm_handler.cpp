@@ -854,7 +854,7 @@ void IbmHandler::setDeviceTreeAndJson(
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
-    static std::string l_error;
+    std::string l_primaryError;
     uint16_t l_errCode = 0;
     try
     {
@@ -877,52 +877,71 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
         {
-            throw std::runtime_error("VPD parsing failed");
+            throw EepromException("System VPD parsing failed");
         }
     }
     catch (const std::exception& l_ex)
     {
-        l_error += std::format(
+        l_primaryError = std::format(
             "System VPD collection failed from path [{}], reason: {}. ",
             i_fruPath, l_ex.what());
 
-        const std::string& l_redundantEepromPath{
-            REDUNDANT_SYSTEM_VPD_FILE_PATH};
-
-        if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
+        if (i_fruPath == SYSTEM_VPD_FILE_PATH)
         {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
+            const std::string& l_redundantEepromPath{
+                REDUNDANT_SYSTEM_VPD_FILE_PATH};
+
+            if (l_redundantEepromPath.empty() ||
+                l_redundantEepromPath == i_fruPath)
+            {
+                m_logger->logMessage(l_primaryError);
+                throw EepromException(l_primaryError);
+            }
+
+            // Try system VPD collection from redundant path.
+            // On success: log async PEL with primary I2C device callout and
+            // return. On failure: the recursive call throws.
+            try
+            {
+                setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
+            }
+            catch (const std::exception& l_redundantEx)
+            {
+                // Both primary and redundant failed — re-throw.
+                const std::string l_redundantError = std::format(
+                    "Redundant path [{}] also failed: {}",
+                    l_redundantEepromPath, l_redundantEx.what());
+
+                throw EepromException(l_primaryError + l_redundantError);
+            }
+
+            // Redundant path succeeded — log warning PEL with primary callout.
+            m_logger->logMessage(
+                l_primaryError +
+                    std::format(
+                        " Successfully collected VPD from redundant path [{}].",
+                        l_redundantEepromPath),
+                PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT,
+                types::PelInfoTuple{
+                    types::ErrorType::FirmwareError,
+                    types::SeverityType::Warning, 0, std::nullopt,
+                    std::nullopt, std::nullopt, std::nullopt,
+                    std::optional<types::CalloutData>{
+                        types::DeviceCalloutData{
+                            std::string(SYSTEM_VPD_FILE_PATH),
+                            types::CalloutPriority::High}}});
+
+            return;
         }
-
-        // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
-
-        return;
+        else
+        {
+            // Called for redundant path — propagate failure to caller.
+            throw;
+        }
     }
 
-    /* TODO: Revisit the code and update the flow will specific error handling
-       so that specific failure type can be reported in the PEL.
-
-       Also, as per current flow in case redundant path collection fails post
-       this point, current implementation will end up logging two PELs which is
-       not desired and needs to be handled. Update code to log only one PEL
-       irrespective to any failure in the flow.*/
-    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
-    {
-        // TODO: Replace with an I2C callout once the corresponding API
-        // is implemented.
-        m_logger->logMessage(
-            l_error +
-                std::format(
-                    " Successfully collected VPD from redundant path [{}].",
-                    i_fruPath),
-            PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
-            types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-				std::optional<types::CalloutData>{types::DeviceCalloutData{SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High}}});
-    }
+    /* TODO: Revisit the code and update the flow with specific error handling
+       so that specific failure type can be reported in the PEL. */
 
     // Implies it is default JSON.
     std::string l_systemJson{JSON_ABSOLUTE_PATH_PREFIX};
@@ -1103,9 +1122,12 @@ void IbmHandler::performInitialSetup()
 
         if (typeid(l_ex) == typeid(EepromException))
         {
+            // PEL #1 (primary callout) was already logged in setDeviceTreeAndJson.
+            // Log PEL #2 here with redundant path callout.
             l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT;
-            l_callout = types::DeviceCalloutData{std::string(SYSTEM_VPD_FILE_PATH),
-                                                 types::CalloutPriority::High};
+            l_callout = types::DeviceCalloutData{
+                std::string(REDUNDANT_SYSTEM_VPD_FILE_PATH),
+                types::CalloutPriority::High};
         }
 
         m_logger->logMessage(
