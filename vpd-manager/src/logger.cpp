@@ -171,6 +171,42 @@ void Logger::logMessage(std::string_view i_message,
                 "Pel info tuple required to log async PEL with device callouts for message {}",
                 l_log.str());
         }
+        else if (i_placeHolder == PlaceHolder::SYNC_PEL_WITH_DEVICE_CALLOUT)
+        {
+            if (i_pelTuple.has_value())
+            {
+                // TODO: Refactor in another commit- move all PEL's severity out
+                // of if-else.
+                //  By default set severity to informational
+                const types::SeverityType l_severity =
+                    std::get<1>(*i_pelTuple).has_value()
+                        ? std::get<1>(*i_pelTuple).value()
+                        : types::SeverityType::Informational;
+
+                auto& l_calloutOpt = std::get<7>(*i_pelTuple);
+                std::vector<types::DeviceCalloutData> l_devCallout;
+
+                if (l_calloutOpt &&
+                    std::holds_alternative<types::DeviceCalloutData>(
+                        *l_calloutOpt))
+                {
+                    l_devCallout.push_back(
+                        std::get<types::DeviceCalloutData>(*l_calloutOpt));
+                }
+
+                EventLogger::createSyncPelWithDeviceCallout(
+                    std::get<0>(*i_pelTuple), l_severity, l_devCallout,
+                    i_location.file_name(), i_location.function_name(),
+                    std::get<2>(*i_pelTuple), std::string(i_message),
+                    std::get<3>(*i_pelTuple), std::get<4>(*i_pelTuple));
+
+                return;
+            }
+
+            std::println(
+                "Pel info tuple required to log sync PEL with device callouts for message {}",
+                l_log.str());
+        }
         else
         {
             // Default case, let it go to journal.
