@@ -23,15 +23,16 @@ namespace vpd
  */
 enum class PlaceHolder
 {
-    DEFAULT,                       /* logs to the journal */
-    PEL,                           /* Creates sync PEL */
-    COLLECTION,                    /* Logs collection messages */
-    VPD_WRITE,                     /* Logs VPD write details */
-    ASYNC_PEL,                     /* Creates async PEL*/
-    ASYNC_PEL_WITH_INV_CALLOUT,    /* Creates async PEL with inventory
-                                     callouts*/
-    ASYNC_PEL_WITH_I2C_DEV_CALLOUT /*Creates async PEL with I2C device
+    DEFAULT,                        /* logs to the journal */
+    PEL,                            /* Creates sync PEL */
+    COLLECTION,                     /* Logs collection messages */
+    VPD_WRITE,                      /* Logs VPD write details */
+    ASYNC_PEL,                      /* Creates async PEL*/
+    ASYNC_PEL_WITH_INV_CALLOUT,     /* Creates async PEL with inventory
                                       callouts*/
+    ASYNC_PEL_WITH_I2C_DEV_CALLOUT, /*Creates async PEL with I2C device
+                                       callouts*/
+    SYNC_PEL_WITH_I2C_DEV_CALLOUT /*Creates Sync PEL with I2C device callouts*/
 };
 
 /**
