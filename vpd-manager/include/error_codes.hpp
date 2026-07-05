@@ -55,6 +55,34 @@ enum error_code
     RECORD_NOT_FOUND
 };
 
+// Errors related to file open/read/write on I2C-backed devices (e.g. EEPROM).
+enum FileSystemError
+{
+    // File/device node access errors
+    NO_SUCH_FILE_OR_DIRECTORY = 3001,
+    PERMISSION_DENIED,
+    OPERATION_NOT_PERMITTED,
+    BAD_FILE_DESCRIPTOR,
+
+    // I2C device enumeration and addressing errors
+    NO_SUCH_DEVICE,
+    NO_SUCH_DEVICE_OR_ADDRESS,
+
+    // I2C bus I/O and transaction errors
+    IO_ERROR,
+    REMOTE_IO_ERROR,
+    DEVICE_OR_RESOURCE_BUSY,
+    TIMED_OUT,
+    RESOURCE_UNAVAILABLE_TRY_AGAIN,
+
+    // Argument and memory errors
+    INVALID_ARGUMENT,
+    BAD_ADDRESS,
+
+    // Storage capacity error
+    NO_SPACE_ON_DEVICE
+};
+
 const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::FILE_NOT_FOUND, "File does not exist."},
     {error_code::FILE_ACCESS_ERROR, "Failed to access the file."},
@@ -107,5 +135,33 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
     {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
     {error_code::SERVICE_RUNNING, "Service is running"},
-    {error_code::SERVICE_NOT_RUNNING, "Service is not running"}};
+    {error_code::SERVICE_NOT_RUNNING, "Service is not running"},
+    {FileSystemError::NO_SUCH_FILE_OR_DIRECTORY,
+     "I2C device node or EEPROM file does not exist."},
+    {FileSystemError::PERMISSION_DENIED,
+     "Permission denied while accessing I2C device file."},
+    {FileSystemError::OPERATION_NOT_PERMITTED,
+     "Operation not permitted on I2C device file."},
+    {FileSystemError::BAD_FILE_DESCRIPTOR,
+     "I2C device node was not opened correctly."},
+    {FileSystemError::NO_SUCH_DEVICE,
+     "I2C device is not enumerated or driver not bound."},
+    {FileSystemError::NO_SUCH_DEVICE_OR_ADDRESS,
+     "I2C device address is not responding on the bus."},
+    {FileSystemError::IO_ERROR,
+     "I/O error during read or write on I2C device."},
+    {FileSystemError::REMOTE_IO_ERROR,
+     "NACK received from I2C device during transaction."},
+    {FileSystemError::DEVICE_OR_RESOURCE_BUSY,
+     "I2C bus or device is busy, transaction could not be completed."},
+    {FileSystemError::TIMED_OUT,
+     "I2C transaction timed out waiting for device response."},
+    {FileSystemError::RESOURCE_UNAVAILABLE_TRY_AGAIN,
+     "I2C resource temporarily unavailable, retry the operation."},
+    {FileSystemError::INVALID_ARGUMENT,
+     "Invalid argument passed to I2C ioctl or file operation."},
+    {FileSystemError::BAD_ADDRESS,
+     "Bad user-space buffer address during I2C read/write."},
+    {FileSystemError::NO_SPACE_ON_DEVICE,
+     "Write offset exceeds EEPROM capacity, no space left on device."}};
 } // namespace vpd
