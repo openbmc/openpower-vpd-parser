@@ -38,15 +38,10 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
     // depends on their VPD type.
     if (!std::filesystem::exists(m_vpdModeBasedFruPath, l_errCode))
     {
-        std::string l_message{"Parser object creation failed, file [" +
-                              m_vpdModeBasedFruPath + "] doesn't exists."};
-
-        if (l_errCode)
-        {
-            l_message += " Error message: " + l_errCode.message();
-        }
-
-        throw std::runtime_error(l_message);
+        const int l_errno = l_errCode ? l_errCode.value() : ENOENT;
+        throw SystemException(
+            l_errno, "Parser object creation failed, file [" +
+                         m_vpdModeBasedFruPath + "] doesn't exist.");
     }
 
     // Read VPD offset if applicable.
@@ -69,8 +64,9 @@ std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
 
     if (l_errCode)
     {
-        m_logger->logMessage("Failed to get VPD in vector, error : " +
-                             commonUtility::getErrCodeMsg(l_errCode));
+        throw SystemException(
+            static_cast<int>(l_errCode),
+            "Failed to get VPD in vector for: " + m_vpdModeBasedFruPath);
     }
 
     // This will detect the type of parser required.
