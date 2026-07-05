@@ -3,6 +3,7 @@
 #include "types.hpp"
 
 #include <stdexcept>
+#include <system_error>
 
 namespace vpd
 {
@@ -302,6 +303,81 @@ class EepromException : public Exception
     {
         return types::ErrorType::InvalidEeprom;
     }
-};
+}; // class EepromException
+
+/** @class SystemException
+ *  @brief Custom handler for system-level (errno-based) exceptions.
+ *
+ *  This class extends Exception and defines type for system-level
+ *  (errno-based) exception in VPD.
+ */
+class SystemException final : public Exception
+{
+  public:
+    // deleted methods
+    SystemException() = delete;
+    SystemException(const SystemException&) = delete;
+    SystemException(SystemException&&) = delete;
+    SystemException& operator=(const SystemException&) = delete;
+
+    // default destructor
+    ~SystemException() = default;
+
+    /** @brief Constructor
+     *
+     *  @param[in] i_errnoVal - errno value captured after the failing call.
+     *  @param[in] i_msg      - Additional context message.
+     */
+    SystemException(int i_errnoVal, const std::string& i_msg) :
+        Exception(
+            i_msg + ": " +
+            std::error_code(i_errnoVal, std::generic_category()).message()),
+        m_errno(i_errnoVal)
+    {}
+
+    /** @brief Method to get errno value. */
+    int getErrno() const noexcept
+    {
+        return m_errno;
+    }
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * SystemException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        switch (m_errno)
+        {
+            case ENOENT:
+                return types::ErrorType::EepromNotFound;
+
+            case EACCES:
+            case EPERM:
+                return types::ErrorType::EepromAccessDenied;
+
+            case EIO:
+                return types::ErrorType::EepromIOError;
+
+            case EBADF:
+                return types::ErrorType::FileReadError;
+
+            case ENOSPC:
+            case EROFS:
+                return types::ErrorType::FileWriteError;
+
+            case ESPIPE:
+                return types::ErrorType::FileSeekError;
+
+            default:
+                return types::ErrorType::EssentialFru;
+        }
+    }
+
+  private:
+    int m_errno;
+
+}; // class SystemException
 
 } // namespace vpd
