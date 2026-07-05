@@ -206,6 +206,7 @@ enum class VpdCollectionMode : uint8_t
 
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
+
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
 
 using ExceptionInfoVariant = std::variant<std::monostate, ErrorType, std::string>;
@@ -226,10 +227,16 @@ using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 /*
 * Tuple of Error type, severity, internal rc, userdata1, userdata2, symFru, Procedure
 */
+using CalloutData = std::variant<
+    types::InventoryCalloutData,
+    types::DeviceCalloutData>;
+
 using PelInfoTuple =
-    std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t, std::optional<std::string>,
-               std::optional<std::string>, std::optional<std::string>,
-               std::optional<std::string>, std::optional<types::InventoryCalloutData>>;
+    std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t,
+               std::optional<std::string>,
+               std::optional<std::string>,
+               std::optional<std::string>,
+               std::optional<std::string>, std::optional<types::CalloutData>>;
 /* A tuple of Dbus object path, interface and property*/
 using DbusPropertyEntry = std::tuple<std::string, std::string, std::string>;
 /* A list of Dbus property entries */
