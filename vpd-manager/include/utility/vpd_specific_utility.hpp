@@ -12,6 +12,7 @@
 #include <utility/dbus_utility.hpp>
 #include <utility/event_logger_utility.hpp>
 
+#include <cerrno>
 #include <filesystem>
 #include <format>
 #include <fstream>
@@ -352,6 +353,10 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
  * @param[out] vpdVector - VPD in vector form.
  * @param[in] vpdStartOffset - Offset of VPD data in EEPROM.
  * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @throws SystemException if the EEPROM device file cannot be opened (e.g.
+ *         device not present or I2C bus broken).  The stored errno value and
+ *         human-readable system message are embedded in the exception.
  */
 inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
@@ -364,12 +369,27 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
         return;
     }
 
+    // Open the EEPROM device file in its own try/catch so that errno is
+    // captured immediately when the open() syscall fails (before any
+    // subsequent library call can overwrite it).
+    std::fstream vpdFileStream;
+    vpdFileStream.exceptions(std::ifstream::badbit | std::ifstream::failbit);
     try
     {
-        std::fstream vpdFileStream;
-        vpdFileStream.exceptions(
-            std::ifstream::badbit | std::ifstream::failbit);
         vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::binary);
+    }
+    catch (const std::ifstream::failure&)
+    {
+        // Capture errno immediately — it reflects the exact OS/hardware
+        // reason (ENOENT: no such device, EIO: I2C bus error, EACCES:
+        // permission denied, etc.).
+        const int l_savedErrno = errno;
+        throw SystemException(l_savedErrno,
+                              "Failed to open EEPROM: " + vpdFilePath);
+    }
+
+    try
+    {
         auto vpdSizeToRead = std::min(std::filesystem::file_size(vpdFilePath),
                                       static_cast<uintmax_t>(65504));
         vpdVector.resize(vpdSizeToRead);

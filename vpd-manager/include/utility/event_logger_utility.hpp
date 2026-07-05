@@ -143,6 +143,14 @@ inline types::ExceptionDataMap getExceptionData(
             l_errorInfo["ErrorMsg"] =
                 std::string("Eeprom Exception. Reason: ") + i_exception.what();
         }
+        else if (typeid(i_exception) == typeid(SystemException))
+        {
+            const SystemException& l_ex =
+                dynamic_cast<const SystemException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("System Exception. Reason: ") + i_exception.what();
+        }
         else if (typeid(i_exception) == typeid(std::runtime_error))
         {
             // Since it is a standard exception no casting is required and error
