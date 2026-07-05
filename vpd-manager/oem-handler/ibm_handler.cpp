@@ -682,7 +682,7 @@ void IbmHandler::setDeviceTreeAndJson(
        irrespective to any failure in the flow.*/
     if (i_fruPath != SYSTEM_VPD_FILE_PATH)
     {
-        // TODO: Replace with an I2C callout once the corresponding API
+        // TODO: Replace with a device callout once the corresponding API
         // is implemented.
         m_logger->logMessage(
             l_error +
