@@ -346,12 +346,11 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
  * @brief An API to get VPD in a vector.
  *
  * The vector is required by the respective parser to fill the VPD map.
- * Note: API throws exception in case of failure. Caller needs to handle.
  *
  * @param[in] vpdFilePath - EEPROM path of the FRU.
  * @param[out] vpdVector - VPD in vector form.
  * @param[in] vpdStartOffset - Offset of VPD data in EEPROM.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] o_errCode - errno value set on failure, 0 on success.
  */
 inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
@@ -370,6 +369,7 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
         vpdFileStream.exceptions(
             std::ifstream::badbit | std::ifstream::failbit);
         vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::binary);
+
         auto vpdSizeToRead = std::min(std::filesystem::file_size(vpdFilePath),
                                       static_cast<uintmax_t>(65504));
         vpdVector.resize(vpdSizeToRead);
@@ -381,9 +381,13 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
         vpdVector.resize(vpdFileStream.gcount());
         vpdFileStream.clear(std::ios_base::eofbit);
     }
-    catch (const std::ifstream::failure& fail)
+    catch (const std::ifstream::failure&)
     {
-        o_errCode = error_code::FILE_SYSTEM_ERROR;
+        o_errCode = static_cast<uint16_t>(errno);
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to access EEPROM: " + vpdFilePath +
+            ", errno: " + std::to_string(o_errCode) + " (" +
+            std::string(std::strerror(o_errCode)) + ")");
         return;
     }
 }
