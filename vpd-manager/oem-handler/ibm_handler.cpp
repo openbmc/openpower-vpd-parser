@@ -294,16 +294,8 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             if (l_timerRetry == MAX_RETRY)
             {
                 l_timer.cancel();
-                m_logger->logMessage(
-                    std::format(
-                        "Timed out while waiting for all FRU VPD collections to complete after {}s, Active thread count={}",
-                        MAX_RETRY * 10, std::to_string(l_threadCount)),
-                    PlaceHolder::ASYNC_PEL,
-                    types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                        vpd::types::SeverityType::Warning, 0,
-                                        std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt,
-                                        std::nullopt});
+                logging::logMessage("Taking too long. Active thread = " +
+                                    std::to_string(l_threadCount));
 #ifdef ENABLE_FILE_LOGGING
                 // terminate collection logger
                 m_logger->terminateVpdCollectionLogging();
@@ -1049,11 +1041,11 @@ void IbmHandler::setDeviceTreeAndJson(
                     " Successfully collected VPD from redundant path [{}].",
                     i_fruPath),
             PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
-            types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-                                std::make_tuple(SYSTEM_VPD_FILE_PATH,
-                                                types::CalloutPriority::High)});
+            types::PelInfoTuple{
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                std::optional<types::CalloutData>{types::DeviceCalloutData{
+                    SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High}}});
     }
 
     // Implies it is default JSON.
@@ -1230,14 +1222,15 @@ void IbmHandler::performInitialSetup()
         // Any issue in system's initial set up is handled in this catch. Error
         // will not propagate to manager.
 
-        std::optional<types::InventoryCalloutData> l_callout = std::nullopt;
+        std::optional<types::CalloutData> l_callout = std::nullopt;
         PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL;
 
         if (typeid(l_ex) == typeid(EepromException))
         {
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
-            l_callout = std::make_tuple(std::string(SYSTEM_VPD_FILE_PATH),
-                                        types::CalloutPriority::High);
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT;
+            l_callout =
+                types::DeviceCalloutData{std::string(SYSTEM_VPD_FILE_PATH),
+                                         types::CalloutPriority::High};
         }
 
         m_logger->logMessage(
