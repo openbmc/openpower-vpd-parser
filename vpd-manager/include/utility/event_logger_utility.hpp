@@ -333,7 +333,7 @@ inline void createAsyncPelWithInventoryCallout(
             {"DESCRIPTION", l_description},
             {"CALLOUT_INVENTORY_PATH", get<0>(l_invCallout)},
             {"CALLOUT_PRIORITY", l_priority},
-            {"InteranlRc", std::to_string(i_internalRc)},
+            {"InternalRc", std::to_string(i_internalRc)},
             {"UserData1", l_userData1},
             {"UserData2", l_userData2}};
 
@@ -422,7 +422,7 @@ inline void createAsyncPelWithDeviceCallout(
             {"DESCRIPTION", l_description},
             {"CALLOUT_DEVICE_PATH", std::get<0>(l_devCallout)},
             {"CALLOUT_ERRNO", std::get<1>(l_devCallout)},
-            {"InteranlRc", std::to_string(i_internalRc)},
+            {"InternalRc", std::to_string(i_internalRc)},
             {"UserData1", l_userData1},
             {"UserData2", l_userData2}};
 
@@ -534,7 +534,7 @@ inline void createAsyncPel(
             {"FileName", i_fileName},
             {"FunctionName", i_funcName},
             {"DESCRIPTION", l_description},
-            {"InteranlRc", std::to_string(i_internalRc)},
+            {"InternalRc", std::to_string(i_internalRc)},
             {"UserData1", l_userData1},
             {"UserData2", l_userData2}};
 
@@ -614,7 +614,7 @@ inline void createSyncPel(
             {"FileName", i_fileName},
             {"FunctionName", i_funcName},
             {"DESCRIPTION", l_description},
-            {"InteranlRc", std::to_string(i_internalRc)},
+            {"InternalRc", std::to_string(i_internalRc)},
             {"UserData1", l_userData1},
             {"UserData2", l_userData2}};
 
@@ -749,7 +749,7 @@ inline void createSyncPelWithInvCallOut(
             {"DESCRIPTION",
              (!i_description.empty() ? i_description : "VPD generic error")},
             {"CALLOUT_INVENTORY_PATH", l_calloutInvPath},
-            {"InteranlRc", std::to_string(i_internalRc)},
+            {"InternalRc", std::to_string(i_internalRc)},
             {"UserData1", i_userData1 ? *i_userData1 : ""},
             {"UserData2", i_userData2 ? *i_userData2 : ""}};
 
@@ -772,6 +772,87 @@ inline void createSyncPelWithInvCallOut(
         Logger::getLoggerInstance()->logMessage(
             "Sync PEL creation with inventory path failed with error: " +
             std::string(l_ex.what()));
+    }
+}
+
+/**
+ * @brief An API to create a synchronous PEL with device path callout.
+ *
+ * This API calls phosphor-logging method to create PEL, and also handles
+ * device path callout.
+ * If device path is not provided in the callout, it will create
+ * PEL without call out. Currently only one callout is handled in this API.
+ *
+ * @param[in] i_errorType - Enum to map with event message name.
+ * @param[in] i_severity - Severity of the event.
+ * @param[in] i_callouts - Callout information.
+ * @param[in] i_fileName - File name.
+ * @param[in] i_funcName - Function name.
+ * @param[in] i_internalRc - Internal return code.
+ * @param[in] i_description - Error description.
+ * @param[in] i_userData1 - Additional user data [optional].
+ * @param[in] i_userData2 - Additional user data [optional].
+ */
+inline void createSyncPelWithDeviceCallout(
+    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
+    const std::vector<types::DeviceCalloutData>& i_callouts,
+    const std::string& i_fileName, const std::string& i_funcName,
+    const uint8_t i_internalRc, const std::string& i_description,
+    const std::optional<std::string> i_userData1,
+    const std::optional<std::string> i_userData2) noexcept
+{
+    try
+    {
+        if (i_callouts.empty())
+        {
+            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
+                          i_internalRc, i_description, i_userData1, i_userData2,
+                          std::nullopt, std::nullopt);
+            Logger::getLoggerInstance()->logMessage(std::format(
+                "Callout list is empty, creating PEL without call out. FileName: {}, FunctionName: {}",
+                i_fileName, i_funcName));
+            return;
+        }
+
+        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        {
+            throw std::runtime_error("Unsupported error type received");
+        }
+
+        const types::DeviceCalloutData& l_devCallout = i_callouts[0];
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION",
+             (!i_description.empty() ? i_description : "VPD generic error")},
+            {"CALLOUT_DEVICE_PATH", std::get<0>(l_devCallout)},
+            {"CALLOUT_ERRNO", std::get<1>(l_devCallout)},
+            {"InternalRc", std::to_string(i_internalRc)},
+            {"UserData1", i_userData1.value_or("")},
+            {"UserData2", i_userData2.value_or("")}};
+
+        const std::string& l_severity =
+            (severityMap.find(i_severity) != severityMap.end()
+                 ? severityMap.at(i_severity)
+                 : severityMap.at(types::SeverityType::Informational));
+
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(constants::eventLoggingServiceName,
+                                  constants::eventLoggingObjectPath,
+                                  constants::eventLoggingInterface, "Create");
+        l_method.append(errorMsgMap.at(i_errorType), l_severity,
+                        l_additionalData);
+        l_bus.call(l_method);
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Sync PEL creation with device path failed with error: {}. Error that couldn't log,"
+            " FileName: [{}], FunctionName: [{}], Description: [{}], ErrorType: [{}]",
+            l_ex.what(), i_fileName, i_funcName, i_description,
+            std::to_underlying(i_errorType)));
     }
 }
 } // namespace EventLogger
