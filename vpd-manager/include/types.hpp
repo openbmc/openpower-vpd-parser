@@ -223,13 +223,18 @@ using MatchObjectInterfaceMap = std::map<std::string,std::shared_ptr<sdbusplus::
 /* A map of service name to match object interface map*/
 using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 
+using CalloutData = std::variant<
+    types::InventoryCalloutData,
+    types::DeviceCalloutData>;
+
 /*
 * Tuple of Error type, severity, internal rc, userdata1, userdata2, symFru, Procedure
 */
 using PelInfoTuple =
-    std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t, std::optional<std::string>,
+    std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t,
+               std::optional<std::string>,
                std::optional<std::string>, std::optional<std::string>,
-               std::optional<std::string>, std::optional<types::InventoryCalloutData>>;
+               std::optional<std::string>, std::optional<types::CalloutData>>;
 /* A tuple of Dbus object path, interface and property*/
 using DbusPropertyEntry = std::tuple<std::string, std::string, std::string>;
 /* A list of Dbus property entries */
