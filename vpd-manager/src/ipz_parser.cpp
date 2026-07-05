@@ -856,8 +856,8 @@ bool IpzVpdParser::processInvalidRecords(
             __FILE__, __FUNCTION__, constants::VALUE_0,
             std::string(
                 "Check failed for record(s) while parsing VPD. Check user data for reason and list of failed record(s). Re-program VPD."),
-            std::vector{
-                std::make_tuple(m_vpdFilePath, types::CalloutPriority::High)},
+            std::vector{types::InventoryCalloutData{
+                m_vpdFilePath, types::CalloutPriority::High}},
             l_invalidRecordListString, std::nullopt, std::nullopt,
             std::nullopt);
 

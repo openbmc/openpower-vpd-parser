@@ -23,13 +23,15 @@ namespace vpd
  */
 enum class PlaceHolder
 {
-    DEFAULT,                   /* logs to the journal */
-    PEL,                       /* Creates sync PEL */
-    COLLECTION,                /* Logs collection messages */
-    VPD_WRITE,                 /* Logs VPD write details */
-    ASYNC_PEL,                 /* Creates async PEL*/
-    ASYNC_PEL_WITH_INV_CALLOUT /* Creates async PEL with inventory
-                                  callouts*/
+    DEFAULT,                      /* logs to the journal */
+    PEL,                          /* Creates sync PEL */
+    COLLECTION,                   /* Logs collection messages */
+    VPD_WRITE,                    /* Logs VPD write details */
+    ASYNC_PEL,                    /* Creates async PEL*/
+    ASYNC_PEL_WITH_INV_CALLOUT,   /* Creates async PEL with inventory
+                                    callouts*/
+    ASYNC_PEL_WITH_DEVICE_CALLOUT /*Creates async PEL with device
+                                    callouts*/
 };
 
 /**
