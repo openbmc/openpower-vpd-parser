@@ -190,7 +190,14 @@ enum ErrorType
     UndefinedError,
     UnknownSystemSettings,
     FirmwareError,
-    VpdParseError /* Should be used in case of any generic VPD parsing error. */
+    VpdParseError,      /* Should be used in case of any generic VPD parsing error. */
+    FileOpenError,      /* xyz.openbmc_project.Common.File.Error.Open */
+    FileReadError,      /* xyz.openbmc_project.Common.File.Error.Read */
+    FileWriteError,     /* xyz.openbmc_project.Common.File.Error.Write */
+    FileSeekError,      /* xyz.openbmc_project.Common.File.Error.Seek */
+    EepromNotFound,     /* EEPROM file not found (ENOENT) */
+    EepromAccessDenied, /* EEPROM access denied (EACCES/EPERM) */
+    EepromIOError       /* EEPROM hardware I/O failure (EIO) */
 };
 
 /**
