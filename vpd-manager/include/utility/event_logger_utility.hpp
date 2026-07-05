@@ -59,7 +59,21 @@ const std::unordered_map<types::ErrorType, std::string> errorMsgMap = {
     {types::ErrorType::UnknownSystemSettings,
      "com.ibm.VPD.Error.UnknownSystemSettings"},
     {types::ErrorType::FirmwareError, "com.ibm.VPD.Error.FirmwareError"},
-    {types::ErrorType::VpdParseError, "com.ibm.VPD.Error.VPDParseError"}};
+    {types::ErrorType::VpdParseError, "com.ibm.VPD.Error.VPDParseError"},
+    {types::ErrorType::FileOpenError,
+     "xyz.openbmc_project.Common.File.Error.Open"},
+    {types::ErrorType::FileReadError,
+     "xyz.openbmc_project.Common.File.Error.Read"},
+    {types::ErrorType::FileWriteError,
+     "xyz.openbmc_project.Common.File.Error.Write"},
+    {types::ErrorType::FileSeekError,
+     "xyz.openbmc_project.Common.File.Error.Seek"},
+    {types::ErrorType::EepromNotFound,
+     "com.ibm.VPD.Error.InvalidEepromPath"},
+    {types::ErrorType::EepromAccessDenied,
+     "xyz.openbmc_project.Common.Error.InsufficientPermission"},
+    {types::ErrorType::EepromIOError,
+     "xyz.openbmc_project.Common.Device.Error.ReadFailure"}};
 
 const std::unordered_map<types::CalloutPriority, std::string> priorityMap = {
     {types::CalloutPriority::High, "H"},
@@ -142,6 +156,14 @@ inline types::ExceptionDataMap getExceptionData(
             l_errorInfo["ErrorType"] = l_ex.getErrorType();
             l_errorInfo["ErrorMsg"] =
                 std::string("Eeprom Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(SystemException))
+        {
+            const SystemException& l_ex =
+                dynamic_cast<const SystemException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("System Exception. Reason: ") + i_exception.what();
         }
         else if (typeid(i_exception) == typeid(std::runtime_error))
         {
