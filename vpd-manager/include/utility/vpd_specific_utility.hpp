@@ -346,12 +346,11 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
  * @brief An API to get VPD in a vector.
  *
  * The vector is required by the respective parser to fill the VPD map.
- * Note: API throws exception in case of failure. Caller needs to handle.
  *
  * @param[in] vpdFilePath - EEPROM path of the FRU.
  * @param[out] vpdVector - VPD in vector form.
  * @param[in] vpdStartOffset - Offset of VPD data in EEPROM.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] o_errCode - errno value set on failure, 0 on success.
  */
 inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
@@ -364,28 +363,68 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
         return;
     }
 
-    try
+    // Exceptions are intentionally NOT enabled on vpdFileStream.
+    // When fstream exceptions are enabled, stack unwinding triggered by the
+    // throw can overwrite the global errno before the catch block is reached,
+    // making errno unreliable. Instead, each operation is checked immediately
+    // after it runs so that errno is captured before anything else can
+    // clobber it.
+    std::fstream vpdFileStream;
+    vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::binary);
+    if (!vpdFileStream.is_open())
     {
-        std::fstream vpdFileStream;
-        vpdFileStream.exceptions(
-            std::ifstream::badbit | std::ifstream::failbit);
-        vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::binary);
-        auto vpdSizeToRead = std::min(std::filesystem::file_size(vpdFilePath),
-                                      static_cast<uintmax_t>(65504));
-        vpdVector.resize(vpdSizeToRead);
-
-        vpdFileStream.seekg(vpdStartOffset, std::ios_base::beg);
-        vpdFileStream.read(reinterpret_cast<char*>(&vpdVector[0]),
-                           vpdSizeToRead);
-
-        vpdVector.resize(vpdFileStream.gcount());
-        vpdFileStream.clear(std::ios_base::eofbit);
-    }
-    catch (const std::ifstream::failure& fail)
-    {
-        o_errCode = error_code::FILE_SYSTEM_ERROR;
+        o_errCode = static_cast<uint16_t>(errno);
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Failed to open EEPROM: {}, errno: {} ({})",
+                        vpdFilePath, o_errCode, std::strerror(o_errCode)));
         return;
     }
+
+    // std::error_code (l_ec) is required here because
+    // std::filesystem::file_size second parameter type is std::error_code& — it
+    // cannot accept uint16_t& directly. l_ec acts purely as a type adapter; its
+    // value is transferred into o_errCode immediately on failure.
+    std::error_code l_ec;
+    const auto l_fileSize = std::filesystem::file_size(vpdFilePath, l_ec);
+    if (l_ec)
+    {
+        o_errCode = static_cast<uint16_t>(l_ec.value());
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Failed to get file size of EEPROM: {}, errno: {} ({})",
+                        vpdFilePath, o_errCode, std::strerror(o_errCode)));
+        return;
+    }
+
+    const auto vpdSizeToRead =
+        std::min(l_fileSize, static_cast<uintmax_t>(65504));
+    vpdVector.resize(vpdSizeToRead);
+
+    vpdFileStream.seekg(vpdStartOffset, std::ios_base::beg);
+    if (vpdFileStream.fail())
+    {
+        o_errCode = static_cast<uint16_t>(errno);
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Failed to seek EEPROM: {}, errno: {} ({})",
+                        vpdFilePath, o_errCode, std::strerror(o_errCode)));
+        return;
+    }
+
+    vpdFileStream.read(reinterpret_cast<char*>(&vpdVector[0]), vpdSizeToRead);
+    if (vpdFileStream.fail())
+    {
+        o_errCode = static_cast<uint16_t>(errno);
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Failed to read EEPROM: {}, errno: {} ({})",
+                        vpdFilePath, o_errCode, std::strerror(o_errCode)));
+        return;
+    }
+
+    // .resize() and .clear() do not interact with errno:
+    // resize() throws std::bad_alloc on OOM (not an fstream/errno error),
+    // and clear() only resets internal stream state flags — neither needs
+    // an errno check.
+    vpdVector.resize(vpdFileStream.gcount());
+    vpdFileStream.clear(std::ios_base::eofbit);
 }
 
 /**
