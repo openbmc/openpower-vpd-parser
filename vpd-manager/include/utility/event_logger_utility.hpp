@@ -798,5 +798,96 @@ inline void createSyncPelWithInvCallOut(
             std::string(l_ex.what()));
     }
 }
+
+/**
+ * @brief An API to create a synchronous PEL with I2C device path callout.
+ *
+ * This API calls phosphor-logging method to create PEL, and also handles
+ * I2C device path callout.
+ * If I2C device path is not provided in the callout, it will create
+ * PEL without call out. Currently only one callout is handled in this API.
+ *
+ * @param[in] i_errorType - Enum to map with event message name.
+ * @param[in] i_severity - Severity of the event.
+ * @param[in] i_callouts - Callout information.
+ * @param[in] i_fileName - File name.
+ * @param[in] i_funcName - Function name.
+ * @param[in] i_internalRc - Internal return code.
+ * @param[in] i_description - Error description.
+ * @param[in] i_userData1 - Additional user data [optional].
+ * @param[in] i_userData2 - Additional user data [optional].
+ */
+inline void createSyncPelWithI2cDeviceCallout(
+    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
+    const std::vector<types::DeviceCalloutData>& i_callouts,
+    const std::string& i_fileName, const std::string& i_funcName,
+    const uint8_t i_internalRc, const std::string& i_description,
+    const std::optional<types::UserDataEntry> i_userData1,
+    const std::optional<types::UserDataEntry> i_userData2)
+{
+    try
+    {
+        if (i_callouts.empty())
+        {
+            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
+                          i_internalRc, i_description, i_userData1, i_userData2,
+                          std::nullopt, std::nullopt);
+            logging::logMessage(
+                "Callout list is empty, creating PEL without call out");
+            return;
+        }
+
+        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        {
+            throw std::runtime_error("Unsupported error type received");
+        }
+
+        const std::string l_userData1 =
+            i_userData1 ? std::get<std::string>(*i_userData1) : "";
+
+        const std::string l_userData2 =
+            i_userData2 ? std::get<std::string>(*i_userData2) : "";
+
+        const types::DeviceCalloutData& l_i2cDevCallout = i_callouts[0];
+
+        const types::CalloutPriority& l_priorityEnum = l_i2cDevCallout.m_calloutPriority;
+
+        const std::string& l_priority =
+            (priorityMap.find(l_priorityEnum) != priorityMap.end()
+                 ? priorityMap.at(l_priorityEnum)
+                 : priorityMap.at(types::CalloutPriority::Low));
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION",
+             (!i_description.empty() ? i_description : "VPD generic error")},
+            {"CALLOUT_DEVICE_PATH", l_i2cDevCallout.m_i2cDevicePath},
+            {"CALLOUT_PRIORITY", l_priority},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", l_userData1},
+            {"UserData2", l_userData2}};
+
+        const std::string& l_severity =
+            (severityMap.find(i_severity) != severityMap.end()
+                 ? severityMap.at(i_severity)
+                 : severityMap.at(types::SeverityType::Informational));
+
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(constants::eventLoggingServiceName,
+                                  constants::eventLoggingObjectPath,
+                                  constants::eventLoggingInterface, "Create");
+        l_method.append(errorMsgMap.at(i_errorType), l_severity,
+                        l_additionalData);
+        l_bus.call(l_method);
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Sync PEL creation with I2C device path failed with error: " +
+            std::string(l_ex.what()));
+    }
+}
 } // namespace EventLogger
 } // namespace vpd
