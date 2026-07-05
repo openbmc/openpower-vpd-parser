@@ -319,7 +319,8 @@ inline void createAsyncPelWithInventoryCallout(
         // TODO: Need to handle multiple inventory path callout's, when multiple
         // callout's is supported by "Logging" service.
 
-        const types::CalloutPriority& l_priorityEnum = get<1>(l_invCallout);
+        const types::CalloutPriority& l_priorityEnum =
+            std::get<1>(l_invCallout);
 
         const std::string& l_priority =
             (priorityMap.find(l_priorityEnum) != priorityMap.end()
@@ -357,8 +358,9 @@ inline void createAsyncPelWithInventoryCallout(
 }
 
 /**
- * @brief An API to create a PEL with device path callout.
+ * @brief An API to create async PEL with device path callout.
  *
+ * @param[in] i_asioConnection - Dbus Connection.
  * @param[in] i_errorType - Enum to map with event message name.
  * @param[in] i_severity - Severity of the event.
  * @param[in] i_callouts - Callout information, list of tuple having device
@@ -366,16 +368,85 @@ inline void createAsyncPelWithInventoryCallout(
  * @param[in] i_fileName - File name.
  * @param[in] i_funcName - Function name.
  * @param[in] i_internalRc - Internal return code.
+ * @param[in] i_description - Error description.
  * @param[in] i_userData1 - Additional user data [optional].
  * @param[in] i_userData2 - Additional user data [optional].
  */
 inline void createAsyncPelWithI2cDeviceCallout(
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::ErrorType i_errorType, const types::SeverityType i_severity,
     const std::vector<types::DeviceCalloutData>& i_callouts,
     const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc,
-    const std::optional<std::pair<std::string, std::string>> i_userData1,
-    const std::optional<std::pair<std::string, std::string>> i_userData2);
+    const uint8_t i_internalRc, const std::string& i_description,
+    const std::optional<std::string> i_userData1,
+    const std::optional<std::string> i_userData2)
+{
+    try
+    {
+        const std::string l_description =
+            (i_description.empty() ? "VPD generic error" : i_description);
+
+        if (i_asioConnection == nullptr)
+        {
+            logging::logMessage(std::format(
+                "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
+                l_description));
+            return;
+        }
+
+        if (i_callouts.empty())
+        {
+            logging::logMessage("Callout information is missing to create PEL");
+            return;
+        }
+
+        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        {
+            throw std::runtime_error(
+                "Error type not found in the error message map to create PEL");
+        }
+
+        const std::string& l_message = errorMsgMap.at(i_errorType);
+
+        const std::string& l_severity =
+            (severityMap.find(i_severity) != severityMap.end()
+                 ? severityMap.at(i_severity)
+                 : severityMap.at(types::SeverityType::Informational));
+
+        const std::string l_userData1 = i_userData1.value_or("");
+        const std::string l_userData2 = i_userData2.value_or("");
+
+        const types::DeviceCalloutData& l_i2cDevCallout = i_callouts[0];
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION", l_description},
+            {"CALLOUT_DEVICE_PATH", std::get<0>(l_i2cDevCallout)},
+            {"CALLOUT_ERRNO", std::get<1>(l_i2cDevCallout)},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", l_userData1},
+            {"UserData2", l_userData2}};
+
+        i_asioConnection->async_method_call(
+            [](boost::system::error_code l_ec) {
+                if (l_ec)
+                {
+                    logging::logMessage(std::format(
+                        "Async PEL with Device Callout failed. Reason : {}",
+                        l_ec.message()));
+                }
+            },
+            constants::eventLoggingServiceName,
+            constants::eventLoggingObjectPath, constants::eventLoggingInterface,
+            "Create", l_message, l_severity, l_additionalData);
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Create PEL failed with error: " + std::string(l_ex.what()));
+    }
+}
 
 /**
  * @brief An API to create a PEL with I2c bus callout.
