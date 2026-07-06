@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b2f5563_eee31efd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T14:40:38Z",
+      "side": 1,
+      "message": "Why are we doing this now? That part is missing from the commit message.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bb1f7d7_2fd662ab",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 6
@@ -32,6 +55,41 @@
       "side": 1,
       "message": "It uses dbusUtility::readDbusProperty(), this is extra fitting before dubs::utility.\n\nDoxygen:\n * It extracts chassis ID from FRU inventory path and constructs appropriate\n * chassis/system inventory path based on Fcs/Mts type location code.\n\nI can think of re-naming",
       "parentUuid": "5bb1f7d7_2fd662ab",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecafa8ce_8f03d09f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T14:40:38Z",
+      "side": 1,
+      "message": "I agree with @souvikroyofficial10@gmail.com \nWhy do we need another DBus API for just reading the value from DBus? Extraction of chassis ID is a one line operation, can be done at the place of calling itself.",
+      "parentUuid": "4965bed6_01dd309d",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d543f694_e28af3e1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T14:40:38Z",
+      "side": 1,
+      "message": "@alpu8007@gmail.com I would suggest you can divide the function based on fcs type or mts type and based on that you can call one of the two function \"ExpandFcsTypeLocationCode\" and \"ExpandMtsTypeLocationCode\" which can handle expanding the respective location codes.\nInside those methods you can directly do Dbus calls to read respective keywords.\n\nThis will save extraction of these keywords and at the same time these extra fitting functions won\u0027t be required.",
       "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
