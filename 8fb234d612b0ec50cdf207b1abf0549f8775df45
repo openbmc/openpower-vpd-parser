@@ -52,6 +52,24 @@
       "parentUuid": "ffd9a17f_9c619072",
       "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1d2f46_63f3974f",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-06T10:53:43Z",
+      "side": 1,
+      "message": "I don\u0027t see any significant efficiency improvement by using std::find_if compared with the existing implementation in this scenario.\n So keeping the existing implementation.",
+      "parentUuid": "29b85113_114627be",
+      "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
