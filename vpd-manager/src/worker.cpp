@@ -26,9 +26,9 @@
 namespace vpd
 {
 
-Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
+Worker::Worker(std::string pathToConfigJson,
                types::VpdCollectionMode i_vpdCollectionMode) :
-    m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
+    m_configJsonPath(pathToConfigJson),
     m_vpdCollectionMode(i_vpdCollectionMode),
     m_logger(Logger::getLoggerInstance())
 {
@@ -946,19 +946,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             return std::make_tuple(false, i_vpdFilePath);
         }
 
-        m_semaphore.acquire();
-
-        // Increment thread count only when `i_processRedundant` is false.
-        // Skip for redundant path processing when it is true, since the count
-        // is already handled during primary path processing.
-        if (!i_processRedundant)
-        {
-            // Thread launched.
-            m_mutex.lock();
-            m_activeCollectionThreadCount++;
-            m_mutex.unlock();
-        }
-
         // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
         if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
@@ -967,7 +954,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         {
             const bool l_status = processRedundantPreAction(i_vpdFilePath);
 
-            m_semaphore.release();
             return std::make_tuple(l_status, i_vpdFilePath);
         }
 
@@ -1033,7 +1019,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        m_semaphore.release();
         return std::make_tuple(true, i_vpdFilePath);
     }
     catch (const std::exception& l_ex)
@@ -1143,7 +1128,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             setPresentProperty(i_vpdFilePath, false);
         }
 
-        m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
     }
 }
@@ -1440,13 +1424,6 @@ void Worker::performVpdRecollection(
             }
 
             parseAndPublishVPD(l_fruPath);
-
-            /**
-             * @todo Remove this code once threadManager implementation is done.
-             */
-            m_mutex.lock();
-            m_activeCollectionThreadCount--;
-            m_mutex.unlock();
         }
         return;
     }
@@ -1782,16 +1759,6 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         m_parsedJson = i_cfgJsonObj;
 
         const auto& l_parseResult = parseAndPublishVPD(i_fruPath);
-
-#if 0
-        /**
-         * @todo This part of code is required for testing. This logic will be removed
-         * once the thread manager class implementation is done.
-         */
-        m_mutex.lock();
-        m_activeCollectionThreadCount--;
-        m_mutex.unlock();
-#endif
 
         /**
          * @todo This part of code will be removed from this API once the FRU

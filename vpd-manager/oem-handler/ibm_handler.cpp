@@ -91,18 +91,9 @@ void IbmHandler::initWorker()
 {
     try
     {
-        // At power on, less number of FRU(s) needs collection. Hence defaulted
-        // to 1.
-        uint8_t l_threadCount = constants::VALUE_1;
-        if (!dbusUtility::isChassisPowerOn())
-        {
-            // TODO: Can be configured from recipe? Check.
-            l_threadCount = constants::MAX_THREADS;
-        }
-
         // Initialize worker with required parameters.
-        m_worker = std::make_shared<Worker>(m_configJsonPath, l_threadCount,
-                                            m_vpdCollectionMode);
+        m_worker =
+            std::make_shared<Worker>(m_configJsonPath, m_vpdCollectionMode);
     }
     catch (const std::exception& l_ex)
     {
