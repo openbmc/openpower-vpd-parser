@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3913032_f54433f6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T09:03:15Z",
+      "side": 1,
+      "message": "I don\u0027t see use of these headers in header file. If they are used in cpp file, they needs to be included in cpp file itself.",
+      "revId": "a3dc00384a3f6028f36cde0942a14c73682269e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cde2e847_35e41268",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 5
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "Both these methods do not read/write any `ConfigManager` data members and hence do not need a `ConfigManager` instance. Hence they have been marked as `static`",
       "parentUuid": "cde2e847_35e41268",
+      "revId": "a3dc00384a3f6028f36cde0942a14c73682269e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee2c3fe_f60064c3",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T09:03:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d2b33e6_ccb9108a",
       "revId": "a3dc00384a3f6028f36cde0942a14c73682269e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
