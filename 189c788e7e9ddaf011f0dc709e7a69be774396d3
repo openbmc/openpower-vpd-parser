@@ -16,6 +16,24 @@
       "message": "`getDataFromDbus` name is too vague I think. \n\nAlso, why can\u0027t we use `dbusUtility::readDbusProperty()` for this operation?",
       "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4965bed6_01dd309d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-06T04:56:01Z",
+      "side": 1,
+      "message": "It uses dbusUtility::readDbusProperty(), this is extra fitting before dubs::utility.\n\nDoxygen:\n * It extracts chassis ID from FRU inventory path and constructs appropriate\n * chassis/system inventory path based on Fcs/Mts type location code.\n\nI can think of re-naming",
+      "parentUuid": "5bb1f7d7_2fd662ab",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
