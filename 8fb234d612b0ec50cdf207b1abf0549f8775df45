@@ -16,6 +16,24 @@
       "message": "Suggestion: A comment explaining this loop can be useful. We can also simplify this using `std::find_if` and eliminate this loop, the `continue` and the `break` statement.",
       "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd9a17f_9c619072",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-06T10:16:47Z",
+      "side": 1,
+      "message": "```suggestion\n        \n        // Find the first element that is NOT the chassis EEPROM\ni_fruThreadContext-\u003em_fruItr \u003d std::find_if(\n    i_fruThreadContext-\u003em_fruItr, \n    i_fruThreadContext-\u003em_frus.end(),\n    [\u0026](const auto\u0026 pair) { \n        return pair.first !\u003d i_fruThreadContext-\u003em_chassisEeepromPath; \n    }\n);\n\n// If we found a valid one, extract the path and advance the iterator past it\nif (i_fruThreadContext-\u003em_fruItr !\u003d i_fruThreadContext-\u003em_frus.end())\n{\n    l_fruPath \u003d i_fruThreadContext-\u003em_fruItr-\u003efirst;\n    ++i_fruThreadContext-\u003em_fruItr;\n}\n```",
+      "parentUuid": "ee81554a_0710e401",
+      "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
