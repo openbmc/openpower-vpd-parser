@@ -66,7 +66,9 @@ int main(int argc, char** argv)
 
             std::shared_ptr<vpd::Worker> objWorker =
                 std::make_shared<vpd::Worker>(configFilePath);
-            parsedVpdDataMap = objWorker->parseVpdFile(vpdFilePath);
+            bool l_presenceState = false;
+            parsedVpdDataMap =
+                objWorker->parseVpdFile(vpdFilePath, false, l_presenceState);
 
             // Based on requirement, call appropriate public API of worker class
             /*If required to publish the FRU data on Dbus*/
