@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14a559b0_e7a635e7",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T06:39:43Z",
+      "side": 1,
+      "message": "\u003e NO,Base Result has 5 fields but worker APIs need only 2 fields to process.\n\nWhy do you say so? Which tag failed and why is a required information based on which further processing will be done.\nThe use case is not limited to changes brought in by a commit.\n\n\u003e By creating a separate, minimal struct for each use case, we keep it \nindependent, eliminate confusing \u0027dead fields[don\u0027t need in collection \nAPIs]\u0027 and make the code much cleaner to maintain.\n\nBut there is a fine line there, where do you create a balance between code re-usability and independent type based on each use case?\nIn that case what\u0027s you views on having classes defined with multiple members? All the members defined by a class need not be consumed by class(es) instantiating them, should we have separate independent classes with only required members for each use case?\n\n\u003e The standard, industry-best practice for this situation is, receive the \n5-field struct, extract the 2 fields it actually needs, and store them \ninto its own clean 2-field structure to use further.\n\nDo you have a data on that which supports your claim that this is an industry standard?",
+      "parentUuid": "2e0063d0_1f15e7ab",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 2
+      },
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42fe1784_ef19e148",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 16
@@ -167,6 +191,24 @@
       "side": 1,
       "message": "We have 2 options: Either we receive it as output argument from all consecutive function calls or store it at 1 place which is accessible to other functions.\nIf we pass data from function to function, there are more traversing.\n\ncollectFruVpd need to collect data from \u003c --- parseAndPublishVPD \u003c--parseVpdFile \u003c-- processPreAction",
       "parentUuid": "04db4e0e_f8545810",
+      "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f71bff6_3a955c22",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-06T06:39:43Z",
+      "side": 1,
+      "message": "Certainly we have 2 options and that is why the query, why create a class level variable where the result is being consumed just locally or between 2 or 3 APIs in the flow, not required at class level and not use function paramemter?\n\n\nIf you are suggesting that moving data between function is not correct then \na) Why do we have parameters in any function? Why not create class member for all the information needs to be shared.\nb) In which scenarios function parameters should be used as per you?",
+      "parentUuid": "3e6c19b5_abafb0b4",
       "revId": "69e0adee1ff293b3e7abb44ae9214f10ed442d4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
