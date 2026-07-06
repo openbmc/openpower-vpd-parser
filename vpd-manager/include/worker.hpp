@@ -80,13 +80,16 @@ class Worker
      * @param[in] i_vpdFilePath - Path to the VPD file.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
      * EEPROM path.
+     * @param[out] o_presenceState - Set to true if the FRU is present, false
+     * otherwise. Determined from pre-action result or file existence.
      *
      * @note When processing redundant paths and `i_processRedundant` is false,
      * only the FRU pre-action is performed and VPD collection, post-action
      * actions are skipped.
      */
     types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath,
-                                      const bool& i_processRedundant = false);
+                                      const bool& i_processRedundant = false,
+                                      bool* o_presenceState = nullptr);
 
     /**
      * @brief An API to populate DBus interfaces for a FRU.
@@ -233,7 +236,7 @@ class Worker
      * @brief An API to parse and publish a FRU VPD over D-Bus.
      *
      * Note: This API will handle all the exceptions internally and will only
-     * return status of parsing and publishing of VPD over D-Bus.
+     * return the presence state of the FRU.
      *
      * @param[in] i_vpdFilePath - Path of file containing VPD.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
@@ -243,10 +246,11 @@ class Worker
      * only the FRU pre-action is performed and VPD collection, post-action
      * actions are skipped.
      *
-     * @return Tuple of status and file path. Status, true if successful else
-     * false.
+     * @return Tuple of <collection success, FRU presence>.
+     * First bool: true if VPD collection succeeded, false otherwise.
+     * Second bool: true if FRU is present, false otherwise.
      */
-    std::tuple<bool, std::string> parseAndPublishVPD(
+    std::tuple<bool, bool> parseAndPublishVPD(
         const std::string& i_vpdFilePath,
         const bool& i_processRedundant = false);
 
@@ -384,11 +388,11 @@ class Worker
      * @param[in] i_flagToProcess - To identify which flag(s) needs to be
      * processed under PreAction tag of config JSON.
      * @param[out] o_errCode - To set error code in case of error.
-     * @return Execution status.
+     * @return types::BaseActionResult with execution status and presence info.
      */
-    bool processPreAction(const std::string& i_vpdFilePath,
-                          const std::string& i_flagToProcess,
-                          uint16_t& o_errCode);
+    types::BaseActionResult processPreAction(const std::string& i_vpdFilePath,
+                                             const std::string& i_flagToProcess,
+                                             uint16_t& o_errCode);
 
     /**
      * @brief API to process postAction(base_action) defined in config JSON.
