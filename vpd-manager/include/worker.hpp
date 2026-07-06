@@ -45,7 +45,6 @@ class Worker
      * initialize the parsed JSON variable.
      *
      * @param[in] pathToConfigJSON - Path to the config JSON, if applicable.
-     * @param[in] i_maxThreadCount - Maximum thread while collecting FRUs VPD.
      * @param[in] i_vpdCollectionMode - Mode in which VPD collection should take
      * place.
      *
@@ -53,7 +52,6 @@ class Worker
      * to handle to detect successful object creation.
      */
     Worker(std::string pathToConfigJson = std::string(),
-           uint8_t i_maxThreadCount = constants::MAX_THREADS,
            types::VpdCollectionMode i_vpdCollectionMode =
                types::VpdCollectionMode::DEFAULT_MODE);
 
@@ -488,20 +486,6 @@ class Worker
 
     // Path to config JSON if applicable.
     std::string& m_configJsonPath;
-
-    // Keeps track of active thread(s) doing VPD collection.
-    size_t m_activeCollectionThreadCount = 0;
-
-    // Holds status, if VPD collection has been done or not.
-    // Note: This variable does not give information about successful or failed
-    // collection. It just states, if the VPD collection process is over or not.
-    bool m_isAllFruCollected = false;
-
-    // Mutex to guard critical resource m_activeCollectionThreadCount.
-    std::mutex m_mutex;
-
-    // Counting semaphore to limit the number of threads.
-    std::counting_semaphore<constants::MAX_THREADS> m_semaphore;
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
