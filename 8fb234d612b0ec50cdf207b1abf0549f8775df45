@@ -34,6 +34,24 @@
       "parentUuid": "ee81554a_0710e401",
       "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b85113_114627be",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-06T10:29:48Z",
+      "side": 1,
+      "message": "will the API name and doxygen for the API is not sufficient to understand what the api is doing ?",
+      "parentUuid": "ffd9a17f_9c619072",
+      "revId": "8fb234d612b0ec50cdf207b1abf0549f8775df45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
