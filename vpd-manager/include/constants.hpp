@@ -209,6 +209,9 @@ static constexpr auto STR_CMP_SUCCESS = 0;
 // Just a random value. Can be adjusted as required.
 static constexpr uint8_t MAX_THREADS = 10;
 
+// Timeout (in seconds) for the VPD collection wait loop.
+static constexpr uint32_t VPD_COLLECTION_TIMEOUT_SEC = 1800; // 30 minutes
+
 static constexpr auto FAILURE = -1;
 static constexpr auto SUCCESS = 0;
 

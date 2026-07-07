@@ -10,6 +10,7 @@
 
 #include <utility/json_utility.hpp>
 
+#include <chrono>
 #include <format>
 #include <thread>
 
@@ -165,17 +166,19 @@ void ThreadManager::collectAllFruVpd()
             {
                 collectAllChassisVpd();
 
-                processChassisResults();
+                bool l_result = processChassisResults();
 
-                updateOverallCollectionStatus(
-                    types::VpdCollectionStatus::Completed);
+                const auto l_completionStatus =
+                    (l_result ? types::VpdCollectionStatus::Completed
+                              : types::VpdCollectionStatus::Failed);
+                updateOverallCollectionStatus(l_completionStatus);
             }
             catch (const std::exception& l_ex)
             {
                 updateOverallCollectionStatus(
                     types::VpdCollectionStatus::Failed);
                 m_logger->logMessage(std::format(
-                    "Collect all FRU VPD failed, reason: ", l_ex.what()));
+                    "Collect all FRU VPD failed, reason: {}", l_ex.what()));
             }
         }}.detach();
 
@@ -219,12 +222,12 @@ void ThreadManager::updateSystemView(
     }
 }
 
-void ThreadManager::processChassisResults() noexcept
+bool ThreadManager::processChassisResults() noexcept
 {
     if (m_configManager->getChassisToMotherboardEepromMap().empty())
     {
         m_logger->logMessage("Chassis to motherboard EEPROM map is empty.");
-        return;
+        return false;
     }
 
     // @todo: l_maxThreadsPerChassis should be calculated based on the number of
@@ -243,16 +246,36 @@ void ThreadManager::processChassisResults() noexcept
             {
                 std::unique_lock<std::mutex> l_lock(m_mutex);
 
-                // Continue until all pending tasks are over
-                m_completionCv.wait(l_lock, [this]() {
-                    return (!m_chassisResultQueue.empty() ||
-                            (!m_chassisCount && !m_frusCount));
-                });
+                // Continue until all pending tasks are over, or timeout expires
+                const bool l_timedOut = !m_completionCv.wait_for(
+                    l_lock,
+                    std::chrono::seconds(constants::VPD_COLLECTION_TIMEOUT_SEC),
+                    [this]() {
+                        return (!m_chassisResultQueue.empty() ||
+                                (!m_chassisCount && !m_frusCount));
+                    });
+
+                if (l_timedOut)
+                {
+                    m_logger->logMessage(
+                        std::format(
+                            "VPD collection timed out after {} seconds. "
+                            "Pending chassis: {}, pending FRUs: {}. Exiting.",
+                            constants::VPD_COLLECTION_TIMEOUT_SEC,
+                            m_chassisCount.load(), m_frusCount.load()),
+                        PlaceHolder::ASYNC_PEL,
+                        types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                            types::SeverityType::Warning, 0,
+                                            std::nullopt, std::nullopt,
+                                            std::nullopt, std::nullopt,
+                                            std::nullopt});
+                    return false;
+                }
 
                 // Exit when all chassis and FRU VPD collection is complete
                 if (!m_chassisCount && !m_frusCount)
                 {
-                    return;
+                    return true;
                 }
 
                 l_chassisResult = std::move(m_chassisResultQueue.front());
