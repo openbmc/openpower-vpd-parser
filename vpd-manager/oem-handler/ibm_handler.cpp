@@ -204,7 +204,7 @@ void IbmHandler::initIbmListenerObject(
 
 void IbmHandler::checkAndUpdatePowerVsVpd(
     const nlohmann::json& i_powerVsJsonObj,
-    std::vector<std::string>& o_failedPathList)
+    std::vector<std::string>& o_failedPathList) const noexcept
 {
     for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
     {
@@ -351,7 +351,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
     }
 }
 
-void IbmHandler::ConfigurePowerVsSystem()
+void IbmHandler::ConfigurePowerVsSystem() const noexcept
 {
     std::vector<std::string> l_failedPathList;
     try
@@ -1150,7 +1150,32 @@ void IbmHandler::collectionStatusChangeCallback(
                 "Invalid type received in variant for collection status");
         }
 
-        // Action on this change will be a ToDo for now.
+        // update VPD for powerVS system.
+        ConfigurePowerVsSystem();
+
+        if (m_backupAndRestoreObj)
+        {
+            m_backupAndRestoreObj->backupAndRestore();
+        }
+
+        if (m_eventListener)
+        {
+            // Check if system config JSON specifies
+            // correlatedPropertiesJson
+            if (m_sysCfgJsonObj.contains("correlatedPropertiesConfigPath"))
+            {
+                // register correlated properties callback with specific
+                // correlated properties JSON
+                m_eventListener->registerCorrPropCallBack(
+                    m_sysCfgJsonObj["correlatedPropertiesConfigPath"]
+                        .get<std::string>());
+            }
+            else
+            {
+                m_logger->logMessage(
+                    "Correlated properties JSON path is not defined in system config JSON. Correlated properties listener is disabled.");
+            }
+        }
     }
     catch (const std::exception& l_ex)
     {
