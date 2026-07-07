@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afaaded7_3944dbbf",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-07T09:17:54Z",
+      "side": 1,
+      "message": "Assuming this patch got re based on an earlier one?",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4db96d_5cc4e3f7",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-07T09:17:54Z",
+      "side": 1,
+      "message": "We don\u0027t need action result at this level.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
