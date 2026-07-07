@@ -79,6 +79,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ac7daef_629b7b92",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T14:15:39Z",
+      "side": 1,
+      "message": "Extraction of chassis ID is a one line operation, \u003e\nExtraction of chassisID -\u003e create a chassis inventory path -\u003e call objectMapper-\u003e extract the service from it and use it for bus call to read the keyword value.\n\n\nAnd this will increase the length of API.",
+      "parentUuid": "ecafa8ce_8f03d09f",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d543f694_e28af3e1",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 6
@@ -90,6 +108,24 @@
       "writtenOn": "2026-07-06T14:40:38Z",
       "side": 1,
       "message": "@alpu8007@gmail.com I would suggest you can divide the function based on fcs type or mts type and based on that you can call one of the two function \"ExpandFcsTypeLocationCode\" and \"ExpandMtsTypeLocationCode\" which can handle expanding the respective location codes.\nInside those methods you can directly do Dbus calls to read respective keywords.\n\nThis will save extraction of these keywords and at the same time these extra fitting functions won\u0027t be required.",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b8cc9b5_f6aaf454",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T14:15:39Z",
+      "side": 1,
+      "message": "this can be done. but we had this kind of utility functions already in place, which is told to remove in story description. so I didn\u0027t handle it in 2 separate helper functions.",
+      "parentUuid": "d543f694_e28af3e1",
       "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
