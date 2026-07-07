@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7478d6_4084d3e8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afaaded7_3944dbbf",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c4db96d_5cc4e3f7",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fae3718_7304dc1c",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c4db96d_5cc4e3f7",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8144281b_94fb69ab",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-07T09:39:28Z",
       "side": 1,
       "message": "This API need not return a bool and action result as output variable \nAction result itself has the info stating whether the action succeeded or failed. So it is just duplicating the information.\n\nIdeally just change the return type of this API from bool to \"types::BaseActionResult\". That should suffice.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f8db77_a0918cf7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8144281b_94fb69ab",
       "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +129,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dd92530_cd1ee25a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf5943cb_1f050bd1",
+      "range": {
+        "startLine": 686,
+        "startChar": 4,
+        "endLine": 688,
+        "endChar": 57
+      },
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "965819a6_087b3b26",
@@ -88,6 +166,24 @@
       "writtenOn": "2026-07-07T09:39:28Z",
       "side": 1,
       "message": "What failed in the action should not concern API calling \"parseVpdFile\" the caller is not aware if there is any action associated with parsing of the file, so parseVpdFile should not return the whole structure to the caller.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778c9ad9_15644abd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965819a6_087b3b26",
       "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -115,6 +211,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b85c7e_ac56d964",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "no more needed as I am traversing only presence now.",
+      "parentUuid": "4b640351_94d8e6b4",
+      "range": {
+        "startLine": 816,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 59
+      },
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90904aa1_aed531a1",
@@ -128,6 +248,24 @@
       "writtenOn": "2026-07-07T09:39:28Z",
       "side": 1,
       "message": "Here the code need to change, instead of  \"l_errCode\" action result presence error code needs to be checked to get the exact value of presence. This error code can have reason related to failure of any other tag.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a2927b_da4d68be",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90904aa1_aed531a1",
       "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -149,6 +287,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "509d1abf_71077b4a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f7899b7_078c77d4",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1b7c2e4_cef38673",
@@ -162,6 +318,24 @@
       "writtenOn": "2026-07-07T09:39:28Z",
       "side": 1,
       "message": "Update the returned tuple to return the presence of the FRU, full base action is irrelevant in this API.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13c8cbd_ac4b9c14",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1b7c2e4_cef38673",
       "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -183,6 +357,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c906d335_c563c89a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eedeaf9_78b5a3b5",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d89c4b94_440eb84b",
@@ -196,6 +388,24 @@
       "writtenOn": "2026-07-07T09:39:28Z",
       "side": 1,
       "message": "Same here, base action is not required at this point, this API is not aware of any base action. Here only presence needs to be handled and returned back to the caller.",
+      "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2bf4d3_62df940d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1907,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-07T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d89c4b94_440eb84b",
       "revId": "0b1162d512108dd8b77f222e030d740c2d7a723d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
