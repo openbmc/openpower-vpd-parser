@@ -672,20 +672,25 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     }
 }
 
-bool Worker::processPreAction(const std::string& i_vpdFilePath,
-                              const std::string& i_flagToProcess,
-                              uint16_t& i_errCode)
+bool Worker::processPreAction(
+    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode, types::BaseActionResult* o_actionResult)
 {
-    i_errCode = 0;
+    o_errCode = 0;
     if (i_vpdFilePath.empty() || i_flagToProcess.empty())
     {
-        i_errCode = error_code::INVALID_INPUT_PARAMETER;
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    if ((!jsonUtility::executeBaseAction(m_parsedJson, "preAction",
-                                         i_vpdFilePath, i_flagToProcess,
-                                         i_errCode)) &&
+    types::BaseActionResult l_localResult;
+    types::BaseActionResult* l_result =
+        o_actionResult ? o_actionResult : &l_localResult;
+
+    *l_result = jsonUtility::executeBaseAction(
+        m_parsedJson, "preAction", i_vpdFilePath, i_flagToProcess, o_errCode);
+
+    if (!l_result->m_success &&
         (i_flagToProcess.compare("collection") == constants::STR_CMP_SUCCESS))
     {
         // TODO: Need a way to delete inventory object from Dbus and persisted
@@ -741,6 +746,12 @@ bool Worker::processPostAction(
         return false;
     }
 
+    if (!i_parsedVpd.has_value())
+    {
+        logging::logMessage("Empty VPD Map");
+        return false;
+    }
+
     // Check if post action tag is to be triggered in the flow of collection
     // based on some CCIN value?
     uint16_t l_errCode = 0;
@@ -749,17 +760,11 @@ bool Worker::processPostAction(
             .at(0)["postAction"][i_flagToProcess]
             .contains("ccin"))
     {
-        if (!i_parsedVpd.has_value())
-        {
-            logging::logMessage("Empty VPD Map");
-            return false;
-        }
-
         // CCIN match is required to process post action for this FRU as it
         // contains the flag.
         if (!vpdSpecificUtility::findCcinInVpd(
                 m_parsedJson["frus"][i_vpdFruPath].at(
-                    0)["postAction"]["collection"],
+                    0)["postAction"][i_flagToProcess],
                 i_parsedVpd.value(), l_errCode))
         {
             if (l_errCode)
@@ -776,24 +781,27 @@ bool Worker::processPostAction(
         }
     }
 
-    if (!jsonUtility::executeBaseAction(m_parsedJson, "postAction",
-                                        i_vpdFruPath, i_flagToProcess,
-                                        l_errCode))
+    types::BaseActionResult l_actionResult = jsonUtility::executeBaseAction(
+        m_parsedJson, "postAction", i_vpdFruPath, i_flagToProcess, l_errCode);
+    // Handle post action execution failure
+    if (!l_actionResult.m_success)
     {
-        logging::logMessage(
-            "Execution of post action failed for path: " + i_vpdFruPath +
-            " . Reason: " + commonUtility::getErrCodeMsg(l_errCode));
-
-        // If post action was required and failed only in that case return
-        // false. In all other case post action is considered passed.
+        m_logger->logMessage(std::format(
+            "processPostAction: Execution failed for FRU [{}]. "
+            "Failed tag: '{}', Reason: {}",
+            i_vpdFruPath,
+            l_actionResult.m_failedTag.empty() ? "unknown"
+                                               : l_actionResult.m_failedTag,
+            commonUtility::getErrCodeMsg(l_actionResult.m_failedTagErrorCode)));
         return false;
     }
 
     return true;
 }
 
-types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
-                                          const bool& i_processRedundant)
+types::VPDMapVariant Worker::parseVpdFile(
+    const std::string& i_vpdFilePath, const bool& i_processRedundant,
+    types::BaseActionResult* o_actionResult)
 {
     try
     {
@@ -805,6 +813,10 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                 " Empty VPD file path passed. Abort parseVpdFile");
         }
 
+        types::BaseActionResult l_tmpResult;
+        types::BaseActionResult* l_actionResult =
+            o_actionResult ? o_actionResult : &l_tmpResult;
+
         bool isPreActionRequired = false;
         if (!m_parsedJson.empty())
         {
@@ -813,7 +825,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                                               l_errCode))
             {
                 isPreActionRequired = true;
-                if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
+                if (!processPreAction(i_vpdFilePath, "collection", l_errCode,
+                                      l_actionResult))
                 {
                     if (l_errCode == error_code::DEVICE_NOT_PRESENT)
                     {
@@ -827,6 +840,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                         checkAndExecutePostFailAction(i_vpdFilePath,
                                                       "collection");
 
+                        setPresentProperty(i_vpdFilePath, false);
+
                         // Presence pin has been read successfully and has been
                         // read as false, so this is not a failure case, hence
                         // returning empty variant so that pre action is not
@@ -834,10 +849,42 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                         return types::VPDMapVariant{};
                     }
 
+                    // One of the preAction tag execution has failed, we can't
+                    // collect VPD.
+                    // But based on it's presence status, set the Present
+                    // property.
+                    if (l_actionResult->m_presenceStatus ==
+                        types::PresenceStatus::UNKNOWN)
+                    {
+                        setPresentProperty(
+                            i_vpdFilePath,
+                            std::filesystem::exists(i_vpdFilePath));
+                    }
+                    else if (l_actionResult->m_presenceStatus ==
+                             types::PresenceStatus::PRESENT)
+                    {
+                        setPresentProperty(i_vpdFilePath, true);
+                    }
+
                     throw FirmwareException(std::format(
                         " Pre-Action failed with error: {}. Aborting parsing of VPD file {}.",
                         commonUtility::getErrCodeMsg(l_errCode),
                         i_vpdFilePath));
+                }
+                else
+                {
+                    if (l_actionResult->m_presenceStatus ==
+                        types::PresenceStatus::UNKNOWN)
+                    {
+                        setPresentProperty(
+                            i_vpdFilePath,
+                            std::filesystem::exists(i_vpdFilePath));
+                    }
+                    else if (l_actionResult->m_presenceStatus ==
+                             types::PresenceStatus::PRESENT)
+                    {
+                        setPresentProperty(i_vpdFilePath, true);
+                    }
                 }
             }
             else if (l_errCode)
@@ -932,7 +979,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
 }
 
 std::tuple<bool, std::string> Worker::parseAndPublishVPD(
-    const std::string& i_vpdFilePath, const bool& i_processRedundant)
+    const std::string& i_vpdFilePath, const bool& i_processRedundant,
+    types::BaseActionResult* o_actionResult)
 {
     std::string l_inventoryPath{};
     uint16_t l_errCode = 0;
@@ -982,7 +1030,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         const types::VPDMapVariant& parsedVpdMap =
-            parseVpdFile(i_vpdFilePath, i_processRedundant);
+            parseVpdFile(i_vpdFilePath, i_processRedundant, o_actionResult);
 
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
@@ -1856,7 +1904,9 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         // related processing
         m_parsedJson = i_cfgJsonObj;
 
-        const auto& l_parseResult = parseAndPublishVPD(i_fruPath);
+        types::BaseActionResult l_actionResult;
+        const auto& l_parseResult =
+            parseAndPublishVPD(i_fruPath, false, &l_actionResult);
 
 #if 0
         /**
@@ -1868,15 +1918,15 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         m_mutex.unlock();
 #endif
 
-        /**
-         * @todo This part of code will be removed from this API once the FRU
-         * presence detection logic is implemented in parseAndPublish API.
-         * Currently thread manager class utilizes this presence status to
-         * perfrom chassis based FRU collection based on the present status of
-         * chassis.
-         */
-        l_fruPresent = dbusUtility::isInventoryPresent(
-            i_cfgJsonObj["frus"][i_fruPath].at(0)["inventoryPath"]);
+        if (l_actionResult.m_presenceStatus == types::PresenceStatus::PRESENT)
+        {
+            l_fruPresent = true;
+        }
+        else if (l_actionResult.m_presenceStatus ==
+                 types::PresenceStatus::UNKNOWN)
+        {
+            l_fruPresent = std::filesystem::exists(i_fruPath);
+        }
 
         if (std::get<0>(l_parseResult))
         {

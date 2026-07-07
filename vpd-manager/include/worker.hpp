@@ -80,13 +80,16 @@ class Worker
      * @param[in] i_vpdFilePath - Path to the VPD file.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
      * EEPROM path.
+     * @param[out] o_actionResult - Optional Result from baseAction.
      *
      * @note When processing redundant paths and `i_processRedundant` is false,
      * only the FRU pre-action is performed and VPD collection, post-action
      * actions are skipped.
      */
-    types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath,
-                                      const bool& i_processRedundant = false);
+    types::VPDMapVariant parseVpdFile(
+        const std::string& i_vpdFilePath,
+        const bool& i_processRedundant = false,
+        types::BaseActionResult* o_actionResult = nullptr);
 
     /**
      * @brief An API to populate DBus interfaces for a FRU.
@@ -238,6 +241,7 @@ class Worker
      * @param[in] i_vpdFilePath - Path of file containing VPD.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
      * EEPROM path.
+     * @param[out] o_actionResult - Optional Result from baseAction.
      *
      * @note When processing redundant paths and `i_processRedundant` is false,
      * only the FRU pre-action is performed and VPD collection, post-action
@@ -248,7 +252,8 @@ class Worker
      */
     std::tuple<bool, std::string> parseAndPublishVPD(
         const std::string& i_vpdFilePath,
-        const bool& i_processRedundant = false);
+        const bool& i_processRedundant = false,
+        types::BaseActionResult* o_actionResult = nullptr);
 
     /**
      * @brief An API to process extrainterfaces w.r.t a FRU.
@@ -383,12 +388,14 @@ class Worker
      * @param[in] i_vpdFilePath - Path to the EEPROM file.
      * @param[in] i_flagToProcess - To identify which flag(s) needs to be
      * processed under PreAction tag of config JSON.
+     * @param[out] o_actionResult - Optional Result from baseAction.
      * @param[out] o_errCode - To set error code in case of error.
      * @return Execution status.
      */
     bool processPreAction(const std::string& i_vpdFilePath,
                           const std::string& i_flagToProcess,
-                          uint16_t& o_errCode);
+                          uint16_t& o_errCode,
+                          types::BaseActionResult* o_actionResult = nullptr);
 
     /**
      * @brief API to process postAction(base_action) defined in config JSON.
