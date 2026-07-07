@@ -141,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f86feb_99ef4756",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-07T07:55:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f0bad846_c60cc984",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a0325f3_4fbf12f0",
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "The existing member variable has VPD in it, followed the same pattern",
       "parentUuid": "8a3ca6f5_148085ce",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70527cf6_2a503f70",
+        "filename": "vpd-manager/include/keyword_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-07T07:55:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fc442786_41fe51ed",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -422,6 +458,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da60d47_8694c567",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-07T07:55:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5e12243d_90f41d12",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7107dd4d_ef57f482",
@@ -457,6 +511,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3311228b_9d352628",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-07T07:55:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0e8e6824_7c3e6602",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25dbe31b_2944de1d",
@@ -488,6 +560,24 @@
       "side": 1,
       "message": "std::ranges::advance with an end bound will stop at io_vpdVector.end() if there aren\u0027t enough elements to advance.",
       "parentUuid": "25dbe31b_2944de1d",
+      "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "300a3117_3393599c",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-07T07:55:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5faeadde_47704379",
       "revId": "708fdaba5368002eb32b53439dd75f73c8e238c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
