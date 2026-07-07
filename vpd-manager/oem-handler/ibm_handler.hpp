@@ -148,15 +148,16 @@ class IbmHandler
      * @param[in] i_powerVsJsonObj - PowerVS JSON object.
      * @param[out] o_failedPathList - List of path failed to update.
      */
-    void checkAndUpdatePowerVsVpd(const nlohmann::json& i_powerVsJsonObj,
-                                  std::vector<std::string>& o_failedPathList);
+    void checkAndUpdatePowerVsVpd(
+        const nlohmann::json& i_powerVsJsonObj,
+        std::vector<std::string>& o_failedPathList) const noexcept;
     /**
      * @brief API to handle configuration w.r.t. PowerVS systems.
      *
      * Some FRUs VPD is specific to powerVS system. The API detects the
      * powerVS configuration and updates the VPD accordingly.
      */
-    void ConfigurePowerVsSystem();
+    void ConfigurePowerVsSystem() const noexcept;
 
     /**
      * @brief API to perform initial setup before manager claims Bus name.
@@ -231,8 +232,7 @@ class IbmHandler
      *
      * @param[in] i_msg - Callback message.
      */
-    void collectionStatusChangeCallback(
-        sdbusplus::message_t& i_msg) const noexcept;
+    void collectionStatusChangeCallback(sdbusplus::message_t& i_msg) const noexcept;
 
     /**
      * @brief API to update VPD collection status property
