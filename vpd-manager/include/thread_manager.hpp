@@ -191,11 +191,14 @@ class ThreadManager
      * 3. Launch FRU VPD collection thread pool for the chassis.
      * 4. Update FRU and chassis collection counters.
      *
-     * Processing continues until all chassis's VPD collection is completed. The
-     * API additionally waits until FRU VPD collection for all present chassis
-     * is completed.
+     * Processing continues until all chassis and FRU VPD collection is
+     * complete, or until VPD_COLLECTION_TIMEOUT_SEC seconds have elapsed.
+     * On timeout an async PEL is created.
+     *
+     * @return true if all chassis and FRU VPD collection completed
+     *         successfully within the timeout window, otherwise returns false.
      */
-    void processChassisResults() noexcept;
+    bool processChassisResults() noexcept;
 
     /**
      * @brief Launch FRU VPD collection threads for a chassis.
