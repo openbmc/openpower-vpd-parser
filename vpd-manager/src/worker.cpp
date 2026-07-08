@@ -666,7 +666,7 @@ types::BaseActionResult Worker::processPreAction(
     }
 
     const types::BaseActionResult l_result = jsonUtility::executeBaseAction(
-        m_parsedJson, "preAction", i_vpdFilePath, i_flagToProcess, o_errCode);
+        "preAction", i_vpdFilePath, i_flagToProcess, o_errCode);
 
     if (!l_result.m_success &&
         (i_flagToProcess.compare("collection") == constants::STR_CMP_SUCCESS))
@@ -758,7 +758,7 @@ bool Worker::processPostAction(
     }
 
     types::BaseActionResult l_actionResult = jsonUtility::executeBaseAction(
-        m_parsedJson, "postAction", i_vpdFruPath, i_flagToProcess, l_errCode);
+        "postAction", i_vpdFruPath, i_flagToProcess, l_errCode);
     // Handle post action execution failure
     if (!l_actionResult.m_success)
     {
