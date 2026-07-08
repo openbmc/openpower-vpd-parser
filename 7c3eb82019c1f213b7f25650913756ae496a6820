@@ -16,6 +16,24 @@
       "message": "Failed to validate which info is missing.",
       "revId": "7c3eb82019c1f213b7f25650913756ae496a6820",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b4d9d53_5880d5e5",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-08T05:36:43Z",
+      "side": 1,
+      "message": "The PEL captures chassis ID and the error message string.\nCan you please clarify what info is missing?",
+      "parentUuid": "ef404c75_3b11f745",
+      "revId": "7c3eb82019c1f213b7f25650913756ae496a6820",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
