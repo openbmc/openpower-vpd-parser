@@ -156,8 +156,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
         uint16_t l_errCode = 0;
 
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
-            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
-                                                    l_errCode);
+            jsonUtility::getAllPathsToUpdateKeyword(m_vpdFilePath, l_errCode);
 
         if (l_errCode == error_code::INVALID_INPUT_PARAMETER ||
             l_errCode == error_code::INVALID_JSON)
