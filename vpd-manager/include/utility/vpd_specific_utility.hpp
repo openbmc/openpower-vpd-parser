@@ -1587,6 +1587,159 @@ inline std::string buildExpandedLc(const std::string& i_unexpandedLocationCode,
 }
 
 /**
+ * @brief Expands an FCS-type unexpanded location code.
+ *
+ * Tries D-Bus first (vcenInf on chassis inventory path); falls back to the
+ * parsed VPD map when D-Bus is unavailable. Reads FC and SE and calls
+ * buildExpandedLc.
+ *
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[in] i_pos - Position of "fcs" in the unexpanded location code.
+ *
+ * @return std::expected with expanded location code on success, or error code
+ *         on failure.
+ */
+inline std::expected<std::string, uint16_t> getFcsExpandedLc(
+    const std::string& i_inventoryPath,
+    const std::string& i_unexpandedLocationCode,
+    const types::VPDMapVariant& i_parsedVpdMap, size_t i_pos) noexcept
+{
+    if (i_inventoryPath.empty())
+    {
+        return std::unexpected(
+            static_cast<uint16_t>(error_code::INVALID_INPUT_PARAMETER));
+    }
+
+    try
+    {
+        // Build chassis-based inventory path: systemVpdInvPath/<chassisId>
+        uint16_t l_errCode{0};
+        const auto l_chassisId = getChassisId(i_inventoryPath, l_errCode);
+        if (l_chassisId.empty() && l_errCode)
+        {
+            return std::unexpected(l_errCode);
+        }
+
+        const std::string l_invPath =
+            std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+
+        std::string l_fcKwdValue;
+        std::string l_seKwdValue;
+
+        // Try D-Bus first.
+        const auto l_mapperRetValue =
+            dbusUtility::getObjectMap(l_invPath, {constants::vcenInf});
+        if (!l_mapperRetValue.empty())
+        {
+            const std::string& l_service = l_mapperRetValue.begin()->first;
+            const auto readKwd = [&](const std::string& i_kwd) -> std::string {
+                const auto l_retVal = dbusUtility::readDbusProperty(
+                    l_service, l_invPath, constants::vcenInf, i_kwd);
+                if (const auto l_val =
+                        std::get_if<types::BinaryVector>(&l_retVal))
+                {
+                    return std::string(
+                        reinterpret_cast<const char*>(l_val->data()),
+                        l_val->size());
+                }
+                l_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+                Logger::getLoggerInstance()->logMessage(
+                    std::format("Failed to read kwd {} from Dbus", i_kwd));
+                return {};
+            };
+
+            l_fcKwdValue = readKwd(constants::kwdFC);
+            if (l_errCode || l_fcKwdValue.empty())
+            {
+                // FC read failed or returned empty — fall back to VPD map.
+                l_errCode = error_code::DBUS_FAILURE;
+            }
+            else
+            {
+                l_seKwdValue = readKwd(constants::kwdSE);
+                if (l_errCode || l_seKwdValue.empty())
+                {
+                    // SE read failed or returned empty — fall back to VPD map.
+                    l_errCode = error_code::DBUS_FAILURE;
+                }
+            }
+        }
+        else
+        {
+            l_errCode = error_code::DBUS_FAILURE;
+        }
+
+        if (l_errCode == error_code::DBUS_FAILURE)
+        {
+            // D-Bus data unavailable or returned bad data — fall back to VPD
+            // map.
+            l_errCode = 0;
+            const auto l_ipzMap =
+                std::get_if<types::IPZVpdMap>(&i_parsedVpdMap);
+            if (!l_ipzMap)
+            {
+                return std::unexpected(
+                    static_cast<uint16_t>(error_code::UNSUPPORTED_VPD_TYPE));
+            }
+
+            const auto l_recItr = l_ipzMap->find(constants::recVCEN);
+            if (l_recItr == l_ipzMap->end())
+            {
+                return std::unexpected(
+                    static_cast<uint16_t>(error_code::RECORD_NOT_FOUND));
+            }
+
+            l_fcKwdValue =
+                getKwVal(l_recItr->second, constants::kwdFC, l_errCode);
+            if (l_errCode || l_fcKwdValue.empty())
+            {
+                return std::unexpected(
+                    l_errCode
+                        ? l_errCode
+                        : static_cast<uint16_t>(error_code::KEYWORD_NOT_FOUND));
+            }
+
+            l_seKwdValue =
+                getKwVal(l_recItr->second, constants::kwdSE, l_errCode);
+            if (l_errCode || l_seKwdValue.empty())
+            {
+                return std::unexpected(
+                    l_errCode
+                        ? l_errCode
+                        : static_cast<uint16_t>(error_code::KEYWORD_NOT_FOUND));
+            }
+        }
+
+        // FC keyword must be at least 4 characters for a valid substr.
+        if (l_fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
+        {
+            Logger::getLoggerInstance()->logMessage(std::format(
+                "FC keyword value '{}' is too short (expected at least 4 "
+                "characters)",
+                l_fcKwdValue));
+
+            return std::unexpected(static_cast<uint16_t>(
+                error_code::INVALID_VALUE_READ_FROM_DBUS));
+        }
+
+        return buildExpandedLc(i_unexpandedLocationCode, true, i_pos,
+                               l_fcKwdValue, l_seKwdValue);
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "getFcsExpandedLc failed for FRU: {}, unexpandedLocationCode: {}. "
+            "Reason: {}",
+            i_inventoryPath, i_unexpandedLocationCode, l_ex.what()));
+
+        return std::unexpected(
+            static_cast<uint16_t>(error_code::STANDARD_EXCEPTION));
+    }
+}
+
+/**
  * @brief Expands an MTS-type unexpanded location code.
  *
  * Tries D-Bus first (vsysInf on systemVpdInvPath); falls back to the parsed
@@ -1746,8 +1899,8 @@ inline std::expected<std::string, uint16_t> getExpandedLocationCode(
         size_t l_pos = i_unexpandedLocationCode.find(constants::fcsTypeLc);
         if (l_pos != std::string::npos)
         {
-            return i_unexpandedLocationCode;
-            // TODO: getFcsExpandedLc()
+            return getFcsExpandedLc(i_inventoryPath, i_unexpandedLocationCode,
+                                    i_parsedVpdMap, l_pos);
         }
 
         l_pos = i_unexpandedLocationCode.find(constants::mtsTypeLc);
