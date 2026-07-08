@@ -1296,8 +1296,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
                                           "postFailAction", "deletion",
                                           l_errCode))
         {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion", l_errCode))
+            if (!jsonUtility::executePostFailAction(l_fruPath, "deletion",
+                                                    l_errCode))
             {
                 l_errMsg += ". Post fail action also failed, error : " +
                             commonUtility::getErrCodeMsg(l_errCode);
@@ -1670,8 +1670,8 @@ void Worker::checkAndExecutePostFailAction(
             return;
         }
 
-        if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
-                                                i_flowFlag, l_errCode))
+        if (!jsonUtility::executePostFailAction(i_vpdFilePath, i_flowFlag,
+                                                l_errCode))
         {
             m_logger->logMessage("Failed to execute postFailAction. Error: " +
                                      commonUtility::getErrCodeMsg(l_errCode),
