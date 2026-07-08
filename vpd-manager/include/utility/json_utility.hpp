@@ -624,8 +624,7 @@ inline bool validateBaseActionInputs(
 {
     o_errCode = 0;
 
-    if (i_flagToProcess.empty() || i_action.empty() || i_fruPath.empty() ||
-        !i_parsedConfigJson.contains("frus"))
+    if (i_flagToProcess.empty() || i_action.empty() || i_fruPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
@@ -761,7 +760,6 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
  *    - Returns success with appropriate presence status if gpioPresence was
  * processed
  *
- * @param[in] i_parsedConfigJson - Config JSON object
  * @param[in] i_action - Base action to be performed (e.g., "preAction",
  * "postAction")
  * @param[in] i_fruPath - EEPROM file path
@@ -777,11 +775,29 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
  *         - gpioPresenceErrorCode: Error code from gpioPresence execution
  */
 inline types::BaseActionResult executeBaseAction(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
-    const std::string& i_fruPath, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const std::string& i_action, const std::string& i_fruPath,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     types::BaseActionResult l_actionRes;
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        l_actionRes.m_success = false;
+        return l_actionRes;
+    }
+
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_fruPath);
+
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        l_actionRes.m_success = false;
+        return l_actionRes;
+    }
+
+    const nlohmann::json& i_parsedConfigJson = l_configJsonResult.value().get();
 
     if (!validateBaseActionInputs(i_parsedConfigJson, i_action, i_fruPath,
                                   i_flagToProcess, o_errCode))
