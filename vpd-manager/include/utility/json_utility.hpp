@@ -1249,8 +1249,7 @@ inline std::tuple<std::string, std::string, std::string>
  * Given DBus inventory path, this API returns DBus service name if present in
  * the JSON.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
- * @param[in] l_inventoryPath - DBus inventory path.
+ * @param[in] i_inventoryPath - DBus inventory path.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns the service name present in the system config
@@ -1258,31 +1257,41 @@ inline std::tuple<std::string, std::string, std::string>
  *
  * Note: Caller has to handle in case of empty string received.
  */
-inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
-                                  const std::string& l_inventoryPath,
+inline std::string getServiceName(const std::string& i_inventoryPath,
                                   uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (l_inventoryPath.empty())
+    if (i_inventoryPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
+    const auto l_configJsonResult =
+        l_configManager->getJsonObj(i_inventoryPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return std::string{};
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
     const nlohmann::json& l_listOfFrus =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
     for (const auto& l_frus : l_listOfFrus.items())
     {
         for (const auto& l_inventoryItem : l_frus.value())
         {
-            if (l_inventoryPath.compare(l_inventoryItem.value(
+            if (i_inventoryPath.compare(l_inventoryItem.value(
                     "inventoryPath", "")) == constants::STR_CMP_SUCCESS)
             {
                 if (l_inventoryItem.contains("serviceName"))
