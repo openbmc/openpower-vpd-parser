@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "541090dd_cb87d89e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-08T10:51:23Z",
+      "side": 1,
+      "message": "Could you please add the details stating what problem is being solved by moving to singleton here which was there before this movement?",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deb9a2b7_6f12a11a",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-08T10:51:23Z",
+      "side": 1,
+      "message": "nit: Please wrap brief in a line.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2776119_a89f2a0c",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-08T10:51:23Z",
+      "side": 1,
+      "message": "Please have a PEL over here stating that the JSON which is supposed to be picked will not get picked and system will continue with the old JSON as the JSON held by config manager is going to affect all the functionalities going forward.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48aebb1_99608be0",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-08T10:51:23Z",
+      "side": 1,
+      "message": "If this throws then why are letting the exception propagate all the way to the caller?\nI would suggest wrap this API around try/catch, any exception in picking the new JSON should be logged as PEL as it will affect all the feature functionalities.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260e8b74_4c1b675c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-08T10:51:23Z",
+      "side": 1,
+      "message": "As mentioned in config manager file, if the re-init does not happen lets not fail manager class instantiation.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
