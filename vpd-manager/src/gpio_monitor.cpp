@@ -138,7 +138,7 @@ void GpioMonitor::initHandlerForGpio(
 
     uint16_t l_errCode = 0;
     std::vector<std::string> l_gpioPollingRequiredFrusList =
-        jsonUtility::getListOfGpioPollingFrus(l_configJsonObj, l_errCode);
+        jsonUtility::getListOfGpioPollingFrus(l_errCode);
 
     if (l_errCode)
     {
