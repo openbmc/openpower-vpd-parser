@@ -806,9 +806,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
         bool isPreActionRequired = false;
         if (!m_parsedJson.empty())
         {
-            if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                              "preAction", "collection",
-                                              l_errCode))
+            if (jsonUtility::isActionRequired(i_vpdFilePath, "preAction",
+                                              "collection", l_errCode))
             {
                 isPreActionRequired = true;
                 if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
@@ -876,9 +875,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
         // any post action in the flow of collection.
         // Note: Don't change the order, post action needs to be processed only
         // after collection for FRU is successfully done.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "postAction", "collection",
-                                          l_errCode))
+        if (jsonUtility::isActionRequired(i_vpdFilePath, "postAction",
+                                          "collection", l_errCode))
         {
             if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             {
@@ -1317,8 +1315,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
 
     try
     {
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "preAction",
-                                          "deletion", l_errCode))
+        if (jsonUtility::isActionRequired(l_fruPath, "preAction", "deletion",
+                                          l_errCode))
         {
             if (!processPreAction(l_fruPath, "deletion", l_errCode))
             {
@@ -1347,8 +1345,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "postAction",
-                                          "deletion", l_errCode))
+        if (jsonUtility::isActionRequired(l_fruPath, "postAction", "deletion",
+                                          l_errCode))
         {
             if (!processPostAction(l_fruPath, "deletion"))
             {
@@ -1373,9 +1371,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                          "postFailAction", "deletion",
-                                          l_errCode))
+        if (jsonUtility::isActionRequired(l_fruPath, "postFailAction",
+                                          "deletion", l_errCode))
         {
             if (!jsonUtility::executePostFailAction(l_fruPath, "deletion",
                                                     l_errCode))
@@ -1733,9 +1730,8 @@ void Worker::checkAndExecutePostFailAction(
     try
     {
         uint16_t l_errCode{0};
-        if (!jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                           "postFailAction", i_flowFlag,
-                                           l_errCode))
+        if (!jsonUtility::isActionRequired(i_vpdFilePath, "postFailAction",
+                                           i_flowFlag, l_errCode))
         {
             if (l_errCode)
             {
