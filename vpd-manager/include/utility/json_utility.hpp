@@ -1087,31 +1087,33 @@ inline bool isActionRequired(const std::string& i_vpdFruPath,
  * a list of FRUs that needs polling. Returns an empty list if there are
  * no FRUs that requires polling.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[out] o_errCode - To set error codes in case of error.
  *
  * @return On success list of FRUs parameters that needs polling. On failure,
  * empty list.
  */
-inline std::vector<std::string> getListOfGpioPollingFrus(
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
+inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& o_errCode)
 {
     std::vector<std::string> l_gpioPollingRequiredFrusList;
     o_errCode = 0;
 
-    if (i_sysCfgJsonObj.empty())
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return l_gpioPollingRequiredFrusList;
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    const auto l_configJsonResult = l_configManager->getJsonObj();
+    if (!l_configJsonResult.has_value())
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = l_configJsonResult.error();
         return l_gpioPollingRequiredFrusList;
     }
 
-    for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    for (const auto& l_fru : l_sysCfgJsonObj["frus"].items())
     {
         const auto l_fruPath = l_fru.key();
 
@@ -1130,7 +1132,7 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
 
         if (l_isHotPluggableFru)
         {
-            if (i_sysCfgJsonObj["frus"][l_fruPath]
+            if (l_sysCfgJsonObj["frus"][l_fruPath]
                     .at(0)["pollingRequired"]["hotPlugging"]
                     .contains("gpioPresence"))
             {
