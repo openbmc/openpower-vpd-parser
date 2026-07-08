@@ -50,17 +50,13 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
     }
 
     // Read VPD offset if applicable.
-    if (!m_parsedJson.empty())
-    {
-        m_vpdStartOffset =
-            jsonUtility::getVPDOffset(m_parsedJson, m_vpdFilePath, l_errorCode);
+    m_vpdStartOffset = jsonUtility::getVPDOffset(m_vpdFilePath, l_errorCode);
 
-        if (l_errorCode)
-        {
-            m_logger->logMessage(
-                "Failed to get vpd offset for path [" + m_vpdFilePath +
-                "], error: " + commonUtility::getErrCodeMsg(l_errorCode));
-        }
+    if (l_errorCode)
+    {
+        m_logger->logMessage(std::format(
+            "VPD offset for path [{}] not found. {}. Assuming offset as 0",
+            m_vpdFilePath, commonUtility::getErrCodeMsg(l_errorCode)));
     }
 }
 
