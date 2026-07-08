@@ -1578,6 +1578,97 @@ inline std::string buildExpandedLC(const std::string& i_unexpandedLocationCode,
 
 
 /**
+ * @brief Expands an FCS-type unexpanded location code.
+ *
+ * Reads FC and SE keywords via D-Bus using vcenInf interface and constructs
+ * the expanded location code for FCS-type entries (containing "fcs").
+ *
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_pos - Position of "fcs" in the unexpanded location code.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return Expanded location code. In case of error, unexpanded is returned.
+ */
+inline std::string getFcsExpandedLC(const std::string& i_inventoryPath,
+                                    const std::string& i_unexpandedLocationCode,
+                                    size_t i_pos, uint16_t& o_errCode)
+{
+    const auto l_logger = Logger::getLoggerInstance();
+
+    if (i_inventoryPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return i_unexpandedLocationCode;
+    }
+
+    // Build chassis-based inventory path: systemVpdInvPath/<chassisId>
+    uint16_t l_errorCode = 0;
+    const auto l_chassisId = getChassisId(i_inventoryPath, l_errorCode);
+    if (l_chassisId.empty() && l_errorCode)
+    {
+        o_errCode = l_errorCode;
+        return i_unexpandedLocationCode;
+    }
+    const std::string l_invPath =
+        std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+
+    // Read FC and SE keyword values from D-Bus via vcenInf interface.
+    const auto l_mapperRetValue =
+        dbusUtility::getObjectMap(l_invPath, {constants::vcenInf});
+    if (l_mapperRetValue.empty())
+    {
+        o_errCode = error_code::DBUS_FAILURE;
+        return i_unexpandedLocationCode;
+    }
+    const std::string& l_serviceName = l_mapperRetValue.begin()->first;
+
+    auto readKwdValue = [&](const std::string& i_kwd) -> std::string {
+        auto l_retVal = dbusUtility::readDbusProperty(
+            l_serviceName, l_invPath, constants::vcenInf, i_kwd);
+        if (const auto l_kwdVal = std::get_if<types::BinaryVector>(&l_retVal))
+        {
+            return std::string(reinterpret_cast<const char*>(l_kwdVal->data()),
+                               l_kwdVal->size());
+        }
+        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+        l_logger->logMessage(
+            std::format("Failed to read kwd {} from Dbus", i_kwd));
+        return "";
+    };
+
+    std::string l_fcKwdValue = readKwdValue(constants::kwdFC);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return i_unexpandedLocationCode;
+    }
+
+    std::string l_seKwdValue = readKwdValue(constants::kwdSE);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        return i_unexpandedLocationCode;
+    }
+
+    if (l_fcKwdValue.empty() || l_seKwdValue.empty())
+    {
+        return i_unexpandedLocationCode;
+    }
+
+    // FC keyword must be at least 4 characters for a valid substr operation.
+    if (l_fcKwdValue.size() < 4)
+    {
+        l_logger->logMessage(std::format(
+            "FC keyword value '{}' is too short (expected at least 4 characters)",
+            l_fcKwdValue));
+        o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+        return i_unexpandedLocationCode;
+    }
+
+    return buildExpandedLC(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
+                           l_seKwdValue);
+}
+
+/**
  * @brief Expands an MTS-type unexpanded location code.
  *
  * Reads TM and SE keywords via D-Bus using vsysInf interface and constructs
