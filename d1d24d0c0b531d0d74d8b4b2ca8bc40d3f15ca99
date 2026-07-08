@@ -16,6 +16,24 @@
       "message": "Do we need \u0027Without Record option\u0027, it should understood by Keyword Format ?\nAnd it is not aligning with existing patter of the display as well.",
       "revId": "d1d24d0c0b531d0d74d8b4b2ca8bc40d3f15ca99",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76b6876c_866a0a2b",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-08T09:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "823dc970_031e8aa5",
+      "revId": "d1d24d0c0b531d0d74d8b4b2ca8bc40d3f15ca99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
