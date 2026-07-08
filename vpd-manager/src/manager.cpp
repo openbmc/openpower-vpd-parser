@@ -695,21 +695,6 @@ types::EepromPathList Manager::getHwPath(
         return l_result;
     }
 
-    // get the chassis specific JSON for the object path
-    const auto l_jsonObjResult = m_configManager->getJsonObj(l_dbusObjPathStr);
-
-    if (!l_jsonObjResult.has_value())
-    {
-        m_logger->logMessage(std::format(
-            "Failed to get JSON for path {}. Error: {}, can't get hardware path",
-            l_dbusObjPathStr,
-            commonUtility::getErrCodeMsg(l_jsonObjResult.error())));
-
-        throw sdbusplus::error::com::ibm::vpd::PathNotFound();
-    }
-
-    const auto& l_jsonObj = l_jsonObjResult.value().get();
-
     uint16_t l_errCode{constants::VALUE_0};
 
     // get the primary EEPROM path
@@ -733,8 +718,8 @@ types::EepromPathList Manager::getHwPath(
         // check if any redundant EEPROM path is there, if yes add it to the
         // result
         const auto l_redundantEepromPath =
-            jsonUtility::getRedundantEepromPathFromJson(
-                l_jsonObj, l_dbusObjPathStr, l_errCode);
+            jsonUtility::getRedundantEepromPathFromJson(l_dbusObjPathStr,
+                                                        l_errCode);
 
         if (!l_redundantEepromPath.empty())
         {
@@ -1056,8 +1041,8 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
     const auto& l_jsonObj = l_jsonObjResult.value().get();
 
     uint16_t l_errCode;
-    std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(
-        l_jsonObj, i_fruPath, l_errCode);
+    std::string l_redundantEeprom =
+        jsonUtility::getRedundantEepromPathFromJson(i_fruPath, l_errCode);
 
     if (l_redundantEeprom.empty())
     {
