@@ -136,8 +136,7 @@ void IbmHandler::initBackupAndRestore() noexcept
                     m_configJsonPath);
             }
 
-            if (!jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj,
-                                                         l_errCode))
+            if (!jsonUtility::isBackupAndRestoreRequired(l_errCode))
             {
                 if (l_errCode)
                 {
@@ -997,8 +996,8 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (!l_sysVpdObjMap.empty())
         {
-            if (isBackupOnCache() && jsonUtility::isBackupAndRestoreRequired(
-                                         m_sysCfgJsonObj, l_errCode))
+            if (isBackupOnCache() &&
+                jsonUtility::isBackupAndRestoreRequired(l_errCode))
             {
                 performBackupAndRestore(o_parsedSystemVpdMap);
             }
