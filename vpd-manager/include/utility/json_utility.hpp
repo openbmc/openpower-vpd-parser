@@ -49,41 +49,54 @@ inline std::unordered_map<std::string, functionPtr> funcionMap{
 /**
  * @brief API to read VPD offset from JSON file.
  *
- * @param[in] i_sysCfgJsonObj - Parsed system config JSON object.
  * @param[in] i_vpdFilePath - VPD file path.
- * @param[in] o_errCode - To set error code in case of error.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return VPD offset if found in JSON, 0 otherwise.
  */
-inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
-                           const std::string& i_vpdFilePath,
+inline size_t getVPDOffset(const std::string& i_vpdFilePath,
                            uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (i_vpdFilePath.empty() || (i_sysCfgJsonObj.empty()) ||
-        (!i_sysCfgJsonObj.contains("frus")))
+    if (i_vpdFilePath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return 0;
     }
 
-    if (i_sysCfgJsonObj["frus"].contains(i_vpdFilePath))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        return i_sysCfgJsonObj["frus"][i_vpdFilePath].at(0).value("offset", 0);
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return 0;
+    }
+
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFilePath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return 0;
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    if (l_sysCfgJsonObj["frus"].contains(i_vpdFilePath))
+    {
+        return l_sysCfgJsonObj["frus"][i_vpdFilePath].at(0).value("offset", 0);
     }
 
     const nlohmann::json& l_fruList =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
     for (const auto& l_fru : l_fruList.items())
     {
         const auto l_fruPath = l_fru.key();
 
         // check if given path is redundant FRU path
-        if (i_vpdFilePath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
+        if (i_vpdFilePath == l_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
                                  "redundantEeprom", ""))
         {
             // Return the offset of redundant EEPROM taken from JSON.
-            return i_sysCfgJsonObj["frus"][l_fruPath].at(0).value("offset", 0);
+            return l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("offset", 0);
         }
     }
 
