@@ -976,23 +976,33 @@ inline std::string getFruPathFromJson(const std::string& i_vpdPath,
  * Checks if the path mentioned is a hardware path, by checking if the file path
  * exists and size of contents in the path.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return true if backup and restore is required, false otherwise.
  */
-inline bool isBackupAndRestoreRequired(const nlohmann::json& i_sysCfgJsonObj,
-                                       uint16_t& o_errCode)
+inline bool isBackupAndRestoreRequired(uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (i_sysCfgJsonObj.empty())
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
+    // get the full system configuration JSON
+    const auto l_configJsonResult = l_configManager->getJsonObj();
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
     const std::string& l_backupAndRestoreCfgFilePath =
-        i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
+        l_sysCfgJsonObj.value("backupRestoreConfigPath", "");
 
     if (!l_backupAndRestoreCfgFilePath.empty() &&
         std::filesystem::exists(l_backupAndRestoreCfgFilePath) &&
