@@ -124,8 +124,7 @@ void ThreadManager::collectAllChassisVpd()
                     l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
                                                  l_errCode);
 
-                updateSystemView(l_chassisId, l_eepromPath, l_chassisJson,
-                                 l_isPresent);
+                updateSystemView(l_chassisId, l_eepromPath, l_isPresent);
 
                 {
                     std::lock_guard<std::mutex> l_lock(m_mutex);
@@ -200,9 +199,9 @@ void ThreadManager::collectAllFruVpd()
     }
 }
 
-void ThreadManager::updateSystemView(
-    const std::string& i_chassisId, const std::string& i_eepromPath,
-    const nlohmann::json& i_chassisJson, const bool i_isPresent) noexcept
+void ThreadManager::updateSystemView(const std::string& i_chassisId,
+                                     const std::string& i_eepromPath,
+                                     const bool i_isPresent) noexcept
 {
     uint16_t l_errCode = 0;
     const std::string& l_invPath =
