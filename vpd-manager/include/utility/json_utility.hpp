@@ -1053,7 +1053,6 @@ inline bool isBackupAndRestoreRequired(uint16_t& o_errCode)
  * defined for an EEPROM path. The API will check if any such action is defined
  * for the EEPROM.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
  * @param[in] i_action - Action to be checked.
  * @param[in] i_flowFlag - Denotes the flow w.r.t which the action should be
@@ -1061,8 +1060,7 @@ inline bool isBackupAndRestoreRequired(uint16_t& o_errCode)
  * @param[out] o_errCode - To set error code in case of error.
  * @return - True if action is defined for the flow, false otherwise.
  */
-inline bool isActionRequired(const nlohmann::json& i_sysCfgJsonObj,
-                             const std::string& i_vpdFruPath,
+inline bool isActionRequired(const std::string& i_vpdFruPath,
                              const std::string& i_action,
                              const std::string& i_flowFlag, uint16_t& o_errCode)
 {
@@ -1073,21 +1071,31 @@ inline bool isActionRequired(const nlohmann::json& i_sysCfgJsonObj,
         return false;
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
         o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    if ((i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)).contains(i_action))
+    if ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)).contains(i_action))
     {
-        if ((i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))[i_action].contains(
+        if ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))[i_action].contains(
                 i_flowFlag))
         {
             return true;
@@ -1131,9 +1139,8 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
     {
         const auto l_fruPath = l_fru.key();
 
-        bool l_isHotPluggableFru =
-            isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
-                             "hotPlugging", o_errCode);
+        bool l_isHotPluggableFru = isActionRequired(
+            l_fruPath, "pollingRequired", "hotPlugging", o_errCode);
 
         if (o_errCode)
         {
