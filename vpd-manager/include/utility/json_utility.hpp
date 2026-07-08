@@ -823,7 +823,6 @@ inline types::BaseActionResult executeBaseAction_new(
  * in this API.
  * Examples of action - preAction, PostAction etc.
  *
- * @param[in] i_parsedConfigJson - config JSON
  * @param[in] i_action - Base action to be performed.
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
@@ -832,17 +831,26 @@ inline types::BaseActionResult executeBaseAction_new(
  * @return - success or failure
  */
 inline bool executeBaseAction(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
-    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const std::string& i_action, const std::string& i_vpdFilePath,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
-        !i_parsedConfigJson.contains("frus"))
+    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return false;
+    }
+
+    const nlohmann::json& i_parsedConfigJson =
+        l_configManager->getJsonObj(i_vpdFilePath);
+
     if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
     {
         o_errCode = error_code::FILE_NOT_FOUND;
