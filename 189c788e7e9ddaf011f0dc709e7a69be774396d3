@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edbe0226_e6a4d9a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-08T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b2f5563_eee31efd",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bb1f7d7_2fd662ab",
@@ -95,6 +119,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4373ef6b_3b37945a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-08T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac7daef_629b7b92",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d543f694_e28af3e1",
@@ -126,6 +168,24 @@
       "side": 1,
       "message": "this can be done. but we had this kind of utility functions already in place, which is told to remove in story description. so I didn\u0027t handle it in 2 separate helper functions.",
       "parentUuid": "d543f694_e28af3e1",
+      "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc4a029b_0f588d1f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-08T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8cc9b5_f6aaf454",
       "revId": "189c788e7e9ddaf011f0dc709e7a69be774396d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
