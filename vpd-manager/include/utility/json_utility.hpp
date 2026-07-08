@@ -1099,7 +1099,6 @@ inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& o_errCode)
  * in the system config JSON, corresponding fields will have empty value in the
  * returning tuple.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in,out] io_vpdPath - Inventory object path or FRU EEPROM path.
  * @param[out] o_errCode - To set error code in case of error.
  *
@@ -1107,9 +1106,7 @@ inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& o_errCode)
  * path, on failure returns tuple with given input path alone.
  */
 inline std::tuple<std::string, std::string, std::string>
-    getAllPathsToUpdateKeyword(
-        [[maybe_unused]] const nlohmann::json& i_sysCfgJsonObj,
-        std::string io_vpdPath, uint16_t& o_errCode)
+    getAllPathsToUpdateKeyword(std::string io_vpdPath, uint16_t& o_errCode)
 {
     types::Path l_inventoryObjPath;
     types::Path l_redundantFruPath;
