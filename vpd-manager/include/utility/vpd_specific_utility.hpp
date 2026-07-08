@@ -1592,6 +1592,129 @@ inline std::string buildExpandedLc(const std::string& i_unexpandedLocationCode,
 }
 
 /**
+ * @brief Expands an FCS-type unexpanded location code.
+ *
+ * Tries to read FC and SE keywords from D-Bus (vcenInf) first:
+ * - If the object mapper returns a non-empty result, FC and SE are read from
+ *   D-Bus. Any keyword read failure returns an error immediately.
+ * - If the object mapper returns empty, FC and SE are read from the parsed
+ *   VPD map (VCEN record). Any keyword read failure returns an error
+ *   immediately.
+ *
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[in] i_pos - Position of "fcs" in the unexpanded location code.
+ *
+ * @return std::expected with expanded location code on success, or error code
+ *         on failure.
+ * @throw Any exception is propagated to the caller.
+ */
+inline std::expected<std::string, uint16_t> getFcsExpandedLc(
+    const std::string& i_inventoryPath,
+    const std::string& i_unexpandedLocationCode,
+    const types::VPDMapVariant& i_parsedVpdMap, size_t i_pos)
+{
+    if (i_inventoryPath.empty())
+    {
+        return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+    }
+
+    uint16_t l_errCode{0};
+    std::string l_fcKwdValue;
+    std::string l_seKwdValue;
+
+    const auto l_chassisId = getChassisId(i_inventoryPath, l_errCode);
+    if (l_chassisId.empty() && l_errCode)
+    {
+        return std::unexpected(l_errCode);
+    }
+
+    const std::string l_invPath =
+        std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+
+    const auto l_mapperRetValue =
+        dbusUtility::getObjectMap(l_invPath, {constants::vcenInf});
+
+    if (!l_mapperRetValue.empty())
+    {
+        // Object mapper returned a result — read FC and SE from D-Bus.
+        const std::string& l_service = l_mapperRetValue.begin()->first;
+        const auto readKwd = [&](const std::string& i_kwd) -> std::string {
+            const auto l_retVal = dbusUtility::readDbusProperty(
+                l_service, l_invPath, constants::vcenInf, i_kwd);
+            if (const auto l_val = std::get_if<types::BinaryVector>(&l_retVal))
+            {
+                return std::string(reinterpret_cast<const char*>(l_val->data()),
+                                   l_val->size());
+            }
+            l_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+            Logger::getLoggerInstance()->logMessage(
+                std::format("Failed to read kwd {} from Dbus", i_kwd));
+            return {};
+        };
+
+        l_fcKwdValue = readKwd(constants::kwdFC);
+        if (l_errCode)
+        {
+            return std::unexpected(l_errCode);
+        }
+
+        l_seKwdValue = readKwd(constants::kwdSE);
+        if (l_errCode)
+        {
+            return std::unexpected(l_errCode);
+        }
+    }
+    else
+    {
+        // Object mapper returned empty — fall back to VPD map (VCEN record).
+        const auto l_ipzMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap);
+        if (!l_ipzMap)
+        {
+            return std::unexpected(error_code::UNSUPPORTED_VPD_TYPE);
+        }
+
+        const auto l_vcenItr = l_ipzMap->find(constants::recVCEN);
+        if (l_vcenItr == l_ipzMap->end())
+        {
+            return std::unexpected(error_code::RECORD_NOT_FOUND);
+        }
+
+        l_fcKwdValue = getKwVal(l_vcenItr->second, constants::kwdFC, l_errCode);
+        if (l_errCode)
+        {
+            return std::unexpected(l_errCode);
+        }
+
+        l_seKwdValue = getKwVal(l_vcenItr->second, constants::kwdSE, l_errCode);
+        if (l_errCode)
+        {
+            return std::unexpected(l_errCode);
+        }
+    }
+
+    if (l_fcKwdValue.empty() || l_seKwdValue.empty())
+    {
+        return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+    }
+
+    // FC keyword must be at least 4 characters for a valid substr.
+    if (l_fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "FC keyword value '{}' is too short (expected at least 4 "
+            "characters)",
+            l_fcKwdValue));
+
+        return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+    }
+
+    return buildExpandedLc(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
+                           l_seKwdValue);
+}
+
+/**
  * @brief Expands an MTS-type unexpanded location code.
  *
  * Reads VSYS-TM and VSYS-SE value from the parsed IPZ VPD map and calls
@@ -1675,8 +1798,8 @@ inline std::expected<std::string, uint16_t> getExpandedLocationCode(
         size_t l_pos = i_unexpandedLocationCode.find(constants::fcsTypeLc);
         if (l_pos != std::string::npos)
         {
-            return i_unexpandedLocationCode;
-            // TODO: getFcsExpandedLc()
+            return getFcsExpandedLc(i_inventoryPath, i_unexpandedLocationCode,
+                                    i_parsedVpdMap, l_pos);
         }
 
         l_pos = i_unexpandedLocationCode.find(constants::mtsTypeLc);
