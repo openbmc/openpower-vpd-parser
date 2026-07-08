@@ -133,7 +133,7 @@ std::tuple<std::string, std::string> BackupAndRestore::getSrcAndDstServiceName()
     uint16_t l_errCode{0};
 
     std::string l_srcServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, m_srcInvPath, l_errCode);
+        jsonUtility::getServiceName(m_srcInvPath, l_errCode);
     if (l_errCode)
     {
         m_logger->logMessage("Failed to get source service name, error : " +
@@ -143,7 +143,7 @@ std::tuple<std::string, std::string> BackupAndRestore::getSrcAndDstServiceName()
     }
 
     std::string l_dstServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, m_dstInvPath, l_errCode);
+        jsonUtility::getServiceName(m_dstInvPath, l_errCode);
     if (l_errCode)
     {
         m_logger->logMessage(
