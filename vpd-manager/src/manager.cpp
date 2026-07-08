@@ -694,9 +694,6 @@ types::EepromPathList Manager::getHwPath(
         return l_result;
     }
 
-    // get the chassis specific JSON for the object path
-    const auto& l_jsonObj = m_configManager->getJsonObj(l_dbusObjPathStr);
-
     uint16_t l_errCode{constants::VALUE_0};
 
     // get the primary EEPROM path
@@ -720,8 +717,8 @@ types::EepromPathList Manager::getHwPath(
         // check if any redundant EEPROM path is there, if yes add it to the
         // result
         const auto l_redundantEepromPath =
-            jsonUtility::getRedundantEepromPathFromJson(
-                l_jsonObj, l_dbusObjPathStr, l_errCode);
+            jsonUtility::getRedundantEepromPathFromJson(l_dbusObjPathStr,
+                                                        l_errCode);
 
         if (!l_redundantEepromPath.empty())
         {
@@ -1032,8 +1029,8 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
     const auto& l_jsonObj = m_configManager->getJsonObj(i_fruPath);
 
     uint16_t l_errCode;
-    std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(
-        l_jsonObj, i_fruPath, l_errCode);
+    std::string l_redundantEeprom =
+        jsonUtility::getRedundantEepromPathFromJson(i_fruPath, l_errCode);
 
     if (l_redundantEeprom.empty())
     {
