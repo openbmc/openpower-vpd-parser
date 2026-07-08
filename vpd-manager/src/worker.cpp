@@ -1243,8 +1243,8 @@ void Worker::collectFrusFromJson()
                     uint16_t l_errCode = 0;
 
                     const auto& l_redundantEepromPath =
-                        jsonUtility::getRedundantEepromPathFromJson(
-                            m_parsedJson, vpdFilePath, l_errCode);
+                        jsonUtility::getRedundantEepromPathFromJson(vpdFilePath,
+                                                                    l_errCode);
                     if (!l_redundantEepromPath.empty())
                     {
                         m_logger->logMessage(
