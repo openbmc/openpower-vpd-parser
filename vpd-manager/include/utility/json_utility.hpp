@@ -216,30 +216,32 @@ inline std::string getInventoryObjPathFromJson(const std::string& i_vpdPath,
  * action can be defined in the config JSON for that FRU and it will be handled
  * under this API.
  *
- * @param[in] i_parsedConfigJson - config JSON
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
- * @param[out] o_errCode - To set error code in case of error
  * under PostFailAction tag of config JSON.
+ * @param[out] o_errCode - To set error code in case of error
  * @return - success or failure
  */
-inline bool executePostFailAction(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
-    const std::string& i_flagToProcess, uint16_t& o_errCode)
+inline bool executePostFailAction(const std::string& i_vpdFilePath,
+                                  const std::string& i_flagToProcess,
+                                  uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
-        i_flagToProcess.empty())
+    if (i_vpdFilePath.empty() || i_flagToProcess.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    if (!i_parsedConfigJson.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
+
+    const nlohmann::json& i_parsedConfigJson =
+        l_configManager->getJsonObj(i_vpdFilePath);
 
     if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
     {
