@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db54bc45_13cbfc24",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:06:09Z",
+      "side": 1,
+      "message": "there are being used buildExpandedLC(),\nhttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/91930/6/vpd-manager/include/utility/vpd_specific_utility.hpp#1520",
+      "parentUuid": "88fdb39e_97d68ca6",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4fd7eac_386f2d8c",
