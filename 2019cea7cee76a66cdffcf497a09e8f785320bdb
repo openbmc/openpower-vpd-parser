@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d445ee15_0eeb039f",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T15:44:09Z",
+      "side": 1,
+      "message": "In some APIs we need to get the main system config JSON, some others we need to get the chassis specific JSONs using EEPROM path/inventory path. I think the helper function would be a layer on top of `l_configManager-\u003egetJsonObj()` and unnecessary re-direction.",
+      "parentUuid": "4b774dec_5a9149f4",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 51
+      },
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6071e6f_cef733db",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 20
@@ -37,6 +61,24 @@
       "writtenOn": "2026-07-09T13:47:56Z",
       "side": 1,
       "message": "What if the VPD file path is not found? Config Manager will return the master JSON and this code will fail.\nWe need to revisit config manager and avoid returning any JSON in case we don\u0027t find the path.\nThis fails the concept of single source of truth where it is returning JSON even when the path does not belong to that.",
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af78e845_f55f694d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T15:44:09Z",
+      "side": 1,
+      "message": "\u003eWhat if the VPD file path is not found? Config Manager will return the master JSON and this code will fail.\n\nThis issue is there in the present implementation as well. The scope of this patch is to refactor the utility API to use `ConfigManager` to fetch JSON.\nI think we can fetch the JSON from `ConfigManager` add a `.contains(i_vpdFilePath)` check inside this API",
+      "parentUuid": "f6071e6f_cef733db",
       "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
