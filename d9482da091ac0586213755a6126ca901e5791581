@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af0b43fd_f869b2ec",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T09:30:53Z",
+      "side": 1,
+      "message": "There is no such parameter. Please remove this.",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55f22f06_f7e998c0",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T09:30:53Z",
+      "side": 1,
+      "message": "Why was this modified.",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54cc64b_f83b0ddb",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T09:30:53Z",
+      "side": 1,
+      "message": "It returns both, the return type has a tuple of both then why the comment says only the presence will be returned?",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e05d42_6f66c43b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T09:30:53Z",
+      "side": 1,
+      "message": "Why this condition needs to be checked here? Only presence error code would do?",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a533442b_294a5057",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T09:30:53Z",
+      "side": 1,
+      "message": "It is a duplicate code, can be optimized?",
+      "range": {
+        "startLine": 848,
+        "startChar": 20,
+        "endLine": 860,
+        "endChar": 21
+      },
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
