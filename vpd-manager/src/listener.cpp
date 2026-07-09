@@ -207,12 +207,9 @@ void Listener::registerPresenceChangeCallback() noexcept
                 "Error: Config manager is not initialized, can't register PresenceChangeCallback.");
         }
 
-        auto l_sysCfgJsonRef = m_configManager->getJsonObj().value();
-        const auto& l_sysCfgJsonObj = l_sysCfgJsonRef.get();
-
         // get list of FRUs for which presence monitoring is required
-        const auto& l_listOfFrus = jsonUtility::getFrusWithPresenceMonitoring(
-            l_sysCfgJsonObj, l_errCode);
+        const auto& l_listOfFrus =
+            jsonUtility::getFrusWithPresenceMonitoring(l_errCode);
 
         if (l_errCode)
         {
