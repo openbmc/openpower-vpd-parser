@@ -1457,34 +1457,44 @@ inline bool isFruReplaceableAtStandby(const std::string& i_vpdFruPath,
  * The API will return a vector of FRUs inventory path which are replaceable at
  * standby.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return - On success, list of FRUs replaceable at standby. On failure, empty
  * vector.
  */
 inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
+    uint16_t& o_errCode)
 {
     std::vector<std::string> l_frusReplaceableAtStandby;
     o_errCode = 0;
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return l_frusReplaceableAtStandby;
     }
 
+    const auto l_configJsonResult = l_configManager->getJsonObj();
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return l_frusReplaceableAtStandby;
+    }
+
+    // get the full system configuration JSON
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
     const nlohmann::json& l_fruList =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
     for (const auto& l_fru : l_fruList.items())
     {
-        if (i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
+        if (l_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
                 "replaceableAtStandby", false))
         {
             const std::string& l_inventoryObjectPath =
-                i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
+                l_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
                     "inventoryPath", "");
 
             if (!l_inventoryObjectPath.empty())
