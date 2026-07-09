@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f16fd62_db8b413a",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T07:32:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39b08fd_d5334a4d",
+      "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc091abc_1eb4bf77",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-07-08T09:43:37Z",
       "side": 1,
       "message": "For Keyword VPD, this log will be \"Record:\".\n```suggestion\n                  (i_recordName.has_value() ? (\"Record: \" + i_recordName.value()) : \"\"\n```",
+      "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef84eda4_55bda322",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T07:32:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc091abc_1eb4bf77",
       "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5691e6da_af59c112",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T07:32:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8e79286_975a1b2a",
+      "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2027e96d_02091e08",
@@ -82,6 +136,24 @@
       "writtenOn": "2026-07-08T10:40:14Z",
       "side": 1,
       "message": "Adding parameter \"l_recordOption\" seems to be unnecessary addition here.\nPlease check if we can achieve the functionality without that.",
+      "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4475aa83_92688a9e",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T07:32:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2027e96d_02091e08",
       "revId": "7a1db5720a523ef20f068c41da46602581e62be8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
