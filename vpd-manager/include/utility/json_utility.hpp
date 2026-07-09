@@ -1192,7 +1192,7 @@ inline std::tuple<std::string, std::string, std::string>
     types::Path l_redundantFruPath;
     o_errCode = 0;
 
-    if (i_sysCfgJsonObj.empty() || io_vpdPath.empty())
+    if (io_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::make_tuple(io_vpdPath, l_inventoryObjPath,
@@ -1336,17 +1336,15 @@ inline std::string getServiceName(const std::string& i_inventoryPath,
 /**
  * @brief An API to check if a FRU is tagged as "powerOffOnly"
  *
- * Given the system config JSON and VPD FRU path, this API checks if the FRU
- * VPD can be collected at Chassis Power Off state only.
+ * Given the VPD FRU path, this API checks if the FRU VPD can be collected at
+ * Chassis Power Off state only.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
  * @param[out] o_errCode - To set error code for the error.
  * @return - True if FRU VPD can be collected at Chassis Power Off state only.
  *           False otherwise
  */
-inline bool isFruPowerOffOnly(const nlohmann::json& i_sysCfgJsonObj,
-                              const std::string& i_vpdFruPath,
+inline bool isFruPowerOffOnly(const std::string& i_vpdFruPath,
                               uint16_t& o_errCode)
 {
     o_errCode = 0;
@@ -1356,21 +1354,31 @@ inline bool isFruPowerOffOnly(const nlohmann::json& i_sysCfgJsonObj,
         return false;
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
         o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return ((i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
+    return ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
                 .contains("powerOffOnly") &&
-            (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["powerOffOnly"]));
+            (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["powerOffOnly"]));
 }
 
 /**
