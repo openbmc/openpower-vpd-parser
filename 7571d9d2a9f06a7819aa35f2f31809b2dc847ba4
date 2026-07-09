@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbd9b91_0636d691",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T15:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ec7002_4084a834",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4fd7eac_386f2d8c",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "I will add inventory path and unexpaneded location code which it failed to expand.",
       "parentUuid": "b4fd7eac_386f2d8c",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04e7d868_15f87d28",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T15:28:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "199e194c_c611c4b8",
       "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
