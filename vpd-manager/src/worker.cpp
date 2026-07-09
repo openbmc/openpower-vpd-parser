@@ -1593,8 +1593,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtStandby =
-                jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtStandby(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
