@@ -1430,14 +1430,12 @@ inline bool isFruReplaceableAtRuntime(const std::string& i_vpdFruPath,
 /**
  * @brief API which tells if the FRU is replaceable at standby
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
  * @param[out] o_errCode - set error code in case of error.
  *
  * @return true if FRU is replaceable at standby. false otherwise.
  */
-inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
-                                      const std::string& i_vpdFruPath,
+inline bool isFruReplaceableAtStandby(const std::string& i_vpdFruPath,
                                       uint16_t& o_errCode)
 {
     o_errCode = 0;
@@ -1447,22 +1445,32 @@ inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
         return false;
     }
 
-    if (i_sysCfgJsonObj.empty() || (!i_sysCfgJsonObj.contains("frus")))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
         o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
     return (
-        (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
+        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
             .contains("replaceableAtStandby") &&
-        (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["replaceableAtStandby"]));
+        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["replaceableAtStandby"]));
 
     return false;
 }
