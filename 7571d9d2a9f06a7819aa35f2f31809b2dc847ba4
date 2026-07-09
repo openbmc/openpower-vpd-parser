@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "008fa0e8_4265a29e",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T09:27:58Z",
+      "side": 1,
+      "message": "I don\u0027t see this constants getting used in this commit",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4fd7eac_386f2d8c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T09:27:58Z",
+      "side": 1,
+      "message": "can we add inventory path to the log message, this gives the information for which path the failure happened.",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4a9eb0_068bde2e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-09T09:27:58Z",
+      "side": 1,
+      "message": "Since inventoryPath is already available in populateDbus(), can we pass it to processExtraInterfaces() instead of extracting it again inside the function? This would avoid redundant parsing",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
