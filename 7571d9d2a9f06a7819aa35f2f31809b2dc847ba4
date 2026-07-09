@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88fdb39e_97d68ca6",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T09:43:15Z",
+      "side": 1,
+      "message": "These constants are required.\nI will check and fix it.",
+      "parentUuid": "008fa0e8_4265a29e",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4fd7eac_386f2d8c",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 11
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "199e194c_c611c4b8",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T09:43:15Z",
+      "side": 1,
+      "message": "I will add inventory path and unexpaneded location code which it failed to expand.",
+      "parentUuid": "b4fd7eac_386f2d8c",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a4a9eb0_068bde2e",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 11
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-09T09:27:58Z",
       "side": 1,
       "message": "Since inventoryPath is already available in populateDbus(), can we pass it to processExtraInterfaces() instead of extracting it again inside the function? This would avoid redundant parsing",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a86389_5a56efbd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T09:43:15Z",
+      "side": 1,
+      "message": "I have 2 options-\neither extract as immediate I need it.\nOr pass it from chain of functions.\nI chose 1st one.\n@sunnsr25@in.ibm.com Your opinion please.",
+      "parentUuid": "3a4a9eb0_068bde2e",
       "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
