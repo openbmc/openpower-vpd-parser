@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fae0d2e_eb88fc34",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:13:16Z",
+      "side": 1,
+      "message": "not required.",
+      "parentUuid": "af0b43fd_f869b2ec",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55f22f06_f7e998c0",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2665ba2f_f48fadb7",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:13:16Z",
+      "side": 1,
+      "message": "not required.",
+      "parentUuid": "55f22f06_f7e998c0",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f54cc64b_f83b0ddb",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-09T09:30:53Z",
       "side": 1,
       "message": "It returns both, the return type has a tuple of both then why the comment says only the presence will be returned?",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eecef5f_f35da115",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:13:16Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "f54cc64b_f83b0ddb",
       "revId": "d9482da091ac0586213755a6126ca901e5791581",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
