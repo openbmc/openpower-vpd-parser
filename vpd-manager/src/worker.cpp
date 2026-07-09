@@ -1147,8 +1147,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
         // powerOffOnly.
 
         uint16_t l_errCode = 0;
-        if (jsonUtility::isFruPowerOffOnly(m_parsedJson, i_vpdFilePath,
-                                           l_errCode))
+        if (jsonUtility::isFruPowerOffOnly(i_vpdFilePath, l_errCode))
         {
             return true;
         }
@@ -1393,8 +1392,7 @@ void Worker::performVpdRecollection(
         m_parsedJson = i_sysCfgJsonObj;
 
         const auto& l_frusReplaceableAtStandby =
-            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
-                                                           l_errCode);
+            jsonUtility::getListOfFrusReplaceableAtStandby(l_errCode);
 
         if (l_errCode)
         {
@@ -1473,8 +1471,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1497,8 +1494,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtStandby =
-                jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtStandby(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1509,8 +1505,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             }
 
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
