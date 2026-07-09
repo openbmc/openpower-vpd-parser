@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b56e9f_938f4c96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T06:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "541090dd_cb87d89e",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deb9a2b7_6f12a11a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-08T10:51:23Z",
       "side": 1,
       "message": "nit: Please wrap brief in a line.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57370e43_927cbb43",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T06:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deb9a2b7_6f12a11a",
       "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a93e76a_15a55a8b",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T06:27:46Z",
+      "side": 1,
+      "message": "Handled in the public `initialize` API.",
+      "parentUuid": "f2776119_a89f2a0c",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e48aebb1_99608be0",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06ccf8bf_aa39f721",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T06:27:46Z",
+      "side": 1,
+      "message": "Handled in the public initialize API.",
+      "parentUuid": "e48aebb1_99608be0",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260e8b74_4c1b675c",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-07-08T10:51:23Z",
       "side": 1,
       "message": "As mentioned in config manager file, if the re-init does not happen lets not fail manager class instantiation.",
+      "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "967a0349_956a01f5",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-09T06:27:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260e8b74_4c1b675c",
       "revId": "28afe04ac23c6febc2994c2247e379c2337e5bfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
