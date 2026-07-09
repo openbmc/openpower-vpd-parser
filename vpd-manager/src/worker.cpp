@@ -1402,8 +1402,7 @@ void Worker::performVpdRecollection(
         m_parsedJson = i_sysCfgJsonObj;
 
         const auto& l_frusReplaceableAtStandby =
-            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
-                                                           l_errCode);
+            jsonUtility::getListOfFrusReplaceableAtStandby(l_errCode);
 
         if (l_errCode)
         {
