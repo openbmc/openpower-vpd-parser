@@ -1484,8 +1484,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1520,8 +1519,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             }
 
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(l_fruPath, l_errCode);
 
             if (l_errCode)
             {
