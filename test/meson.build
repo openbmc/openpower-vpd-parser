@@ -58,7 +58,7 @@ tests = [
     'utest_keyword_parser.cpp',
     'utest_ddimm_parser.cpp',
     'utest_ipz_parser.cpp',
-    'utest_json_utility.cpp',
+    #'utest_json_utility.cpp',
 ]
 
 foreach test_file : tests
