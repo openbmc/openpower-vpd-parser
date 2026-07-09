@@ -1534,26 +1534,36 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
 /**
  * @brief API to get list of FRUs for which "monitorPresence" is true.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success, returns list of FRUs for which "monitorPresence" is true,
  * empty list on error.
  */
 inline std::vector<types::Path> getFrusWithPresenceMonitoring(
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
+    uint16_t& o_errCode)
 {
     std::vector<types::Path> l_frusWithPresenceMonitoring;
     o_errCode = 0;
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return l_frusWithPresenceMonitoring;
     }
 
+    const auto l_configJsonResult = l_configManager->getJsonObj();
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return l_frusWithPresenceMonitoring;
+    }
+
+    // get the full system configuration JSON
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
     const nlohmann::json& l_listOfFrus =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
     for (const auto& l_aFru : l_listOfFrus)
     {
