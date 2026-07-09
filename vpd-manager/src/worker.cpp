@@ -1155,8 +1155,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
         // powerOffOnly.
 
         uint16_t l_errCode = 0;
-        if (jsonUtility::isFruPowerOffOnly(m_parsedJson, i_vpdFilePath,
-                                           l_errCode))
+        if (jsonUtility::isFruPowerOffOnly(i_vpdFilePath, l_errCode))
         {
             return true;
         }
