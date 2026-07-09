@@ -123,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de911d7f_ac47c445",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:20:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05e05d42_6f66c43b",
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a533442b_294a5057",
@@ -136,6 +154,30 @@
       "writtenOn": "2026-07-09T09:30:53Z",
       "side": 1,
       "message": "It is a duplicate code, can be optimized?",
+      "range": {
+        "startLine": 848,
+        "startChar": 20,
+        "endLine": 860,
+        "endChar": 21
+      },
+      "revId": "d9482da091ac0586213755a6126ca901e5791581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27ac31b_951ca097",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-09T10:20:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a533442b_294a5057",
       "range": {
         "startLine": 848,
         "startChar": 20,
