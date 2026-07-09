@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b774dec_5a9149f4",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T13:47:56Z",
+      "side": 1,
+      "message": "Instead of repeating these lines in every utility functions (Which will be done going forward).\nWhy not have a helper function in this file which will do this and then use that in every function? Will save LOCs by considerable number?",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 51
+      },
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6071e6f_cef733db",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-09T13:47:56Z",
+      "side": 1,
+      "message": "What if the VPD file path is not found? Config Manager will return the master JSON and this code will fail.\nWe need to revisit config manager and avoid returning any JSON in case we don\u0027t find the path.\nThis fails the concept of single source of truth where it is returning JSON even when the path does not belong to that.",
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
