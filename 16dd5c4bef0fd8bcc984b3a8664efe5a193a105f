@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "283613cf_53855810",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-10T06:01:11Z",
+      "side": 1,
+      "message": "Do we need to handle presence in this flow as well?",
+      "revId": "16dd5c4bef0fd8bcc984b3a8664efe5a193a105f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
