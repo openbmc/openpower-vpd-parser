@@ -1507,10 +1507,188 @@ inline std::string getChassisId(const std::string& i_inventoryObjPath,
 }
 
 /**
+ * @brief Builds expanded location code from unexpanded location code.
+ *
+ * @param[in] i_unexpandedLocationCode - Unexpanded location.
+ * @param[in] i_isFcs - True if FCS location code, false if MTS.
+ * @param[in] i_pos - Position where "fcs" or "mts" prefix was found.
+ * @param[in] i_firstKwdValue - First keyword value (FC for FCS, TM for MTS).
+ * @param[in] i_secondKwdValue - Second keyword value (SE).
+ *
+ * @return Expanded location code string.
+ */
+inline std::string buildExpandedLc(
+    const std::string& i_unexpandedLocationCode, bool i_isFcs, size_t i_pos,
+    const std::string& i_firstKwdValue, const std::string& i_secondKwdValue)
+{
+    std::string l_expandedLC = i_unexpandedLocationCode;
+    if (i_isFcs)
+    {
+        const std::string l_suffix = i_unexpandedLocationCode.substr(
+            i_pos + constants::LOCATION_CODE_PREFIX_LENGTH);
+
+        if (l_suffix.empty())
+        {
+            l_expandedLC.replace(
+                i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                       constants::FC_KEYWORD_FIRST_4_BYTE) +
+                    "." + i_secondKwdValue);
+        }
+        else if (l_suffix[constants::FIRST_POSITION] == '-')
+        {
+            // TODO: Temp code till Json has NDx, SCx. Remove below code.
+            static const std::regex nScPattern(
+                R"(^-((ND?\d{1,2}|SC\d{1,2}))(-.*)?)");
+            std::smatch match;
+            if (std::regex_search(l_suffix, match, nScPattern))
+            {
+                l_expandedLC.replace(
+                    i_pos,
+                    constants::LOCATION_CODE_PREFIX_LENGTH + l_suffix.length(),
+                    i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + match[1].str() + "." + i_secondKwdValue +
+                        match[3].str());
+            }
+            else
+            {
+                l_expandedLC.replace(
+                    i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                    i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + i_secondKwdValue);
+            }
+        }
+    }
+    else
+    {
+        // MTS: replace dashes in TM value with dots.
+        std::string l_firstKwdValueCopy = i_firstKwdValue;
+        std::replace(l_firstKwdValueCopy.begin(), l_firstKwdValueCopy.end(),
+                     '-', '.');
+        l_expandedLC.replace(i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                             l_firstKwdValueCopy + "." + i_secondKwdValue);
+    }
+
+    return l_expandedLC;
+}
+
+/**
+ * @brief Expands an MTS-type unexpanded location code.
+ *
+ * Tries D-Bus first (vsysInf on systemVpdInvPath); falls back to the parsed
+ * VPD map when D-Bus is unavailable. Reads TM and SE and calls buildExpandedLc.
+ *
+ * @param[in] i_inventoryPath - Inventory Path.
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[in] i_pos - Position of "mts" in the unexpanded location code.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return Expanded location code. In case of error, unexpanded is returned.
+ */
+inline std::string getMtsExpandedLc(const std::string& i_inventoryPath,
+                                    const std::string& i_unexpandedLocationCode,
+                                    const types::VPDMapVariant& i_parsedVpdMap,
+                                    size_t i_pos, uint16_t& o_errCode)
+{
+    if (i_inventoryPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return i_unexpandedLocationCode;
+    }
+
+    try
+    {
+        std::string l_tmKwdValue;
+        std::string l_seKwdValue;
+
+        // Try D-Bus first.
+        const auto l_mapperRetValue = dbusUtility::getObjectMap(
+            constants::systemVpdInvPath, {constants::vsysInf});
+        if (l_mapperRetValue.empty())
+        {
+            o_errCode = error_code::DBUS_FAILURE;
+        }
+        else
+        {
+            const std::string& l_service = l_mapperRetValue.begin()->first;
+            const auto readKwd = [&](const std::string& i_kwd) -> std::string {
+                const auto l_retVal = dbusUtility::readDbusProperty(
+                    l_service, constants::systemVpdInvPath, constants::vsysInf,
+                    i_kwd);
+                if (const auto l_val =
+                        std::get_if<types::BinaryVector>(&l_retVal))
+                {
+                    return std::string(
+                        reinterpret_cast<const char*>(l_val->data()),
+                        l_val->size());
+                }
+                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+                Logger::getLoggerInstance()->logMessage(
+                    std::format("Failed to read kwd {} from Dbus", i_kwd));
+                return {};
+            };
+
+            l_tmKwdValue = readKwd(constants::kwdTM);
+            if (o_errCode != error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+            {
+                l_seKwdValue = readKwd(constants::kwdSE);
+            }
+        }
+
+        if (o_errCode == error_code::DBUS_FAILURE)
+        {
+            // D-Bus unavailable — fall back to the parsed VPD map.
+            o_errCode = 0;
+            const auto l_ipzMap =
+                std::get_if<types::IPZVpdMap>(&i_parsedVpdMap);
+            if (!l_ipzMap)
+            {
+                o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            }
+            else
+            {
+                const auto l_recItr = l_ipzMap->find(constants::recVSYS);
+                if (l_recItr == l_ipzMap->end())
+                {
+                    o_errCode = error_code::RECORD_NOT_FOUND;
+                }
+                else
+                {
+                    l_tmKwdValue =
+                        getKwVal(l_recItr->second, constants::kwdTM, o_errCode);
+                    l_seKwdValue =
+                        getKwVal(l_recItr->second, constants::kwdSE, o_errCode);
+                }
+            }
+        }
+
+        if (o_errCode || l_tmKwdValue.empty() || l_seKwdValue.empty())
+        {
+            return i_unexpandedLocationCode;
+        }
+
+        return buildExpandedLc(i_unexpandedLocationCode, false, i_pos,
+                               l_tmKwdValue, l_seKwdValue);
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "getMtsExpandedLc failed for FRU: {}, unexpandedLocationCode: {}. "
+            "Reason: {}",
+            i_inventoryPath, i_unexpandedLocationCode, l_ex.what()));
+        return i_unexpandedLocationCode;
+    }
+}
+
+/**
  * @brief API to expand unexpanded location code.
  *
  * Detects whether the location code is FCS or MTS type and delegates
- * expansion to getFcsExpandedLC or getMtsExpandedLC respectively.
+ * expansion to getFcsExpandedLc or getMtsExpandedLc respectively.
  *
  * @param[in] i_inventoryPath - Inventory Path.
  * @param[in] i_unexpandedLocationCode - Unexpanded location code.
@@ -1540,14 +1718,14 @@ inline std::string getExpandedLocationCode(
         if (l_pos != std::string::npos)
         {
             return i_unexpandedLocationCode;
-            // TODO: getFcsExpandedLC()
+            // TODO: getFcsExpandedLc()
         }
 
         l_pos = i_unexpandedLocationCode.find("mts");
         if (l_pos != std::string::npos)
         {
-            return i_unexpandedLocationCode;
-            // TODO: getMtsExpandedLC()
+            return getMtsExpandedLc(i_inventoryPath, i_unexpandedLocationCode,
+                                    i_parsedVpdMap, l_pos, o_errCode);
         }
 
         o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
