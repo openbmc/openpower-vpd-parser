@@ -194,6 +194,24 @@
       "parentUuid": "74a86389_5a56efbd",
       "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1952602f_d52963e8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T12:11:59Z",
+      "side": 1,
+      "message": "ok, sure.\nwill change it to pass as parameter,",
+      "parentUuid": "5e35a40c_9e458167",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
