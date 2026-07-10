@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dabe7fb_62bbcf89",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-10T15:38:15Z",
+      "side": 1,
+      "message": "why new type is defined, why can\u0027t use exiting type InventoryCalloutData ?",
+      "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
