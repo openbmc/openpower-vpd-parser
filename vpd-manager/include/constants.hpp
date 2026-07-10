@@ -190,6 +190,9 @@ constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
 constexpr auto availableProperty = "Available";
+constexpr auto FIRST_POSITION = 0;
+constexpr auto LOCATION_CODE_PREFIX_LENGTH = 3;
+constexpr auto FC_KEYWORD_FIRST_4_BYTE = 4;
 
 static constexpr auto BD_YEAR_END = 4;
 static constexpr auto BD_MONTH_END = 7;
