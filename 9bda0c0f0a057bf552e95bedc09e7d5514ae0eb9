@@ -102,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d08e3183_625199db",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:22:53Z",
+      "side": 1,
+      "message": "Based on use cases here, we don\u0027t treat  failure error code  as a blocker.\ncaller uses returned data(expanded/unexpanded) directly.  if error code !\u003d 0 then log a message.\nIf we go with std::expected\u003cstd::string,uint16_t\u003e, we need special handling here-\nIn good case- use returned data, in error case- use what input was given.\nI think current design is simpler.",
+      "parentUuid": "0bf9ab55_efc08799",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ca88fc3_d184b361",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 13
@@ -113,6 +131,24 @@
       "writtenOn": "2026-07-10T07:19:58Z",
       "side": 1,
       "message": "I see the `i_inventoryPath` parameter is only being used to log in failure case. Do we really need the inventory path in this log? Or is there any other use case of passing inventory path to this API?",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b31f464_d18d9feb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:22:53Z",
+      "side": 1,
+      "message": "yes, we need this i_inventoryPath . check https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/91930/9/vpd-manager/include/utility/vpd_specific_utility.hpp",
+      "parentUuid": "2ca88fc3_d184b361",
       "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -136,6 +172,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb237a0a_202725a5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:22:53Z",
+      "side": 1,
+      "message": "I feel this is 1 time use-case, and very specific to Location code only, so will not add much value.",
+      "parentUuid": "1e829825_ae845742",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac735138_9ea3cd60",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 13
@@ -147,6 +201,24 @@
       "writtenOn": "2026-07-10T07:19:58Z",
       "side": 1,
       "message": "We should define string literals in `constants.hpp`. Will help in future refactoring in-case these change.",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a2672f_ea189526",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:22:53Z",
+      "side": 1,
+      "message": "I feel this is 1 time use-case, and very specific to Location code only, so will not add much value.",
+      "parentUuid": "ac735138_9ea3cd60",
       "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
