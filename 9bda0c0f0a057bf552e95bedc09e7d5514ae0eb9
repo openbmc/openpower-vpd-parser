@@ -39,6 +39,74 @@
       },
       "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bf9ab55_efc08799",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-10T07:19:58Z",
+      "side": 1,
+      "message": "Suggestion: We can use `std::expected\u003cstd::string,uint16_t\u003e` as the return type. In success path, the expanded location code will be returned and on failure error code will be returned. This avoids returning unexpanded location code in error path and makes the return value more usable to the caller.",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca88fc3_d184b361",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-10T07:19:58Z",
+      "side": 1,
+      "message": "I see the `i_inventoryPath` parameter is only being used to log in failure case. Do we really need the inventory path in this log? Or is there any other use case of passing inventory path to this API?",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e829825_ae845742",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-10T07:19:58Z",
+      "side": 1,
+      "message": "We should define string literals in `constants.hpp`. Will help in future refactoring in-case these change.",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac735138_9ea3cd60",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-10T07:19:58Z",
+      "side": 1,
+      "message": "We should define string literals in `constants.hpp`. Will help in future refactoring in-case these change.",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
