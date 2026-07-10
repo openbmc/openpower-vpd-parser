@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b13d4695_dbafd851",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:01:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "044cecdd_562e0921",
+      "revId": "066d7bd1ddb18e65d7c62336aac8712153018042",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71171032_0c77231c",
@@ -53,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7e2277_81a81851",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:01:20Z",
+      "side": 1,
+      "message": "Rebase on latest. gone now. not this commit change.",
+      "parentUuid": "71171032_0c77231c",
+      "revId": "066d7bd1ddb18e65d7c62336aac8712153018042",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecbd773a_7798e801",
@@ -66,6 +102,24 @@
       "writtenOn": "2026-07-09T07:35:43Z",
       "side": 1,
       "message": "nit:\n\n\n\n```suggestion\n                    std::format(\"Redundant path [{}] also failed with error: {}\",\n```",
+      "revId": "066d7bd1ddb18e65d7c62336aac8712153018042",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ded8d570_c4f8c346",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-10T13:01:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ecbd773a_7798e801",
       "revId": "066d7bd1ddb18e65d7c62336aac8712153018042",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
