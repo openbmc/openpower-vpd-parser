@@ -176,6 +176,24 @@
       "parentUuid": "3a4a9eb0_068bde2e",
       "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e35a40c_9e458167",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-10T06:14:44Z",
+      "side": 1,
+      "message": "@alpu8007@gmail.com As you are already passing that parameter to another functions, passing it again to \"processExtraInterfaces\" will keep things consistent and it will save the call to \"contains\" and \"extraction of inventory path from the JSON map\" that you are doing inside the API \"processExtraInterfaces\".\n\nAs it requires no extra changes to pass \"inventoryPath\" as parameter. I will opt for the option where I will pass as parameter.",
+      "parentUuid": "74a86389_5a56efbd",
+      "revId": "7571d9d2a9f06a7819aa35f2f31809b2dc847ba4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
