@@ -164,6 +164,7 @@ void ThreadManager::collectAllFruVpd()
         std::thread{[this]() {
             try
             {
+                auto l_start = std::chrono::steady_clock::now();
                 collectAllChassisVpd();
 
                 bool l_result = processChassisResults();
@@ -172,6 +173,14 @@ void ThreadManager::collectAllFruVpd()
                     (l_result ? types::VpdCollectionStatus::Completed
                               : types::VpdCollectionStatus::Failed);
                 updateOverallCollectionStatus(l_completionStatus);
+
+                double l_elapsedSeconds =
+                    std::chrono::duration<double>(
+                        std::chrono::steady_clock::now() - l_start)
+                        .count();
+                m_logger->logMessage(std::format(
+                    "Total time taken for all FRU VPD collection = {} seconds",
+                    l_elapsedSeconds));
             }
             catch (const std::exception& l_ex)
             {
