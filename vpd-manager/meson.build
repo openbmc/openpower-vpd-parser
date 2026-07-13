@@ -8,6 +8,7 @@ common_SOURCES = [
     'src/parser_factory.cpp',
     'src/ipz_parser.cpp',
     'src/keyword_vpd_parser.cpp',
+    'src/ipmi_fru_parser.cpp',
     'src/ddimm_parser.cpp',
     'src/isdimm_parser.cpp',
     'src/parser.cpp',
