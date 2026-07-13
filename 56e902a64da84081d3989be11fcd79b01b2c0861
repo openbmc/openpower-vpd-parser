@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d8dcf9_9ca50569",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75431f4f_da3d9007",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23760b75_54e7ed11",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30dee2fd_d4b1e0f1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23760b75_54e7ed11",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e403296b_a52b87d3",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-07-13T14:29:26Z",
       "side": 1,
       "message": "If this line throws , then no point in going further because l_suffix is never created.\nsubstr as well as replace can throw exceptions.",
+      "range": {
+        "startLine": 1527,
+        "startChar": 62,
+        "endLine": 1527,
+        "endChar": 68
+      },
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b7da01_828c9ecf",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e403296b_a52b87d3",
       "range": {
         "startLine": 1527,
         "startChar": 62,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8ea2f8_b4528ba4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15db3b4a_a423c078",
+      "range": {
+        "startLine": 1568,
+        "startChar": 13,
+        "endLine": 1568,
+        "endChar": 20
+      },
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88fd9282_020189df",
@@ -94,6 +178,24 @@
       "writtenOn": "2026-07-13T13:41:22Z",
       "side": 1,
       "message": "Same here, why are you writing wrappers around utility methods.",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae5f661_1a2c3924",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88fd9282_020189df",
       "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -115,6 +217,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aedd185_a394af98",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5b79ba8_fd46da5a",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04c6fc45_9212a500",
@@ -128,6 +248,24 @@
       "writtenOn": "2026-07-13T13:41:22Z",
       "side": 1,
       "message": "We are using came case even for abbreviations/shortforms. Please use Lc instead of LC",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f2e8af4_5422749b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T16:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04c6fc45_9212a500",
       "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
