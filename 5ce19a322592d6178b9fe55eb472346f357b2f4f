@@ -16,6 +16,24 @@
       "message": "why new type is defined, why can\u0027t use exiting type InventoryCalloutData ?",
       "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308a2b9b_af57a292",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-13T08:32:33Z",
+      "side": 1,
+      "message": "InventoryCalloutData and DeviceCalloutData, both are {sting, Priority}\nBut we can\u0027t use the name \"InventoryCallout \" for  \"DeviceCallout\" type.\n\nEarlier InventoryCalloutData and DeviceCalloutData, both were tuple, we can\u0027t use it as tuple while creating pelTuple, so moved it to struct.\n\nAnd the 3rd one, I2C bus callout will have diff fields - Bus, Address, Priority. that can\u0027t be fit in PELTUPLE as per current design, so I changed it to variant, so that 7th param can receive callout data of any type of callout.",
+      "parentUuid": "2dabe7fb_62bbcf89",
+      "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
