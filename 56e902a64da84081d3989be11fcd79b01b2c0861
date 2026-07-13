@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75431f4f_da3d9007",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-13T13:41:22Z",
+      "side": 1,
+      "message": "The commit message is unable to explain the use case against introducing new helper functions which are just in turn wrappers around other existing utility methods.",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23760b75_54e7ed11",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-13T13:41:22Z",
+      "side": 1,
+      "message": "Looks like this API can throw, what is the thought process in that case? Should we let it propagate all the way to the caller and let the flow break or should we handle it locally and set proper error codes?",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88fd9282_020189df",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-13T13:41:22Z",
+      "side": 1,
+      "message": "Same here, why are you writing wrappers around utility methods.",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b79ba8_fd46da5a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-13T13:41:22Z",
+      "side": 1,
+      "message": "I am not getting the use case of having this utility method.\nWe already have utility to read property from Dbus, why do we need another utility which is just a wrapper around it?",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c6fc45_9212a500",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-13T13:41:22Z",
+      "side": 1,
+      "message": "We are using came case even for abbreviations/shortforms. Please use Lc instead of LC",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
