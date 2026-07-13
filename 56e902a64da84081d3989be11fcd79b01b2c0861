@@ -37,6 +37,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e403296b_a52b87d3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-07-13T14:29:26Z",
+      "side": 1,
+      "message": "If this line throws , then no point in going further because l_suffix is never created.\nsubstr as well as replace can throw exceptions.",
+      "range": {
+        "startLine": 1527,
+        "startChar": 62,
+        "endLine": 1527,
+        "endChar": 68
+      },
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15db3b4a_a423c078",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-07-13T14:29:26Z",
+      "side": 1,
+      "message": "Suggestion :-\nwe can use modern **std::ranges::replace** instead of std::replace no need to pass begin or end iterator .\n\nstd::ranges::replace(l_firstKwdValueCopy, \u0027-\u0027, \u0027.\u0027);",
+      "range": {
+        "startLine": 1568,
+        "startChar": 13,
+        "endLine": 1568,
+        "endChar": 20
+      },
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88fd9282_020189df",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 10
