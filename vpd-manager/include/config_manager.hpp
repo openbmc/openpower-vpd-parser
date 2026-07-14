@@ -220,6 +220,23 @@ class ConfigManager final
         static void validateOptionalTags(const nlohmann::json& i_subFruJson,
                                          const std::string& i_eepromPath,
                                          const size_t i_index);
+
+        /**
+         * @brief Validate 'pollingRequired' tag in sub-FRU JSON object
+         *
+         * This method validates the 'pollingRequired' field and its nested
+         * 'hotPlugging' and 'gpioPresence' objects, if present.
+         *
+         * @param[in] i_pollingRequiredJson - 'pollingRequired' JSON object to
+         * validate
+         * @param[in] i_eepromPath - EEPROM path for error reporting
+         * @param[in] i_index - Sub-FRU index for error reporting
+         *
+         * @throw JsonException if validation fails
+         */
+        static void validatePollingRequiredTag(
+            const nlohmann::json& i_pollingRequiredJson,
+            const std::string& i_eepromPath, const size_t i_index);
     };
 
     /**
