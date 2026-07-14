@@ -87,7 +87,7 @@ void ThreadManager::collectAllChassisVpd()
             uint16_t l_errCode = 0;
             vpdSpecificUtility::setCollectionStatusProperty(
                 l_eepromPath, types::VpdCollectionStatus::Failed,
-                m_configManager->getJsonObj(), l_errCode);
+                m_configManager->getJsonObj().value().get(), l_errCode);
 
             std::string l_msg =
                 std::format("{} not found in chassis ID to JSON map. "
