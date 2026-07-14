@@ -588,6 +588,21 @@ void ConfigManager::JsonValidator::validateOptionalTags(
             i_index, i_eepromPath)};
     }
 
+    // If "pollingRequired" exists, validate it's an object and validate
+    // "hotPlugging" nested within it
+    if (i_subFruJson.contains("pollingRequired"))
+    {
+        if (!i_subFruJson["pollingRequired"].is_object())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
+                i_index, i_eepromPath)};
+        }
+
+        validatePollingRequiredTag(i_subFruJson["pollingRequired"],
+                                   i_eepromPath, i_index);
+    }
+
     // If "copyRecords" exists, validate it's an array
     if (i_subFruJson.contains("copyRecords") &&
         !i_subFruJson["copyRecords"].is_array())
@@ -602,8 +617,6 @@ void ConfigManager::JsonValidator::validateOptionalTags(
         "isSystemVpd",
         "replaceableAtStandby",
         "replaceableAtRuntime",
-        "pollingRequired",
-        "hotPlugging",
         "concurrentlyMaintainable",
         "powerOffOnly",
         "embedded",
@@ -652,6 +665,65 @@ void ConfigManager::JsonValidator::validateOptionalTags(
             throw JsonException{std::format(
                 "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be an integer",
                 l_field, i_index, i_eepromPath)};
+        }
+    }
+}
+
+void ConfigManager::JsonValidator::validatePollingRequiredTag(
+    const nlohmann::json& i_pollingRequiredJson,
+    const std::string& i_eepromPath, const size_t i_index)
+{
+    if (i_pollingRequiredJson.contains("hotPlugging"))
+    {
+        const auto& l_hotPlugging = i_pollingRequiredJson["hotPlugging"];
+
+        if (!l_hotPlugging.is_object())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: 'hotPlugging' in 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
+                i_index, i_eepromPath)};
+        }
+
+        if (l_hotPlugging.contains("gpioPresence"))
+        {
+            const auto& l_gpioPresence = l_hotPlugging["gpioPresence"];
+
+            if (!l_gpioPresence.is_object())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'gpioPresence' in 'hotPlugging' in sub-FRU at index {} in '{}' must be an object",
+                    i_index, i_eepromPath)};
+            }
+
+            // check for "pin" tag
+            if (!l_gpioPresence.contains("pin"))
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'pin' tag missing in 'gpioPresence' in sub-FRU at index {} in '{}'",
+                    i_index, i_eepromPath)};
+            }
+
+            if (!l_gpioPresence["pin"].is_string())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'pin' in 'gpioPresence' in sub-FRU at index {} in '{}' must be a string",
+                    i_index, i_eepromPath)};
+            }
+
+            // check for "value" tag
+            if (!l_gpioPresence.contains("value"))
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'pin' tag missing in 'gpioPresence' in sub-FRU at index {} in '{}'",
+                    i_index, i_eepromPath)};
+            }
+
+            if (!l_gpioPresence["value"].is_number_integer())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'value' in 'gpioPresence' in sub-FRU at index {} in '{}' must be an integer",
+                    i_index, i_eepromPath)};
+            }
         }
     }
 }
