@@ -588,6 +588,59 @@ void ConfigManager::JsonValidator::validateOptionalTags(
             i_index, i_eepromPath)};
     }
 
+    // If "pollingRequired" exists, validate it's an object and validate
+    // "hotPlugging" nested within it
+    if (i_subFruJson.contains("pollingRequired"))
+    {
+        if (!i_subFruJson["pollingRequired"].is_object())
+        {
+            throw JsonException{std::format(
+                "JSON validation failed: 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
+                i_index, i_eepromPath)};
+        }
+
+        if (i_subFruJson["pollingRequired"].contains("hotPlugging"))
+        {
+            const auto& l_hotPlugging =
+                i_subFruJson["pollingRequired"]["hotPlugging"];
+
+            if (!l_hotPlugging.is_object())
+            {
+                throw JsonException{std::format(
+                    "JSON validation failed: 'hotPlugging' in 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
+                    i_index, i_eepromPath)};
+            }
+
+            if (l_hotPlugging.contains("gpioPresence"))
+            {
+                const auto& l_gpioPresence = l_hotPlugging["gpioPresence"];
+
+                if (!l_gpioPresence.is_object())
+                {
+                    throw JsonException{std::format(
+                        "JSON validation failed: 'gpioPresence' in 'hotPlugging' in sub-FRU at index {} in '{}' must be an object",
+                        i_index, i_eepromPath)};
+                }
+
+                if (l_gpioPresence.contains("pin") &&
+                    !l_gpioPresence["pin"].is_string())
+                {
+                    throw JsonException{std::format(
+                        "JSON validation failed: 'pin' in 'gpioPresence' in sub-FRU at index {} in '{}' must be a string",
+                        i_index, i_eepromPath)};
+                }
+
+                if (l_gpioPresence.contains("value") &&
+                    !l_gpioPresence["value"].is_number_integer())
+                {
+                    throw JsonException{std::format(
+                        "JSON validation failed: 'value' in 'gpioPresence' in sub-FRU at index {} in '{}' must be an integer",
+                        i_index, i_eepromPath)};
+                }
+            }
+        }
+    }
+
     // If "copyRecords" exists, validate it's an array
     if (i_subFruJson.contains("copyRecords") &&
         !i_subFruJson["copyRecords"].is_array())
@@ -602,8 +655,6 @@ void ConfigManager::JsonValidator::validateOptionalTags(
         "isSystemVpd",
         "replaceableAtStandby",
         "replaceableAtRuntime",
-        "pollingRequired",
-        "hotPlugging",
         "concurrentlyMaintainable",
         "powerOffOnly",
         "embedded",
