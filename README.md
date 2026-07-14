@@ -34,7 +34,10 @@ option. This parser differs from the OpenPower VPD parser in the following ways:
 
 Making the application runtime JSON driven allows us to support multiple systems
 (with different FRU configurations) to be supported in a single code image as
-well as making the application more flexible for future improvements.
+
+## Code review and integration process for pull requests
+
+Refer [README-REVIEW-PROCESS.md](README-REVIEW-PROCESS.md) for details.
 
 ## TODOs and Future Improvements
 
