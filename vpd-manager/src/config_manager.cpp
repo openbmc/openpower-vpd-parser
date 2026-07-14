@@ -88,12 +88,13 @@ void ConfigManager::loadJson(const std::string& i_sysConfigJsonPath)
     validateChassisSpecificJsons();
 }
 
-const nlohmann::json& ConfigManager::getJsonObj(
-    const std::optional<std::string>& i_vpdPath) const noexcept
+std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+    ConfigManager::getJsonObj(
+        const std::optional<std::string>& i_vpdPath) const noexcept
 {
     if (!i_vpdPath)
     {
-        return m_systemConfigJson;
+        return std::cref(m_systemConfigJson);
     }
 
     std::string l_chassisId{};
@@ -110,18 +111,18 @@ const nlohmann::json& ConfigManager::getJsonObj(
     else
     {
         m_logger->logMessage(std::format(
-            "Invalid input path {}, received to get chasiss specific JSON object.",
+            "Invalid input path {}, received to get chassis specific JSON object.",
             *i_vpdPath));
-        return m_systemConfigJson;
+        return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
     }
 
     if (const auto l_itr = m_chassisIdToJsonMap.find(l_chassisId);
         l_itr != m_chassisIdToJsonMap.end())
     {
-        return l_itr->second;
+        return std::cref(l_itr->second);
     }
 
-    return m_systemConfigJson;
+    return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
 }
 
 std::string ConfigManager::getChassisId(
