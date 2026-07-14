@@ -254,7 +254,9 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     if (m_configManager)
     {
-        l_sysCfgJsonObj = m_configManager->getJsonObj(i_vpdPath);
+        const auto l_jsonResult = m_configManager->getJsonObj(i_vpdPath);
+        l_sysCfgJsonObj = l_jsonResult.has_value() ? l_jsonResult.value().get()
+                                                   : nlohmann::json{};
 
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
@@ -413,7 +415,10 @@ int Manager::updateKeywordOnHardware(
 
         if (m_configManager)
         {
-            l_sysCfgJsonObj = m_configManager->getJsonObj(i_fruPath);
+            const auto l_jsonResult = m_configManager->getJsonObj(i_fruPath);
+            l_sysCfgJsonObj = l_jsonResult.has_value()
+                                  ? l_jsonResult.value().get()
+                                  : nlohmann::json{};
         }
 
         std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
@@ -449,7 +454,9 @@ types::DbusVariantType Manager::readKeyword(
 
         if (m_configManager)
         {
-            l_jsonObj = m_configManager->getJsonObj(i_fruPath);
+            const auto l_jsonResult = m_configManager->getJsonObj(i_fruPath);
+            l_jsonObj = l_jsonResult.has_value() ? l_jsonResult.value().get()
+                                                 : nlohmann::json{};
         }
 
         std::error_code ec;
@@ -528,10 +535,18 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
                 std::string(i_dbusObjPath)));
         }
 
-        const auto& l_configJsonObj =
+        const auto l_configJsonResult =
             m_configManager->getJsonObj(std::string(i_dbusObjPath));
 
-        Worker{}.deleteFruVpd(l_configJsonObj, std::string(i_dbusObjPath));
+        if (!l_configJsonResult.has_value())
+        {
+            throw std::runtime_error(std::format(
+                "Path {} not found in JSON, can't perform FRU VPD deletion.",
+                std::string(i_dbusObjPath)));
+        }
+
+        Worker{}.deleteFruVpd(l_configJsonResult.value().get(),
+                              std::string(i_dbusObjPath));
     }
     catch (const std::exception& l_ex)
     {
@@ -696,7 +711,17 @@ types::EepromPathList Manager::getHwPath(
     }
 
     // get the chassis specific JSON for the object path
-    const auto& l_jsonObj = m_configManager->getJsonObj(l_dbusObjPathStr);
+    const auto l_jsonObjResult = m_configManager->getJsonObj(l_dbusObjPathStr);
+
+    if (!l_jsonObjResult.has_value())
+    {
+        m_logger->logMessage(
+            std::format("Path {} not found in JSON, can't get hardware path.",
+                        l_dbusObjPathStr));
+        throw sdbusplus::error::com::ibm::vpd::PathNotFound();
+    }
+
+    const auto& l_jsonObj = l_jsonObjResult.value().get();
 
     uint16_t l_errCode{constants::VALUE_0};
 
@@ -961,7 +986,8 @@ void Manager::performVpdRecollection()
     m_logger->logMessage(
         "Perform VPD recollection triggered via external D-Bus call.");
 
-    Worker{}.performVpdRecollection(m_configManager->getJsonObj());
+    Worker{}.performVpdRecollection(
+        m_configManager->getJsonObj().value().get());
 }
 
 bool Manager::collectAllFruVpd() const noexcept
@@ -1030,7 +1056,17 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
         return l_rc;
     }
 
-    const auto& l_jsonObj = m_configManager->getJsonObj(i_fruPath);
+    const auto l_jsonObjResult = m_configManager->getJsonObj(i_fruPath);
+
+    if (!l_jsonObjResult.has_value())
+    {
+        m_logger->logMessage(std::format(
+            "Path {} not found in JSON, can't validate redundant EEPROM.",
+            i_fruPath));
+        return l_rc;
+    }
+
+    const auto& l_jsonObj = l_jsonObjResult.value().get();
 
     uint16_t l_errCode;
     std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(

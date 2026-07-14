@@ -132,7 +132,7 @@ void GpioMonitor::initHandlerForGpio(
             "Error: Config manager is null, can't process initHandlerForGpio.");
     }
 
-    auto l_configJsonObj = i_configManager->getJsonObj();
+    auto l_configJsonObj = i_configManager->getJsonObj().value().get();
 
     uint16_t l_errCode = 0;
     std::vector<std::string> l_gpioPollingRequiredFrusList =
