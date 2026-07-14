@@ -93,7 +93,8 @@ void Listener::hostStateChangeCallBack(
                         "Cannot perform VPD recollection as ConfigManager is not initialized");
                 }
 
-                Worker{}.performVpdRecollection(m_configManager->getJsonObj());
+                Worker{}.performVpdRecollection(
+                    m_configManager->getJsonObj().value().get());
             }
         }
         else
@@ -206,7 +207,8 @@ void Listener::registerPresenceChangeCallback() noexcept
                 "Error: Config manager is not initialized, can't register PresenceChangeCallback.");
         }
 
-        const auto& l_sysCfgJsonObj = m_configManager->getJsonObj();
+        auto l_sysCfgJsonRef = m_configManager->getJsonObj().value();
+        const auto& l_sysCfgJsonObj = l_sysCfgJsonRef.get();
 
         // get list of FRUs for which presence monitoring is required
         const auto& l_listOfFrus = jsonUtility::getFrusWithPresenceMonitoring(
@@ -281,11 +283,21 @@ void Listener::presentPropertyChangeCallback(
                     l_objectPath, *l_present));
             }
 
-            const auto& l_chassisJson =
+            const auto l_chassisJsonResult =
                 m_configManager->getJsonObj(l_objectPath);
 
-            *l_present ? Worker{}.collectSingleFruVpd(l_objectPath)
-                       : Worker{}.deleteFruVpd(l_chassisJson, l_objectPath);
+            if (!l_chassisJsonResult.has_value())
+            {
+                throw std::runtime_error(std::format(
+                    "Path {} not found in JSON, can't perform FRU VPD collection/deletion. Error: {}",
+                    l_objectPath,
+                    commonUtility::getErrCodeMsg(l_chassisJsonResult.error())));
+            }
+
+            *l_present
+                ? Worker{}.collectSingleFruVpd(l_objectPath)
+                : Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
+                                        l_objectPath);
         }
         else
         {

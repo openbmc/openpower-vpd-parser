@@ -1,6 +1,7 @@
 #pragma once
 
 #include "config_manager.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/event_logger_utility.hpp"
 #include "worker.hpp"
 
@@ -63,7 +64,17 @@ class GpioEventHandler
                 "ASIO ioContext can not be null. It is mandatory for GpioEventHandle instantiation");
         }
 
-        m_configJson = m_configManager->getJsonObj(m_fruPath);
+        const auto l_configJsonResult = m_configManager->getJsonObj(m_fruPath);
+
+        if (!l_configJsonResult.has_value())
+        {
+            throw std::runtime_error(std::format(
+                "Path {} not found in JSON, can't instantiate GpioEventHandler. Error: {}",
+                m_fruPath,
+                commonUtility::getErrCodeMsg(l_configJsonResult.error())));
+        }
+
+        m_configJson = l_configJsonResult.value().get();
         setEventHandlerForGpioPresence(i_ioContext);
     }
 

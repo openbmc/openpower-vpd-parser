@@ -104,11 +104,13 @@ class ConfigManager final
      *
      * i_vpdPath[in] i_vpdPath - Optional EEPROM or inventory object path.
      *
-     * @return Reference to the selected configuration JSON object.
+     * @return On success, reference to the chassis-specific JSON object.
+     *         error_code::PATH_NOT_FOUND_IN_JSON if the path does not map to
+     *         any known chassis.
      */
-    const nlohmann::json& getJsonObj(
-        const std::optional<std::string>& i_vpdPath =
-            std::nullopt) const noexcept;
+    std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+        getJsonObj(const std::optional<std::string>& i_vpdPath = std::nullopt)
+            const noexcept;
 
     /**
      * @brief API to get inventory path(s) for given unexpanded location code
