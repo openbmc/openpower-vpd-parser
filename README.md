@@ -36,6 +36,11 @@ Making the application runtime JSON driven allows us to support multiple systems
 (with different FRU configurations) to be supported in a single code image as
 well as making the application more flexible for future improvements.
 
+
+## Code review and integration process for pull requests
+
+Refer [README-REVIEW-PROCESS.md](README-REVIEW-PROCESS.md) for details.
+
 ## TODOs and Future Improvements
 
 1. The long-term goal is to completely do away with the build time YAML driven
