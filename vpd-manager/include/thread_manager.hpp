@@ -104,6 +104,27 @@ class ThreadManager
         std::mutex m_fruItrMutex; // Iterator protection
     };
 
+    /**
+     * @brief Check if an EEPROM path is the system VPD path and handle it.
+     *
+     * System VPD is collected and published to D-Bus when vpd-manager starts.
+     * Re-collecting it during a collect-all FRU VPD request is redundant.
+     * When i_eepromPath matches SYSTEM_VPD_FILE_PATH, this API reads
+     * the Present property from D-Bus, updates updateSystemView, and pushes
+     * the result onto m_chassisResultQueue — signalling the caller to skip
+     * collect FRU Vpd for this path.
+     *
+     * @param[in] i_chassisJson - Chassis JSON containing FRU configuration.
+     * @param[in] i_chassisId   - Chassis ID.
+     * @param[in] i_eepromPath  - EEPROM file path to check against
+     *                            SYSTEM_VPD_FILE_PATH.
+     *
+     * @return true if i_eepromPath is SYSTEM_VPD_FILE_PATH, otherwise false.
+     */
+    bool checkAndhandleSystemVpdPath(const nlohmann::json& i_chassisJson,
+                                     const std::string& i_chassisId,
+                                     const std::string& i_eepromPath) noexcept;
+
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
 

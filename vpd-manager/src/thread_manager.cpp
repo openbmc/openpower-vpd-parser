@@ -75,9 +75,6 @@ void ThreadManager::collectAllChassisVpd()
     for (const auto& [l_chassisId, l_eepromPath] :
          l_chassisToMotherboardEepromMap)
     {
-        // TODO: Add check to see if the eeprom path is SYSTEM_VPD_FILE_PATH and
-        // handle it accordingly.
-
         auto l_chassisToJsonItr = l_chassisIdToJsonMap.find(l_chassisId);
         if (l_chassisToJsonItr == l_chassisIdToJsonMap.end())
         {
@@ -104,6 +101,15 @@ void ThreadManager::collectAllChassisVpd()
             m_logger->logMessage(std::move(l_msg));
             continue;
         }
+
+#ifdef IBM_SYSTEM
+        // Skip collecting system VPD again
+        if (checkAndhandleSystemVpdPath(l_chassisToJsonItr->second, l_chassisId,
+                                        l_eepromPath))
+        {
+            continue;
+        }
+#endif
 
         m_logger->logMessage(
             std::format(
@@ -468,6 +474,49 @@ std::string ThreadManager::getNextFruPath(
             "Error while getting next FRU path, reason: {}", l_ex.what()));
         return std::string{};
     }
+}
+
+bool ThreadManager::checkAndhandleSystemVpdPath(
+    const nlohmann::json& i_chassisJson, const std::string& i_chassisId,
+    const std::string& i_eepromPath) noexcept
+{
+    bool l_skipCollection = false;
+    try
+    {
+        if (i_eepromPath == SYSTEM_VPD_FILE_PATH)
+        {
+            l_skipCollection = true;
+
+            // Read Present property value from Dbus.
+            auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+                i_chassisJson["frus"][i_eepromPath][0]["serviceName"],
+                i_chassisJson["frus"][i_eepromPath][0]["inventoryPath"],
+                constants::inventoryItemInf, "Present");
+
+            bool l_isFruPresent = false;
+            if (const auto l_value = std::get_if<bool>(&l_kwdValueVariant))
+            {
+                l_isFruPresent = *l_value;
+            }
+
+            updateSystemView(i_chassisId, i_eepromPath, l_isFruPresent);
+
+            {
+                std::lock_guard<std::mutex> l_lock(m_mutex);
+                m_chassisResultQueue.push(std::make_tuple(
+                    l_isFruPresent, i_eepromPath, i_chassisJson));
+                m_completionCv.notify_one();
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Error while check and handling system VPD path, reason: {}",
+            l_ex.what()));
+    }
+
+    return l_skipCollection;
 }
 
 } // namespace vpd
