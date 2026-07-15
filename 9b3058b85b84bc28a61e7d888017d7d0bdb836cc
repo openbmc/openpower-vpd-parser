@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ba96472_3c508dec",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T14:48:18Z",
+      "side": 1,
+      "message": "changed its return type, so no more o_errCode.",
+      "parentUuid": "47ae9e12_7bf4879b",
+      "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ed162d9_f92757d7",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-15T06:56:33Z",
       "side": 1,
       "message": "a blank line between blocks of code.",
+      "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e5a08a_ae47389d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1613,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T14:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ed162d9_f92757d7",
       "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3eb308_4420986b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T14:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d83c62_67434c96",
+      "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc9889b8_01d8f2c9",
@@ -65,6 +119,30 @@
       "writtenOn": "2026-07-15T06:56:33Z",
       "side": 1,
       "message": "I did not the else part of \"fcs\" type. What is the \"i_parsedVpdMap\" passed to this API? If my understanding is correct then it will be of the respective FRU whereas the kwd value is supposed to come from chassis VPD.",
+      "range": {
+        "startLine": 1654,
+        "startChar": 12,
+        "endLine": 1676,
+        "endChar": 13
+      },
+      "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a09a850_11b50713",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T14:48:18Z",
+      "side": 1,
+      "message": "Right,\nBut this parsedVpdMap is only useful for Chassis. As chassis is not getting these data from Dbus, as it is not yet published. It fails to get mapper object and falls to this section, and read the data from parsed VPD.\nOnce it goes back and config manager publishes it, All other FRUs are getting the data from chassis VPD on DBus.\n\n\"If my understanding is correct then it will be of the respective FRU whereas the kwd value is supposed to come from chassis VPD.\"",
+      "parentUuid": "fc9889b8_01d8f2c9",
       "range": {
         "startLine": 1654,
         "startChar": 12,
