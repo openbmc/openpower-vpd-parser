@@ -120,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "472d30a2_8e638d3b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-15T07:15:30Z",
+      "side": 1,
+      "message": "\u003eif error code !\u003d 0 then log a message.\n\nWe can do that with `std::expected\u003c\u003e` as well.\n\n\u003eIf we go with std::expected\u003cstd::string,uint16_t\u003e, we need special handling here-\nIn good case- use returned data, in error case- use what input was given.\n\nI do not see what \"special handling\" is required here?\n\n\u003eI think current design is simpler. \n\nThat\u0027s subjective. But passing output parameters by reference and then reading them is C styled code and not in line with modern C++. It puts more burden on the caller to create an error code variable.",
+      "parentUuid": "d08e3183_625199db",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ca88fc3_d184b361",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 13
@@ -190,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "629e128f_69ec562e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-15T07:15:30Z",
+      "side": 1,
+      "message": "Location code can be used in multiple places across the repository. In future, if \"fcs\" string changes, we have to make changes across the repository. If we define these in `constants.hpp` , future changes become simpler.",
+      "parentUuid": "cb237a0a_202725a5",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac735138_9ea3cd60",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 13
@@ -219,6 +255,24 @@
       "side": 1,
       "message": "I feel this is 1 time use-case, and very specific to Location code only, so will not add much value.",
       "parentUuid": "ac735138_9ea3cd60",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad23a99f_82f552e5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-15T07:15:30Z",
+      "side": 1,
+      "message": "Location code can be used in multiple places across the repository. In future, if \"fcs\" string changes, we have to make changes across the repository. If we define these in `constants.hpp` , future changes become simpler.",
+      "parentUuid": "c1a2672f_ea189526",
       "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
