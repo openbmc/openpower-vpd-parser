@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316a3db6_af1e0a69",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T07:10:18Z",
+      "side": 1,
+      "message": "Can you add detail so that it does not look like duplicate of \"FRU_PATH_NOT_FOUND\".\nIn description you can add, given EEPROM/Inventory path.... as it logs for both the cases.",
+      "revId": "6e749d42f9ce374dc728cf6bd72b3fef9d58b51f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89caba05_f983a937",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T07:10:18Z",
+      "side": 1,
+      "message": "The log is missing details passed via error code?",
+      "revId": "6e749d42f9ce374dc728cf6bd72b3fef9d58b51f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601da020_0db7f1d3",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T07:10:18Z",
+      "side": 1,
+      "message": "Same here, missing information passed via error code.",
+      "revId": "6e749d42f9ce374dc728cf6bd72b3fef9d58b51f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646a5b23_4eb4c0ce",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T07:10:18Z",
+      "side": 1,
+      "message": "Should log the error scenario?",
+      "revId": "6e749d42f9ce374dc728cf6bd72b3fef9d58b51f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f4d198_c06d21fc",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T07:10:18Z",
+      "side": 1,
+      "message": "Same here and at other places where ever applicable?",
+      "revId": "6e749d42f9ce374dc728cf6bd72b3fef9d58b51f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
