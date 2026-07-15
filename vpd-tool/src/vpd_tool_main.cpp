@@ -294,7 +294,17 @@ void updateFooter(CLI::App& i_app)
         "   vpd-tool --forceReset\n"
         "Validate EEPROM:\n"
         "   Validate given EEPROM against its redundant copy:\n"
-        "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n");
+        "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
+        "Return Values:\n"
+        "   Negative values indicates the following errors.\n"
+        "   -2, Either one of the input parameter provided are invalid.\n"
+        "   -3, Record name is not provided.\n"
+        "   -4, Keyword value is not provided.\n"
+        "   -5, DBus call failed.\n"
+        "   -6, File system error.\n"
+        "   -7, File not found.\n"
+        "   -8, Standard exception occurred.\n"
+        "   -9, JSON parse error.\n");
 }
 
 int main(int argc, char** argv)
