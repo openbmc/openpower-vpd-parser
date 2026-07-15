@@ -16,6 +16,40 @@
       "message": "userdata1 and userdata2 are kept to provide any additional information while logging a PEL, which has key \"UserData1\" and \"UserData2\" respectively.\n\nthe PR is created for \"Enable Async PEL I2C Device callout\", why userdata sections are modified ?",
       "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce6672c_ed7acc3d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-15T10:29:50Z",
+      "side": 1,
+      "message": "Here we are doing device callout, so the place holder should be ASYNC_PEL_WITH_DEV_CALLOUT?\n\nFor device callout, the callout path should be device path not the EEPROM path.\nCheck the CALLOUT_DEVICE_PATH section here - https://github.com/openbmc/phosphor-logging/blob/master/extensions/openpower-pels/README.md#callouts",
+      "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce43ba8_bf8cfdc0",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-15T10:29:50Z",
+      "side": 1,
+      "message": "Why we are changing callout type from inventory callout to i2c device callout?",
+      "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
