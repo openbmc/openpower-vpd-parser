@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2244b586_31719968",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T06:20:09Z",
+      "side": 1,
+      "message": "The API is growing and I am assuming there will be more validations coming in going forward. Like for pre and post action if we want to add more validations.\n\nCan we have a separate function for such complex tags? Validate the base contains here and move rest of the validation to a separate function. eg: validatePollingTag.\nThis will also give more readability.",
+      "revId": "2fd250e7719d9cf5662f38aef86b00a4ea1c7edb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
