@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "859cf1b0_a41441f2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-15T06:53:39Z",
+      "side": 1,
+      "message": "does this API throws any error ?",
+      "revId": "434cce5883124ffd077a29fcbb357a552884b2e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15455568_33856470",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-15T06:53:39Z",
+      "side": 1,
+      "message": "Nit: Inventory",
+      "revId": "434cce5883124ffd077a29fcbb357a552884b2e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
