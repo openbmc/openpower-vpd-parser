@@ -237,6 +237,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9bb3bd2_0e066900",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-15T06:55:47Z",
+      "side": 1,
+      "message": "Why checking only for inventory path and not i_unexpandedLocationCode, i_pos as these are required to get expanded location code",
+      "revId": "56e902a64da84081d3989be11fcd79b01b2c0861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04c6fc45_9212a500",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 10
