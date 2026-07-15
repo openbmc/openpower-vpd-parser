@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8a2018_b9b01d07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-15T12:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdb435d4_688ea18e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "53ae1b4d4a3f1000ac9744ea638aef1933f44611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8ceb2a6_9fbe804c",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-15T12:30:25Z",
       "side": 1,
       "message": "Error codes used to return error codes, a bit confusing to read. Could you please re-phrase.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "53ae1b4d4a3f1000ac9744ea638aef1933f44611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b042077b_13bee396",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-15T12:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8ceb2a6_9fbe804c",
       "range": {
         "startLine": 13,
         "startChar": 0,
