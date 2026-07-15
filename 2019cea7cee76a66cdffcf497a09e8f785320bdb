@@ -81,6 +81,24 @@
       "parentUuid": "f6071e6f_cef733db",
       "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d5aeb35_1812367a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-15T05:14:04Z",
+      "side": 1,
+      "message": "This has been addressed by patch 92337: ConfigManager:getJsonObj:handle invalid input path | https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/92337",
+      "parentUuid": "af78e845_f55f694d",
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
