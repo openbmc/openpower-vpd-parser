@@ -136,6 +136,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c1a15f_76e70e0b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T13:06:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "472d30a2_8e638d3b",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ca88fc3_d184b361",
@@ -224,6 +242,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7406b5c_fb287985",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T13:06:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629e128f_69ec562e",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac735138_9ea3cd60",
@@ -273,6 +309,24 @@
       "side": 1,
       "message": "Location code can be used in multiple places across the repository. In future, if \"fcs\" string changes, we have to make changes across the repository. If we define these in `constants.hpp` , future changes become simpler.",
       "parentUuid": "c1a2672f_ea189526",
+      "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdb48b13_6df109ad",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T13:06:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad23a99f_82f552e5",
       "revId": "9bda0c0f0a057bf552e95bedc09e7d5514ae0eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
