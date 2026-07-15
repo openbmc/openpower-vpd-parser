@@ -225,6 +225,15 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // Create entry in EEPROM to chassis ID map
         m_eepromToChassisIdMap.emplace(l_eepromPath, l_chassisId);
 
+        // If the base sub-FRU has a redundant EEPROM, map it to the same
+        // chassis ID so it can be looked up like any primary EEPROM path.
+        const auto l_redundantEeprom =
+            l_subFruJsonArray.at(0).value("redundantEeprom", "");
+        if (!l_redundantEeprom.empty())
+        {
+            m_eepromToChassisIdMap.emplace(l_redundantEeprom, l_chassisId);
+        }
+
         // Create entry in chassis to motherboard EEPROM map
         if (l_baseInvObjPath.ends_with("motherboard"))
         {
