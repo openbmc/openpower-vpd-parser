@@ -52,6 +52,24 @@
       "parentUuid": "308a2b9b_af57a292",
       "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "173e4f80_50c90630",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-15T09:24:09Z",
+      "side": 1,
+      "message": "commit says \"Enable Async PEL I2C Device callout\" why inventory callout details are changed ?",
+      "parentUuid": "3e3379bd_3a18a16e",
+      "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

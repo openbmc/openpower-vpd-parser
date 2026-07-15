@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f0a4cbe_ccca090a",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-15T09:24:09Z",
+      "side": 1,
+      "message": "I din\u0027t get why DeviceCalloutData type is changed, is Device Callout not taking CALLOUT_ERRNO along with CALLOUT_DEVICE_PATH ?",
+      "parentUuid": "6235d87d_3475ec12",
+      "revId": "2cfc37a1ce776860c7d217260a1414240d57ddde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4121673f_7d2bda68",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 3
