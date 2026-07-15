@@ -34,6 +34,24 @@
       "parentUuid": "2dabe7fb_62bbcf89",
       "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3379bd_3a18a16e",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-15T07:41:59Z",
+      "side": 1,
+      "message": "I didn\u0027t get these,\n\n1. why if there any types containing same declaration are not allowed with tuple ?\n2. To distinguish different callout types InventoryCalloutData, DeviceCalloutData, I2cBusCalloutData types are declared. if any callout type needs modification can be still done using exiting declaration itself.\n\nI agree why std::optional\u003ctypes::InventoryCalloutData\u003e is changed to using CalloutData \u003d std::variant\u003c\u003e to accommodate any callout type, i have no issue here.",
+      "parentUuid": "308a2b9b_af57a292",
+      "revId": "5ce19a322592d6178b9fe55eb472346f357b2f4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
