@@ -104,6 +104,24 @@ class ThreadManager
         std::mutex m_fruItrMutex; // Iterator protection
     };
 
+#ifdef IBM_SYSTEM
+    /**
+     * @brief Handle chassis having system VPD for FRUs collection.
+     *
+     * The API reads the Present property from D-Bus, calls updateSystemView,
+     * and pushes the result onto m_chassisResultQueue to notify the completion
+     * handler, as VPD for the chassis having system VPD is collected already.
+     *
+     * @param[in] i_chassisJson - Chassis JSON containing FRU configuration.
+     * @param[in] i_chassisId   - Chassis ID.
+     * @param[in] i_eepromPath  - EEPROM file path for the chassis containing
+     * VPD.
+     */
+    void handleChassisHavingSystemVpd(const nlohmann::json& i_chassisJson,
+                                      const std::string& i_chassisId,
+                                      const std::string& i_eepromPath) noexcept;
+#endif
+
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
 
