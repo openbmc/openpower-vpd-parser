@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6e3476_a715a107",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-15T12:03:17Z",
+      "side": 1,
+      "message": "Ok, we can look at it later to see if any refactoring can be done.",
+      "parentUuid": "a3d57cec_1e148de0",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 51
+      },
+      "revId": "2019cea7cee76a66cdffcf497a09e8f785320bdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6071e6f_cef733db",
