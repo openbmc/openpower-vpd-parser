@@ -16,6 +16,24 @@
       "message": "If both the call fails to get the kw value then we loose the error code of the first call as the second call will overwrite that.\nIn case first one fails, can we return from there itself? As there is no point getting second value, the location code will not get completely expanded.",
       "revId": "a0a5c02f0bce42e71a2050db9fc57d41bdf3c039",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a44bb232_f1fa177f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1663,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T11:30:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c3c389d9_caa957e4",
+      "revId": "a0a5c02f0bce42e71a2050db9fc57d41bdf3c039",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
