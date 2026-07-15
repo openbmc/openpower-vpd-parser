@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14c0991c_3efdf847",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T19:50:58Z",
+      "side": 1,
+      "message": "Because Our API has diff signatures, and we have 1 pelTuple to handle both types of callouts.\ncreateAsyncPelWithInventoryCallout(    \n    const std::optional\u003cstd::string\u003e i_userData1,\n    const std::optional\u003cstd::string\u003e i_userData2,) \n    \ncreateAsyncPelWithI2cDeviceCallout(\n    const std::optional\u003cstd::pair\u003cstd::string, std::string\u003e\u003e i_userData1,\n    const std::optional\u003cstd::pair\u003cstd::string, std::string\u003e\u003e i_userData2)\n\nEither userData OR createAsyncPelWithI2cDeviceCallout signature needs change here.",
+      "parentUuid": "8f5040ec_498fb885",
+      "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ce6672c_ed7acc3d",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "668010a3_8ed68cbb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T19:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce6672c_ed7acc3d",
+      "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fce43ba8_bf8cfdc0",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-15T10:29:50Z",
       "side": 1,
       "message": "Why we are changing callout type from inventory callout to i2c device callout?",
+      "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d15e20f_6871db7e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T19:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fce43ba8_bf8cfdc0",
       "revId": "39df5036e9d8bf2b0fd6116425b6f46af45a5996",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

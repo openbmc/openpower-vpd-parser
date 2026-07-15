@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b7a2c5d_fd99e66c",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T19:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f0a4cbe_ccca090a",
+      "revId": "2cfc37a1ce776860c7d217260a1414240d57ddde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4121673f_7d2bda68",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "Here  UserDataEntry is a variant of string OR pair of string.\n\nso far all the implementation had  i_userData1 as string.\nBut new implementation signature was defined as pair\u003cstring,string\u003e.\n\nI made this change to handle both the cases.\n\nAnd we can\u0027t use i_callout here, because user will send a set of info\u003cName:data\u003e as i_userData1 OR i_userData2. And we don\u0027t know what information user is sharing in ud1/ud2. so can\u0027t assume what is in ud1/ud2.",
       "parentUuid": "4121673f_7d2bda68",
+      "revId": "2cfc37a1ce776860c7d217260a1414240d57ddde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed7f43ba_5bb8735d",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-15T19:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57352da5_6abad43c",
       "revId": "2cfc37a1ce776860c7d217260a1414240d57ddde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
