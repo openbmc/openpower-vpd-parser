@@ -75,9 +75,6 @@ void ThreadManager::collectAllChassisVpd()
     for (const auto& [l_chassisId, l_eepromPath] :
          l_chassisToMotherboardEepromMap)
     {
-        // TODO: Add check to see if the eeprom path is SYSTEM_VPD_FILE_PATH and
-        // handle it accordingly.
-
         auto l_chassisToJsonItr = l_chassisIdToJsonMap.find(l_chassisId);
         if (l_chassisToJsonItr == l_chassisIdToJsonMap.end())
         {
@@ -120,9 +117,18 @@ void ThreadManager::collectAllChassisVpd()
                 Worker l_threadWorker;
 
                 uint16_t l_errCode = 0;
-                auto [l_isPresent, l_collectionStatus] =
-                    l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
-                                                 l_errCode);
+
+                bool l_isPresent = true;
+                std::string l_collectionStatus =
+                    constants::vpdCollectionCompleted;
+
+                // Skip collecting system VPD again
+                if (l_eepromPath != SYSTEM_VPD_FILE_PATH)
+                {
+                    std::tie(l_isPresent, l_collectionStatus) =
+                        l_threadWorker.collectFruVpd(l_eepromPath,
+                                                     l_chassisJson, l_errCode);
+                }
 
                 updateSystemView(l_chassisId, l_eepromPath, l_chassisJson,
                                  l_isPresent);
