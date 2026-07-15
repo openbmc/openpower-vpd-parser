@@ -198,7 +198,7 @@ Manager::Manager(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Manager class instantiation failed. " + std::string(l_ex.what()));
 
         m_logger->logMessage(
@@ -273,7 +273,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
     {
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get FRU path from JSON for [" + i_vpdPath +
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
@@ -295,7 +295,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
                     l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Write success, but backup and restore failed for file[" +
                     l_fruPath + "]");
             }
@@ -350,7 +350,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to update keyword on inherited FRUs for FRU [" +
                     l_fruPath +
                     "] , error : " + commonUtility::getErrCodeMsg(l_errCode));
@@ -387,8 +387,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
     }
     catch (const std::exception& l_exception)
     {
-        logging::logMessage("Update keyword failed for file[" + i_vpdPath +
-                            "], reason: " + std::string(l_exception.what()));
+        m_logger->logMessage("Update keyword failed for file[" + i_vpdPath +
+                             "], reason: " + std::string(l_exception.what()));
 
         m_logger->logMessage(
             std::string("Update keyword failed for file[") + i_vpdPath +
@@ -478,7 +478,7 @@ types::DbusVariantType Manager::readKeyword(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             l_ex.what() +
             std::string(". VPD manager read operation failed for ") +
             i_fruPath);
@@ -505,7 +505,7 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 
     if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
             std::string(i_dbusObjPath));
         return;
@@ -540,7 +540,7 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(l_ex.what());
+        m_logger->logMessage(l_ex.what());
 
         m_logger->logMessage(
             std::string("VPD manager delete operation failed for object[") +

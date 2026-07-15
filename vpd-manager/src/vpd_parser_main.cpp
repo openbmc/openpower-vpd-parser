@@ -47,7 +47,8 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
-        vpd::logging::logMessage("VPD file path received" + vpdFilePath);
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "VPD file path received" + vpdFilePath);
 
         // VPD file path is a mandatory parameter to execute any parser.
         if (vpdFilePath.empty())
@@ -61,7 +62,7 @@ int main(int argc, char** argv)
         // Below are two different ways of parsing the VPD.
         if (!configFilePath.empty())
         {
-            vpd::logging::logMessage(
+            vpd::Logger::getLoggerInstance()->logMessage(
                 "Processing with config file - " + configFilePath);
 
             std::shared_ptr<vpd::Worker> objWorker =
@@ -93,7 +94,7 @@ int main(int argc, char** argv)
     }
     catch (const std::exception& ex)
     {
-        vpd::logging::logMessage(ex.what());
+        vpd::Logger::getLoggerInstance()->logMessage(ex.what());
         return -1;
     }
 

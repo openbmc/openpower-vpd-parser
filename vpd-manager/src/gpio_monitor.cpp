@@ -27,7 +27,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
 
             if (l_errCode)
             {
-                logging::logMessage(std::format(
+                Logger::getLoggerInstance()->logMessage(std::format(
                     "Failed to collect FRU VPD for EEPROM [{}]. Present: {}, Status: {}, Error : {}",
                     m_fruPath, l_isPresent, l_collectionStatus,
                     commonUtility::getErrCodeMsg(l_errCode)));
@@ -51,7 +51,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
     }
     catch (std::exception& l_ex)
     {
-        logging::logMessage(std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(std::string(l_ex.what()));
     }
 }
 
@@ -61,14 +61,15 @@ void GpioEventHandler::handleTimerExpiry(
 {
     if (i_errorCode == boost::asio::error::operation_aborted)
     {
-        logging::logMessage("Timer aborted for GPIO pin");
+        Logger::getLoggerInstance()->logMessage("Timer aborted for GPIO pin");
         return;
     }
 
     if (i_errorCode)
     {
-        logging::logMessage("Timer wait failed for gpio pin" +
-                            std::string(i_errorCode.message()));
+        Logger::getLoggerInstance()->logMessage(
+            "Timer wait failed for gpio pin" +
+            std::string(i_errorCode.message()));
         return;
     }
 
@@ -78,9 +79,10 @@ void GpioEventHandler::handleTimerExpiry(
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
-        logging::logMessage("processGpioPresenceTag returned false for FRU [" +
-                            m_fruPath + "] Due to error. Reason: " +
-                            commonUtility::getErrCodeMsg(l_errCode));
+        Logger::getLoggerInstance()->logMessage(
+            "processGpioPresenceTag returned false for FRU [" + m_fruPath +
+            "] Due to error. Reason: " +
+            commonUtility::getErrCodeMsg(l_errCode));
     }
 
     if (m_prevPresencePinValue != l_currentPresencePinValue)
@@ -105,9 +107,10 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
-        logging::logMessage("processGpioPresenceTag returned false for FRU [" +
-                            m_fruPath + "] Due to error. Reason: " +
-                            commonUtility::getErrCodeMsg(l_errCode));
+        Logger::getLoggerInstance()->logMessage(
+            "processGpioPresenceTag returned false for FRU [" + m_fruPath +
+            "] Due to error. Reason: " +
+            commonUtility::getErrCodeMsg(l_errCode));
     }
 
     static std::vector<std::shared_ptr<boost::asio::steady_timer>> l_timers;
@@ -140,7 +143,7 @@ void GpioMonitor::initHandlerForGpio(
 
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to get list of frus required for gpio polling. Error : " +
             commonUtility::getErrCodeMsg(l_errCode));
         return;
