@@ -169,6 +169,30 @@
       },
       "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55f684ee_57d4beca",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T14:29:28Z",
+      "side": 1,
+      "message": "We discussed this, and keeping it as -\nFind for Record VCEN  in parsed VPD, per sub-FRU in getFcsExpandedLc \nIf found read keywords, if not found, go for Dbus calls.",
+      "parentUuid": "6a09a850_11b50713",
+      "range": {
+        "startLine": 1654,
+        "startChar": 12,
+        "endLine": 1676,
+        "endChar": 13
+      },
+      "revId": "9b3058b85b84bc28a61e7d888017d7d0bdb836cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
