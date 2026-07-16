@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de2d8777_e07b9929",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-16T13:05:49Z",
+      "side": 1,
+      "message": "The whole ideal behind defining things in constant is to give a meaningful name which conveys what it actually means.\nIn case \"3\" actually means \"3\" then VALUE_3 makes sense else \"LOCATION_CODE_PREFIX_LENGTH\" makes more sense as it tells what that 3 actually means in this context.\n\nI would prefer \"LOCATION_CODE_PREFIX_LENGTH\".",
+      "parentUuid": "e102f34e_43e88307",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "460ad9f6_03fa3ddf",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3874fa98_1b598d72",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-16T13:05:49Z",
+      "side": 1,
+      "message": "I agree with the current implementation. Reason same as above.",
+      "parentUuid": "b438dacd_37178021",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ffff1bd_c38a68ed",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -88,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "954b69ce_d25fad7f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-16T13:05:49Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "3ffff1bd_c38a68ed",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b6bdd30_4917a121",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -99,6 +153,24 @@
       "writtenOn": "2026-07-16T09:46:50Z",
       "side": 1,
       "message": "can we log the error here, else we cannot know what is the exception thrown?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "795f5349_97784373",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-16T13:05:49Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5b6bdd30_4917a121",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
