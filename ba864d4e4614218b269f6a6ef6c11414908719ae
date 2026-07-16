@@ -16,6 +16,24 @@
       "message": "Is this conversion required? Can we use error_code as the error type in std::expected instead of uint16_t? That would avoid the explicit conversion here.",
       "revId": "ba864d4e4614218b269f6a6ef6c11414908719ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "955e5345_4ab25389",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1531,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T07:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66879e79_40d6159f",
+      "revId": "ba864d4e4614218b269f6a6ef6c11414908719ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
