@@ -3,6 +3,91 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8480ab99_6f74519c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "Test section needs to update with expanded location code",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e102f34e_43e88307",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "not getting meaning from LOCATION_CODE_PREFIX_LENGTH ?\n should we just use VALUE_3, which is already there in constants.",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "460ad9f6_03fa3ddf",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "leaving comment saying, \"fcs\" is replaced with 4 bytes of VCEN:FC value would be helpful to understand.",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b438dacd_37178021",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "should we use VALUE_0 instead ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffff1bd_c38a68ed",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "should we use VALUE_4 ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b6bdd30_4917a121",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -14,6 +99,23 @@
       "writtenOn": "2026-07-16T09:46:50Z",
       "side": 1,
       "message": "can we log the error here, else we cannot know what is the exception thrown?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "908460c8_61cc5ddc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "Nit: add VSYS record",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -37,6 +139,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5256675_be732e15",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "exception info is missing in doxygen otherwise api should be marked as noexcept.",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cae3ad69_fbfad065",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -54,6 +173,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33bc1154_f6e295a6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "if keyword not found getKwVal() sets error code to KEYWORD_NOT_FOUND\n\nso, checking l_errCode would be enough here ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80947f51_7b83e9a3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "why static_cast is required ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4131000a_5b091d98",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -65,6 +218,40 @@
       "writtenOn": "2026-07-16T09:46:50Z",
       "side": 1,
       "message": "same here",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e782ff_c0605114",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "why static_cast is required ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a80e5ee_0cdf4af5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-16T10:32:38Z",
+      "side": 1,
+      "message": "todo should be present before return right ?",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
