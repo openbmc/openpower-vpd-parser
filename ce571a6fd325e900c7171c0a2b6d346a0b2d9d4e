@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1829e003_151548f0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-16T10:32:48Z",
+      "side": 1,
+      "message": "Can we use error_code as the error type in std::expected instead of uint16_t? That would avoid the explicit conversion.",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd752a3_588a79c1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1647,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-16T10:32:48Z",
+      "side": 1,
+      "message": "why to set error code here, it is getting overridden at line number 1657 and 1665?",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da7ef7e_0f9acf78",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1648,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-16T10:32:48Z",
+      "side": 1,
+      "message": "Is this log required?\nIf DBus fails we try to get value from map\n\nFor all the chassis we cannot get value from DBus, then for every chassis expansion there will be one log",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67339b62_fea86179",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-16T10:32:48Z",
+      "side": 1,
+      "message": "If keyword is not found in map, getKwVal API returns KEYWORD_NOT_FOUND error code\nso just check for error code and return the same error code?\n\nreturn can be simplified to \"return std::unexpected(l_errCode)\"?",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "032c4a0e_61377fd1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-16T10:32:48Z",
+      "side": 1,
+      "message": "Can we use VALUE_4?",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
