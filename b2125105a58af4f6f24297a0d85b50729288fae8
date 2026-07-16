@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21da1bf6_a339062a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "LOCATION_CODE_PREFIX_LENGTH \u003d length of (\"MTS\"/\"FCS\")\n\n i_unexpandedLocationCode.substr( i_pos + constants::VALUE_3);\nIf we have to use same existing constant, ok but above one is not giving clear meaning.\n\ni_unexpandedLocationCode.substr(i_pos + constants::LOCATION_CODE_PREFIX_LENGTH);\nwhere this is clearly says- get substring after PREFIX_LENGTH.\n\nIf in future we would have some other prefix, we can simply modify in constants, but using some particular value like VALUE_3 need modification at each implementation.",
+      "parentUuid": "e102f34e_43e88307",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "460ad9f6_03fa3ddf",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -84,6 +102,24 @@
       "writtenOn": "2026-07-16T10:32:38Z",
       "side": 1,
       "message": "leaving comment saying, \"fcs\" is replaced with 4 bytes of VCEN:FC value would be helpful to understand.",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bdadbc7_627841d5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "460ad9f6_03fa3ddf",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +154,24 @@
       "writtenOn": "2026-07-16T13:05:49Z",
       "side": 1,
       "message": "I agree with the current implementation. Reason same as above.",
+      "parentUuid": "b438dacd_37178021",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "522f1bf9_78137fa1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "same explanation as above",
       "parentUuid": "b438dacd_37178021",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -160,6 +214,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8ac185c_489ae159",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "same explanation as above",
+      "parentUuid": "3ffff1bd_c38a68ed",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b6bdd30_4917a121",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -193,6 +265,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed3cb35_e8d8d548",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "Will return error code here.",
+      "parentUuid": "5b6bdd30_4917a121",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "908460c8_61cc5ddc",
@@ -206,6 +296,24 @@
       "writtenOn": "2026-07-16T10:32:38Z",
       "side": 1,
       "message": "Nit: add VSYS record",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1bb2955_cde5114a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "Reads VSYS-TM and VSYS-SE value?",
+      "parentUuid": "908460c8_61cc5ddc",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -229,6 +337,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d292f8d5_a0b7629c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "error_codes are enum and an enum value can implicitly be converted to a uint16_t.\nNo need of explicit type_cast.",
+      "parentUuid": "e005eeb8_50e3a6ca",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5256675_be732e15",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -240,6 +366,24 @@
       "writtenOn": "2026-07-16T10:32:38Z",
       "side": 1,
       "message": "exception info is missing in doxygen otherwise api should be marked as noexcept.",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac400811_328ab415",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "yes, it will bypass the exception to caller.",
+      "parentUuid": "d5256675_be732e15",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -280,6 +424,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f7152f3_f02ca67c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "What If keyword is found but data in EEPROM is BLANK. then also we can\u0027t go ahead. so returning here with errorCode.\n\"so just check for error code \"",
+      "parentUuid": "cae3ad69_fbfad065",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ffb9da_28384f3e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "What If keyword is found but data in EEPROM is BLANK. then also we can\u0027t go ahead. so returning here with errorCode.\n\" checking l_errCode would be enough here ?\"",
+      "parentUuid": "33bc1154_f6e295a6",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80947f51_7b83e9a3",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -314,6 +494,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0039ffe_668b9124",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "What If keyword is found but data in EEPROM is BLANK. then also we can\u0027t go ahead. so returning here with errorCode.\n\"so just check for error code \"",
+      "parentUuid": "4131000a_5b091d98",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5e782ff_c0605114",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
@@ -342,6 +540,24 @@
       "writtenOn": "2026-07-16T10:32:38Z",
       "side": 1,
       "message": "todo should be present before return right ?",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d26f8d4e_04b16afb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-16T13:13:03Z",
+      "side": 1,
+      "message": "This return is temporary, so shouldn\u0027t matter.",
+      "parentUuid": "7a80e5ee_0cdf4af5",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
