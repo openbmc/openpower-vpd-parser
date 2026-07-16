@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13eb8342_933dfeea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-16T13:06:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "8480ab99_6f74519c",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e102f34e_43e88307",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 15
