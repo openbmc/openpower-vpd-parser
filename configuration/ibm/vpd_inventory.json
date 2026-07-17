@@ -85,6 +85,20 @@
                     }
                 }
             }
+        ],
+        "/sys/bus/i2c/drivers/at24/8-0053/eeprom": [
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "isSystemVpd": true
+            }
+        ],
+        "/sys/bus/i2c/drivers/at24/32-0051/eeprom": [
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "isSystemVpd": true
+            }
         ]
     }
 }
