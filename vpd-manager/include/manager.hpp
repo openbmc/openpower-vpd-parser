@@ -264,17 +264,6 @@ class Manager
     void deleteAllFRUVPD() const noexcept;
 
     /**
-     * @brief Get the Worker object .
-     *
-     * @return A const reference to the shared pointer holding the Worker
-     * object.
-     */
-    inline const std::shared_ptr<Worker>& getWorkerObj() const
-    {
-        return m_worker;
-    }
-
-    /**
      * @brief Checks whether the primary EEPROM's VPD matches that of its
      * redundant EEPROM.
      *

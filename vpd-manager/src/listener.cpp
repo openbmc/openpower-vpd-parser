@@ -284,8 +284,9 @@ void Listener::presentPropertyChangeCallback(
             const auto& l_chassisJson =
                 m_configManager->getJsonObj(l_objectPath);
 
-            *l_present ? Worker{}.collectSingleFruVpd(l_objectPath)
-                       : Worker{}.deleteFruVpd(l_chassisJson, l_objectPath);
+            *l_present
+                ? Worker{}.collectSingleFruVpd(l_chassisJson, l_objectPath)
+                : Worker{}.deleteFruVpd(l_chassisJson, l_objectPath);
         }
         else
         {
