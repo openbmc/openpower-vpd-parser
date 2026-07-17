@@ -152,7 +152,8 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
  * @param[in] i_keywordName - Keyword to be read.
  * @param[in] i_filePath - File path to save keyword's read value.
  *
- * @return On success return 0, otherwise return -1.
+ * @return On success return number of bytes read, corresponding error code
+ * incase of exception/error.
  */
 int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
                 const std::string& i_recordName,
@@ -162,17 +163,20 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
 
     if (!i_hardwareFlag->empty() && !std::filesystem::exists(i_vpdPath, l_ec))
     {
-        std::string l_errMessage{
-            "Given EEPROM file path doesn't exist : " + i_vpdPath};
-
         if (l_ec)
         {
-            l_errMessage += ". filesystem call exists failed, reason: " +
-                            l_ec.message();
+            std::cerr
+                << std::format(
+                       "Filesystem call exists failed for path {}, reason: {}",
+                       i_vpdPath, l_ec.message())
+                << std::endl;
+            return static_cast<int>(vpd::ErrorCode::FILE_SYSTEM_ERROR);
         }
 
-        std::cerr << l_errMessage << std::endl;
-        return vpd::constants::FAILURE;
+        std::cerr << std::format("Given EEPROM file path {} doesn't exist.",
+                                 i_vpdPath)
+                  << std::endl;
+        return static_cast<int>(vpd::ErrorCode::EEPROM_PATH_NOT_FOUND);
     }
 
     bool l_isHardwareOperation = (!i_hardwareFlag->empty() ? true : false);
