@@ -2,6 +2,7 @@
 #include "parser.hpp"
 #include "parser_interface.hpp"
 #include "types.hpp"
+#include "utility/json_utility.hpp"
 #include "worker.hpp"
 
 #include <CLI/CLI.hpp>
@@ -64,11 +65,22 @@ int main(int argc, char** argv)
             vpd::logging::logMessage(
                 "Processing with config file - " + configFilePath);
 
+            uint16_t l_errCode{0};
+            nlohmann::json json =
+                vpd::jsonUtility::getParsedJson(configFilePath, l_errCode);
+
+            if (l_errCode)
+            {
+                throw std::runtime_error(std::format(
+                    "JSON parsing for {} failed. reason: {}", configFilePath,
+                    vpd::commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
             std::shared_ptr<vpd::Worker> objWorker =
-                std::make_shared<vpd::Worker>(configFilePath);
+                std::make_shared<vpd::Worker>();
             bool l_presenceState = false;
-            parsedVpdDataMap =
-                objWorker->parseVpdFile(vpdFilePath, false, l_presenceState);
+            parsedVpdDataMap = objWorker->parseVpdFile(json, vpdFilePath, false,
+                                                       l_presenceState);
 
             // Based on requirement, call appropriate public API of worker class
             /*If required to publish the FRU data on Dbus*/

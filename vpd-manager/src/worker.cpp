@@ -26,38 +26,6 @@
 namespace vpd
 {
 
-Worker::Worker(std::string pathToConfigJson,
-               types::VpdCollectionMode i_vpdCollectionMode) :
-    m_configJsonPath(pathToConfigJson),
-    m_vpdCollectionMode(i_vpdCollectionMode),
-    m_logger(Logger::getLoggerInstance())
-{
-    // Implies the processing is based on some config JSON
-    if (!m_configJsonPath.empty())
-    {
-        uint16_t l_errCode = 0;
-        m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
-
-        if (l_errCode)
-        {
-            throw JsonException("JSON parsing failed. error : " +
-                                    commonUtility::getErrCodeMsg(l_errCode),
-                                m_configJsonPath);
-        }
-
-        // check for mandatory fields at this point itself.
-        if (!m_parsedJson.contains("frus"))
-        {
-            throw JsonException("Mandatory tag(s) missing from JSON",
-                                m_configJsonPath);
-        }
-    }
-    else
-    {
-        logging::logMessage("Processing in not based on any config JSON");
-    }
-}
-
 void Worker::populateIPZVPDpropertyMap(
     types::InterfaceMap& interfacePropMap,
     const types::IPZKwdValueMap& keyordValueMap,
@@ -605,10 +573,13 @@ void Worker::processEnabledProperty(const std::string& i_inventoryObjPath,
     return;
 }
 
-void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
+void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
+                          const types::VPDMapVariant& parsedVpdMap,
                           types::ObjectMap& objectInterfaceMap,
                           const std::string& vpdFilePath)
 {
+    m_parsedJson = i_configJsonObj;
+
     if (vpdFilePath.empty())
     {
         throw std::runtime_error(
@@ -804,10 +775,11 @@ bool Worker::processPostAction(
     return true;
 }
 
-types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
-                                          const bool& i_processRedundant,
-                                          bool& o_presenceState)
+types::VPDMapVariant Worker::parseVpdFile(
+    const nlohmann::json& i_configJsonObj, const std::string& i_vpdFilePath,
+    const bool& i_processRedundant, bool& o_presenceState)
 {
+    m_parsedJson = i_configJsonObj;
     o_presenceState = false;
     try
     {
@@ -1007,8 +979,8 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        const types::VPDMapVariant& parsedVpdMap =
-            parseVpdFile(i_vpdFilePath, i_processRedundant, l_presenceState);
+        const types::VPDMapVariant& parsedVpdMap = parseVpdFile(
+            m_parsedJson, i_vpdFilePath, i_processRedundant, l_presenceState);
 
         if (isPresentPropertyHandlingRequired(
                 m_parsedJson["frus"][i_vpdFilePath].at(0)))
@@ -1019,7 +991,8 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
-            populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
+            populateDbus(m_parsedJson, parsedVpdMap, objectInterfaceMap,
+                         i_vpdFilePath);
 
             // Call dbus method to update on dbus
             if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
@@ -1471,7 +1444,8 @@ void Worker::performVpdRecollection(
     }
 }
 
-void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
+                                 const sdbusplus::object_path& i_dbusObjPath)
 {
     std::string l_fruPath{};
     uint16_t l_errCode = 0;
@@ -1479,14 +1453,15 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
     try
     {
         // Check if system config JSON is present
-        if (m_parsedJson.empty())
+        if (i_configJsonObj.empty())
         {
             logging::logMessage(
-                "System config JSON object not present. Single FRU VPD collection is not performed for " +
+                "Empty configuration JSON provided. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
             return;
         }
 
+        m_parsedJson = i_configJsonObj;
         // Get FRU path for the given D-bus object path from JSON
         l_fruPath = jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath,
                                                     l_errCode);
@@ -1584,7 +1559,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         // Parse VPD
         bool l_fruPresenceState = false;
         types::VPDMapVariant l_parsedVpd =
-            parseVpdFile(l_fruPath, false, l_fruPresenceState);
+            parseVpdFile(m_parsedJson, l_fruPath, false, l_fruPresenceState);
 
         if (isPresentPropertyHandlingRequired(
                 m_parsedJson["frus"][l_fruPath].at(0)))
@@ -1618,7 +1593,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             types::ObjectMap l_dbusObjectMap;
             // Get D-bus object map from worker class
-            populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
+            populateDbus(m_parsedJson, l_parsedVpd, l_dbusObjectMap, l_fruPath);
 
             if (l_dbusObjectMap.empty())
             {
@@ -1753,8 +1728,8 @@ bool Worker::processRedundantPreAction(
     try
     {
         bool l_presenceState = false;
-        const types::VPDMapVariant& parsedVpdMap =
-            parseVpdFile(i_eepromFilePath, false, l_presenceState);
+        const types::VPDMapVariant& parsedVpdMap = parseVpdFile(
+            m_parsedJson, i_eepromFilePath, false, l_presenceState);
         return true;
     }
     catch (const std::exception& l_ex)
