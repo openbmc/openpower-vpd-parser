@@ -166,7 +166,7 @@ Manager::Manager(
         readVpdCollectionMode();
 
         m_ibmHandler = std::make_shared<IbmHandler>(
-            m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
+            m_backupAndRestoreObj, m_interface, m_progressInterface,
             m_ioContext, m_asioConnection, m_vpdCollectionMode);
 
         // once IBM handler is initialized, the symlink points to the
@@ -176,7 +176,6 @@ Manager::Manager(
         m_configManager =
             ConfigManager::initialize(l_configMgrKey, INVENTORY_JSON_SYM_LINK);
 #else
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_progressInterface->set_property(
             "Status", std::string(constants::vpdCollectionCompleted));
 #endif
@@ -537,10 +536,19 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         return;
     }
 
-    if (m_worker.get() != nullptr)
+    const auto l_configJsonResult =
+        m_configManager->getJsonObj(std::string(i_dbusObjPath));
+
+    if (!l_configJsonResult.has_value())
     {
-        m_worker->collectSingleFruVpd(i_dbusObjPath);
+        logging::logMessage(std::format(
+            "Failed to get JSON for path {}. Error: {}, can't collect VPD.",
+            std::string(i_dbusObjPath),
+            commonUtility::getErrCodeMsg(l_configJsonResult.error())));
     }
+
+    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),
+                                 i_dbusObjPath);
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)

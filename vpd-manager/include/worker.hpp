@@ -44,15 +44,13 @@ class Worker
      * Constructor will also, based on symlink pick the correct JSON and
      * initialize the parsed JSON variable.
      *
-     * @param[in] pathToConfigJSON - Path to the config JSON, if applicable.
      * @param[in] i_vpdCollectionMode - Mode in which VPD collection should take
      * place.
      *
      * Note: Throws std::exception in case of construction failure. Caller needs
      * to handle to detect successful object creation.
      */
-    Worker(std::string pathToConfigJson = std::string(),
-           types::VpdCollectionMode i_vpdCollectionMode =
+    Worker(types::VpdCollectionMode i_vpdCollectionMode =
                types::VpdCollectionMode::DEFAULT_MODE);
 
     /**
@@ -63,6 +61,7 @@ class Worker
     /**
      * @brief API to parse VPD data
      *
+     * @param[in] i_configJsonObj - Config json object.
      * @param[in] i_vpdFilePath - Path to the VPD file.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
      * EEPROM path.
@@ -73,9 +72,9 @@ class Worker
      * only the FRU pre-action is performed and VPD collection, post-action
      * actions are skipped.
      */
-    types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath,
-                                      const bool& i_processRedundant,
-                                      bool& o_presenceState);
+    types::VPDMapVariant parseVpdFile(
+        const nlohmann::json& i_configJsonObj, const std::string& i_vpdFilePath,
+        const bool& i_processRedundant, bool& o_presenceState);
 
     /**
      * @brief An API to populate DBus interfaces for a FRU.
@@ -83,11 +82,13 @@ class Worker
      * Note: Call this API to populate D-Bus. Also caller should handle empty
      * objectInterfaceMap.
      *
+     * @param[in] i_configJsonObj - Config json object.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] objectInterfaceMap - Object and its interfaces map.
      * @param[in] vpdFilePath - EEPROM path of FRU.
      */
-    void populateDbus(const types::VPDMapVariant& parsedVpdMap,
+    void populateDbus(const nlohmann::json& i_configJsonObj,
+                      const types::VPDMapVariant& parsedVpdMap,
                       types::ObjectMap& objectInterfaceMap,
                       const std::string& vpdFilePath);
 
@@ -135,9 +136,11 @@ class Worker
      * current state of the system matches with the state at which the FRU is
      * allowed for VPD recollection.
      *
+     * @param[in] i_configJsonObj - Config Json object.
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
+                             const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection
@@ -489,7 +492,7 @@ class Worker
     nlohmann::json m_parsedJson{};
 
     // Path to config JSON if applicable.
-    std::string& m_configJsonPath;
+    std::string m_configJsonPath{};
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
