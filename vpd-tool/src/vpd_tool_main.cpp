@@ -172,7 +172,7 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
         }
 
         std::cerr << l_errMessage << std::endl;
-        return vpd::constants::FAILURE;
+        return static_cast<int>(vpd::ErrorCode::FILE_SYSTEM_ERROR);
     }
 
     bool l_isHardwareOperation = (!i_hardwareFlag->empty() ? true : false);

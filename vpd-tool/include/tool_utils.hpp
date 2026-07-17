@@ -269,8 +269,8 @@ inline bool validateRedundantEeprom(const std::string& i_fruPath)
  *
  * @return - true on successfully writing to file, false otherwise.
  */
-inline bool saveToFile(const std::string& i_filePath,
-                       const std::string& i_keywordValue)
+inline std::expected<bool, int> saveToFile(const std::string& i_filePath,
+                                           const std::string& i_keywordValue)
 {
     bool l_returnStatus = false;
 
@@ -280,7 +280,8 @@ inline bool saveToFile(const std::string& i_filePath,
         std::cerr << "Save to file[ " << i_filePath
                   << "] failed, reason: Empty keyword's value received"
                   << std::endl;
-        return l_returnStatus;
+        return std::unexpected(
+            static_cast<int>(ErrorCode::KEYWORD_VALUE_NOT_PROVIDED));
     }
 
     std::string l_keywordValue{i_keywordValue};
@@ -307,6 +308,8 @@ inline bool saveToFile(const std::string& i_filePath,
             // ToDo: log only when verbose is enabled
             std::cerr << "Error opening output file " << i_filePath
                       << std::endl;
+            return std::unexpected(
+                static_cast<int>(ErrorCode::FILE_SYSTEM_ERROR));
         }
     }
     catch (const std::ios_base::failure& l_ex)
@@ -316,6 +319,7 @@ inline bool saveToFile(const std::string& i_filePath,
             << "Failed to write to file: " << i_filePath
             << ", either base folder path doesn't exist or internal error occurred, error: "
             << l_ex.what() << '\n';
+        return std::unexpected(static_cast<int>(ErrorCode::STANDARD_EXCEPTION));
     }
 
     return l_returnStatus;
