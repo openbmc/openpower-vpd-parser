@@ -389,6 +389,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00910aaa_8d6ab563",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:32:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d292f8d5_a0b7629c",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5256675_be732e15",
@@ -512,6 +530,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11125291_a9c5ec02",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:32:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f7152f3_f02ca67c",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80947f51_7b83e9a3",
@@ -578,6 +614,24 @@
       "side": 1,
       "message": "What If keyword is found but data in EEPROM is BLANK. then also we can\u0027t go ahead. so returning here with errorCode.\n\"so just check for error code \"",
       "parentUuid": "4131000a_5b091d98",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50948212_d08fab52",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:32:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e0039ffe_668b9124",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
