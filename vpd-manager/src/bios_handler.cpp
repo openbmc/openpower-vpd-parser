@@ -83,12 +83,14 @@ void BiosHandler<T>::listenBiosAttributes()
 IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
     m_manager(i_manager), m_logger(Logger::getLoggerInstance())
 {
-    const std::shared_ptr<Worker>& l_workerObj = m_manager->getWorkerObj();
-    if (!l_workerObj)
+    const std::shared_ptr<ConfigManager>& l_configManager =
+        ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        throw std::runtime_error("Worker object is null in IbmBiosHandler");
+        throw std::runtime_error(
+            "ConfigManager object is null in IbmBiosHandler");
     }
-    nlohmann::json l_sysCfgJsonObj = l_workerObj->getSysCfgJsonObj();
+    nlohmann::json l_sysCfgJsonObj = l_configManager->getJsonObj();
 
     if (l_sysCfgJsonObj.empty())
     {
