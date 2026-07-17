@@ -885,6 +885,34 @@ void IbmHandler::setDeviceTreeAndJson(
         {
             throw EepromException("System VPD parsing failed");
         }
+
+        // Log a TEST SYNC PEL
+        m_logger->logMessage(
+            l_primaryError + std::format(" Log a TEST Sync PEL for path [{}].",
+                                         l_systemVpdPath),
+            PlaceHolder::SYNC_PEL_WITH_I2C_DEV_CALLOUT,
+            types::PelInfoTuple{
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                std::optional<types::CalloutData>{types::DeviceCalloutData{
+                    std::filesystem::path(l_systemVpdPath)
+                        .parent_path()
+                        .string(),
+                    constants::ERRNO_2}}});
+
+        // Log a Test ASYNC PEL
+        m_logger->logMessage(
+            l_primaryError + std::format(" Log a TEST Async PEL for path [{}].",
+                                         l_systemVpdPath),
+            PlaceHolder::ASYNC_PEL_WITH_I2C_DEV_CALLOUT,
+            types::PelInfoTuple{
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                std::optional<types::CalloutData>{types::DeviceCalloutData{
+                    std::filesystem::path(l_systemVpdPath)
+                        .parent_path()
+                        .string(),
+                    constants::ERRNO_2}}});
     }
     catch (const std::exception& l_ex)
     {
