@@ -295,7 +295,8 @@ void Listener::presentPropertyChangeCallback(
             }
 
             *l_present
-                ? Worker{}.collectSingleFruVpd(l_objectPath)
+                ? Worker{}.collectSingleFruVpd(
+                      l_chassisJsonResult.value().get(), l_objectPath)
                 : Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
                                         l_objectPath);
         }
