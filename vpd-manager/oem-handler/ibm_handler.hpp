@@ -4,7 +4,6 @@
 #include "gpio_monitor.hpp"
 #include "listener.hpp"
 #include "logger.hpp"
-#include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
 
@@ -31,7 +30,6 @@ class IbmHandler
     /**
      * @brief Constructor.
      *
-     * @param[in] o_worker - Reference to worker class object.
      * @param[in] o_backupAndRestoreObj - Ref to back up and restore class
      * object.
      * @param[in] i_iFace - interface to implement.
@@ -41,7 +39,6 @@ class IbmHandler
      * @param[in] i_vpdCollectionMode - VPD collection mode.
      */
     IbmHandler(
-        std::shared_ptr<Worker>& o_worker,
         std::shared_ptr<BackupAndRestore>& o_backupAndRestoreObj,
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
@@ -174,13 +171,6 @@ class IbmHandler
     void setJsonSymbolicLink(const std::string& i_systemJson);
 
     /**
-     * @brief API to initialize worker object.
-     *
-     * @throws std::runtime_error.
-     */
-    void initWorker();
-
-    /**
      * @brief API to set environment variable and reboot the BMC
      *
      * @param[in] i_key - Name of the environment variable
@@ -240,9 +230,6 @@ class IbmHandler
 
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
-
-    // Shared pointer to worker class
-    std::shared_ptr<Worker>& m_worker;
 
     // Shared pointer to backup and restore object.
     std::shared_ptr<BackupAndRestore>& m_backupAndRestoreObj;
