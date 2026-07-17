@@ -247,7 +247,8 @@ class VpdTool
      * @param[in] i_fileToSave - File path to save keyword's value, if not given
      * result will redirect to a console.
      *
-     * @return On success return 0, otherwise return -1.
+     * @return On success return number of bytes read, corresponding error code
+     * is returned incase of exception.
      */
     int readKeyword(const std::string& i_vpdPath,
                     const std::string& i_recordName,
