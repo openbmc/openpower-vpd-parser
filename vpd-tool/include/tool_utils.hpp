@@ -35,11 +35,10 @@ namespace utils
  * @param[in] i_interface - Interface under which property exist.
  * @param[in] i_property - Property whose value is to be read.
  *
- * @return - Value read from Dbus.
- *
- * @throw std::runtime_error
+ * @return - On Success, value read from Dbus. Corresponding error code in
+ * failure case.
  */
-inline types::DbusVariantType readDbusProperty(
+inline std::expected<types::DbusVariantType, ErrorCode> readDbusProperty(
     const std::string& i_serviceName, const std::string& i_objectPath,
     const std::string& i_interface, const std::string& i_property)
 {
@@ -50,9 +49,8 @@ inline types::DbusVariantType readDbusProperty(
         i_property.empty())
     {
         // TODO: Enable logging when verbose is enabled.
-        /*std::cout << "One of the parameter to make Dbus read call is empty."
-                  << std::endl;*/
-        throw std::runtime_error("Empty Parameter");
+        std::cerr << "Received empty input parameter" << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
     try
@@ -69,8 +67,12 @@ inline types::DbusVariantType readDbusProperty(
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        // std::cout << std::string(l_ex.what()) << std::endl;
-        throw std::runtime_error(std::string(l_ex.what()));
+        std::cerr
+            << std::format(
+                   "Failed to read value [{}] from path [{}] from DBus, error : {}.",
+                   i_property, i_objectPath, l_ex.what())
+            << std::endl;
+        return std::unexpected(ErrorCode::DBUS_CALL_FAILED);
     }
     return l_propertyValue;
 }
@@ -188,17 +190,17 @@ inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue)
  * @param[in] i_eepromPath - EEPROM file path.
  * @param[in] i_paramsToReadData - Property whose value has to be read.
  *
- * @return - Value read from hardware
- *
- * @throw std::runtime_error, sdbusplus::exception::SdBusError
+ * @return - Value read from hardware. Corresponding error code is returned in
+ * failure case.
  */
-inline types::DbusVariantType readKeywordFromHardware(
+inline std::expected<types::DbusVariantType, ErrorCode> readKeywordFromHardware(
     const std::string& i_eepromPath,
     const types::ReadVpdParams i_paramsToReadData)
 {
     if (i_eepromPath.empty())
     {
-        throw std::runtime_error("Empty EEPROM path");
+        std::cerr << "Received empty EEPROM path";
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
     try
@@ -220,7 +222,26 @@ inline types::DbusVariantType readKeywordFromHardware(
     }
     catch (const sdbusplus::exception::internal_exception& l_error)
     {
-        throw;
+        std::string l_recordKeywordName;
+
+        if (std::holds_alternative<types::IpzType>(i_paramsToReadData))
+        {
+            const auto& [l_record, l_keyword] =
+                std::get<types::IpzType>(i_paramsToReadData);
+
+            l_recordKeywordName = std::format("[{} : {}]", l_record, l_keyword);
+        }
+        else if (std::holds_alternative<std::string>(i_paramsToReadData))
+        {
+            l_recordKeywordName =
+                std::format("[{}]", std::get<std::string>(i_paramsToReadData));
+        }
+
+        std::cerr << std::format("Failed to read {} from path {}, error : {}.",
+                                 l_recordKeywordName, i_eepromPath,
+                                 l_error.what())
+                  << std::endl;
+        return std::unexpected(ErrorCode::DBUS_CALL_FAILED);
     }
 }
 
@@ -267,10 +288,11 @@ inline bool validateRedundantEeprom(const std::string& i_fruPath)
  * @param[in] i_filePath - File path.
  * @param[in] i_keywordValue - Keyword's value.
  *
- * @return - true on successfully writing to file, false otherwise.
+ * @return - true on successfully writing to file. Corresponding error code
+ * incase of exception.
  */
-inline bool saveToFile(const std::string& i_filePath,
-                       const std::string& i_keywordValue)
+inline std::expected<bool, ErrorCode> saveToFile(
+    const std::string& i_filePath, const std::string& i_keywordValue)
 {
     bool l_returnStatus = false;
 
@@ -280,7 +302,7 @@ inline bool saveToFile(const std::string& i_filePath,
         std::cerr << "Save to file[ " << i_filePath
                   << "] failed, reason: Empty keyword's value received"
                   << std::endl;
-        return l_returnStatus;
+        return std::unexpected(ErrorCode::KEYWORD_VALUE_NOT_PROVIDED);
     }
 
     std::string l_keywordValue{i_keywordValue};
@@ -307,6 +329,7 @@ inline bool saveToFile(const std::string& i_filePath,
             // ToDo: log only when verbose is enabled
             std::cerr << "Error opening output file " << i_filePath
                       << std::endl;
+            return std::unexpected(ErrorCode::FILE_SYSTEM_ERROR);
         }
     }
     catch (const std::ios_base::failure& l_ex)
@@ -316,6 +339,7 @@ inline bool saveToFile(const std::string& i_filePath,
             << "Failed to write to file: " << i_filePath
             << ", either base folder path doesn't exist or internal error occurred, error: "
             << l_ex.what() << '\n';
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
 
     return l_returnStatus;
@@ -895,7 +919,13 @@ inline bool isChassisPowerOff()
             constants::chassisStateManagerObjectPath,
             constants::chassisStateManagerInfName, "CurrentPowerState");
 
-        if (auto l_curPowerState = std::get_if<std::string>(&l_powerState);
+        if (!l_powerState.has_value())
+        {
+            return false;
+        }
+
+        if (auto l_curPowerState =
+                std::get_if<std::string>(&l_powerState.value());
             l_curPowerState &&
             ("xyz.openbmc_project.State.Chassis.PowerState.Off" ==
              *l_curPowerState))

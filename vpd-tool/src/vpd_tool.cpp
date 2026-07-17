@@ -37,10 +37,10 @@ int VpdTool::readKeyword(
     const std::string& i_keywordName, const bool i_onHardware,
     const std::string& i_fileToSave) const noexcept
 {
-    int l_rc = constants::FAILURE;
+    int l_rc = static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
     try
     {
-        types::DbusVariantType l_keywordValue;
+        std::expected<types::DbusVariantType, ErrorCode> l_keywordValue;
         if (i_onHardware)
         {
             // For hardware read, support both IPZ format (with record) and
@@ -62,8 +62,9 @@ int VpdTool::readKeyword(
         {
             if (i_recordName.empty())
             {
-                throw std::runtime_error(
-                    "Record name is required for DBus read operations.");
+                std::cerr
+                    << "Record name is required for DBus read operations.";
+                return static_cast<int>(ErrorCode::RECORD_NOT_PROVIDED);
             }
 
             std::string l_inventoryObjectPath(
@@ -75,7 +76,7 @@ int VpdTool::readKeyword(
             if (l_keywordName.empty())
             {
                 std::cerr << "Invalid keyword given." << std::endl;
-                return l_rc;
+                return static_cast<int>(ErrorCode::KEYWORD_NAME_NOT_PROVIDED);
             }
 
             l_keywordValue = utils::readDbusProperty(
@@ -83,10 +84,16 @@ int VpdTool::readKeyword(
                 constants::ipzVpdInfPrefix + i_recordName, l_keywordName);
         }
 
+        if (!l_keywordValue.has_value())
+        {
+            return static_cast<int>(l_keywordValue.error());
+        }
+
         if (const auto l_value =
-                std::get_if<types::BinaryVector>(&l_keywordValue);
+                std::get_if<types::BinaryVector>(&l_keywordValue.value());
             l_value && !l_value->empty())
         {
+            l_rc = l_value->size();
             // ToDo: Print value in both ASCII and hex formats
             const std::string& l_keywordStrValue =
                 utils::getPrintableValue(*l_value);
@@ -95,16 +102,16 @@ int VpdTool::readKeyword(
             {
                 utils::displayOnConsole(i_vpdPath, i_keywordName,
                                         l_keywordStrValue);
-                l_rc = constants::SUCCESS;
             }
             else
             {
-                if (utils::saveToFile(i_fileToSave, l_keywordStrValue))
+                auto l_fileSaveStatus =
+                    utils::saveToFile(i_fileToSave, l_keywordStrValue);
+                if (l_fileSaveStatus && *l_fileSaveStatus)
                 {
                     std::cout
                         << "Value read is saved on the file: " << i_fileToSave
                         << std::endl;
-                    l_rc = constants::SUCCESS;
                 }
                 else
                 {
@@ -115,6 +122,7 @@ int VpdTool::readKeyword(
                         << std::endl;
                     utils::displayOnConsole(i_vpdPath, i_keywordName,
                                             l_keywordStrValue);
+                    l_rc = static_cast<int>(l_fileSaveStatus.error());
                 }
             }
         }
@@ -134,6 +142,7 @@ int VpdTool::readKeyword(
                           : "")
                   << ", Keyword: " << i_keywordName
                   << ", error: " << l_ex.what() << std::endl;
+        l_rc = static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
     }
     return l_rc;
 }
@@ -340,13 +349,17 @@ nlohmann::json VpdTool::getInventoryPropertyJson(
     nlohmann::json l_resultInJson = nlohmann::json::object({});
     try
     {
-        types::DbusVariantType l_keyWordValue;
-
-        l_keyWordValue =
+        auto l_keyWordValue =
             utils::readDbusProperty(constants::inventoryManagerService,
                                     i_objectPath, i_interface, i_propertyName);
 
-        if (const auto l_value = std::get_if<PropertyType>(&l_keyWordValue))
+        if (!l_keyWordValue.has_value())
+        {
+            return l_resultInJson;
+        }
+
+        if (const auto l_value =
+                std::get_if<PropertyType>(&l_keyWordValue.value()))
         {
             if constexpr (std::is_same<PropertyType, std::string>::value)
             {
@@ -747,23 +760,28 @@ bool VpdTool::fetchKeywordInfo(nlohmann::json& io_parsedJsonObj) const noexcept
                 continue;
             }
 
-            types::DbusVariantType l_srcKeywordVariant;
+            std::expected<types::DbusVariantType, ErrorCode> l_srcKwdValue;
             if (l_isSourceOnHardware)
             {
-                l_srcKeywordVariant = utils::readKeywordFromHardware(
+                l_srcKwdValue = utils::readKeywordFromHardware(
                     l_srcVpdPath,
                     std::make_tuple(l_srcRecordName, l_srcKeywordName));
             }
             else
             {
-                l_srcKeywordVariant = utils::readDbusProperty(
+                l_srcKwdValue = utils::readDbusProperty(
                     constants::inventoryManagerService, l_srcVpdPath,
                     constants::ipzVpdInfPrefix + l_srcRecordName,
                     l_srcKeywordName);
             }
 
+            if (!l_srcKwdValue.has_value())
+            {
+                continue;
+            }
+
             if (auto l_srcKeywordValue =
-                    std::get_if<types::BinaryVector>(&l_srcKeywordVariant);
+                    std::get_if<types::BinaryVector>(&l_srcKwdValue.value());
                 l_srcKeywordValue && !l_srcKeywordValue->empty())
             {
                 l_aRecordKwInfo["sourcekeywordValue"] = *l_srcKeywordValue;
@@ -778,23 +796,28 @@ bool VpdTool::fetchKeywordInfo(nlohmann::json& io_parsedJsonObj) const noexcept
                 continue;
             }
 
-            types::DbusVariantType l_dstKeywordVariant;
+            std::expected<types::DbusVariantType, ErrorCode> l_dstKwdValue;
             if (l_isDestinationOnHardware)
             {
-                l_dstKeywordVariant = utils::readKeywordFromHardware(
+                l_dstKwdValue = utils::readKeywordFromHardware(
                     l_dstVpdPath,
                     std::make_tuple(l_dstRecordName, l_dstKeywordName));
             }
             else
             {
-                l_dstKeywordVariant = utils::readDbusProperty(
+                l_dstKwdValue = utils::readDbusProperty(
                     constants::inventoryManagerService, l_dstVpdPath,
                     constants::ipzVpdInfPrefix + l_dstRecordName,
                     l_dstKeywordName);
             }
 
+            if (!l_dstKwdValue.has_value())
+            {
+                continue;
+            }
+
             if (auto l_dstKeywordValue =
-                    std::get_if<types::BinaryVector>(&l_dstKeywordVariant);
+                    std::get_if<types::BinaryVector>(&l_dstKwdValue.value());
                 l_dstKeywordValue && !l_dstKeywordValue->empty())
             {
                 l_aRecordKwInfo["destinationkeywordValue"] = *l_dstKeywordValue;
@@ -854,13 +877,16 @@ bool VpdTool::isFruPresent(const std::string& i_objectPath) const noexcept
     bool l_returnValue{false};
     try
     {
-        types::DbusVariantType l_keyWordValue;
-
-        l_keyWordValue = utils::readDbusProperty(
+        auto l_keywordValue = utils::readDbusProperty(
             constants::inventoryManagerService, i_objectPath,
             constants::inventoryItemInf, "Present");
 
-        if (const auto l_value = std::get_if<bool>(&l_keyWordValue))
+        if (!l_keywordValue.has_value())
+        {
+            return l_returnValue;
+        }
+
+        if (const auto l_value = std::get_if<bool>(&l_keywordValue.value()))
         {
             l_returnValue = *l_value;
         }
