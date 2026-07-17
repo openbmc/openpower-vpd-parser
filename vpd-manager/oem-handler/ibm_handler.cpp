@@ -6,6 +6,7 @@
 #include "listener.hpp"
 #include "logger.hpp"
 #include "parser.hpp"
+#include "worker.hpp"
 
 #include <gpiod.hpp>
 #include <utility/common_utility.hpp>
@@ -18,17 +19,15 @@
 namespace vpd
 {
 IbmHandler::IbmHandler(
-    std::shared_ptr<Worker>& o_worker,
     std::shared_ptr<BackupAndRestore>& o_backupAndRestoreObj,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
     const std::shared_ptr<boost::asio::io_context>& i_ioCon,
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::VpdCollectionMode& i_vpdCollectionMode) :
-    m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
-    m_interface(i_iFace), m_progressInterface(i_progressiFace),
-    m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
-    m_logger(Logger::getLoggerInstance()),
+    m_backupAndRestoreObj(o_backupAndRestoreObj), m_interface(i_iFace),
+    m_progressInterface(i_progressiFace), m_ioContext(i_ioCon),
+    m_asioConnection(i_asioConnection), m_logger(Logger::getLoggerInstance()),
     m_vpdCollectionMode(i_vpdCollectionMode)
 {
     try
@@ -85,35 +84,6 @@ void IbmHandler::isSymlinkPresent() noexcept
     // update JSON path to symlink path.
     m_configJsonPath = INVENTORY_JSON_SYM_LINK;
     m_isSymlinkPresent = true;
-}
-
-void IbmHandler::initWorker()
-{
-    try
-    {
-        // Initialize worker with required parameters.
-        m_worker =
-            std::make_shared<Worker>(m_configJsonPath, m_vpdCollectionMode);
-    }
-    catch (const std::exception& l_ex)
-    {
-        // Critical PEL logged as collection can't progress without worker
-        // object.
-
-        m_logger->logMessage(
-            std::format("Exception while creating worker object. Error: {}",
-                        EventLogger::getErrorMsg(l_ex)),
-            PlaceHolder::ASYNC_PEL,
-            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
-                                types::SeverityType::Critical, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
-
-        // Throwing error back to avoid any further processing.
-        throw std::runtime_error(
-            std::string("Exception while creating worker object") +
-            EventLogger::getErrorMsg(l_ex));
-    }
 }
 
 void IbmHandler::initBackupAndRestore() noexcept
@@ -209,10 +179,6 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
     for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
     {
         nlohmann::json l_sysCfgJsonObj{};
-        if (m_worker.get() != nullptr)
-        {
-            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-        }
 
         // The utility method will handle empty JSON case. No explicit
         // handling required here.
@@ -710,8 +676,8 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
     types::ObjectMap l_objectInterfaceMap;
     if (std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
     {
-        m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
-                               SYSTEM_VPD_FILE_PATH);
+        Worker{}.populateDbus(m_sysCfgJsonObj, i_parsedVpdMap,
+                              l_objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
 
         // In split mode system, file mode system VPD has to be enabled.
         // Update system inventory for split mode
@@ -1053,9 +1019,6 @@ void IbmHandler::performInitialSetup()
 
         types::VPDMapVariant l_parsedSysVpdMap;
         setDeviceTreeAndJson(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap);
-
-        // now that correct JSON is selected, initialize worker class.
-        initWorker();
 
         // proceed to publish system VPD.
         publishSystemVPD(l_parsedSysVpdMap);
