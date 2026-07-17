@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4304f76b_88d96090",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-17T06:04:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "21da1bf6_a339062a",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "460ad9f6_03fa3ddf",
@@ -195,6 +213,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "653d3480_fdfcc7a8",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-17T06:04:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "522f1bf9_78137fa1",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ffff1bd_c38a68ed",
@@ -244,6 +280,24 @@
       "side": 1,
       "message": "same explanation as above",
       "parentUuid": "3ffff1bd_c38a68ed",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78078da3_cf5a2c22",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-17T06:04:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a8ac185c_489ae159",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -548,6 +602,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e36e92_720adcfc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-17T06:04:30Z",
+      "side": 1,
+      "message": "as requested change is made",
+      "parentUuid": "c7ffb9da_28384f3e",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80947f51_7b83e9a3",
@@ -702,6 +774,24 @@
       "side": 1,
       "message": "This return is temporary, so shouldn\u0027t matter.",
       "parentUuid": "7a80e5ee_0cdf4af5",
+      "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc033468_e004ce7c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-17T06:04:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d26f8d4e_04b16afb",
       "revId": "b2125105a58af4f6f24297a0d85b50729288fae8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
