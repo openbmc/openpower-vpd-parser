@@ -1583,14 +1583,12 @@ inline std::vector<types::Path> getFrusWithPresenceMonitoring(
  * For a given FRU, this API checks if it's presence is handled by vpd-manager
  * by checking the "handlePresence" tag.
  *
- * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
  * @param[out] o_errCode - To set error code in case of failure.
  *
  * @return true if FRU presence is handled, false otherwise.
  */
-inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
-                                 const std::string& i_vpdFruPath,
+inline bool isFruPresenceHandled(const std::string& i_vpdFruPath,
                                  uint16_t& o_errCode)
 {
     o_errCode = 0;
@@ -1600,19 +1598,30 @@ inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
         return false;
     }
 
-    if (!i_sysCfgJsonObj.contains("frus"))
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
     {
-        o_errCode = error_code::INVALID_JSON;
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return false;
+    }
+
+    // get the full system configuration JSON
+    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+
+    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
         o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
+    return l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
         "handlePresence", true);
 }
 } // namespace jsonUtility
