@@ -16,6 +16,24 @@
       "message": "For all the FRUs other than chassis, the data is supposed to be only looked up in Dbus. That is the only place from where FRU\u0027s chassis VPD can be read and required kwd can be fetched. The required kwds are not part of respective FRUs VPD. So reading from the parsed VPD will always be a failed scenario.\n\nThough it is understood that we need both the reads (Dbus and parsed VPD) as chassis/motherboard will get the data from parsed VPD map instead of Dbus.\n\nHaving said that, number of FRUs will be way more than number of chassis/motherboard. Hence in this scenario, number of guaranteed failed read will be more than success case.\nEarlier implementation was having Dbus read first. I would prefer that sequence on top of this on the ground of efficiency.",
       "revId": "2c8bd6d629c9fb41f397ff9df904c22e0b33d77e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17738e76_4309f61d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1632,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-17T07:27:24Z",
+      "side": 1,
+      "message": "changed the sequence",
+      "parentUuid": "e3c83e86_fa7c847f",
+      "revId": "2c8bd6d629c9fb41f397ff9df904c22e0b33d77e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
