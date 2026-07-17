@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b66f62_efe0891f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:43:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "70267872_beddee92",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acd752a3_588a79c1",
@@ -177,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda27db7_d1e7ba45",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:43:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fe4607f2_e1db4830",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "032c4a0e_61377fd1",
@@ -208,6 +244,24 @@
       "side": 1,
       "message": "NO,same explanation as this-\nLOCATION_CODE_PREFIX_LENGTH \u003d length of (\"MTS\"/\"FCS\")\n\ni_unexpandedLocationCode.substr( i_pos + constants::VALUE_3);\nIf we have to use same existing constant, ok but above one is not giving clear meaning.\n\ni_unexpandedLocationCode.substr(i_pos + constants::LOCATION_CODE_PREFIX_LENGTH);\nwhere this is clearly says- get substring after PREFIX_LENGTH.\n\nIf in future we would have some other prefix, we can simply modify in constants, but using some particular value like VALUE_3 need modification at each implementation.",
       "parentUuid": "032c4a0e_61377fd1",
+      "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd84674_1f77357b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-17T04:43:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ae26dc26_8070a1d9",
       "revId": "ce571a6fd325e900c7171c0a2b6d346a0b2d9d4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
