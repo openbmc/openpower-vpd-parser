@@ -37,7 +37,7 @@ int VpdTool::readKeyword(
     const std::string& i_keywordName, const bool i_onHardware,
     const std::string& i_fileToSave) const noexcept
 {
-    int l_rc = constants::FAILURE;
+    int l_rc = ErrorCode::STANDARD_EXCEPTION;
     try
     {
         types::DbusVariantType l_keywordValue;
@@ -62,8 +62,9 @@ int VpdTool::readKeyword(
         {
             if (i_recordName.empty())
             {
-                throw std::runtime_error(
-                    "Record name is required for DBus read operations.");
+                std::cerr
+                    << "Record name is required for DBus read operations.";
+                return ErrorCode::RECORD_NOT_PROVIDED;
             }
 
             std::string l_inventoryObjectPath(
@@ -75,7 +76,7 @@ int VpdTool::readKeyword(
             if (l_keywordName.empty())
             {
                 std::cerr << "Invalid keyword given." << std::endl;
-                return l_rc;
+                return ErrorCode::KEYWORD_NAME_NOT_PROVIDED;
             }
 
             l_keywordValue = utils::readDbusProperty(
@@ -95,16 +96,17 @@ int VpdTool::readKeyword(
             {
                 utils::displayOnConsole(i_vpdPath, i_keywordName,
                                         l_keywordStrValue);
-                l_rc = constants::SUCCESS;
+                l_rc = l_value->size();
             }
             else
             {
-                if (utils::saveToFile(i_fileToSave, l_keywordStrValue))
+                auto l_fileSaveStatus =
+                    utils::saveToFile(i_fileToSave, l_keywordStrValue);
+                if (l_fileSaveStatus)
                 {
                     std::cout
                         << "Value read is saved on the file: " << i_fileToSave
                         << std::endl;
-                    l_rc = constants::SUCCESS;
                 }
                 else
                 {
@@ -116,6 +118,8 @@ int VpdTool::readKeyword(
                     utils::displayOnConsole(i_vpdPath, i_keywordName,
                                             l_keywordStrValue);
                 }
+
+                l_rc = l_value->size();
             }
         }
         else
