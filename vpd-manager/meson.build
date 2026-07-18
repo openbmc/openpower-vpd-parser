@@ -36,7 +36,6 @@ parser_build_arguments = []
 if get_option('ibm_system').allowed()
     parser_build_arguments += ['-DIBM_SYSTEM']
     parser_build_arguments += ['-DENABLE_FILE_LOGGING=true']
-    vpd_manager_SOURCES += 'src/single_fab.cpp'
 endif
 
 if get_option('skip_reboot_on_fitconfig_change').allowed()
