@@ -114,11 +114,6 @@ static constexpr auto SIZE_OF_8EQ_IN_PG = 24;
 // Zero based index position of first EQ in CP00's PG keyword
 static constexpr auto INDEX_OF_EQ0_IN_PG = 97;
 
-static constexpr auto HEX_VALUE_50 = 0x50;
-static constexpr auto HEX_VALUE_30 = 0x30;
-static constexpr auto HEX_VALUE_10 = 0x10;
-static constexpr auto HEX_VALUE_00 = 0x00;
-
 constexpr auto systemInvPath = "/xyz/openbmc_project/inventory/system";
 constexpr auto rainierPlanarInvPath =
     "/xyz/openbmc_project/inventory/system/chassis/motherboard";
@@ -141,8 +136,6 @@ constexpr auto kwdTM = "TM";
 constexpr auto kwdSE = "SE";
 constexpr auto kwdHW = "HW";
 constexpr auto kwdIM = "IM";
-constexpr auto kwdPN = "PN";
-constexpr auto kwdFN = "FN";
 constexpr auto recVSYS = "VSYS";
 constexpr auto recVCEN = "VCEN";
 constexpr auto recVSBP = "VSBP";
@@ -174,18 +167,7 @@ constexpr auto hostInterface = "xyz.openbmc_project.State.Host";
 constexpr auto hostService = "xyz.openbmc_project.State.Host";
 constexpr auto hostRunningState =
     "xyz.openbmc_project.State.Host.HostState.Running";
-constexpr auto imageUpdateService = "xyz.openbmc_project.Software.BMC.Updater";
-constexpr auto imagePrirotyInf =
-    "xyz.openbmc_project.Software.RedundancyPriority";
-constexpr auto imageExtendedVerInf =
-    "xyz.openbmc_project.Software.ExtendedVersion";
-constexpr auto functionalImageObjPath =
-    "/xyz/openbmc_project/software/functional";
-constexpr auto associationInterface = "xyz.openbmc_project.Association";
-constexpr auto powerVsImagePrefix_MY = "MY";
-constexpr auto powerVsImagePrefix_MZ = "MZ";
-constexpr auto powerVsImagePrefix_NY = "NY";
-constexpr auto powerVsImagePrefix_NZ = "NZ";
+
 constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
@@ -247,10 +229,6 @@ static constexpr auto vpdCollectionInProgress =
     "xyz.openbmc_project.Common.Progress.OperationStatus.InProgress";
 static constexpr auto vpdCollectionNotStarted =
     "xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted";
-static constexpr auto power_vs_50003_json =
-    "/usr/share/vpd/50003_power_vs.json";
-static constexpr auto power_vs_50001_json =
-    "/usr/share/vpd/50001_power_vs.json";
 
 static constexpr auto fcsTypeLc = "fcs";
 static constexpr auto mtsTypeLc = "mts";

@@ -1373,64 +1373,6 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
 }
 
 /**
- * @brief API to select powerVS JSON based on system IM.
- *
- * The API selects respective JSON based on system IM, parse it and return the
- * JSON object. Empty JSON will be returned in case of any error. Caller needs
- * to handle empty value.
- *
- * @param[in] i_imValue - IM value of the system.
- * @param[out] o_errCode - to set error code in case of error.
- * @return Parsed JSON object, empty JSON otherwise.
- */
-inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue,
-                                     uint16_t& o_errCode)
-{
-    o_errCode = 0;
-    if (i_imValue.empty() || i_imValue.size() < 4)
-    {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return nlohmann::json{};
-    }
-
-    if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
-        (i_imValue.at(1) == constants::HEX_VALUE_00) &&
-        (i_imValue.at(2) == constants::HEX_VALUE_30))
-    {
-        nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
-            constants::power_vs_50003_json, o_errCode);
-
-        if (o_errCode)
-        {
-            logging::logMessage(
-                "Failed to parse JSON file [ " +
-                std::string(constants::power_vs_50003_json) +
-                " ], error : " + commonUtility::getErrCodeMsg(o_errCode));
-        }
-
-        return l_parsedJson;
-    }
-    else if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
-             (i_imValue.at(1) == constants::HEX_VALUE_00) &&
-             (i_imValue.at(2) == constants::HEX_VALUE_10))
-    {
-        nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
-            constants::power_vs_50001_json, o_errCode);
-
-        if (o_errCode)
-        {
-            logging::logMessage(
-                "Failed to parse JSON file [ " +
-                std::string(constants::power_vs_50001_json) +
-                " ], error : " + commonUtility::getErrCodeMsg(o_errCode));
-        }
-
-        return l_parsedJson;
-    }
-    return nlohmann::json{};
-}
-
-/**
  * @brief API to get list of FRUs for which "monitorPresence" is true.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.

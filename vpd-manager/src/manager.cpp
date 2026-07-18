@@ -8,7 +8,6 @@
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
-#include "single_fab.hpp"
 #include "types.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
@@ -32,21 +31,6 @@ Manager::Manager(
     m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
     m_logger->setConn(m_asioConnection);
-
-#ifdef IBM_SYSTEM_SINGLE_FAB
-    if (!dbusUtility::isChassisPowerOn())
-    {
-        SingleFab l_singleFab;
-        const int& l_rc = l_singleFab.singleFabImOverride();
-
-        if (l_rc == constants::FAILURE)
-        {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) +
-                " : Found an invalid system configuration. Needs manual intervention. BMC is being quiesced.");
-        }
-    }
-#endif
 
     try
     {
