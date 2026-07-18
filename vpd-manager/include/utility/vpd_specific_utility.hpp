@@ -687,50 +687,6 @@ inline bool isPass1Planar(uint16_t& o_errCode) noexcept
 }
 
 /**
- * @brief API to detect if system configuration is that of PowerVS system.
- *
- * @param[in] i_imValue - IM value of the system.
- * @param[out] o_errCode - To set error code in case of error.
- * @return true if it is PowerVS configuration, false otherwise.
- */
-inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
-                                   uint16_t& o_errCode)
-{
-    o_errCode = 0;
-    if (i_imValue.empty() || i_imValue.size() != constants::VALUE_4)
-    {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return false;
-    }
-
-    // Should be a 0x5000XX series system.
-    if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
-        i_imValue.at(1) == constants::HEX_VALUE_00)
-    {
-        std::string l_imagePrefix = dbusUtility::getImagePrefix();
-
-        // Check image for 0x500030XX series.
-        if ((i_imValue.at(2) == constants::HEX_VALUE_30) &&
-            ((l_imagePrefix == constants::powerVsImagePrefix_MY) ||
-             (l_imagePrefix == constants::powerVsImagePrefix_NY)))
-        {
-            logging::logMessage("PowerVS configuration");
-            return true;
-        }
-
-        // Check image for 0X500010XX series.
-        if ((i_imValue.at(2) == constants::HEX_VALUE_10) &&
-            ((l_imagePrefix == constants::powerVsImagePrefix_MZ) ||
-             (l_imagePrefix == constants::powerVsImagePrefix_NZ)))
-        {
-            logging::logMessage("PowerVS configuration");
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
  * @brief API to get CCIN for a given FRU from DBus.
  *
  * The API reads the CCIN for a FRU based on its inventory path.
@@ -777,25 +733,6 @@ inline std::string getCcinFromDbus(const std::string& i_invObjPath,
         o_errCode = error_code::STANDARD_EXCEPTION;
         return std::string{};
     }
-}
-
-/**
- * @brief API to check if the current running image is a powerVS image.
- *
- * @return true if it is PowerVS image, false otherwise.
- */
-inline bool isPowerVsImage()
-{
-    std::string l_imagePrefix = dbusUtility::getImagePrefix();
-
-    if ((l_imagePrefix == constants::powerVsImagePrefix_MY) ||
-        (l_imagePrefix == constants::powerVsImagePrefix_NY) ||
-        (l_imagePrefix == constants::powerVsImagePrefix_MZ) ||
-        (l_imagePrefix == constants::powerVsImagePrefix_NZ))
-    {
-        return true;
-    }
-    return false;
 }
 
 /**

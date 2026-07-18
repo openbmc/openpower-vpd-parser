@@ -182,10 +182,6 @@ constexpr auto imageExtendedVerInf =
 constexpr auto functionalImageObjPath =
     "/xyz/openbmc_project/software/functional";
 constexpr auto associationInterface = "xyz.openbmc_project.Association";
-constexpr auto powerVsImagePrefix_MY = "MY";
-constexpr auto powerVsImagePrefix_MZ = "MZ";
-constexpr auto powerVsImagePrefix_NY = "NY";
-constexpr auto powerVsImagePrefix_NZ = "NZ";
 constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
