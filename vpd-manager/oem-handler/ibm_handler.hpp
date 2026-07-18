@@ -139,26 +139,6 @@ class IbmHandler
     void resetNonSystemInvPaths(types::ObjectMap& io_objectMap) const noexcept;
 
     /**
-     * @brief API to check and update PowerVS VPD.
-     *
-     * The API will read the existing data from the DBus and if found
-     * different than what has been read from JSON, it will update the VPD with
-     * JSON data on hardware and DBus both.
-     *
-     * @param[in] i_powerVsJsonObj - PowerVS JSON object.
-     * @param[out] o_failedPathList - List of path failed to update.
-     */
-    void checkAndUpdatePowerVsVpd(const nlohmann::json& i_powerVsJsonObj,
-                                  std::vector<std::string>& o_failedPathList);
-    /**
-     * @brief API to handle configuration w.r.t. PowerVS systems.
-     *
-     * Some FRUs VPD is specific to powerVS system. The API detects the
-     * powerVS configuration and updates the VPD accordingly.
-     */
-    void ConfigurePowerVsSystem();
-
-    /**
      * @brief API to perform initial setup before manager claims Bus name.
      *
      * Before BUS name for VPD-Manager is claimed, fitconfig would be set for
@@ -245,14 +225,6 @@ class IbmHandler
      */
     void updateVpdCollectionStatus(
         const types::VpdCollectionStatus i_status) const noexcept;
-
-    /**
-     * @brief API to update expanded location on DBus for all FRU.
-     *
-     * The API updates expanded location code for all FRU on Dbus by replacing
-     * the required keyword with their VPD value.
-     */
-    void updateExpandedLocationCode();
 
     /**
      * @brief API to add or restore the availability property for inventory
