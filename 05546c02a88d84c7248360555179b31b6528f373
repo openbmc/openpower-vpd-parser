@@ -16,6 +16,24 @@
       "message": "This might have got missed but enum itself provides a scope for items defined under it.\n\nWe might not need a namespace error_code on top of that. Can we follow what we have in vpd-manager. So we will not repeat error code twice while using it in the code.\n\nCan you add a patch set before this commit where this is fixed and rebase this patch on top of that.",
       "revId": "05546c02a88d84c7248360555179b31b6528f373",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3a8c5e_a502f87a",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-20T16:05:05Z",
+      "side": 1,
+      "message": "Addressed this in a separate commit  - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/92510",
+      "parentUuid": "4ac6bf1d_97748475",
+      "revId": "05546c02a88d84c7248360555179b31b6528f373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
