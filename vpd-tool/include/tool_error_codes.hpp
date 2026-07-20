@@ -2,8 +2,6 @@
 
 namespace vpd
 {
-namespace error_codes
-{
 /**
  * @brief Error codes for vpd-tool operations
  *
@@ -21,6 +19,4 @@ enum ErrorCode
     STANDARD_EXCEPTION = -8,
     JSON_PARSE_ERROR = -9
 };
-
-} // namespace error_codes
 } // namespace vpd
