@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9c524df_98de0ac6",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-20T13:54:05Z",
+      "side": 1,
+      "message": "Please see https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/92337",
+      "parentUuid": "a363e574_d55e27e7",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "569b444b_97d1db68",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 17
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-20T13:14:37Z",
       "side": 1,
       "message": "getJsonObj returns reference to json object itself, why need the conversion",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a803867_c305a330",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-20T13:54:05Z",
+      "side": 1,
+      "message": "No. Please see the return type of `getJsonObj` in https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/92337",
+      "parentUuid": "569b444b_97d1db68",
       "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
