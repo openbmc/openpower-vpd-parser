@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a363e574_d55e27e7",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-20T13:14:37Z",
+      "side": 1,
+      "message": "why the json object named as result ?",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "569b444b_97d1db68",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-20T13:14:37Z",
+      "side": 1,
+      "message": "getJsonObj returns reference to json object itself, why need the conversion",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
