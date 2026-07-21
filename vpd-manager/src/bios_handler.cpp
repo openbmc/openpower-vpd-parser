@@ -29,7 +29,7 @@ void BiosHandler<T>::checkAndListenPldmService()
             [this](sdbusplus::message_t& l_msg) {
                 if (l_msg.is_method_error())
                 {
-                    logging::logMessage(
+                    Logger::getLoggerInstance()->logMessage(
                         "Error in reading PLDM name owner changed signal.");
                     return;
                 }
@@ -136,7 +136,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
     {
-        logging::logMessage("Error in reading BIOS attribute signal. ");
+        m_logger->logMessage("Error in reading BIOS attribute signal. ");
         return;
     }
 
@@ -219,7 +219,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         }
         else
         {
-            logging::logMessage("Invalid type received for BIOS table.");
+            m_logger->logMessage("Invalid type received for BIOS table.");
 
             m_logger->logMessage(
                 std::string("Invalid type received for BIOS table."),
