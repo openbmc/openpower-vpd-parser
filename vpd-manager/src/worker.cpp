@@ -1767,19 +1767,42 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         // related processing
         m_parsedJson = i_cfgJsonObj;
 
-        const auto& l_parseResult = parseAndPublishVPD(i_fruPath);
+        auto l_parseResult = parseAndPublishVPD(i_fruPath);
         l_fruPresent = std::get<1>(l_parseResult);
 
-        if (std::get<0>(l_parseResult))
+        // If VPD collection from a primary FRU fails, attempt
+        // collection from its redundant EEPROM path (if
+        // configured).
+        if (!std::get<0>(l_parseResult))
         {
-            return std::make_tuple(l_fruPresent,
-                                   constants::vpdCollectionCompleted);
+            uint16_t l_errCode = 0;
+            const auto& l_redundantEepromPath =
+                jsonUtility::getRedundantEepromPathFromJson(i_fruPath,
+                                                            l_errCode);
+
+            if (!l_redundantEepromPath.empty())
+            {
+                m_logger->logMessage(
+                    std::format(
+                        "Triggerring vpd collection from redundant VPD path [ {} ]",
+                        l_redundantEepromPath),
+                    PlaceHolder::COLLECTION);
+
+                l_parseResult = parseAndPublishVPD(l_redundantEepromPath, true);
+                l_fruPresent = std::get<1>(l_parseResult);
+            }
+            else if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to fetch redundant EEPROM path for primary path [{}], error [{}]",
+                    i_fruPath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
         }
-        else
-        {
-            return std::make_tuple(l_fruPresent,
-                                   constants::vpdCollectionFailed);
-        }
+
+        return std::make_tuple(l_fruPresent,
+                               std::get<0>(l_parseResult)
+                                   ? constants::vpdCollectionCompleted
+                                   : constants::vpdCollectionFailed);
     }
     catch (const std::exception& l_ex)
     {
