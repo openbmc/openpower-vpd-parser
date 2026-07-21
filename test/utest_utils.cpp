@@ -19,7 +19,7 @@ TEST(UtilsTest, TestValidValue)
               vpdSpecificUtility::encodeKeyword(key, encoding, l_errCode));
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to get encoded keyword value for : " + key +
             ", error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
