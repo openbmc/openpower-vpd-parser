@@ -47,7 +47,7 @@ class IpzVpdParser : public ParserInterface
         }
         catch (const std::fstream::failure& e)
         {
-            logging::logMessage(e.what());
+            Logger::getLoggerInstance()->logMessage(e.what());
         }
     }
 

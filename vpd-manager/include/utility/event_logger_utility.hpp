@@ -155,7 +155,7 @@ inline types::ExceptionDataMap getExceptionData(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to get error info, reason: " + std::string(l_ex.what()));
     }
     return l_errorInfo;
@@ -283,7 +283,7 @@ inline void createAsyncPelWithInventoryCallout(
 
         if (i_asioConnection == nullptr)
         {
-            logging::logMessage(std::format(
+            Logger::getLoggerInstance()->logMessage(std::format(
                 "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
                 l_description));
             return;
@@ -291,7 +291,8 @@ inline void createAsyncPelWithInventoryCallout(
 
         if (i_callouts.empty())
         {
-            logging::logMessage("Callout information is missing to create PEL");
+            Logger::getLoggerInstance()->logMessage(
+                "Callout information is missing to create PEL");
             // TODO: Revisit this instead of simply returning.
             return;
         }
@@ -340,7 +341,7 @@ inline void createAsyncPelWithInventoryCallout(
             [](boost::system::error_code ec) {
                 if (ec)
                 {
-                    logging::logMessage(std::format(
+                    Logger::getLoggerInstance()->logMessage(std::format(
                         "Async PEL with Inventory Callout failed. Reason : {}",
                         ec.message()));
                 }
@@ -351,7 +352,7 @@ inline void createAsyncPelWithInventoryCallout(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Create PEL failed with error: " + std::string(l_ex.what()));
     }
 }
@@ -435,7 +436,7 @@ inline void createAsyncPel(
 
         if (i_asioConnection == nullptr)
         {
-            logging::logMessage(std::format(
+            Logger::getLoggerInstance()->logMessage(std::format(
                 "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
                 l_description));
             return;
@@ -470,7 +471,7 @@ inline void createAsyncPel(
             [](boost::system::error_code ec) {
                 if (ec)
                 {
-                    logging::logMessage(std::format(
+                    Logger::getLoggerInstance()->logMessage(std::format(
                         "Async PEL failed. Reason : {}", ec.message()));
                 }
             },
@@ -480,8 +481,9 @@ inline void createAsyncPel(
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage("Async PEL creation failed with an error: " +
-                            std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(
+            "Async PEL creation failed with an error: " +
+            std::string(l_ex.what()));
     }
 }
 
@@ -555,8 +557,9 @@ inline void createSyncPel(
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage("Sync PEL creation failed with an error: " +
-                            std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(
+            "Sync PEL creation failed with an error: " +
+            std::string(l_ex.what()));
     }
 }
 
@@ -606,7 +609,7 @@ inline void createSyncPelWithInvCallOut(
             createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
                           i_internalRc, i_description, i_userData1, i_userData2,
                           i_symFru, i_procedure);
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Callout list is empty, creating PEL without call out");
             return;
         }
@@ -638,7 +641,7 @@ inline void createSyncPelWithInvCallOut(
 
                     if (l_errCode)
                     {
-                        logging::logMessage(
+                        Logger::getLoggerInstance()->logMessage(
                             "Failed to parse JSON file [ " +
                             std::string(INVENTORY_JSON_SYM_LINK) +
                             " ], error : " +
@@ -650,7 +653,7 @@ inline void createSyncPelWithInvCallOut(
                 }
                 else
                 {
-                    logging::logMessage(
+                    Logger::getLoggerInstance()->logMessage(
                         "Error finding symlink. Continue with given path");
                 }
             }
@@ -662,7 +665,7 @@ inline void createSyncPelWithInvCallOut(
 
             if (l_errCode)
             {
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "Failed to get inventory object path from JSON for FRU [" +
                     std::get<0>(i_callouts[0]) +
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode));
@@ -695,7 +698,7 @@ inline void createSyncPelWithInvCallOut(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Sync PEL creation with inventory path failed with error: " +
             std::string(l_ex.what()));
     }
