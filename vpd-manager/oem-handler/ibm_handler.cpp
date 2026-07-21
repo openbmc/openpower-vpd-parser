@@ -225,7 +225,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         {
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to get inventory object path from JSON for FRU [" +
                     l_fruPath +
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode));
@@ -238,7 +238,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         // check if the FRU is present
         if (!dbusUtility::isInventoryPresent(l_inventoryPath))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Inventory not present, skip updating part number. Path: " +
                 l_inventoryPath);
             continue;
@@ -332,7 +332,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                              std::string(l_binaryKwdValue.begin(),
                                          l_binaryKwdValue.end())}}}}}}))
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Updating Spare Part Number under Asset interface failed for path [" +
                         l_inventoryPath + "]");
                 }
@@ -342,7 +342,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                                              (*l_ptrToFn).end());
                 std::string l_finalPartNum(l_binaryKwdValue.begin(),
                                            l_binaryKwdValue.end());
-                logging::logMessage(
+                m_logger->logMessage(
                     "FRU Part number updated for path [" + l_inventoryPath +
                     "]" + "From [" + l_initialPartNum + "]" + " to [" +
                     l_finalPartNum + "]");
@@ -369,7 +369,7 @@ void IbmHandler::ConfigurePowerVsSystem()
             // misconfigurations?
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if the system is powerVs Configuration, error : " +
                     commonUtility::getErrCodeMsg(l_errCode));
             }
@@ -411,7 +411,7 @@ void IbmHandler::enableMuxChips()
 
     if (!m_sysCfgJsonObj.contains("muxes"))
     {
-        logging::logMessage("No mux defined for the system in config JSON");
+        m_logger->logMessage("No mux defined for the system in config JSON");
         return;
     }
 
@@ -424,7 +424,7 @@ void IbmHandler::enableMuxChips()
             std::string cmd = "echo 0 > ";
             cmd += item["holdidlepath"];
 
-            logging::logMessage("Enabling mux with command = " + cmd);
+            m_logger->logMessage("Enabling mux with command = " + cmd);
 
             commonUtility::executeCmd(cmd, l_errCode);
 
@@ -438,7 +438,7 @@ void IbmHandler::enableMuxChips()
             continue;
         }
 
-        logging::logMessage(
+        m_logger->logMessage(
             "Mux Entry does not have hold idle path. Can't enable the mux");
     }
 }
@@ -782,7 +782,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
             std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK, l_ec);
         if (l_ec)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Can't read existing symlink. Error =" + l_ec.message() +
                 "Trying removal of symlink and creation of new symlink.");
         }
@@ -1020,7 +1020,7 @@ void IbmHandler::setDeviceTreeAndJson(
             }
             else if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if backup and restore required. Reason : " +
                     commonUtility::getErrCodeMsg(l_errCode));
             }

@@ -79,7 +79,7 @@ auto JedecSpdParser::getDDR4DimmCapacity(
     /* Make sure the bits are not Reserved */
     if (l_tmp >= SPD_JEDEC_DDR4_SDRAMCAP_RESERVED)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Bad data in spd byte 4. Can't calculate SDRAM capacity "
             "and so dimm size.\n ");
         return l_dimmSize;
@@ -91,7 +91,7 @@ auto JedecSpdParser::getDDR4DimmCapacity(
             SPD_JEDEC_DDR4_PRI_BUS_WIDTH_MASK;
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Bad data in spd byte 13. Can't calculate primary bus "
             "width and so dimm size.\n ");
         return l_dimmSize;
@@ -104,7 +104,7 @@ auto JedecSpdParser::getDDR4DimmCapacity(
             SPD_JEDEC_DDR4_SDRAM_WIDTH_MASK;
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Bad data in spd byte 12. Can't calculate SDRAM width and "
             "so dimm size.\n ");
         return l_dimmSize;
@@ -128,7 +128,7 @@ auto JedecSpdParser::getDDR4DimmCapacity(
 
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Can't calculate number of ranks. Invalid data found.\n ");
         return l_dimmSize;
     }
@@ -213,7 +213,7 @@ types::BinaryVector JedecSpdParser::getDDR4ManufacturerId()
     if (m_memSpd.size() < (SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET +
                            SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH))
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "VPD length is less than the offset of Manufacturer ID. Can't fetch it");
         return l_mfgId;
     }
@@ -294,7 +294,8 @@ types::JedecSpdMap JedecSpdParser::readKeywords(
     size_t dimmSize = getDDR4DimmCapacity(i_iterator);
     if (!dimmSize)
     {
-        logging::logMessage("Error: Calculated dimm size is 0.");
+        Logger::getLoggerInstance()->logMessage(
+            "Error: Calculated dimm size is 0.");
     }
     else
     {

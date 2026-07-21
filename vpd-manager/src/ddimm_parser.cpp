@@ -30,7 +30,7 @@ bool DdimmVpdParser::checkValidValue(uint8_t i_ByteValue, uint8_t i_shift,
     uint8_t l_ByteValue = i_ByteValue >> i_shift;
     if ((l_ByteValue > i_maxValue) || (l_ByteValue < i_minValue))
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Non valid Value encountered value[" + std::to_string(l_ByteValue) +
             "] range [" + std::to_string(i_minValue) + ".." +
             std::to_string(i_maxValue) + "] found ");
@@ -67,7 +67,7 @@ uint8_t DdimmVpdParser::getDdr5DensityPerDie(uint8_t i_ByteValue)
                 break;
 
             default:
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "default value encountered for density per die");
                 l_densityPerDie = SDRAM_DENSITY_PER_DIE_UNDEFINED;
                 break;
@@ -107,7 +107,7 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_3, constants::VALUE_1,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Capacity calculation failed for channels per DIMM. DDIMM Byte "
                 "235 value [" +
                 std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]");
@@ -137,7 +137,7 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_0, constants::VALUE_1,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Capacity calculation failed for bus width per channel. DDIMM "
                 "Byte 235 value [" +
                 std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]");
@@ -154,7 +154,7 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_5, constants::VALUE_0,
                              constants::VALUE_5))
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Capacity calculation failed for die per package. DDIMM Byte 4 "
                 "value [" +
                 std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]");
@@ -170,7 +170,7 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_0, constants::VALUE_1,
                              constants::VALUE_8))
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Capacity calculation failed for SDRAM Density per Die. DDIMM "
                 "Byte 4 value [" +
                 std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]");
@@ -205,7 +205,7 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_5, constants::VALUE_0,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Capacity calculation failed for dram width DDIMM Byte 6 value "
                 "[" +
                 std::to_string(i_iterator[constants::SPD_BYTE_6]) + "]");
@@ -318,8 +318,9 @@ size_t DdimmVpdParser::getDdr4BasedDdimmSize(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage("DDR4 DDIMM calculation is failed, reason: " +
-                            std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(
+            "DDR4 DDIMM calculation is failed, reason: " +
+            std::string(l_ex.what()));
         Logger::getLoggerInstance()->logMessage(
             std::string("DDR4 DDIMM calculation is failed, reason: ") +
                 std::string(l_ex.what()),
@@ -346,7 +347,7 @@ size_t DdimmVpdParser::getDdimmSize(
     }
     else
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Error: DDIMM is neither DDR4 nor DDR5. DDIMM Byte 2 value [" +
             std::to_string(i_iterator[constants::SPD_BYTE_2]) + "]");
     }
@@ -399,7 +400,7 @@ types::VPDMapVariant DdimmVpdParser::parse()
     }
     catch (const std::exception& exp)
     {
-        logging::logMessage(exp.what());
+        Logger::getLoggerInstance()->logMessage(exp.what());
         throw exp;
     }
 }
