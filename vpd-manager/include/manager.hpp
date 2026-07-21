@@ -264,6 +264,17 @@ class Manager
     void deleteAllFRUVPD() const noexcept;
 
     /**
+     * @brief Get parsed VPD for a given FRU EEPROM path.
+     *
+     * @param[in] i_fruPath - FRU EEPROM path.
+     *
+     * @throw xyz.openbmc_project.Common.Error.InvalidArgument
+     *
+     * @return Parsed VPD as ParsedVpdMap variant.
+     */
+    types::ParsedVpdMap getParsedVpd(const types::Path& i_fruPath);
+
+    /**
      * @brief Checks whether the primary EEPROM's VPD matches that of its
      * redundant EEPROM.
      *
