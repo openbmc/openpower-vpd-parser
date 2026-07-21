@@ -128,6 +128,12 @@ Manager::Manager(
                 return this->validateRedundantEeprom(i_fruPath);
             });
 
+        iFace->register_method(
+            "GetParsedVPD",
+            [this](const types::Path& i_fruPath) -> types::ParsedVpdMap {
+                return this->getParsedVpd(i_fruPath);
+            });
+
         // Indicates FRU VPD collection for the system has not started.
         progressiFace->register_property_rw<std::string>(
             "Status", sdbusplus::vtable::property_::emits_change,
@@ -1202,4 +1208,122 @@ void Manager::deleteAllFRUVPD() const noexcept
                                 std::nullopt});
     }
 }
+
+types::ParsedVpdMap Manager::getParsedVpd(const types::Path& i_fruPath)
+{
+    if (i_fruPath.empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
+    try
+    {
+        nlohmann::json l_jsonObj{};
+
+        if (m_configManager)
+        {
+            const auto l_jsonResult = m_configManager->getJsonObj(i_fruPath);
+            if (l_jsonResult.has_value())
+            {
+                l_jsonObj = l_jsonResult.value().get();
+            }
+            else
+            {
+                m_logger->logMessage(std::format(
+                    "JSON not found for path {}. {}", i_fruPath,
+                    commonUtility::getErrCodeMsg(l_jsonResult.error())));
+            }
+        }
+
+        std::error_code l_ec;
+        if (!std::filesystem::exists(i_fruPath, l_ec) || l_ec)
+        {
+            throw std::runtime_error(
+                "FRU path [" + i_fruPath + "] does not exist.");
+        }
+
+        std::shared_ptr<Parser> l_parserObj =
+            std::make_shared<Parser>(i_fruPath, l_jsonObj, m_vpdCollectionMode);
+
+        const types::VPDMapVariant l_parsedVpd = l_parserObj->parse();
+
+        if (const auto* l_ipzMap = std::get_if<types::IPZVpdMap>(&l_parsedVpd))
+        {
+            // IPZ VPD: convert string values to BinaryVector for D-Bus
+            types::DbusIPZVpdMap l_result;
+            for (const auto& [l_record, l_kwMap] : *l_ipzMap)
+            {
+                std::map<types::Keyword, types::BinaryVector> l_kwBinMap;
+                for (const auto& [l_keyword, l_value] : l_kwMap)
+                {
+                    l_kwBinMap.emplace(
+                        l_keyword,
+                        types::BinaryVector(l_value.begin(), l_value.end()));
+                }
+                l_result.emplace(l_record, std::move(l_kwBinMap));
+            }
+
+            return l_result;
+        }
+
+        if (const auto* l_kwMap =
+                std::get_if<types::KeywordVpdMap>(&l_parsedVpd))
+        {
+            // Keyword VPD: pass values through with size_t -> uint64_t cast
+            types::DbusKeywordVpdMap l_result;
+            for (const auto& [l_keyword, l_value] : *l_kwMap)
+            {
+                if (const auto* l_binVal =
+                        std::get_if<types::BinaryVector>(&l_value))
+                {
+                    l_result.emplace(l_keyword, *l_binVal);
+                }
+                else if (const auto* l_strVal =
+                             std::get_if<std::string>(&l_value))
+                {
+                    l_result.emplace(l_keyword, *l_strVal);
+                }
+                else if (const auto* l_szVal = std::get_if<size_t>(&l_value))
+                {
+                    l_result.emplace(l_keyword,
+                                     static_cast<uint64_t>(*l_szVal));
+                }
+            }
+            return l_result;
+        }
+
+        // std::monostate — unrecognised VPD format
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("FRUPath"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+    catch (const types::DbusInvalidArgument&)
+    {
+        throw;
+    }
+    catch (const DataException& l_ex)
+    {
+        // DataException is thrown by ParserFactory for unsupported VPD format
+        m_logger->logMessage(
+            std::string("Unsupported VPD format for FRU [") + i_fruPath +
+                "], reason: " + std::string(l_ex.what()),
+            PlaceHolder::DEFAULT);
+
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("FRUPath"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::string("getParsedVpd failed for FRU [") + i_fruPath +
+                "], reason: " + std::string(l_ex.what()),
+            PlaceHolder::DEFAULT);
+
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("FRUPath"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+}
+
 } // namespace vpd
