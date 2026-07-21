@@ -57,7 +57,7 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
 
         if (l_errorCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get vpd offset for path [" + m_vpdFilePath +
                 "], error: " + commonUtility::getErrCodeMsg(l_errorCode));
         }
@@ -73,8 +73,8 @@ std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
 
     if (l_errCode)
     {
-        logging::logMessage("Failed to get VPD in vector, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
+        m_logger->logMessage("Failed to get VPD in vector, error : " +
+                             commonUtility::getErrCodeMsg(l_errCode));
     }
 
     // This will detect the type of parser required.
@@ -237,7 +237,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to get Dbus property name for given keyword, error : " +
                     commonUtility::getErrCodeMsg(l_errCode));
             }
@@ -289,7 +289,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
         {
-            logging::logMessage(commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage(commonUtility::getErrCodeMsg(l_errCode));
         }
 
         // Update keyword's value on redundant hardware if present
@@ -310,9 +310,9 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage("Update VPD Keyword failed for : " +
-                            l_keyWordIdentifier(i_paramsToWriteData) +
-                            " failed due to error: " + l_ex.what());
+        m_logger->logMessage("Update VPD Keyword failed for : " +
+                             l_keyWordIdentifier(i_paramsToWriteData) +
+                             " failed due to error: " + l_ex.what());
 
         // update failed, set return value to failure
         l_bytesUpdatedOnHardware = constants::FAILURE;

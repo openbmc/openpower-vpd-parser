@@ -183,7 +183,7 @@ void IbmHandler::enableMuxChips()
 
     if (!m_sysCfgJsonObj.contains("muxes"))
     {
-        logging::logMessage("No mux defined for the system in config JSON");
+        m_logger->logMessage("No mux defined for the system in config JSON");
         return;
     }
 
@@ -196,7 +196,7 @@ void IbmHandler::enableMuxChips()
             std::string cmd = "echo 0 > ";
             cmd += item["holdidlepath"];
 
-            logging::logMessage("Enabling mux with command = " + cmd);
+            m_logger->logMessage("Enabling mux with command = " + cmd);
 
             commonUtility::executeCmd(cmd, l_errCode);
 
@@ -210,7 +210,7 @@ void IbmHandler::enableMuxChips()
             continue;
         }
 
-        logging::logMessage(
+        m_logger->logMessage(
             "Mux Entry does not have hold idle path. Can't enable the mux");
     }
 }
@@ -554,7 +554,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
             std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK, l_ec);
         if (l_ec)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Can't read existing symlink. Error =" + l_ec.message() +
                 "Trying removal of symlink and creation of new symlink.");
         }
@@ -792,7 +792,7 @@ void IbmHandler::setDeviceTreeAndJson(
             }
             else if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if backup and restore required. Reason : " +
                     commonUtility::getErrCodeMsg(l_errCode));
             }
