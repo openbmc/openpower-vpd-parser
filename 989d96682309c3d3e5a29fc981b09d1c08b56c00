@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fa07a2c_2641787c",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T16:24:27Z",
+      "side": 0,
+      "message": "Also remove it from config - 50003_power_vs.json",
+      "range": {
+        "startLine": 248,
+        "startChar": 20,
+        "endLine": 248,
+        "endChar": 40
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a230fc_fa0c21ad",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T16:24:27Z",
+      "side": 0,
+      "message": "same here - 50001_power_vs.json",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 39
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fd8c31d_6c7a1476",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
