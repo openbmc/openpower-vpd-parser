@@ -264,7 +264,7 @@ inline bool executePostFailAction(
             {
                 if (o_errCode)
                 {
-                    logging::logMessage(
+                    Logger::getLoggerInstance()->logMessage(
                         l_tags.key() + " failed for [" + i_vpdFilePath +
                         "]. Reason " + commonUtility::getErrCodeMsg(o_errCode));
                 }
@@ -456,7 +456,7 @@ inline bool processGpioPresenceTag(
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
          */
 
-        logging::logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(l_errMsg);
 
         // Except when GPIO pin value is false, we go and try collecting the
         // FRU VPD as we couldn't able to read GPIO pin value due to some
@@ -527,7 +527,7 @@ inline bool procesSetGpioTag(
         uint8_t l_pinValue = l_parsedConfigJson["frus"][i_vpdFilePath].at(
             0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
 
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
 
         gpiod::line l_outputLine = gpiod::find_line(l_pinName);
@@ -563,7 +563,7 @@ inline bool procesSetGpioTag(
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
          */
 
-        logging::logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(l_errMsg);
 
         return false;
     }
@@ -1065,7 +1065,7 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
 
         if (o_errCode)
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Error while checking if action required for FRU [" +
                 std::string(l_fruPath) +
                 "], error : " + commonUtility::getErrCodeMsg(o_errCode));
@@ -1136,7 +1136,7 @@ inline std::tuple<std::string, std::string, std::string>
         {
             if (o_errCode)
             {
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "Failed to get inventory path from JSON for [" +
                     io_vpdPath +
                     "], error : " + commonUtility::getErrCodeMsg(o_errCode));
@@ -1158,7 +1158,7 @@ inline std::tuple<std::string, std::string, std::string>
         {
             if (o_errCode)
             {
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "Failed to get redundant EEPROM path for FRU [" +
                     l_fruPath +
                     "], error : " + commonUtility::getErrCodeMsg(o_errCode));
@@ -1176,7 +1176,7 @@ inline std::tuple<std::string, std::string, std::string>
     }
     else if (o_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to get FRU path from JSON for [" + io_vpdPath +
             "], error : " + commonUtility::getErrCodeMsg(o_errCode));
     }
