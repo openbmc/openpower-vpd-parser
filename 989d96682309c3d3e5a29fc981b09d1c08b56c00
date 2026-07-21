@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd8c31d_6c7a1476",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T16:05:34Z",
+      "side": 0,
+      "message": "These constants were defined for this specific purpose only.\nAs there is no use case left, should remove these constants too.",
+      "range": {
+        "startLine": 1042,
+        "startChar": 27,
+        "endLine": 1042,
+        "endChar": 50
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4702fe49_d55287e7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T16:05:34Z",
+      "side": 0,
+      "message": "Remove getImagePrefix from dbus utility.\nit is not being used anywhere else.",
+      "range": {
+        "startLine": 1045,
+        "startChar": 36,
+        "endLine": 1045,
+        "endChar": 66
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
