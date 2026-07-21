@@ -128,6 +128,12 @@ Manager::Manager(
                 return this->validateRedundantEeprom(i_fruPath);
             });
 
+        iFace->register_method(
+            "GetParsedVPD",
+            [this](const types::Path& i_fruPath) -> types::ParsedVpdMap {
+                return this->getParsedVpd(i_fruPath);
+            });
+
         // Indicates FRU VPD collection for the system has not started.
         progressiFace->register_property_rw<std::string>(
             "Status", sdbusplus::vtable::property_::emits_change,
@@ -1202,4 +1208,131 @@ void Manager::deleteAllFRUVPD() const noexcept
                                 std::nullopt});
     }
 }
+
+types::ParsedVpdMap Manager::getParsedVpd(const types::Path& i_fruPath)
+{
+    auto throwInvalidFruPath = [&] [[noreturn]] () {
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("FRUPath"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    };
+
+    if (i_fruPath.empty())
+    {
+        throwInvalidFruPath();
+    }
+
+    std::error_code l_ec;
+    if (!std::filesystem::exists(i_fruPath, l_ec) || l_ec)
+    {
+        throwInvalidFruPath();
+    }
+
+    try
+    {
+        nlohmann::json l_jsonObj{};
+
+        if (m_configManager)
+        {
+            const auto l_jsonResult = m_configManager->getJsonObj(i_fruPath);
+            if (l_jsonResult.has_value())
+            {
+                l_jsonObj = l_jsonResult.value().get();
+            }
+            else
+            {
+                m_logger->logMessage(std::format(
+                    "JSON not found for path {}. {}", i_fruPath,
+                    commonUtility::getErrCodeMsg(l_jsonResult.error())));
+            }
+        }
+
+        std::shared_ptr<Parser> l_parserObj =
+            std::make_shared<Parser>(i_fruPath, l_jsonObj, m_vpdCollectionMode);
+
+        const types::VPDMapVariant l_parsedVpd = l_parserObj->parse();
+
+        if (const auto* l_ipzMap = std::get_if<types::IPZVpdMap>(&l_parsedVpd))
+        {
+            // IPZ VPD: convert string values to BinaryVector for D-Bus
+            types::DbusIPZVpdMap l_result;
+            for (const auto& [l_record, l_kwMap] : *l_ipzMap)
+            {
+                std::map<types::Keyword, types::BinaryVector> l_kwBinMap;
+                for (const auto& [l_keyword, l_value] : l_kwMap)
+                {
+                    l_kwBinMap.emplace(
+                        l_keyword,
+                        types::BinaryVector(l_value.begin(), l_value.end()));
+                }
+                l_result.emplace(l_record, std::move(l_kwBinMap));
+            }
+
+            return l_result;
+        }
+
+        if (const auto* l_kwMap =
+                std::get_if<types::KeywordVpdMap>(&l_parsedVpd))
+        {
+            // Keyword VPD: BinaryVector and string pass through as-is;
+            // only size_t needs casting to uint64_t for D-Bus.
+            types::DbusKeywordVpdMap l_result;
+            for (const auto& [l_keyword, l_value] : *l_kwMap)
+            {
+                std::visit(
+                    [&](const auto& l_val) {
+                        using T = std::decay_t<decltype(l_val)>;
+                        if constexpr (std::is_same_v<T, size_t>)
+                        {
+                            l_result.emplace(l_keyword,
+                                             static_cast<uint64_t>(l_val));
+                        }
+                        else
+                        {
+                            l_result.emplace(l_keyword, l_val);
+                        }
+                    },
+                    l_value);
+            }
+            return l_result;
+        }
+
+        // std::monostate — unrecognised VPD format
+        throwInvalidFruPath();
+    }
+    catch (const types::DbusInvalidArgument&)
+    {
+        throw;
+    }
+    catch (const EccException& l_ex)
+    {
+        // EccException is thrown by IpzVpdParser when an ECC check fails
+        m_logger->logMessage(
+            std::format("ECC check failed for FRU [{}], reason: {}", i_fruPath,
+                        l_ex.what()),
+            PlaceHolder::DEFAULT);
+
+        throw types::DeviceError::ReadFailure();
+    }
+    catch (const DataException& l_ex)
+    {
+        // DataException is thrown for malformed or invalid VPD data
+        m_logger->logMessage(
+            std::format("Invalid VPD data for FRU [{}], reason: {}", i_fruPath,
+                        l_ex.what()),
+            PlaceHolder::DEFAULT);
+
+        throw types::DeviceError::ReadFailure();
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("getParsedVpd failed for FRU [{}], reason: {}",
+                        i_fruPath, l_ex.what()),
+            PlaceHolder::DEFAULT);
+
+        throwInvalidFruPath();
+    }
+}
+
 } // namespace vpd
