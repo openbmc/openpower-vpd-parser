@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd8914e_f9d45676",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T07:13:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b549d84_f7d35b7d",
+      "revId": "9bde5328de53ea0fe7c35878d25fc3b516036ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc0962c6_6d5c4f96",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-21T07:09:31Z",
       "side": 1,
       "message": "should this error maps to INVALID_KEYWORD_LENGTH ?",
+      "revId": "9bde5328de53ea0fe7c35878d25fc3b516036ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb4fb17_944a151c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T07:13:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc0962c6_6d5c4f96",
       "revId": "9bde5328de53ea0fe7c35878d25fc3b516036ddf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
