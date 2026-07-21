@@ -91,6 +91,29 @@
       },
       "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f1aa6b_8067cae3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T16:37:17Z",
+      "side": 0,
+      "message": "No one is using this getImFromDbus. can be removed.",
+      "range": {
+        "startLine": 359,
+        "startChar": 53,
+        "endLine": 359,
+        "endChar": 66
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
