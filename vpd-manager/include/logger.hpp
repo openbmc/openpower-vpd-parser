@@ -375,22 +375,4 @@ class Logger
     std::unique_ptr<ILogFileHandler> m_vpdWriteLogger;
 };
 
-/**
- * @brief The namespace defines logging related methods for VPD.
- * Only for backward compatibility till new logger class comes up.
- */
-namespace logging
-{
-
-/**
- * @brief An api to log message.
- * This API should be called to log message. It will auto append information
- * like file name, line and function name to the message being logged.
- *
- * @param[in] message - Information that we want  to log.
- * @param[in] location - Object of source_location class.
- */
-void logMessage(std::string_view message, const std::source_location& location =
-                                              std::source_location::current());
-} // namespace logging
 } // namespace vpd
