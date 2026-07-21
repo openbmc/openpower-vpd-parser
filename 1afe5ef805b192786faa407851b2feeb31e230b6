@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643206ea_7013862e",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-21T14:41:07Z",
+      "side": 1,
+      "message": "All the methods are accepting JSON as parameter if required. Class member member is not required.\nI checked the implementation, unnecessarily the code in API\u0027s are copying the JSON to a class member.",
+      "revId": "1afe5ef805b192786faa407851b2feeb31e230b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29002466_2792e190",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-21T14:41:07Z",
+      "side": 1,
+      "message": "We are not using this member anymore. Please get rid of it.",
+      "revId": "1afe5ef805b192786faa407851b2feeb31e230b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
