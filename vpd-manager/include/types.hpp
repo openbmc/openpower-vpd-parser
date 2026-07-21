@@ -128,6 +128,16 @@ using Path = std::string;
 using Record = std::string;
 using Keyword = std::string;
 
+/** D-Bus keyword value for Keyword VPD: bytes, string, or uint64. */
+using DbusKwdValueType = std::variant<BinaryVector, std::string, uint64_t>;
+/** D-Bus Keyword VPD map: keyword -> value. */
+using DbusKeywordVpdMap = std::map<Keyword, DbusKwdValueType>;
+/** D-Bus IPZ VPD map: record -> keyword -> array[byte]. */
+using DbusIPZVpdMap =
+    std::map<Record, std::map<Keyword, BinaryVector>>;
+/** D-Bus return variant for GetParsedVPD: IPZ or Keyword VPD map. */
+using ParsedVpdMap = std::variant<DbusIPZVpdMap, DbusKeywordVpdMap>;
+
 using IpzData = std::tuple<Record, Keyword, BinaryVector>;
 using KwData = std::tuple<Keyword, BinaryVector>;
 using VpdData = std::variant<IpzData, KwData>;
