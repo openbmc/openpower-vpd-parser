@@ -75,7 +75,8 @@ static vpdType vpdTypeCheck(const types::BinaryVector& i_vpdVector)
             }
         }
 
-        logging::logMessage("11S format is not found in the DDIMM VPD.");
+        Logger::getLoggerInstance()->logMessage(
+            "11S format is not found in the DDIMM VPD.");
         return vpdType::INVALID_VPD_FORMAT;
     }
     else if ((i_vpdVector[constants::SPD_BYTE_2] & constants::SPD_BYTE_MASK) ==
@@ -130,7 +131,7 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
         case vpdType::DDR5_ISDIMM_MEMORY_VPD:
         {
             // return shared pointer to class object.
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "ISDIMM parser selected for VPD path: " + i_vpdFilePath);
             return std::make_shared<JedecSpdParser>(i_vpdVector);
         }
