@@ -14,6 +14,7 @@ Before=phosphor-psu-monitor.service
 [Service]
 ExecStart=/usr/bin/wait-vpd-parser
 Type=oneshot
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
