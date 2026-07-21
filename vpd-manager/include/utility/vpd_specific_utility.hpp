@@ -112,8 +112,9 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
         {
             if (o_errCode)
             {
-                logging::logMessage("Failed to create bad VPD file name : " +
-                                    commonUtility::getErrCodeMsg(o_errCode));
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to create bad VPD file name : " +
+                    commonUtility::getErrCodeMsg(o_errCode));
             }
 
             return constants::FAILURE;
@@ -817,7 +818,8 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
 
             if (!l_rc)
             {
-                logging::logMessage("No match found for CCIN");
+                Logger::getLoggerInstance()->logMessage(
+                    "No match found for CCIN");
             }
         }
         else
@@ -1049,7 +1051,7 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
             ((l_imagePrefix == constants::powerVsImagePrefix_MY) ||
              (l_imagePrefix == constants::powerVsImagePrefix_NY)))
         {
-            logging::logMessage("PowerVS configuration");
+            Logger::getLoggerInstance()->logMessage("PowerVS configuration");
             return true;
         }
 
@@ -1058,7 +1060,7 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
             ((l_imagePrefix == constants::powerVsImagePrefix_MZ) ||
              (l_imagePrefix == constants::powerVsImagePrefix_NZ)))
         {
-            logging::logMessage("PowerVS configuration");
+            Logger::getLoggerInstance()->logMessage("PowerVS configuration");
             return true;
         }
     }
@@ -1295,7 +1297,7 @@ inline types::InterfaceMap getCommonInterfaceProperties(
 
                 if (l_encodedValue.empty() && o_errCode)
                 {
-                    logging::logMessage(
+                    Logger::getLoggerInstance()->logMessage(
                         "Failed to get encoded value for keyword : " + l_kwd +
                         ", error : " + commonUtility::getErrCodeMsg(o_errCode));
                 }
@@ -1388,7 +1390,7 @@ inline void updateCiPropertyOfInheritedFrus(
         {
             if (o_errCode)
             {
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "Failed to get common interface property list, error : " +
                     commonUtility::getErrCodeMsg(o_errCode));
             }
@@ -1518,8 +1520,9 @@ inline std::string getIMValue(const types::IPZVpdMap& i_parsedVpd,
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage("Failed to get IM value with exception:" +
-                            std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to get IM value with exception:" +
+            std::string(l_ex.what()));
         o_errCode = error_code::STANDARD_EXCEPTION;
     }
 
@@ -1576,8 +1579,9 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage("Failed to get HW version with exception:" +
-                            std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to get HW version with exception:" +
+            std::string(l_ex.what()));
         o_errCode = error_code::STANDARD_EXCEPTION;
     }
 
@@ -1731,7 +1735,7 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
 
             if (o_errCode)
             {
-                logging::logMessage(
+                Logger::getLoggerInstance()->logMessage(
                     "Failed to get data to clear on DBus for path [" +
                     l_objectPath +
                     "], error : " + commonUtility::getErrCodeMsg(o_errCode));
@@ -1749,7 +1753,7 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to reset FRU data on DBus for FRU [" + i_vpdPath +
             "], error : " + std::string(l_ex.what()));
 
