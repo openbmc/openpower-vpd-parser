@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "201930af_e1508f6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-21T04:44:46Z",
+      "side": 1,
+      "message": "looks good to me",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a363e574_d55e27e7",
@@ -36,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2e0d11_8e341050",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-21T04:44:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e9c524df_98de0ac6",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "569b444b_97d1db68",
@@ -67,6 +102,24 @@
       "side": 1,
       "message": "No. Please see the return type of `getJsonObj` in https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/92337",
       "parentUuid": "569b444b_97d1db68",
+      "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f433b50a_7d2f8c3a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-21T04:44:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2a803867_c305a330",
       "revId": "6c8d367ce0e534badbb420f6e827d2d3e665ca7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
