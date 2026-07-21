@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b549d84_f7d35b7d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-21T07:09:31Z",
+      "side": 1,
+      "message": "l_chassisId.empty() should be checked separetly, as it can occur without error code set.",
+      "revId": "9bde5328de53ea0fe7c35878d25fc3b516036ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc0962c6_6d5c4f96",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-21T07:09:31Z",
+      "side": 1,
+      "message": "should this error maps to INVALID_KEYWORD_LENGTH ?",
+      "revId": "9bde5328de53ea0fe7c35878d25fc3b516036ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
