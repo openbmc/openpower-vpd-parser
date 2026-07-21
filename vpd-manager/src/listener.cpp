@@ -216,7 +216,7 @@ void Listener::registerPresenceChangeCallback() noexcept
 
         if (l_errCode)
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Failed to get list of FRUs with presence monitoring, error: " +
                 commonUtility::getErrCodeMsg(l_errCode));
             return;
@@ -500,7 +500,7 @@ void Listener::correlatedPropChangedCallBack(
                     if (!updateCorrelatedProperty(l_serviceName, i_corrProperty,
                                                   l_propertyValue))
                     {
-                        logging::logMessage(
+                        Logger::getLoggerInstance()->logMessage(
                             "Failed to update correlated property: " +
                             l_serviceName + " : " +
                             std::get<0>(i_corrProperty) + " : " +
@@ -672,7 +672,7 @@ bool Listener::updateCorrelatedProperty(
             l_destinationObjectPath + " : " + l_destinationInterface + " : " +
             l_destinationPropertyName + ". Error: " + std::string(l_ex.what());
 
-        logging::logMessage(l_msg);
+        Logger::getLoggerInstance()->logMessage(l_msg);
 
         Logger::getLoggerInstance()->logMessage(
             l_msg, PlaceHolder::PEL,
