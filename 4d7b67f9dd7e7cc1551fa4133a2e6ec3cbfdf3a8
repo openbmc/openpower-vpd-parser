@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a911d6_204ae9c3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T05:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d9415b0_5beac0f7",
+      "revId": "4d7b67f9dd7e7cc1551fa4133a2e6ec3cbfdf3a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "737ea7d7_229f3b91",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "this is intentionally kept here. so that either path is followed, but will be checked at last.",
       "parentUuid": "737ea7d7_229f3b91",
+      "revId": "4d7b67f9dd7e7cc1551fa4133a2e6ec3cbfdf3a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe4a2a6_cda13d41",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-21T05:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23dd119f_a694cd3e",
       "revId": "4d7b67f9dd7e7cc1551fa4133a2e6ec3cbfdf3a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
