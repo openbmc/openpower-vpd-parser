@@ -452,15 +452,4 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
     }
 }
 
-namespace logging
-{
-void logMessage(std::string_view message, const std::source_location& location)
-{
-    std::ostringstream log;
-    log << "FileName: " << location.file_name() << ","
-        << " Line: " << location.line() << " " << message;
-
-    std::cout << log.str() << std::endl;
-}
-} // namespace logging
 } // namespace vpd

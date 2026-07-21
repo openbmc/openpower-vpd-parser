@@ -19,7 +19,7 @@ TEST(IsFruPowerOffOnlyTest, PositiveTestCase)
 
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to parse JSON file [" + l_jsonPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
@@ -29,7 +29,7 @@ TEST(IsFruPowerOffOnlyTest, PositiveTestCase)
 
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to check if FRU is power off only for FRU [" + l_vpdPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
@@ -47,7 +47,7 @@ TEST(IsFruPowerOffOnlyTest, NegativeTestCase)
 
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to parse JSON file [" + l_jsonPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
@@ -57,7 +57,7 @@ TEST(IsFruPowerOffOnlyTest, NegativeTestCase)
 
     if (l_errCode)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to check if FRU is power off only for FRU [" + l_vpdPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }

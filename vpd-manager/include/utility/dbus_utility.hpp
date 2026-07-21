@@ -41,7 +41,8 @@ inline types::MapperGetObject getObjectMap(
     // interface list is optional argument, hence no check required.
     if (objectPath.empty())
     {
-        logging::logMessage("Path value is empty, invalid call to GetObject");
+        Logger::getLoggerInstance()->logMessage(
+            "Path value is empty, invalid call to GetObject");
         return getObjectMap;
     }
 
@@ -59,7 +60,7 @@ inline types::MapperGetObject getObjectMap(
     }
     catch (const sdbusplus::exception::internal_exception& e)
     {
-        // logging::logMessage(e.what());
+        // Logger::getLoggerInstance()->logMessage(e.what());
         return getObjectMap;
     }
 
@@ -89,7 +90,8 @@ inline types::PropertyMap getPropertyMap(const std::string& i_service,
     types::PropertyMap l_propertyValueMap;
     if (i_service.empty() || i_objectPath.empty() || i_interface.empty())
     {
-        logging::logMessage("Invalid parameters to get property map");
+        Logger::getLoggerInstance()->logMessage(
+            "Invalid parameters to get property map");
         return l_propertyValueMap;
     }
 
@@ -105,7 +107,7 @@ inline types::PropertyMap getPropertyMap(const std::string& i_service,
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage(l_ex.what());
+        Logger::getLoggerInstance()->logMessage(l_ex.what());
     }
 
     return l_propertyValueMap;
@@ -139,7 +141,7 @@ inline types::MapperGetSubTree getObjectSubTree(
 
     if (i_objectPath.empty())
     {
-        logging::logMessage("Object path is empty.");
+        Logger::getLoggerInstance()->logMessage("Object path is empty.");
         return l_subTreeMap;
     }
 
@@ -155,7 +157,7 @@ inline types::MapperGetSubTree getObjectSubTree(
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage(l_ex.what());
+        Logger::getLoggerInstance()->logMessage(l_ex.what());
     }
 
     return l_subTreeMap;
@@ -235,7 +237,7 @@ inline types::DbusVariantType readDbusProperty(
     if (serviceName.empty() || objectPath.empty() || interface.empty() ||
         property.empty())
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "One of the parameter to make Dbus read call is empty.");
         return propertyValue;
     }
@@ -297,7 +299,7 @@ inline bool writeDbusProperty(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "DBus write failed, error: " + std::string(l_ex.what()));
         return false;
     }
@@ -395,7 +397,7 @@ inline bool isServiceRunning(const std::string& i_serviceName)
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Call to check service status failed with exception: " +
             std::string(l_ex.what()));
     }
@@ -434,7 +436,7 @@ inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to read BIOS Attribute: " + i_attributeName +
             " due to error " + std::string(l_ex.what()));
 
@@ -554,7 +556,7 @@ inline int EnableRebootGuard() noexcept
             "D-Bus call to enable BMC reboot guard failed for reason: ";
         l_errMsg += l_ex.what();
 
-        logging::logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(l_errMsg);
     }
     return l_rc;
 }
@@ -621,8 +623,9 @@ inline int DisableRebootGuard() noexcept
             else
             {
                 // Failed to Disable Reboot Guard even after 3 retries.
-                logging::logMessage("Failed to Disable Reboot Guard after " +
-                                    std::to_string(MAX_RETRIES) + " re-tries");
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to Disable Reboot Guard after " +
+                    std::to_string(MAX_RETRIES) + " re-tries");
                 l_numRetries = 0;
             }
         };
@@ -704,7 +707,7 @@ inline std::vector<std::string> GetSubTreePaths(
     }
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Error while getting GetSubTreePaths for path [" + i_objectPath +
             "], error: " + std::string(l_ex.what()));
     }
@@ -769,7 +772,7 @@ inline std::string getServiceNameFromConnectionId(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Failed to get service name from connection ID: [" +
             i_connectionId + "]. error: " + std::string(l_ex.what()));
     }
