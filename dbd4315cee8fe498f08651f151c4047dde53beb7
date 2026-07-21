@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a3efc2_313ed5b7",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-21T07:11:18Z",
+      "side": 1,
+      "message": "Can we use `enum class` instead of plain `enum`? `enum class` provides better type safety, and prevents name clashes.",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28cefd6f_dc815925",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-21T07:11:18Z",
+      "side": 1,
+      "message": "I see this API handles non-hexadecimal input as well. The log should then be changed to indicate that the input is empty.",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14eddd73_e7b148b9",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-21T07:11:18Z",
+      "side": 1,
+      "message": "Should this trace also indicate what data got updated on what path?",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f50c4d_9d4dbbaa",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-21T07:11:18Z",
+      "side": 1,
+      "message": "This log should also indicate the value whose conversion failed.",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080ed614_52a73efe",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-21T07:11:18Z",
+      "side": 1,
+      "message": "Help text is missing -12 (KEYWORD_NAME_NOT_PROVIDED)",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
