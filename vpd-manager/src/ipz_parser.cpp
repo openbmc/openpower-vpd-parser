@@ -282,7 +282,7 @@ std::pair<types::RecordOffsetList, types::InvalidRecordList>
         }
         catch (const std::exception& l_ex)
         {
-            logging::logMessage(l_ex.what());
+            Logger::getLoggerInstance()->logMessage(l_ex.what());
 
             // add the invalid record name and exception object to list
             l_invalidRecordList.emplace_back(types::InvalidRecordEntry{
@@ -402,15 +402,16 @@ types::VPDMapVariant IpzVpdParser::parse()
 
         if (!processInvalidRecords(l_result.second))
         {
-            logging::logMessage("Failed to process invalid records for [" +
-                                m_vpdFilePath + "]");
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to process invalid records for [" + m_vpdFilePath +
+                "]");
         }
 
         return m_parsedVPDMap;
     }
     catch (const std::exception& e)
     {
-        logging::logMessage(e.what());
+        Logger::getLoggerInstance()->logMessage(e.what());
         throw e;
     }
 }
@@ -550,7 +551,7 @@ types::DbusVariantType IpzVpdParser::readKeywordFromHardware(
     }
     else
     {
-        logging::logMessage(
+        Logger::getLoggerInstance()->logMessage(
             "Input parameter type provided isn't compatible with the given VPD type.");
         throw types::DbusInvalidArgument();
     }
@@ -569,7 +570,8 @@ types::DbusVariantType IpzVpdParser::readKeywordFromHardware(
             l_record, l_keyword, Offset::VHDR_RECORD)};
 #endif
 
-        logging::logMessage("Read cannot be performed on VHDR record.");
+        Logger::getLoggerInstance()->logMessage(
+            "Read cannot be performed on VHDR record.");
         throw types::DbusInvalidArgument();
     }
 
@@ -586,7 +588,8 @@ types::DbusVariantType IpzVpdParser::readKeywordFromHardware(
             getKeywordValueFromRecord(l_record, l_keyword, l_vtocOffset)};
 #endif
 
-        logging::logMessage("Read cannot be performed on VTOC record.");
+        Logger::getLoggerInstance()->logMessage(
+            "Read cannot be performed on VTOC record.");
         throw types::DbusInvalidArgument();
     }
 
@@ -751,14 +754,14 @@ int IpzVpdParser::writeKeywordOnHardware(
         }
         else
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Input parameter type provided isn't compatible with the given FRU's VPD type.");
             throw types::DbusInvalidArgument();
         }
 
         if (l_recordName == "VHDR" || l_recordName == "VTOC")
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Write operation not allowed on the given record : " +
                 l_recordName);
             throw types::DbusNotAllowed();
@@ -766,7 +769,7 @@ int IpzVpdParser::writeKeywordOnHardware(
 
         if (l_keywordData.size() == 0)
         {
-            logging::logMessage(
+            Logger::getLoggerInstance()->logMessage(
                 "Write operation not allowed as the given keyword's data length is 0.");
             throw types::DbusInvalidArgument();
         }
@@ -869,8 +872,9 @@ bool IpzVpdParser::processInvalidRecords(
         {
             if (l_errCode)
             {
-                logging::logMessage("Failed to dump bad vpd file. Error : " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to dump bad vpd file. Error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             l_rc = false;
