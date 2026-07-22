@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec807a6b_8f09a4c1",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T09:28:49Z",
+      "side": 1,
+      "message": "Return is missing",
+      "revId": "b3c8dc5db72f22c8b03aacb4cb5cb2cdd33ae93b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
