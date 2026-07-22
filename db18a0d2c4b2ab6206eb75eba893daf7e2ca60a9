@@ -63,6 +63,24 @@
       "message": "why don\u0027t we use exiting getInventoryObjPathFromJson() API ?",
       "revId": "db18a0d2c4b2ab6206eb75eba893daf7e2ca60a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78fa8612_243c7ab4",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-22T14:42:17Z",
+      "side": 1,
+      "message": "Because that is a `json_utility` API and will lead to circular dependency.",
+      "parentUuid": "18a940da_eaf13080",
+      "revId": "db18a0d2c4b2ab6206eb75eba893daf7e2ca60a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
