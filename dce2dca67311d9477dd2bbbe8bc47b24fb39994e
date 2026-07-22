@@ -16,6 +16,24 @@
       "message": "Lets put the error as well that we were planning to log else the error will get lost where we miss logging PEL.Will pull this change in other APIs also eventually.",
       "revId": "dce2dca67311d9477dd2bbbe8bc47b24fb39994e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "008c11ac_0b897b05",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-22T15:12:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "80abce65_72e24c9c",
+      "revId": "dce2dca67311d9477dd2bbbe8bc47b24fb39994e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
