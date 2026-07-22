@@ -50,6 +50,7 @@ test_sources = [
     '../vpd-manager/src/isdimm_parser.cpp',
     '../vpd-manager/src/ipz_parser.cpp',
     '../vpd-manager/src/keyword_vpd_parser.cpp',
+    '../vpd-manager/src/ipmi_fru_parser.cpp',
     '../vpdecc/vpdecc.c',
     '../vpd-manager/src/config_manager.cpp',
 ]
@@ -60,6 +61,7 @@ tests = [
     'utest_ddimm_parser.cpp',
     'utest_ipz_parser.cpp',
     'utest_json_utility.cpp',
+    'utest_ipmi_fru_parser.cpp',
 ]
 
 foreach test_file : tests
