@@ -16,6 +16,24 @@
       "message": "Return is missing",
       "revId": "b3c8dc5db72f22c8b03aacb4cb5cb2cdd33ae93b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0702f1ce_e4e51ca5",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T09:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec807a6b_8f09a4c1",
+      "revId": "b3c8dc5db72f22c8b03aacb4cb5cb2cdd33ae93b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
