@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a34bb54_1723cfea",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T05:00:43Z",
+      "side": 0,
+      "message": "its been removed already",
+      "parentUuid": "9fa07a2c_2641787c",
+      "range": {
+        "startLine": 248,
+        "startChar": 20,
+        "endLine": 248,
+        "endChar": 40
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01a230fc_fa0c21ad",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-21T16:24:27Z",
       "side": 0,
       "message": "same here - 50001_power_vs.json",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 39
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86deade_4caa5c3e",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T05:00:43Z",
+      "side": 0,
+      "message": "its been removed already",
+      "parentUuid": "01a230fc_fa0c21ad",
       "range": {
         "startLine": 250,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c303fad7_d0593f29",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T05:00:43Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "9fd8c31d_6c7a1476",
+      "range": {
+        "startLine": 1042,
+        "startChar": 27,
+        "endLine": 1042,
+        "endChar": 50
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4702fe49_d55287e7",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "003bbdc5_3053c052",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T05:00:43Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "4702fe49_d55287e7",
+      "range": {
+        "startLine": 1045,
+        "startChar": 36,
+        "endLine": 1045,
+        "endChar": 66
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03f1aa6b_8067cae3",
@@ -106,6 +202,30 @@
       "writtenOn": "2026-07-21T16:37:17Z",
       "side": 0,
       "message": "No one is using this getImFromDbus. can be removed.",
+      "range": {
+        "startLine": 359,
+        "startChar": 53,
+        "endLine": 359,
+        "endChar": 66
+      },
+      "revId": "989d96682309c3d3e5a29fc981b09d1c08b56c00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5948b5cc_409386bd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-22T05:00:43Z",
+      "side": 0,
+      "message": "removed",
+      "parentUuid": "03f1aa6b_8067cae3",
       "range": {
         "startLine": 359,
         "startChar": 53,
