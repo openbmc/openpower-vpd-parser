@@ -140,11 +140,13 @@ class Worker
      * pre-action is executed. Actual VPD parsing and post actions are
      * skipped.
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] i_eepromFilePath - Redundant EEPROM file path.
      *
      * @return true if pre-action execution succeeds, false otherwise.
      */
     bool processRedundantPreAction(
+        const nlohmann::json& i_configJson,
         const std::string& i_eepromFilePath) noexcept;
 
     /**
@@ -153,6 +155,7 @@ class Worker
      * Note: This API will handle all the exceptions internally and will return
      * the tuple of collection status and the presence state of the FRU.
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] i_vpdFilePath - Path of file containing VPD.
      * @param[in] i_processRedundant - Enables VPD collection for redundant
      * EEPROM path.
@@ -166,7 +169,7 @@ class Worker
      * Second bool: true if FRU is present, false otherwise.
      */
     std::tuple<bool, bool> parseAndPublishVPD(
-        const std::string& i_vpdFilePath,
+        const nlohmann::json& i_configJson, const std::string& i_vpdFilePath,
         const bool& i_processRedundant = false);
 
     /**
@@ -210,12 +213,14 @@ class Worker
      * Inherit flag denotes that some property in the child FRU needs to be
      * inherited from parent FRU.
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] interfaces - Map to hold interface along with its
      * properties.
      * @param[in] i_inventoryPath - inventory path.
      */
-    void processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
+    void processInheritFlag(const nlohmann::json& i_configJson,
+                            const types::VPDMapVariant& parsedVpdMap,
                             types::InterfaceMap& interfaces,
                             const std::string& i_inventoryPath);
 
@@ -305,15 +310,16 @@ class Worker
      * }
      * *************************************
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] i_vpdFilePath - Path to the EEPROM file.
      * @param[in] i_flagToProcess - To identify which flag(s) needs to be
      * processed under PreAction tag of config JSON.
      * @param[out] o_errCode - To set error code in case of error.
      * @return types::BaseActionResult with execution status and presence info.
      */
-    types::BaseActionResult processPreAction(const std::string& i_vpdFilePath,
-                                             const std::string& i_flagToProcess,
-                                             uint16_t& o_errCode);
+    types::BaseActionResult processPreAction(
+        const nlohmann::json& i_configJson, const std::string& i_vpdFilePath,
+        const std::string& i_flagToProcess, uint16_t& o_errCode);
 
     /**
      * @brief API to process postAction(base_action) defined in config JSON.
@@ -342,6 +348,7 @@ class Worker
      * Also, if post action is required to be processed only for FRUs with
      * certain CCIN then CCIN list can be provided under flag.
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] i_vpdFruPath - Path to the EEPROM file.
      * @param[in] i_flagToProcess - To identify which flag(s) needs to be
      * processed under postAction tag of config JSON.
@@ -350,7 +357,8 @@ class Worker
      * @return Execution status.
      */
     bool processPostAction(
-        const std::string& i_vpdFruPath, const std::string& i_flagToProcess,
+        const nlohmann::json& i_configJson, const std::string& i_vpdFruPath,
+        const std::string& i_flagToProcess,
         const std::optional<types::VPDMapVariant> i_parsedVpd = std::nullopt);
 
     /**
@@ -390,10 +398,12 @@ class Worker
      * value. Note: It is the responsibility of the caller to determine whether
      * the present property for the FRU should be updated or not.
      *
+     * @param[in] i_configJson - Config Json object.
      * @param[in] i_vpdPath - EEPROM or inventory path.
      * @param[in] i_value - value to be set.
      */
-    void setPresentProperty(const std::string& i_fruPath, const bool& i_value);
+    void setPresentProperty(const nlohmann::json& i_configJson,
+                            const std::string& i_fruPath, const bool& i_value);
 
     /**
      * @brief API to check if the path needs to be skipped for collection.
@@ -457,9 +467,6 @@ class Worker
     void processSkipRecordsFlag(const nlohmann::json& i_fruJson,
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
-
-    // Parsed JSON file.
-    nlohmann::json m_parsedJson{};
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;

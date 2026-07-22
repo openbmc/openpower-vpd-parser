@@ -411,7 +411,8 @@ void Worker::processCopyRecordFlag(const nlohmann::json& singleFru,
     }
 }
 
-void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
+void Worker::processInheritFlag(const nlohmann::json& i_configJson,
+                                const types::VPDMapVariant& parsedVpdMap,
                                 types::InterfaceMap& interfaces,
                                 const std::string& i_inventoryPath)
 {
@@ -428,9 +429,9 @@ void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
         populateKwdVPDpropertyMap(*kwdVpdMap, interfaces);
     }
 
-    if (m_parsedJson.contains("commonInterfaces"))
+    if (i_configJson.contains("commonInterfaces"))
     {
-        populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
+        populateInterfaces(i_configJson["commonInterfaces"], interfaces,
                            parsedVpdMap, i_inventoryPath);
     }
 }
@@ -578,8 +579,6 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
                           types::ObjectMap& objectInterfaceMap,
                           const std::string& vpdFilePath)
 {
-    m_parsedJson = i_configJsonObj;
-
     if (vpdFilePath.empty())
     {
         throw std::runtime_error(
@@ -589,11 +588,11 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
 
     // JSON config is mandatory for processing of "if". Add "else" for any
     // processing without config JSON.
-    if (!m_parsedJson.empty())
+    if (!i_configJsonObj.empty())
     {
         types::InterfaceMap interfaces;
 
-        for (const auto& aFru : m_parsedJson["frus"][vpdFilePath])
+        for (const auto& aFru : i_configJsonObj["frus"][vpdFilePath])
         {
             const auto& inventoryPath = aFru["inventoryPath"];
             sdbusplus::object_path fruObjectPath(inventoryPath);
@@ -607,7 +606,8 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
 
             if (aFru.value("inherit", true))
             {
-                processInheritFlag(parsedVpdMap, interfaces, inventoryPath);
+                processInheritFlag(i_configJsonObj, parsedVpdMap, interfaces,
+                                   inventoryPath);
             }
             else if (aFru.contains("copyRecords"))
             {
@@ -624,10 +624,10 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
             // inherit=false
             if (!aFru.value("inherit", true) &&
                 aFru.value("inheritCI", false) &&
-                m_parsedJson.contains("commonInterfaces"))
+                i_configJsonObj.contains("commonInterfaces"))
             {
-                populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
-                                   parsedVpdMap, inventoryPath);
+                populateInterfaces(i_configJsonObj["commonInterfaces"],
+                                   interfaces, parsedVpdMap, inventoryPath);
             }
 
             if (aFru.contains("extraInterfaces"))
@@ -655,8 +655,8 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
 }
 
 types::BaseActionResult Worker::processPreAction(
-    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const nlohmann::json& i_configJson, const std::string& i_vpdFilePath,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
     o_errCode = 0;
     if (i_vpdFilePath.empty() || i_flagToProcess.empty())
@@ -685,7 +685,7 @@ types::BaseActionResult Worker::processPreAction(
         // removed this can lead to ambiguity. Hence clearing this
         // Keyword if FRU is absent.
         const auto& inventoryPath =
-            m_parsedJson["frus"][i_vpdFilePath].at(0).value("inventoryPath",
+            i_configJson["frus"][i_vpdFilePath].at(0).value("inventoryPath",
                                                             "");
 
         if (!inventoryPath.empty())
@@ -712,7 +712,8 @@ types::BaseActionResult Worker::processPreAction(
 }
 
 bool Worker::processPostAction(
-    const std::string& i_vpdFruPath, const std::string& i_flagToProcess,
+    const nlohmann::json& i_configJson, const std::string& i_vpdFruPath,
+    const std::string& i_flagToProcess,
     const std::optional<types::VPDMapVariant> i_parsedVpd)
 {
     if (i_vpdFruPath.empty() || i_flagToProcess.empty())
@@ -732,14 +733,14 @@ bool Worker::processPostAction(
     // based on some CCIN value?
     uint16_t l_errCode = 0;
 
-    if (m_parsedJson["frus"][i_vpdFruPath]
+    if (i_configJson["frus"][i_vpdFruPath]
             .at(0)["postAction"][i_flagToProcess]
             .contains("ccin"))
     {
         // CCIN match is required to process post action for this FRU as it
         // contains the flag.
         if (!vpdSpecificUtility::findCcinInVpd(
-                m_parsedJson["frus"][i_vpdFruPath].at(
+                i_configJson["frus"][i_vpdFruPath].at(
                     0)["postAction"][i_flagToProcess],
                 i_parsedVpd.value(), l_errCode))
         {
@@ -779,7 +780,6 @@ types::VPDMapVariant Worker::parseVpdFile(
     const nlohmann::json& i_configJsonObj, const std::string& i_vpdFilePath,
     const bool& i_processRedundant, bool& o_presenceState)
 {
-    m_parsedJson = i_configJsonObj;
     o_presenceState = false;
     try
     {
@@ -792,14 +792,14 @@ types::VPDMapVariant Worker::parseVpdFile(
         }
 
         bool isPreActionRequired = false;
-        if (!m_parsedJson.empty())
+        if (!i_configJsonObj.empty())
         {
             if (jsonUtility::isActionRequired(i_vpdFilePath, "preAction",
                                               "collection", l_errCode))
             {
                 isPreActionRequired = true;
-                const types::BaseActionResult l_actionResult =
-                    processPreAction(i_vpdFilePath, "collection", l_errCode);
+                const types::BaseActionResult l_actionResult = processPreAction(
+                    i_configJsonObj, i_vpdFilePath, "collection", l_errCode);
 
                 if (l_actionResult.m_gpioPresenceErrorCode ==
                     error_code::DEVICE_NOT_PRESENT)
@@ -854,8 +854,8 @@ types::VPDMapVariant Worker::parseVpdFile(
 
             // Skip VPD collection if VPD path is redundant path and
             // i_processRedundant is set to false.
-            if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
-                                                                false) &&
+            if (i_configJsonObj["frus"][i_vpdFilePath].at(0).value(
+                    "isRedundant", false) &&
                 !i_processRedundant)
             {
                 return types::VPDMapVariant{};
@@ -881,7 +881,7 @@ types::VPDMapVariant Worker::parseVpdFile(
         }
 
         std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(i_vpdFilePath, m_parsedJson);
+            std::make_shared<Parser>(i_vpdFilePath, i_configJsonObj);
 
         types::VPDMapVariant l_parsedVpd = vpdParser->parse();
 
@@ -892,7 +892,8 @@ types::VPDMapVariant Worker::parseVpdFile(
         if (jsonUtility::isActionRequired(i_vpdFilePath, "postAction",
                                           "collection", l_errCode))
         {
-            if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
+            if (!processPostAction(i_configJsonObj, i_vpdFilePath, "collection",
+                                   l_parsedVpd))
             {
                 // Post action was required but failed while executing.
                 // Behaviour can be undefined.
@@ -942,7 +943,8 @@ types::VPDMapVariant Worker::parseVpdFile(
 }
 
 std::tuple<bool, bool> Worker::parseAndPublishVPD(
-    const std::string& i_vpdFilePath, const bool& i_processRedundant)
+    const nlohmann::json& i_configJson, const std::string& i_vpdFilePath,
+    const bool& i_processRedundant)
 {
     uint16_t l_errCode = 0;
     bool l_presenceState = false;
@@ -958,17 +960,18 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
 
         // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
-        if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
+        if (i_configJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
                                                             false) &&
             !i_processRedundant)
         {
-            const bool l_status = processRedundantPreAction(i_vpdFilePath);
+            const bool l_status =
+                processRedundantPreAction(i_configJson, i_vpdFilePath);
 
             return std::make_tuple(l_status, l_presenceState);
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, types::VpdCollectionStatus::InProgress, m_parsedJson,
+            i_vpdFilePath, types::VpdCollectionStatus::InProgress, i_configJson,
             l_errCode);
         if (l_errCode)
         {
@@ -978,18 +981,18 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
         }
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(
-            m_parsedJson, i_vpdFilePath, i_processRedundant, l_presenceState);
+            i_configJson, i_vpdFilePath, i_processRedundant, l_presenceState);
 
         if (isPresentPropertyHandlingRequired(
-                m_parsedJson["frus"][i_vpdFilePath].at(0)))
+                i_configJson["frus"][i_vpdFilePath].at(0)))
         {
-            setPresentProperty(i_vpdFilePath, l_presenceState);
+            setPresentProperty(i_configJson, i_vpdFilePath, l_presenceState);
         }
 
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
-            populateDbus(m_parsedJson, parsedVpdMap, objectInterfaceMap,
+            populateDbus(i_configJson, parsedVpdMap, objectInterfaceMap,
                          i_vpdFilePath);
 
             // Call dbus method to update on dbus
@@ -1008,7 +1011,7 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
             // considered VPD collection is completed. Hence FRU collection
             // Status will be set as completed.
 
-            vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, m_parsedJson,
+            vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, i_configJson,
                                                 l_errCode);
 
             if (l_errCode)
@@ -1025,7 +1028,7 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, types::VpdCollectionStatus::Completed, m_parsedJson,
+            i_vpdFilePath, types::VpdCollectionStatus::Completed, i_configJson,
             l_errCode);
 
         if (l_errCode)
@@ -1044,7 +1047,7 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
 
         // stale data can be present on the system from previous boot. so
         // clearing of data in case of failure.
-        vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, m_parsedJson,
+        vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, i_configJson,
                                             l_errCode);
 
         if (l_errCode)
@@ -1055,7 +1058,7 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, types::VpdCollectionStatus::Failed, m_parsedJson,
+            i_vpdFilePath, types::VpdCollectionStatus::Failed, i_configJson,
             l_errCode);
         if (l_errCode)
         {
@@ -1209,14 +1212,6 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
 
     uint16_t l_errCode = 0;
 
-    /**
-     * @TODO Currently required because the worker APIs use m_parsedJson for
-     * JSON-related operations.
-     *
-     * Remove this assignment once the APIs are updated to accept the JSON
-     * object as an input parameter.
-     */
-    m_parsedJson = i_configJsonObj;
     const std::string& l_fruPath =
         jsonUtility::getFruPathFromJson(i_dbusObjPath, l_errCode);
 
@@ -1234,8 +1229,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
         if (jsonUtility::isActionRequired(l_fruPath, "preAction", "deletion",
                                           l_errCode))
         {
-            const types::BaseActionResult l_preActResult =
-                processPreAction(l_fruPath, "deletion", l_errCode);
+            const types::BaseActionResult l_preActResult = processPreAction(
+                i_configJsonObj, l_fruPath, "deletion", l_errCode);
             if (!l_preActResult.m_success)
             {
                 std::string l_msg = "Pre action failed";
@@ -1254,7 +1249,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        vpdSpecificUtility::resetObjTreeVpd(l_fruPath, m_parsedJson, l_errCode);
+        vpdSpecificUtility::resetObjTreeVpd(l_fruPath, i_configJsonObj,
+                                            l_errCode);
 
         if (l_errCode)
         {
@@ -1266,7 +1262,7 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
         if (jsonUtility::isActionRequired(l_fruPath, "postAction", "deletion",
                                           l_errCode))
         {
-            if (!processPostAction(l_fruPath, "deletion"))
+            if (!processPostAction(i_configJsonObj, l_fruPath, "deletion"))
             {
                 throw std::runtime_error("Post action failed");
             }
@@ -1310,7 +1306,8 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
     }
 }
 
-void Worker::setPresentProperty(const std::string& i_vpdPath,
+void Worker::setPresentProperty(const nlohmann::json& i_configJson,
+                                const std::string& i_vpdPath,
                                 const bool& i_value)
 {
     try
@@ -1339,9 +1336,9 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         }
 
         // If the given path is EEPROM path.
-        if (m_parsedJson["frus"].contains(i_vpdPath))
+        if (i_configJson["frus"].contains(i_vpdPath))
         {
-            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
+            for (const auto& l_Fru : i_configJson["frus"][i_vpdPath])
             {
                 sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
@@ -1392,15 +1389,6 @@ void Worker::performVpdRecollection(
 
         uint16_t l_errCode = 0;
 
-        /**
-         * @todo Currently required because the worker APIs use m_parsedJson for
-         * JSON-related operations.
-         *
-         * Remove this assignment once the APIs are updated to accept the JSON
-         * object as an input parameter.
-         */
-        m_parsedJson = i_sysCfgJsonObj;
-
         const auto& l_frusReplaceableAtStandby =
             jsonUtility::getListOfFrusReplaceableAtStandby(l_errCode);
 
@@ -1426,7 +1414,7 @@ void Worker::performVpdRecollection(
                 continue;
             }
 
-            parseAndPublishVPD(l_fruPath);
+            parseAndPublishVPD(i_sysCfgJsonObj, l_fruPath);
         }
         return;
     }
@@ -1456,7 +1444,6 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             return;
         }
 
-        m_parsedJson = i_configJsonObj;
         // Get FRU path for the given D-bus object path from JSON
         l_fruPath = jsonUtility::getFruPathFromJson(i_dbusObjPath, l_errCode);
 
@@ -1538,7 +1525,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::InProgress, m_parsedJson,
+            l_fruPath, types::VpdCollectionStatus::InProgress, i_configJsonObj,
             l_errCode);
         if (l_errCode)
         {
@@ -1550,12 +1537,12 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         // Parse VPD
         bool l_fruPresenceState = false;
         types::VPDMapVariant l_parsedVpd =
-            parseVpdFile(m_parsedJson, l_fruPath, false, l_fruPresenceState);
+            parseVpdFile(i_configJsonObj, l_fruPath, false, l_fruPresenceState);
 
         if (isPresentPropertyHandlingRequired(
-                m_parsedJson["frus"][l_fruPath].at(0)))
+                i_configJsonObj["frus"][l_fruPath].at(0)))
         {
-            setPresentProperty(l_fruPath, l_fruPresenceState);
+            setPresentProperty(i_configJsonObj, l_fruPath, l_fruPresenceState);
         }
 
         // If l_parsedVpd is pointing to std::monostate
@@ -1570,7 +1557,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             // Stale data from the previous boot can be present on the
             // system. so clearing of data.
             vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
-                                                m_parsedJson, l_errCode);
+                                                i_configJsonObj, l_errCode);
 
             if (l_errCode)
             {
@@ -1584,7 +1571,8 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         {
             types::ObjectMap l_dbusObjectMap;
             // Get D-bus object map from worker class
-            populateDbus(m_parsedJson, l_parsedVpd, l_dbusObjectMap, l_fruPath);
+            populateDbus(i_configJsonObj, l_parsedVpd, l_dbusObjectMap,
+                         l_fruPath);
 
             if (l_dbusObjectMap.empty())
             {
@@ -1603,7 +1591,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
+            l_fruPath, types::VpdCollectionStatus::Completed, i_configJsonObj,
             l_errCode);
         if (l_errCode)
         {
@@ -1617,7 +1605,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
     {
         std::string l_errMsg;
         vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
-                                            m_parsedJson, l_errCode);
+                                            i_configJsonObj, l_errCode);
 
         if (l_errCode)
         {
@@ -1627,7 +1615,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
+            l_fruPath, types::VpdCollectionStatus::Failed, i_configJsonObj,
             l_errCode);
         if (l_errCode)
         {
@@ -1713,13 +1701,14 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
 }
 
 bool Worker::processRedundantPreAction(
+    const nlohmann::json& i_configJson,
     const std::string& i_eepromFilePath) noexcept
 {
     try
     {
         bool l_presenceState = false;
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(
-            m_parsedJson, i_eepromFilePath, false, l_presenceState);
+            i_configJson, i_eepromFilePath, false, l_presenceState);
         return true;
     }
     catch (const std::exception& l_ex)
@@ -1763,11 +1752,7 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
                                    constants::vpdCollectionFailed);
         }
 
-        // Store the configuration JSON in member variable for subsequent JSON
-        // related processing
-        m_parsedJson = i_cfgJsonObj;
-
-        const auto& l_parseResult = parseAndPublishVPD(i_fruPath);
+        const auto& l_parseResult = parseAndPublishVPD(i_cfgJsonObj, i_fruPath);
         l_fruPresent = std::get<1>(l_parseResult);
 
         if (std::get<0>(l_parseResult))
