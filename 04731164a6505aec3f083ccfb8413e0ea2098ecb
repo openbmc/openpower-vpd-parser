@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a22700e4_79891714",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-22T06:41:36Z",
+      "side": 1,
+      "message": "What\u0027s a \"shim\" ?",
+      "revId": "04731164a6505aec3f083ccfb8413e0ea2098ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
