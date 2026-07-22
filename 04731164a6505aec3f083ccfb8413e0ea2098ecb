@@ -16,6 +16,24 @@
       "message": "What\u0027s a \"shim\" ?",
       "revId": "04731164a6505aec3f083ccfb8413e0ea2098ecb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "174c8e11_5346d266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-22T16:57:30Z",
+      "side": 1,
+      "message": "a shim is a small, temporary library or code layer that transparently intercepts API calls and changes the arguments, redirects the operation, or handles the logic itself.",
+      "parentUuid": "a22700e4_79891714",
+      "revId": "04731164a6505aec3f083ccfb8413e0ea2098ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
