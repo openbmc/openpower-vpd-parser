@@ -361,6 +361,17 @@ class ConfigManager final
     // Private default constructor — instances are created only via initialize()
     ConfigManager() : m_logger{Logger::getLoggerInstance()} {}
 
+    /**
+     * @brief API to check if given object path is present in the system config
+     * JSON
+     *
+     * @param[in] i_invPath - Inventory object path
+     *
+     * @return true if the inventory object path is present in the system config
+     * JSON, false otherwise
+     */
+    bool isInventoryPathInJson(const std::string& i_invPath) const noexcept;
+
     // Singleton instance — atomically replaced by initialize() on each call.
     static std::atomic<std::shared_ptr<ConfigManager>> m_instance;
 
