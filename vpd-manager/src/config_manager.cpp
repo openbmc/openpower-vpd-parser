@@ -4,6 +4,7 @@
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
 
+#include <algorithm>
 #include <filesystem>
 #include <format>
 #include <fstream>
@@ -102,6 +103,16 @@ std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
     if ((*i_vpdPath).starts_with(std::string_view(constants::pimPath)))
     {
         l_chassisId = getChassisId(*i_vpdPath);
+
+        if (l_chassisId.empty())
+        {
+            // see if the given object path is in the system configuration JSON
+            // if yes, return the system configuration JSON
+            if (isInventoryPathInJson(*i_vpdPath))
+            {
+                return std::cref(m_systemConfigJson);
+            }
+        }
     }
     else if (const auto l_itr = m_eepromToChassisIdMap.find(*i_vpdPath);
              l_itr != m_eepromToChassisIdMap.end())
@@ -212,8 +223,6 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
             return std::unexpected(error_code::INVALID_JSON);
         }
 
-        // @todo: handle inventory paths without chassis information once they
-        // are modelled in system config JSON
         const auto& l_chassisId = getChassisId(l_baseInvObjPath);
         if (l_chassisId.empty())
         {
@@ -724,5 +733,44 @@ void ConfigManager::JsonValidator::validatePollingRequiredTag(
             }
         }
     }
+}
+
+bool ConfigManager::isInventoryPathInJson(
+    const std::string& i_invPath) const noexcept
+{
+    // Validate: must be a non-empty D-Bus inventory object path.
+    // EEPROM paths (filesystem paths) do not start with pimPath, so this
+    // check also naturally rejects them.
+    if (i_invPath.empty() || !i_invPath.starts_with(constants::pimPath))
+    {
+        return false;
+    }
+
+    try
+    {
+        for (const auto& l_fruEntry : m_systemConfigJson["frus"].items())
+        {
+            const auto& l_subFruJsonArray = l_fruEntry.value();
+
+            const auto l_findResult = std::ranges::find_if(
+                l_subFruJsonArray,
+                [&i_invPath](const nlohmann::json& i_subFruJson) {
+                    return i_subFruJson.value("inventoryPath", "") == i_invPath;
+                });
+
+            if (l_findResult != l_subFruJsonArray.end())
+            {
+                return true;
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to check if path {} is in JSON, error: {}",
+                        i_invPath, l_ex.what()));
+    }
+
+    return false;
 }
 } // namespace vpd
