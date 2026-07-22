@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b957f0d_5a5c68bf",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T04:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a3efc2_313ed5b7",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28cefd6f_dc815925",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-21T07:11:18Z",
       "side": 1,
       "message": "I see this API handles non-hexadecimal input as well. The log should then be changed to indicate that the input is empty.",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ac065f_cb58daf7",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T04:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28cefd6f_dc815925",
       "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10880e98_88dd9357",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T04:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14eddd73_e7b148b9",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22f50c4d_9d4dbbaa",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "848267e6_6ae58c0b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T04:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22f50c4d_9d4dbbaa",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080ed614_52a73efe",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-07-21T07:11:18Z",
       "side": 1,
       "message": "Help text is missing -12 (KEYWORD_NAME_NOT_PROVIDED)",
+      "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5b4e38_6e2f72f1",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-22T04:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "080ed614_52a73efe",
       "revId": "dbd4315cee8fe498f08651f151c4047dde53beb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
