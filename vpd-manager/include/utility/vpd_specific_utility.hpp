@@ -1430,31 +1430,11 @@ inline std::string buildExpandedLc(const std::string& i_unexpandedLocationCode,
             }
             else if (l_suffix[constants::FIRST_POSITION] == '-')
             {
-                // TODO: Temp code till Json has NDx, SCx. Remove below code.
-                static const std::regex nScPattern(
-                    R"(^-((ND?\d{1,2}|SC\d{1,2}))(-.*)?)");
-                std::smatch match;
-                if (std::regex_search(l_suffix, match, nScPattern))
-                {
-                    l_expandedLC.replace(
-                        i_pos,
-                        constants::LOCATION_CODE_PREFIX_LENGTH +
-                            l_suffix.length(),
-                        i_firstKwdValue.substr(
-                            constants::FIRST_POSITION,
-                            constants::FC_KEYWORD_FIRST_4_BYTE) +
-                            "." + match[1].str() + "." + i_secondKwdValue +
-                            match[3].str());
-                }
-                else
-                {
-                    l_expandedLC.replace(
-                        i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
-                        i_firstKwdValue.substr(
-                            constants::FIRST_POSITION,
-                            constants::FC_KEYWORD_FIRST_4_BYTE) +
-                            "." + i_secondKwdValue);
-                }
+                l_expandedLC.replace(
+                    i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                    i_firstKwdValue.substr(constants::FIRST_POSITION,
+                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + i_secondKwdValue);
             }
         }
         else
