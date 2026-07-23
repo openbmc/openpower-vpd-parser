@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "588532c4_8a4e711e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "is this device callout or I2C bus callout ?\nneed to update the commit message accordingly",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5828210_dc3ddb3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "instead of addding which file what is being modified, could have explained what changes are made high level for this commit.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb4a131c_c2cab253",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "this is just added in user Data section, this is not callout information.\nadd device callout details present in the PEL.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "852619b5_111ece44",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "device callout doesn\u0027t require I2C information, CALLOUT_DEVICE_PATH \u0026 CALLOUT_ERRNO is enough for device callout, so mentioning I2C is not correct here.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "201d82d9_1d033f89",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "why this added under the doxygen of PelInfoTuple. ?",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285eb03d_7ed9fcb6",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "can we add I2cBusCalloutData to variant?",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a4072b_f9d10186",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "what if its not an InventoryCalloutData type, case is not handled.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7479c1d_d2ce8de4",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-23T08:30:10Z",
+      "side": 1,
+      "message": "what if its not an DeviceCalloutData type, case is not handled.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
