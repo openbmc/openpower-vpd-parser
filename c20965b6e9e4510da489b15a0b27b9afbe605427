@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d796ed4_684f699c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-23T04:52:50Z",
+      "side": 1,
+      "message": "Causing issues as wait vpd parser is running twice.\nChange is required to prevent that.",
+      "revId": "c20965b6e9e4510da489b15a0b27b9afbe605427",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
