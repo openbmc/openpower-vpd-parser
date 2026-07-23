@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd7a5abc_d2d79888",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "As per story heading- \"Implement PEL handling to call out I2C devices\", this is correct.",
+      "parentUuid": "588532c4_8a4e711e",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5828210_dc3ddb3f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6543ed88_a84b6c11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "As I updated before in meeting, \"device callout details\"  is Not supported from phosphor-logging side. That\u0027s why I have not added callout section.",
+      "parentUuid": "cb4a131c_c2cab253",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "852619b5_111ece44",
         "filename": "vpd-manager/include/logger.hpp",
         "patchSetId": 13
@@ -65,6 +101,24 @@
       "writtenOn": "2026-07-23T08:30:10Z",
       "side": 1,
       "message": "device callout doesn\u0027t require I2C information, CALLOUT_DEVICE_PATH \u0026 CALLOUT_ERRNO is enough for device callout, so mentioning I2C is not correct here.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925bd51d_42988f79",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "This is Story headline - \"Implement PEL handling to call out I2C devices\"",
+      "parentUuid": "852619b5_111ece44",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dc33a95_2584c2bd",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "ok, I will move it up.",
+      "parentUuid": "201d82d9_1d033f89",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "285eb03d_7ed9fcb6",
         "filename": "vpd-manager/include/types.hpp",
         "patchSetId": 13
@@ -99,6 +171,24 @@
       "writtenOn": "2026-07-23T08:30:10Z",
       "side": 1,
       "message": "can we add I2cBusCalloutData to variant?",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f31ea6b7_8cc41c6a",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "This change will be out of this story scope.",
+      "parentUuid": "285eb03d_7ed9fcb6",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35f30621_6f8274e0",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "Before , in base code also, \nif (std::get\u003c7\u003e(*i_pelTuple).has_value()) -\u003e If it has NO value, then we didn\u0027t do anything.\nWent ahead with empty l_callouts.",
+      "parentUuid": "82a4072b_f9d10186",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7479c1d_d2ce8de4",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 13
@@ -133,6 +241,24 @@
       "writtenOn": "2026-07-23T08:30:10Z",
       "side": 1,
       "message": "what if its not an DeviceCalloutData type, case is not handled.",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e6f7d3_8f6f8b02",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-23T08:52:39Z",
+      "side": 1,
+      "message": "Same as inventory callout in base code also\n\nif (std::get\u003c7\u003e(*i_pelTuple).has_value()) -\u003e If it has NO value, then we didn\u0027t do anything.\nWent ahead with empty l_callouts.\n\nfollowing same for device callout.\nIf no callout data provided, eventLogger_utility will handle it.",
+      "parentUuid": "f7479c1d_d2ce8de4",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
