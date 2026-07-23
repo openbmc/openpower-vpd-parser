@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd2165f_34d30553",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-23T07:19:35Z",
+      "side": 1,
+      "message": "This API is getting config JSON as input, Why the config json check is removed here?",
+      "revId": "15d9c54537a5d189845283b93f7bff66655beff7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
