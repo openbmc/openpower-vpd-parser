@@ -255,6 +255,34 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     "Failed to update keyword value on D-Bus, error : {}.",
                     commonUtility::getErrCodeMsg(l_errCode)));
             }
+
+            vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
+                m_vpdFilePath, 
+                types::WriteVpdParams(std::make_tuple(
+                    l_recordName, l_propertyName,
+                    std::get<std::vector<uint8_t>>(l_keywordValue))), 
+                m_parsedJson, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to update Ci property of inherited FRUs, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            vpdSpecificUtility::updateExtraInterafaceProperties(
+                m_vpdFilePath, 
+                types::WriteVpdParams(std::make_tuple(
+                    l_recordName, l_propertyName,
+                    std::get<std::vector<uint8_t>>(l_keywordValue))), 
+                m_parsedJson, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to update extra interface(s) property of FRU, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            } 
         }
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
