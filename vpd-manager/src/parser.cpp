@@ -269,6 +269,22 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     "Failed to update Ci property of inherited FRUs, error : " +
                     commonUtility::getErrCodeMsg(l_errCode));
             }
+
+            auto l_updateExtraInterfaceResult =
+                vpdSpecificUtility::updateExtraInterfaceProperties(
+                    m_vpdFilePath,
+                    types::WriteVpdParams(std::make_tuple(
+                        l_recordName, l_propertyName,
+                        std::get<std::vector<uint8_t>>(l_keywordValue))),
+                    m_parsedJson);
+
+            if (!l_updateExtraInterfaceResult)
+            {
+                m_logger->logMessage(
+                    "Failed to update extra interface(s) property of FRU, error : " +
+                    commonUtility::getErrCodeMsg(
+                        l_updateExtraInterfaceResult.error()));
+            }
         }
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
