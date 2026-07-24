@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27be364a_8f7f3be1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:39:42Z",
+      "side": 1,
+      "message": "Commit message already covering it. so closing the comment.",
+      "parentUuid": "ad688f5e_a7eef275",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb4a131c_c2cab253",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "As I updated before in meeting, \"device callout details\"  is Not supported from phosphor-logging side. That\u0027s why I have not added callout section.",
       "parentUuid": "cb4a131c_c2cab253",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ddb30d3_3d814693",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:39:42Z",
+      "side": 1,
+      "message": "I already updated it in the team meeting and also added in commit message. Closing the comment.",
+      "parentUuid": "6543ed88_a84b6c11",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -265,6 +301,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b012426c_bef83c93",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:39:42Z",
+      "side": 1,
+      "message": "As I replied , this doesn\u0027t come under scope of this story.",
+      "parentUuid": "f31ea6b7_8cc41c6a",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82a4072b_f9d10186",
@@ -300,6 +354,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "925c43e6_9ffdb030",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:39:42Z",
+      "side": 1,
+      "message": "As Sunny mentioned in discussion, this is not part of this story. This Inventory callout API should be handled in another commit.",
+      "parentUuid": "35f30621_6f8274e0",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7479c1d_d2ce8de4",
@@ -331,6 +403,24 @@
       "side": 1,
       "message": "Same as inventory callout in base code also\n\nif (std::get\u003c7\u003e(*i_pelTuple).has_value()) -\u003e If it has NO value, then we didn\u0027t do anything.\nWent ahead with empty l_callouts.\n\nfollowing same for device callout.\nIf no callout data provided, eventLogger_utility will handle it.",
       "parentUuid": "f7479c1d_d2ce8de4",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "594727af_6474c34f",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:39:42Z",
+      "side": 1,
+      "message": "Sunny confirmed in discussion, this is already logging the information if callout is empty or other type. So no need of any change here.",
+      "parentUuid": "09e6f7d3_8f6f8b02",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
