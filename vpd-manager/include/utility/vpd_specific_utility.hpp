@@ -857,10 +857,13 @@ inline void updateCiPropertyOfInheritedFrus(
             return;
         }
 
+        // update common interfaces if either inherit or inheritCI value is
+        // true.
         auto l_populateObjectInterfaceMap =
             [&l_objectInterfaceMap, &l_interfaceMap = std::as_const(
                                         l_interfaceMap)](const auto& l_Fru) {
-                if (l_Fru.value("inherit", true) &&
+                if ((l_Fru.value("inherit", true) ||
+                     l_Fru.value("inheritCI", false)) &&
                     l_Fru.contains("inventoryPath"))
                 {
                     l_objectInterfaceMap.emplace(
