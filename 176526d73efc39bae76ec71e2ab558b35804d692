@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db7e6b4a_1ee20272",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:34:00Z",
+      "side": 1,
+      "message": "This is old code- SO I followed it everywhere.\n * @brief An API to create a PEL with device path callout.\n...\ninline void createAsyncPelWithI2cDeviceCallout(  \u003c----I2cDeviceCallout",
+      "parentUuid": "cd7a5abc_d2d79888",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5828210_dc3ddb3f",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "This is Story headline - \"Implement PEL handling to call out I2C devices\"",
       "parentUuid": "852619b5_111ece44",
+      "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6d3bf9b_56f1ee2b",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-24T07:34:00Z",
+      "side": 1,
+      "message": "This is old code-, SO I followed it everywhere.\n * @brief An API to create a PEL with device path callout.\n...\ninline void createAsyncPelWithI2cDeviceCallout(  \u003c----I2cDeviceCallout",
+      "parentUuid": "925bd51d_42988f79",
       "revId": "176526d73efc39bae76ec71e2ab558b35804d692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
