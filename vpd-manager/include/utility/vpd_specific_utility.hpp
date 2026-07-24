@@ -1808,17 +1808,20 @@ inline void updateKeywordOnDBus(
                     l_inventoryItem["copyRecords"].end();
 
             // check if record is part of skipRecords list
-            const bool l_isPartOfSkipRecord =
-                l_inventoryItem.contains("skipRecords") &&
-                std::find(l_inventoryItem["skipRecords"].begin(),
-                          l_inventoryItem["skipRecords"].end(),
-                          std::get<0>(*l_ipzData)) !=
+            bool l_isPartOfSkipRecord = true;
+            if (l_inventoryItem.contains("skipRecords"))
+            {
+                l_isPartOfSkipRecord =
+                    std::find(l_inventoryItem["skipRecords"].begin(),
+                              l_inventoryItem["skipRecords"].end(),
+                              std::get<0>(*l_ipzData)) !=
                     l_inventoryItem["skipRecords"].end();
+            }
 
             // update for inherited FRUs or if the record is part of
             // copyRecords tag
             if (l_inventoryItem.value("inherit", true) ||
-                (l_isPartOfCopyRecord && !l_isPartOfSkipRecord))
+                (l_isPartOfCopyRecord || !l_isPartOfSkipRecord))
             {
                 l_objectInterfaceMap.emplace(
                     sdbusplus::object_path{l_inventoryItem["inventoryPath"]},
