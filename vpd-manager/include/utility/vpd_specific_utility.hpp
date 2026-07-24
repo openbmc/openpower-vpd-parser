@@ -687,30 +687,30 @@ inline bool isPass1Planar(uint16_t& o_errCode) noexcept
 }
 
 /**
- * @brief API to get common interface(s) properties corresponding to given
+ * @brief API to get interface(s) properties corresponding to given
  * record and keyword.
  *
- * For a given record and keyword, this API finds the corresponding common
+ * For a given record and keyword, this API finds the corresponding
  * interfaces(s) properties from the system config JSON and populates an
  * interface map with the respective properties and values.
  *
  * @param[in] i_paramsToWriteData - Input details.
- * @param[in] i_commonInterfaceJson - Common interface JSON object.
+ * @param[in] i_interfaceJson - Interface JSON object.
  * @param[out] o_errCode - To set error code in case of error.
  *
- * @return Returns a map of common interface(s) and properties corresponding to
+ * @return Returns a map of interface(s) and properties corresponding to
  * the record and keyword. An empty map is returned if no such common
  * interface(s) and properties are found.
  */
-inline types::InterfaceMap getCommonInterfaceProperties(
+inline types::InterfaceMap getInterfaceProperties(
     const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_commonInterfaceJson, uint16_t& o_errCode) noexcept
+    const nlohmann::json& i_interfaceJson, uint16_t& o_errCode) noexcept
 {
     types::InterfaceMap l_interfaceMap;
     o_errCode = 0;
     try
     {
-        if (i_commonInterfaceJson.empty())
+        if (i_interfaceJson.empty())
         {
             o_errCode = error_code::INVALID_INPUT_PARAMETER;
             return l_interfaceMap;
@@ -769,11 +769,11 @@ inline types::InterfaceMap getCommonInterfaceProperties(
             }
         };
 
-        if (!i_commonInterfaceJson.empty())
+        if (!i_interfaceJson.empty())
         {
-            // iterate through all common interfaces and populate interface map
-            std::for_each(i_commonInterfaceJson.items().begin(),
-                          i_commonInterfaceJson.items().end(),
+            // iterate through all interfaces and populate interface map
+            std::for_each(i_interfaceJson.items().begin(),
+                          i_interfaceJson.items().end(),
                           l_populateInterfaceMap);
         }
     }
@@ -848,7 +848,7 @@ inline void updateCiPropertyOfInheritedFrus(
 
         types::ObjectMap l_objectInterfaceMap;
 
-        const types::InterfaceMap l_interfaceMap = getCommonInterfaceProperties(
+        const types::InterfaceMap l_interfaceMap = getInterfaceProperties(
             i_paramsToWriteData, i_sysCfgJsonObj["commonInterfaces"],
             o_errCode);
 
@@ -1793,5 +1793,140 @@ inline void updateKeywordOnDBus(
             l_recordKeywordInfo, i_fruPath, l_ex.what()));
     }
 }
+
+/**
+ * @brief API to update extra interface(s) properties when keyword is updated.
+ *
+ * For a given keyword update on a EEPROM path, this API syncs the keyword
+ * update to respective extra interface(s) properties of the base FRU and all
+ * sub FRUs.
+ *
+ * @param[in] i_fruPath - EEPROM path of FRU.
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_sysCfgJsonObj - Config JSON.
+ *
+ * @return Returns an empty expected object on success, otherwise
+ * returns the corresponding error code
+ */
+inline std::expected<void, error_code> updateExtraInterfaceProperties(
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
+{
+    const std::vector<std::string> l_listofInterfacesToUpdate{
+        constants::assetInf};
+    try
+    {
+        if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            return std::unexpected(error_code::INVALID_JSON);
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        {
+            return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
+        }
+
+        if (!std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            return std::unexpected(error_code::UNSUPPORTED_VPD_TYPE);
+        }
+
+        // Checks whether the inventory item defines any of the interfaces
+        // listed in l_listofInterfacesToUpdate. If so, derives the
+        // corresponding property values for the updated keyword and adds them
+        // to the object map for publishing the updates on D-Bus.
+        types::ObjectMap l_objectInterfaceMap;
+        auto l_populateObjectInterfaceMap = [&l_listofInterfacesToUpdate,
+                                             &l_objectInterfaceMap,
+                                             &i_paramsToWriteData](
+                                                const auto& l_inventoryItem) {
+            if (l_inventoryItem.contains("extraInterfaces"))
+            {
+                const auto& l_extraInterfaces =
+                    l_inventoryItem["extraInterfaces"];
+                nlohmann::json l_interfaceJson{};
+
+                // Get the list of interfaces to be updated
+                for (const auto& l_interface : l_listofInterfacesToUpdate)
+                {
+                    if (auto l_iterator = l_extraInterfaces.find(l_interface);
+                        l_iterator != l_extraInterfaces.end())
+                    {
+                        l_interfaceJson[l_interface] = l_iterator.value();
+                    }
+                }
+
+                if (l_interfaceJson.empty())
+                {
+                    return;
+                }
+
+                uint16_t l_errCode = 0;
+                const types::InterfaceMap l_interfaceMap =
+                    getInterfaceProperties(i_paramsToWriteData, l_interfaceJson,
+                                           l_errCode);
+
+                if (l_errCode)
+                {
+                    Logger::getLoggerInstance()->logMessage(std::format(
+                        "Failed to get extra properties interface list for path [{}], error : {}",
+                        std::string(l_inventoryItem["inventoryPath"]),
+                        commonUtility::getErrCodeMsg(l_errCode)));
+                }
+
+                if (!l_interfaceMap.empty())
+                {
+                    l_objectInterfaceMap.emplace(
+                        sdbusplus::object_path{
+                            l_inventoryItem["inventoryPath"]},
+                        l_interfaceMap);
+                }
+            }
+        };
+
+        //  iterate through all inventory paths for given EEPROM path
+        //  update the inventory path's corresponding extra interface(s)
+        //  property
+        std::for_each(i_sysCfgJsonObj["frus"][i_fruPath].begin(),
+                      i_sysCfgJsonObj["frus"][i_fruPath].end(),
+                      l_populateObjectInterfaceMap);
+
+        if (!l_objectInterfaceMap.empty())
+        {
+            if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
+            {
+                return std::unexpected(error_code::DBUS_FAILURE);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        uint16_t l_errCode = 0;
+        const std::string l_recordKeywordInfo =
+            convertWriteVpdParamsToString(i_paramsToWriteData, l_errCode);
+
+        std::string l_errMsg = l_ex.what();
+        if (l_errCode)
+        {
+            l_errMsg += std::format(
+                ". Failed to convert write VPD parameters to string, error {}",
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to update the extra interface property corresponding to keyword [{}] on DBus for path [{}], error : {}.",
+            l_recordKeywordInfo, i_fruPath, l_errMsg));
+
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+    return {};
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
