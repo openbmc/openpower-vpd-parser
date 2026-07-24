@@ -834,10 +834,17 @@ inline void updateCiPropertyOfInheritedFrus(
             return;
         }
 
-        //  iterate through all inventory paths for given EEPROM path,
-        //  if for an inventory path, "inherit" tag is true,
-        //  update the inventory path's com.ibm.ipzvpd.<record>,keyword
-        //  property
+        /**
+         * Update common interface properties if any of the following conditions
+         * is met:
+         *
+         * 1. "inherit" is set to true for the inventory item, indicating that
+         * all records are inherited from the base FRU. In this case, the
+         * common interface properties must also be updated.
+         * 2. "inheritCI" is set to true for the inventory item, indicating that
+         * the item inherits selected records from the base FRU. In this
+         * case, the common interface properties must also be updated.
+         */
 
         types::ObjectMap l_objectInterfaceMap;
 
@@ -857,10 +864,13 @@ inline void updateCiPropertyOfInheritedFrus(
             return;
         }
 
+        // update common interfaces if either inherit or inheritCI value is
+        // true.
         auto l_populateObjectInterfaceMap =
             [&l_objectInterfaceMap, &l_interfaceMap = std::as_const(
                                         l_interfaceMap)](const auto& l_Fru) {
-                if (l_Fru.value("inherit", true) &&
+                if ((l_Fru.value("inherit", true) ||
+                     l_Fru.value("inheritCI", false)) &&
                     l_Fru.contains("inventoryPath"))
                 {
                     l_objectInterfaceMap.emplace(
