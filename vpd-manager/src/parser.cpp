@@ -249,6 +249,13 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     std::get<std::vector<uint8_t>>(l_keywordValue))),
                 m_parsedJson, l_errCode);
 
+            if (l_errCode)
+            {
+                throw std::runtime_error(std::format(
+                    "Failed to update keyword value on D-Bus, error : {}.",
+                    commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
             vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
                 m_vpdFilePath,
                 types::WriteVpdParams(std::make_tuple(
@@ -263,11 +270,18 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
+            vpdSpecificUtility::updateExtraInterafaceProperties(
+                m_vpdFilePath,
+                types::WriteVpdParams(std::make_tuple(
+                    l_recordName, l_propertyName,
+                    std::get<std::vector<uint8_t>>(l_keywordValue))),
+                m_parsedJson, l_errCode);
+
             if (l_errCode)
             {
-                throw std::runtime_error(std::format(
-                    "Failed to update keyword value on D-Bus, error : {}.",
-                    commonUtility::getErrCodeMsg(l_errCode)));
+                m_logger->logMessage(
+                    "Failed to update extra interface(s) property of FRU, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
         }
 
