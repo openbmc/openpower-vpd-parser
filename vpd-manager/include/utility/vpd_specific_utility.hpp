@@ -1815,10 +1815,22 @@ inline void updateKeywordOnDBus(
                           std::get<0>(*l_ipzData)) !=
                     l_inventoryItem["skipRecords"].end();
 
-            // update for inherited FRUs or if the record is part of
-            // copyRecords tag
+            /** Update the keyword if any of the following conditions is met:
+             *
+             * 1. "inherit" is set to true for the inventory item, indicating
+             * that all records are inherited from the parent FRU.
+             * 2. The input record is listed in "copyRecords" for the inventory
+             * item, indicating that only the specified records are inherited
+             * from the parent FRU.
+             * 3. "skipRecords" is defined for the inventory item and the input
+             * record is not listed in "skipRecords", indicating that all
+             * records except those in the skip list are inherited from the
+             * parent FRU.
+             */
             if (l_inventoryItem.value("inherit", true) ||
-                (l_isPartOfCopyRecord && !l_isPartOfSkipRecord))
+                (l_isPartOfCopyRecord ||
+                 (l_inventoryItem.contains("skipRecords") &&
+                  !l_isPartOfSkipRecord)))
             {
                 l_objectInterfaceMap.emplace(
                     sdbusplus::object_path{l_inventoryItem["inventoryPath"]},
