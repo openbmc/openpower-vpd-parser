@@ -1816,9 +1816,12 @@ inline void updateKeywordOnDBus(
                     l_inventoryItem["skipRecords"].end();
 
             // update for inherited FRUs or if the record is part of
-            // copyRecords tag
+            // copyRecords tag or if skipRecord tag is defined and record is
+            // not part of skipRecords
             if (l_inventoryItem.value("inherit", true) ||
-                (l_isPartOfCopyRecord && !l_isPartOfSkipRecord))
+                (l_isPartOfCopyRecord ||
+                 (l_inventoryItem.contains("skipRecords") &&
+                  !l_isPartOfSkipRecord)))
             {
                 l_objectInterfaceMap.emplace(
                     sdbusplus::object_path{l_inventoryItem["inventoryPath"]},
