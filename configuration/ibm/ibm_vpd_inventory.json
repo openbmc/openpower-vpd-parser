@@ -1,0 +1,104 @@
+{
+    "commonInterfaces": {
+        "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "PartNumber": {
+                "recordName": "VINI",
+                "keywordName": "PN"
+            },
+            "SerialNumber": {
+                "recordName": "VINI",
+                "keywordName": "SN"
+            },
+            "SparePartNumber": {
+                "recordName": "VINI",
+                "keywordName": "FN"
+            },
+            "Model": {
+                "recordName": "VINI",
+                "keywordName": "CC"
+            },
+            "BuildDate": {
+                "recordName": "VR10",
+                "keywordName": "DC",
+                "encoding": "DATE"
+            }
+        },
+        "xyz.openbmc_project.Inventory.Item": {
+            "PrettyName": {
+                "recordName": "VINI",
+                "keywordName": "DR"
+            },
+            "Present": true
+        }
+    },
+    "frus": {
+        "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "isSystemVpd": true,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
+                        "LocationCode": "Ufcs-P0"
+                    }
+                }
+            },
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "inherit": false,
+                "isSystemVpd": true,
+                "copyRecords": ["VSYS"],
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Item.System": null,
+                    "xyz.openbmc_project.Inventory.Decorator.Asset": {
+                        "SerialNumber": {
+                            "recordName": "VSYS",
+                            "keywordName": "SE"
+                        },
+                        "Model": {
+                            "recordName": "VSYS",
+                            "keywordName": "TM"
+                        },
+                        "SubModel": {
+                            "recordName": "VSYS",
+                            "keywordName": "BR"
+                        }
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
+                        "LocationCode": "Umts"
+                    }
+                }
+            },
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "inherit": false,
+                "isSystemVpd": true,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Item.Chassis": {
+                        "Type": "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
+                        "LocationCode": "Ufcs"
+                    }
+                }
+            }
+        ],
+        "/sys/bus/i2c/drivers/at24/8-0053/eeprom": [
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "isSystemVpd": true
+            }
+        ],
+        "/sys/bus/i2c/drivers/at24/32-0051/eeprom": [
+            {
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
+                "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "isSystemVpd": true
+            }
+        ]
+    }
+}
