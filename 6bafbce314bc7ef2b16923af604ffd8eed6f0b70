@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1b3093d_606e4a02",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:11:56Z",
+      "side": 1,
+      "message": "This not empty check is redundant: Line 713 already handles this.",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c402c827_47751bbe",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -71,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cc17716_dc9b0d43",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:11:56Z",
+      "side": 1,
+      "message": "`std::find_if()` would reduce the lines of change and make the purpose of this block more apparent.",
+      "parentUuid": "820fd89d_161b3a59",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "101a36b7_59d6132c",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -82,6 +117,23 @@
       "writtenOn": "2026-07-27T14:03:48Z",
       "side": 1,
       "message": "`l_interfaceMap` is not checked for empty map",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de8b0c6_321186c9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:11:56Z",
+      "side": 1,
+      "message": "Incase `getInterfaceProperties` fails for a given inventory item, we log this error and continue with other inventory items.\n\n1. The log should specify which inventory item failed, ideally the inventory path should be logged.\n2. The caller of this lambda is unaware of these internal failures. Should we return an error code from this lambda and allow the caller to take decision?",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
