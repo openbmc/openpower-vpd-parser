@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf58b96_b7230528",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-27T13:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a538f48_6ccfaa03",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cd71396_cecfe676",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51b34259_29483eaa",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-27T13:28:21Z",
+      "side": 1,
+      "message": "If the error code is returned from here instead of logging, it is difficult to differentiate whether the error is from updateExtraInterafaceProperties API or getInterfaceProperties API.",
+      "parentUuid": "2cd71396_cecfe676",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "719c5c91_77681978",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2026-07-27T05:31:44Z",
       "side": 1,
       "message": "Log the error in case of standard exception.",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c324f8_8b1854c7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-27T13:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "719c5c91_77681978",
       "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
