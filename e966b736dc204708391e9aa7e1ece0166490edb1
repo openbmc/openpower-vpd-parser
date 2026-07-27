@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a538f48_6ccfaa03",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-27T05:31:44Z",
+      "side": 1,
+      "message": "Would you like to move to the latest std::expected that we have been using now?",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd71396_cecfe676",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-27T05:31:44Z",
+      "side": 1,
+      "message": "Any specific reason we are logging here and not returning the error code to the caller?",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "719c5c91_77681978",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-07-27T05:31:44Z",
+      "side": 1,
+      "message": "Log the error in case of standard exception.",
+      "revId": "e966b736dc204708391e9aa7e1ece0166490edb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
