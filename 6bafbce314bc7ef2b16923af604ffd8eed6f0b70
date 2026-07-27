@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c402c827_47751bbe",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "Error code is also returned in case of error path with no exceptions?",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b43c693_5942cc14",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "nit: typo: `updateExtraInterafaceProperties` `updateExtraInterfaceProperties`",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b1250b_09d5393e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "A comment explaining the functionality of this lambda would be helpful",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "820fd89d_161b3a59",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "Can we use `std::find_if()` for this search logic?",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "101a36b7_59d6132c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1866,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "`l_interfaceMap` is not checked for empty map",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d9dd4b_3d2292e6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "There is no check for \"inherit\" or \"inheritCI\" tag in the code block following this comment?",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce2c5dc_ec7a84f1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-27T14:03:48Z",
+      "side": 1,
+      "message": "We can use existing utility API `convertWriteVpdParamsToString` here.",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
