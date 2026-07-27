@@ -228,6 +228,16 @@ class IbmHandler
      */
     void addOrRestoreAvailableProperty(types::ObjectMap& io_objectInterfaceMap);
 
+    /**
+     * @brief API to validate the VPD collection mode.
+     *
+     * This API validates the VPD collection mode. If the mode is not valid, it
+     * throws an exception.
+     *
+     * @throw FirmwareException if the VPD collection mode is invalid.
+     */
+    void validateVpdCollectionMode() const;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
