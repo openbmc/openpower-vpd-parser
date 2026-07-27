@@ -661,6 +661,15 @@ void IbmHandler::setDeviceTreeAndJson(
             "System VPD collection failed from path [{}], reason: {}. ",
             i_fruPath, l_ex.what());
 
+        // if system is in split mode, and we failed to collect VPD from primary
+        // EEPROM file path, do not attempt to collect from redundant EEPROM
+        // file path.
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+        {
+            m_logger->logMessage(l_error);
+            throw EepromException(l_error);
+        }
+
         const std::string& l_redundantEepromPath{
             REDUNDANT_SYSTEM_VPD_FILE_PATH};
 
