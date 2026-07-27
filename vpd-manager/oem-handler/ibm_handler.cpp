@@ -32,6 +32,9 @@ IbmHandler::IbmHandler(
 {
     try
     {
+        // validate the VPD collection mode
+        validateVpdCollectionMode();
+
         // check if symlink is present
         isSymlinkPresent();
 
@@ -1046,6 +1049,42 @@ void IbmHandler::resetNonSystemInvPaths(
         m_logger->logMessage(std::format(
             "Error while filtering system VPD map for non system inventory path: {}",
             l_ex.what()));
+    }
+}
+
+void IbmHandler::validateVpdCollectionMode() const
+{
+    if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+    {
+        // check if the system VPD EEPROM is accessible
+        //  @todo:  need to replace this EEPROM check with patch panel presence check by
+        // reading it from cable management service when the service is ready
+        std::error_code l_ec;
+        if (std::filesystem::exists(SYSTEM_VPD_FILE_PATH, l_ec))
+        {
+            // log a critical PEL
+            m_logger->logMessage(
+                std::format(
+                    "System VPD EEPROM is accessible at path [{}] while the system is in file mode. Please check the system configuration.",
+                    SYSTEM_VPD_FILE_PATH),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                    types::SeverityType::Critical, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt, std::nullopt});
+
+            // throw exception to prevent system VPD collection
+            throw FirmwareException(std::format(
+                "System VPD EEPROM is accessible at path [{}] while the system is in file mode. Please check the system configuration.",
+                SYSTEM_VPD_FILE_PATH));
+        }
+
+        if (l_ec)
+        {
+            m_logger->logMessage(std::format(
+                "Failed to check if system VPD EEPROM is accessible, error: {}. Continuing system VPD collection in file mode.",
+                l_ec.message()));
+        }
     }
 }
 
