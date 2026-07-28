@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2a1df82_c52039ab",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "This change is not related to this commit",
+      "parentUuid": "d1b3093d_606e4a02",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c402c827_47751bbe",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-27T14:03:48Z",
       "side": 1,
       "message": "Error code is also returned in case of error path with no exceptions?",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f10333_435d166b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c402c827_47751bbe",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "711fcdce_95f44325",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b43c693_5942cc14",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81b1250b_09d5393e",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-07-27T14:03:48Z",
       "side": 1,
       "message": "A comment explaining the functionality of this lambda would be helpful",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "933a8baf_4ca2fb30",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b1250b_09d5393e",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -121,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d60d74_6c40ffdb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1866,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "101a36b7_59d6132c",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9de8b0c6_321186c9",
@@ -134,6 +224,24 @@
       "writtenOn": "2026-07-27T14:11:56Z",
       "side": 1,
       "message": "Incase `getInterfaceProperties` fails for a given inventory item, we log this error and continue with other inventory items.\n\n1. The log should specify which inventory item failed, ideally the inventory path should be logged.\n2. The caller of this lambda is unaware of these internal failures. Should we return an error code from this lambda and allow the caller to take decision?",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3745a6fe_1da2c4d0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "1. Added inventory path to the log message,\n\n2. These are internal failures. Logging them within the lambda helps identify both the cause of the failure and the inventory path on which it occurred.",
+      "parentUuid": "9de8b0c6_321186c9",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -155,6 +263,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea6f350_ed765f86",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "a5d9dd4b_3d2292e6",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ce2c5dc_ec7a84f1",
@@ -168,6 +294,24 @@
       "writtenOn": "2026-07-27T14:03:48Z",
       "side": 1,
       "message": "We can use existing utility API `convertWriteVpdParamsToString` here.",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "049d62e8_f7fecabc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-07-28T10:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce2c5dc_ec7a84f1",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
