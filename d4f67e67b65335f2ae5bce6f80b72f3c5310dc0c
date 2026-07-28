@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f708082f_296e9645",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-28T13:15:19Z",
+      "side": 1,
+      "message": "nit: `common` should be removed here.",
+      "revId": "d4f67e67b65335f2ae5bce6f80b72f3c5310dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec67afb_7a3efd46",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1849,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-28T13:15:19Z",
+      "side": 1,
+      "message": "This lambda can return early if there are no \"extraInterfaces\" defined.\n\n\n\n\n```suggestion\n            if (!l_inventoryItem.contains(\"extraInterfaces\"))\n            {\n            \treturn;\n            }\n```\n\nThis will save a level of indentation for the rest of the lambda body.",
+      "revId": "d4f67e67b65335f2ae5bce6f80b72f3c5310dc0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

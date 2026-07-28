@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60998100_88e608c4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-28T13:15:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f2a1df82_c52039ab",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c402c827_47751bbe",
@@ -194,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a4583f_2e68174b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1851,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-28T13:15:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "341727a0_0a052914",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "101a36b7_59d6132c",
@@ -260,6 +296,24 @@
       "side": 1,
       "message": "1. Added inventory path to the log message,\n\n2. These are internal failures. Logging them within the lambda helps identify both the cause of the failure and the inventory path on which it occurred.",
       "parentUuid": "9de8b0c6_321186c9",
+      "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8cb5384_80c46d54",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-28T13:15:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3745a6fe_1da2c4d0",
       "revId": "6bafbce314bc7ef2b16923af604ffd8eed6f0b70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
