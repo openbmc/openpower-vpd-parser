@@ -34,6 +34,8 @@ constexpr auto inventoryItemInf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto viniInf = "com.ibm.ipzvpd.VINI";
 constexpr auto locationCodeInf =
     "xyz.openbmc_project.Inventory.Decorator.LocationCode";
+constexpr auto inventoryItemChassisInf =
+    "xyz.openbmc_project.Inventory.Item.Chassis";
 constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto objectMapperService = "xyz.openbmc_project.ObjectMapper";
 constexpr auto objectMapperObjectPath = "/xyz/openbmc_project/object_mapper";
@@ -59,6 +61,9 @@ constexpr auto biosConfigMgrInterface =
     "xyz.openbmc_project.BIOSConfig.Manager";
 constexpr auto waitVpdParserProcessName = "wait-vpd-parsers";
 constexpr auto validateRedundantEepromMethod = "ValidateRedundantEEPROM";
+constexpr auto progressInfName = "xyz.openbmc_project.Common.Progress";
+constexpr auto vpdCollectionCompleted =
+    "xyz.openbmc_project.Common.Progress.OperationStatus.Completed";
 
 constexpr auto KwdIM = "IM";
 constexpr auto badVpdPath = "/var/lib/vpd/dumps";
