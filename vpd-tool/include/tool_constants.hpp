@@ -66,6 +66,8 @@ constexpr auto vpdCollectionInterface = "xyz.openbmc_project.Common.Progress";
 constexpr auto vpdCollectionStatusProperty = "Status";
 constexpr auto vpdCollectionInProgress =
     "xyz.openbmc_project.Common.Progress.OperationStatus.InProgress";
+constexpr auto chassisInventoryPath =
+    "/xyz/openbmc_project/inventory/system/chassis";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{
