@@ -22,6 +22,7 @@ enum class ErrorCode
     EMPTY_FILE = -11,
     KEYWORD_NAME_NOT_PROVIDED = -12,
     DBUS_TYPE_MISMATCH = -13,
-    NOT_ALLOWED = -14
+    NOT_ALLOWED = -14,
+    CHASSIS_NUMBER_NOT_PROVIDED = -15
 };
 } // namespace vpd

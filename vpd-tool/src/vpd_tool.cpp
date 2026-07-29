@@ -988,15 +988,45 @@ void VpdTool::printFixSystemVpdOption(
     }
 }
 
-int VpdTool::dumpInventory(bool i_dumpTable) const noexcept
+int VpdTool::dumpInventory(std::optional<int> i_chassisNumber,
+                           bool i_dumpTable) const noexcept
 {
     int l_rc{constants::FAILURE};
 
     try
     {
-        // get all object paths under PIM
+        // Base inventory path, overridden with the chassis path when a chassis
+        // number is provided.
+        std::string l_baseInventoryPath = constants::baseInventoryPath;
+
+        if (i_chassisNumber)
+        {
+            const auto l_chassisPath =
+                utils::getChassisPath(i_chassisNumber.value());
+
+            if (!l_chassisPath)
+            {
+                return static_cast<int>(l_chassisPath.error());
+            }
+
+            if (l_chassisPath.value().empty())
+            {
+                return constants::SUCCESS;
+            }
+
+            if (!isFruPresent(l_chassisPath.value()))
+            {
+                std::cout << std::format("Chassis [{}] is not present.",
+                                         l_chassisPath.value())
+                          << std::endl;
+                return constants::SUCCESS;
+            }
+
+            l_baseInventoryPath = l_chassisPath.value();
+        }
+
         const auto l_objectPaths = utils::GetSubTreePaths(
-            constants::baseInventoryPath, 0,
+            l_baseInventoryPath, 0,
             std::vector<std::string>{constants::inventoryItemInf});
 
         if (!l_objectPaths)

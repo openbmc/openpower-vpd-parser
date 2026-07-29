@@ -307,6 +307,7 @@ void updateFooter(CLI::App& i_app)
         "       -12,    Keyword name is not provided.\n"
         "       -13,    DBus returned a value of an unexpected type.\n"
         "       -14,    Requested operation is not allowed.\n"
+        "       -15     Chassis number not provided.\n"
         "\n Note: vpd-tool operations are blocked while the VPD collection is in progress.\n"
 #if 0
         " // Disabling these options for now, as they require additional refactoring to enable."
@@ -335,6 +336,7 @@ int main(int argc, char** argv)
     std::string l_keywordName{};
     std::string l_filePath{};
     std::string l_keywordValue{};
+    std::optional<int> l_chassisNumber;
 
     updateFooter(l_app);
 
@@ -353,6 +355,9 @@ int main(int argc, char** argv)
         l_app.add_option("--value, -V", l_keywordValue,
                          "Keyword value in ascii/hex format."
                          " ascii ex: 01234; hex ex: 0x30313233");
+
+    auto l_chassisNumberOption = l_app.add_option(
+        "--chassisNumber, -N", l_chassisNumber, "Chassis Number");
 
     auto l_hardwareFlag =
         l_app.add_flag("--Hardware, -H", "CAUTION: Developer only option.");
@@ -376,6 +381,9 @@ int main(int argc, char** argv)
 
     auto l_dumpInventoryTableFlag =
         l_app.add_flag("--table, -t", "Dump inventory in table format");
+
+    auto l_dumpChassisInventoryFlag =
+        l_app.add_flag("--chassis, -c", "Dump chassis based inventory");
 
     auto l_validateRedundantEepromFlag =
         l_app
@@ -486,8 +494,21 @@ int main(int argc, char** argv)
 
     if (!l_dumpInventoryFlag->empty())
     {
+        if (!l_dumpChassisInventoryFlag->empty())
+        {
+            if (l_chassisNumberOption->empty())
+            {
+                std::cerr << "Chassis number is required" << std::endl;
+                return static_cast<int>(
+                    vpd::ErrorCode::CHASSIS_NUMBER_NOT_PROVIDED);
+            }
+        }
+
         vpd::VpdTool l_vpdToolObj;
-        return l_vpdToolObj.dumpInventory(!l_dumpInventoryTableFlag->empty());
+        return l_vpdToolObj.dumpInventory(!l_dumpChassisInventoryFlag->empty()
+                                              ? l_chassisNumber
+                                              : std::nullopt,
+                                          !l_dumpInventoryTableFlag->empty());
     }
 
     if (!l_validateRedundantEepromFlag->empty())

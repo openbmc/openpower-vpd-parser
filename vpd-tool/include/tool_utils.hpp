@@ -1117,5 +1117,63 @@ inline std::string getDbusPropNameForGivenKw(
     return i_keywordName;
 }
 
+/**
+
+* @brief Retrieves the inventory object path for the specified chassis.
+*
+* Queries the ObjectMapper for all chassis inventory object paths under the
+* inventory hierarchy and returns the path corresponding to the requested
+* chassis number.
+*
+* @param[in] i_chassisNumber - Chassis number to look up.
+*
+* @return The chassis inventory object path on success. An empty string when no
+chassis inventory objects are present. Corresponding error code on failure.
+*/
+inline std::expected<std::string, ErrorCode> getChassisPath(
+    const int i_chassisNumber) noexcept
+{
+    try
+    {
+        const std::string l_chassisString =
+            std::format("chassis{}", i_chassisNumber);
+        const auto l_objectPaths = GetSubTreePaths(
+            constants::baseInventoryPath, constants::VALUE_0,
+            std::vector<std::string>{constants::inventoryItemChassisInf});
+
+        if (!l_objectPaths)
+        {
+            return std::unexpected(l_objectPaths.error());
+        }
+
+        if (l_objectPaths.value().empty())
+        {
+            // No chassis inventory objects are available.
+            return {};
+        }
+
+        auto l_iterator = std::find_if(
+            l_objectPaths.value().begin(), l_objectPaths.value().end(),
+            [&](const std::string& l_inventoryPath) {
+                return l_inventoryPath.ends_with(l_chassisString);
+            });
+
+        if (l_iterator != l_objectPaths.value().end())
+        {
+            return *l_iterator;
+        }
+
+        std::cerr << "Invalid chassis number provided." << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << std::format(
+            "Failed to get chassis object path for chassis [{}]. Error: {}.\n",
+            i_chassisNumber, l_ex.what());
+
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+}
 } // namespace utils
 } // namespace vpd
