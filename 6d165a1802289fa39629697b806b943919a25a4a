@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e8a463_b7a68314",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:49:44Z",
+      "side": 1,
+      "message": "It Doesn\u0027t throw . Handles exception internally.",
+      "parentUuid": "42500f7d_43b30d4f",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff158de8_bc52cbf5",
