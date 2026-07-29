@@ -1117,5 +1117,56 @@ inline std::string getDbusPropNameForGivenKw(
     return i_keywordName;
 }
 
+/**
+
+* @brief Validates chassis ID and returns the corresponding inventory path.
+*
+* Constructs the chassis inventory object path using the provided chassis ID
+* and queries the D-Bus ObjectMapper using GetObject to determine whether the
+* chassis object is provided by the Inventory Manager service.
+*
+* The chassis ID is considered valid only if the ObjectMapper lookup succeeds
+* and the resulting service/interface map contains the Inventory Manager
+* service. An empty map or a chassis object not hosted by the Inventory Manager
+* is treated as an invalid input parameter.
+*
+* @param[in] i_chassisId - Chassis id to look up.
+*
+* @return The chassis inventory object path on success. Corresponding error
+* code on failure.
+*/
+inline std::expected<std::string, ErrorCode> validateChassisPath(
+    const int i_chassisId) noexcept
+{
+    try
+    {
+        const std::string l_chassisPath =
+            std::format("{}{}", constants::chassisInventoryPath, i_chassisId);
+        const auto l_serviceInfMaprResult = GetServiceInterfacesForObject(
+            l_chassisPath, std::vector<std::string>{});
+
+        if (!l_serviceInfMaprResult)
+        {
+            return std::unexpected(l_serviceInfMaprResult.error());
+        }
+
+        if (l_serviceInfMaprResult.value().contains(
+                constants::inventoryManagerService))
+        {
+            return l_chassisPath;
+        }
+
+        std::cerr << "Invalid chassis id provided." << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << std::format(
+            "Failed to get chassis object path for chassis [{}]. Error: {}.\n",
+            i_chassisId, l_ex.what());
+
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+}
 } // namespace utils
 } // namespace vpd
