@@ -346,10 +346,13 @@ class VpdTool
      *
      * @param[in] i_dumpTable - Flag which specifies if the inventory should be
      * dumped in table format or not.
+     * @param[in] i_chassisNumber - Chassis number to do chassis based dump
+     * inventory.(optional)
      *
      * @return On success returns 0, otherwise returns -1.
      */
-    int dumpInventory(bool i_dumpTable = false) const noexcept;
+    int dumpInventory(std::optional<int> i_chassisNumber,
+                      bool i_dumpTable = false) const noexcept;
 
     /**
      * @brief Resets the VPD on DBus for all the Frus.
