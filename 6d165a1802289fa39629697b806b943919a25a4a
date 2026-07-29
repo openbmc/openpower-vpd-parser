@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b79be25_fa0a58d9",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff158de8_bc52cbf5",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8990ae9_f023be12",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-07-28T12:50:34Z",
       "side": 1,
       "message": "We can avoid string copy in such cases where we are using the value only once?",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fd529ae_ea1ca2d1",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8990ae9_f023be12",
       "revId": "6d165a1802289fa39629697b806b943919a25a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c359e71_e58154da",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fe35d6f_4c66cd36",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56ae670d_6b008467",
@@ -86,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e4befd_3f6d3a9d",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56ae670d_6b008467",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f81692c6_6d48df4a",
@@ -99,6 +171,24 @@
       "writtenOn": "2026-07-29T06:47:55Z",
       "side": 1,
       "message": "converting to std::string is not required",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b9a0f0_e6cc5fe7",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-29T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f81692c6_6d48df4a",
       "revId": "6d165a1802289fa39629697b806b943919a25a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
