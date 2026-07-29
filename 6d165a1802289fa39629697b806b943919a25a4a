@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42500f7d_43b30d4f",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-29T06:47:55Z",
+      "side": 1,
+      "message": "exception handling is missing",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff158de8_bc52cbf5",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-29T06:47:55Z",
+      "side": 1,
+      "message": "can we add i_fileName \u0026 i_funcName to know from where this API is called but missedout callouts section ?",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8990ae9_f023be12",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 11
@@ -14,6 +48,57 @@
       "writtenOn": "2026-07-28T12:50:34Z",
       "side": 1,
       "message": "We can avoid string copy in such cases where we are using the value only once?",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe35d6f_4c66cd36",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-29T06:47:55Z",
+      "side": 1,
+      "message": "Nit: InternalRc",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ae670d_6b008467",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-29T06:47:55Z",
+      "side": 1,
+      "message": "Nit: \n\"FileName:\"\n\"ErrorType\"",
+      "revId": "6d165a1802289fa39629697b806b943919a25a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81692c6_6d48df4a",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-29T06:47:55Z",
+      "side": 1,
+      "message": "converting to std::string is not required",
       "revId": "6d165a1802289fa39629697b806b943919a25a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
