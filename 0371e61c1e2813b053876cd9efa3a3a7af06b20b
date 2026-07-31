@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4793013_e5a1e415",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-31T13:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0464132_73cbec75",
+      "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "597230af_d6321393",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-07-31T11:07:37Z",
       "side": 1,
       "message": "We are not just trying to skip system VPD collection. We are trying to skip collection of chassis from the flow of collecting all chassis which contains system VPD. Can we have the description in that sense.",
+      "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c3f3447_58589cfe",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-31T13:07:00Z",
+      "side": 1,
+      "message": "Acknowledged, updated",
+      "parentUuid": "597230af_d6321393",
       "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b36785c_f4427fe8",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-31T13:07:00Z",
+      "side": 1,
+      "message": "Acknowledged, updated the name.",
+      "parentUuid": "6b0d5155_589e12e7",
+      "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32cb81ea_412a4d15",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a02749_962ad4fb",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-31T13:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32cb81ea_412a4d15",
+      "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca01172e_3d709b1a",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-07-31T11:07:37Z",
       "side": 1,
       "message": "If you have this check at the place of caller that will be more efficient as in this case this function will be called for each path, post which string comaprision will happen and then return.\n\nIf the comparison is done in the base function itself, only string matching can skip making unnecessary function calls.",
+      "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83685fa0_878c2574",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-07-31T13:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca01172e_3d709b1a",
       "revId": "0371e61c1e2813b053876cd9efa3a3a7af06b20b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
