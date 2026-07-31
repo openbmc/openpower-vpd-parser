@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a85e95f8_9b58fbfb",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-31T09:38:43Z",
+      "side": 1,
+      "message": "This is similar to the existing error handling, where we assume offset to be 0 and continue with VPD parsing. \n\n\u003eIf configManager is not there, we shouldn\u0027t go ahead.\n\nWhy do you think so?\n\nIn any case, `ConfigManager` is being initialized by `Manager` at very initial stage of the daemon. This specific error handling is just to handle edge case where some caller calls `getVPDOffset()` before `Manager` initialization.",
+      "parentUuid": "c4ca6f12_668a5d9d",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eedf627_ff3e26ca",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 25
@@ -60,6 +84,30 @@
       "writtenOn": "2026-07-31T06:07:15Z",
       "side": 1,
       "message": "same as above.\nreturn 0 is assumed as offset 0 by the caller. but till now config json is not collected and not checked for offset.\n This Error situation shouldn\u0027t be ignored. either handle here or in caller.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f17370b_90ca6de6",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-31T09:38:43Z",
+      "side": 1,
+      "message": "The error is not being ignored. The API is setting an error code. The caller has to take decision how to handle the error.",
+      "parentUuid": "0eedf627_ff3e26ca",
       "range": {
         "startLine": 76,
         "startChar": 6,
@@ -95,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26ccd1f2_cf7b7ade",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-31T09:38:43Z",
+      "side": 1,
+      "message": "\u003eWhat if m_vpdFilePath and m_vpdModeBasedFruPath are different.\n\nCan you clarify? These two paths can be different in case of File Mode VPD. However, both the paths should ideally point to same binary data on EEPROM/file and hence same VPD offset.",
+      "parentUuid": "5c4dd588_ed8cf9fd",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "776537cb_a6c05414",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 25
@@ -106,6 +178,30 @@
       "writtenOn": "2026-07-31T06:07:15Z",
       "side": 1,
       "message": "m_vpdFilePath OR m_vpdModeBasedFruPath ?\nLater also we are using - m_vpdModeBasedFruPath\n    vpdSpecificUtility::getVpdDataInVector(m_vpdModeBasedFruPath, m_vpdVector,\n                                           m_vpdStartOffset, l_errCode);",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea553d5c_dd15b016",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-31T09:38:43Z",
+      "side": 1,
+      "message": "On initial thought, I think we should be using `m_vpdModeBasedFruPath` here to get the offset. But this is out of scope of this patch.",
+      "parentUuid": "776537cb_a6c05414",
       "range": {
         "startLine": 53,
         "startChar": 49,
