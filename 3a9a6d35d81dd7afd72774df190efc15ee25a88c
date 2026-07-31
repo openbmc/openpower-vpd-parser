@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6ded69_e55ad578",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-31T06:07:15Z",
+      "side": 1,
+      "message": "working?",
+      "range": {
+        "startLine": 29,
+        "startChar": 72,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ca6f12_668a5d9d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-31T06:07:15Z",
+      "side": 1,
+      "message": "This returns 0 offset when configManager is not initialised.\nIf configManager is not there, we shouldn\u0027t go ahead.\n\nCaller is just logging the message and continuing with returned offset-\n m_vpdStartOffset \u003d\n            jsonUtility::getVPDOffset(m_parsedJson, m_vpdFilePath, l_errorCode);\n\n        if (l_errorCode)\n        {\n            logging::logMessage(\n                \"Failed to get vpd offset for path [\" + m_vpdFilePath +\n                \"], error: \" + commonUtility::getErrCodeMsg(l_errorCode));\n        }",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eedf627_ff3e26ca",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-31T06:07:15Z",
+      "side": 1,
+      "message": "same as above.\nreturn 0 is assumed as offset 0 by the caller. but till now config json is not collected and not checked for offset.\n This Error situation shouldn\u0027t be ignored. either handle here or in caller.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c4dd588_ed8cf9fd",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-31T06:07:15Z",
+      "side": 1,
+      "message": "we are checking existence of m_vpdModeBasedFruPath,\nBut line 53, VPD offset for m_vpdFilePath.\nWhat if m_vpdFilePath and m_vpdModeBasedFruPath are different.",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "776537cb_a6c05414",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-07-31T06:07:15Z",
+      "side": 1,
+      "message": "m_vpdFilePath OR m_vpdModeBasedFruPath ?\nLater also we are using - m_vpdModeBasedFruPath\n    vpdSpecificUtility::getVpdDataInVector(m_vpdModeBasedFruPath, m_vpdVector,\n                                           m_vpdStartOffset, l_errCode);",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
