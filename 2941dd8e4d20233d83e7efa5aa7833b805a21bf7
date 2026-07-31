@@ -22,6 +22,30 @@
       },
       "revId": "2941dd8e4d20233d83e7efa5aa7833b805a21bf7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a96a7c6_d2e584da",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-07-31T06:09:26Z",
+      "side": 1,
+      "message": "I prefer `std::string` for readability purpose.",
+      "parentUuid": "8c4faa3d_a6637592",
+      "range": {
+        "startLine": 926,
+        "startChar": 8,
+        "endLine": 926,
+        "endChar": 29
+      },
+      "revId": "2941dd8e4d20233d83e7efa5aa7833b805a21bf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
