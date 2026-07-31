@@ -3,6 +3,7 @@
 #include "constants.hpp"
 #include "ddimm_parser.hpp"
 #include "exceptions.hpp"
+#include "ipmi_fru_parser.hpp"
 #include "ipz_parser.hpp"
 #include "isdimm_parser.hpp"
 #include "keyword_vpd_parser.hpp"
@@ -17,6 +18,7 @@ enum vpdType
 {
     IPZ_VPD,                /**< IPZ VPD type */
     KEYWORD_VPD,            /**< Keyword VPD type */
+    IPMI_FRU_VPD,           /**< IPMI FRU Information Storage VPD type */
     DDR4_DDIMM_MEMORY_VPD,  /**< DDR4 DDIMM Memory VPD type */
     DDR5_DDIMM_MEMORY_VPD,  /**< DDR5 DDIMM Memory VPD type */
     DDR4_ISDIMM_MEMORY_VPD, /**< DDR4 ISDIMM Memory VPD type */
@@ -41,6 +43,14 @@ static vpdType vpdTypeCheck(const types::BinaryVector& i_vpdVector)
              constants::KW_VPD_START_TAG)
     {
         return vpdType::KEYWORD_VPD;
+    }
+    // IPMI FRU: Common Header byte 0 bits[3:0] = 0x1 (format version).
+    // Guard against misidentifying other formats: IPZ starts at byte 11
+    // with 0x84, and KW-VPD starts at byte 0 with 0x82, so checking byte 0
+    // bits[3:0] == 1 is safe when neither of the above matched.
+    else if ((i_vpdVector[0] & 0x0F) == 0x01 && i_vpdVector.size() >= 8)
+    {
+        return vpdType::IPMI_FRU_VPD;
     }
     else if (((i_vpdVector[constants::SPD_BYTE_3] &
                constants::SPD_BYTE_BIT_0_3_MASK) ==
@@ -119,6 +129,11 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
         {
             return std::make_shared<KeywordVpdParser>(i_vpdVector,
                                                       i_vpdFilePath);
+        }
+
+        case vpdType::IPMI_FRU_VPD:
+        {
+            return std::make_shared<IpmiFruParser>(i_vpdVector, i_vpdFilePath);
         }
 
         case vpdType::DDR5_DDIMM_MEMORY_VPD:
