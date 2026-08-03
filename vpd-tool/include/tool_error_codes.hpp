@@ -20,6 +20,7 @@ enum class ErrorCode
     JSON_PARSE_ERROR = -9,
     EEPROM_PATH_NOT_FOUND = -10,
     EMPTY_FILE = -11,
-    KEYWORD_NAME_NOT_PROVIDED = -12
+    KEYWORD_NAME_NOT_PROVIDED = -12,
+    VPD_COLLECTION_NOT_COMPLETED = -13
 };
 } // namespace vpd
