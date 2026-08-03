@@ -316,7 +316,10 @@ void updateFooter(CLI::App& i_app)
         "       -9,     JSON parse error.\n"
         "       -10,    EEPROM path not found.\n"
         "       -11,    Empty file.\n"
-        "       -12,    Keyword name is not provided.\n");
+        "       -12,    Keyword name is not provided.\n"
+        "       -13,    DBus returned a value of an unexpected type.\n"
+        "       -14,    Requested operation is not allowed.\n"
+        "\n Note: vpd-tool operations are blocked while the VPD collection is in progress.\n");
 }
 
 int main(int argc, char** argv)
@@ -401,6 +404,33 @@ int main(int argc, char** argv)
             ->needs(l_objectOption);
 
     CLI11_PARSE(l_app, argc, argv);
+
+    const auto l_vpdCollectionStatus = vpd::utils::readDbusProperty(
+        vpd::constants::vpdManagerService, vpd::constants::vpdManagerObjectPath,
+        vpd::constants::vpdCollectionInterface,
+        vpd::constants::vpdCollectionStatusProperty);
+
+    if (!l_vpdCollectionStatus.has_value())
+    {
+        std::cerr << "Failed to read VPD collection status property"
+                  << std::endl;
+        return static_cast<int>(l_vpdCollectionStatus.error());
+    }
+
+    if (!std::get_if<std::string>(&l_vpdCollectionStatus.value()))
+    {
+        std::cerr << "Received invalid type from DBus." << std::endl;
+        return static_cast<int>(vpd::ErrorCode::DBUS_TYPE_MISMATCH);
+    }
+
+    if (*std::get_if<std::string>(&l_vpdCollectionStatus.value()) ==
+        vpd::constants::vpdCollectionInProgress)
+    {
+        std::cout
+            << "VPD collection is currently in progress, vpd-tool operations are blocked while the collection is in progress."
+            << std::endl;
+        return static_cast<int>(vpd::ErrorCode::NOT_ALLOWED);
+    }
 
     if (auto l_rc = checkOptionValuePair(
             l_objectOption, l_vpdPath, l_recordOption, l_recordName,
