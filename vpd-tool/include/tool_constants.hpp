@@ -62,6 +62,10 @@ constexpr auto validateRedundantEepromMethod = "ValidateRedundantEEPROM";
 
 constexpr auto KwdIM = "IM";
 constexpr auto badVpdPath = "/var/lib/vpd/dumps";
+constexpr auto vpdCollectionInterface = "xyz.openbmc_project.Common.Progress";
+constexpr auto vpdCollectionStatusProperty = "Status";
+constexpr auto vpdCollectionCompleted =
+    "xyz.openbmc_project.Common.Progress.OperationStatus.Completed";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{
