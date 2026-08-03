@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c2eaae_b0715884",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "Keep this statement generic as this list will grow. We are also coming up with the support of IPMI.",
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f44b085_68dadd1e",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "Curious, why the existing one\u0027s won\u0027t work. That we need to re-define?",
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8167c6dc_5cd37028",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "Why is this change required? Why can\u0027t we return what we read?",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1264,
+        "endChar": 13
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a96486_e0ecf1a9",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "Same here. I would like to understand the limitation in returning the exact map that we got after parsing the data?",
+      "range": {
+        "startLine": 1272,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 17
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf26a43_3fe09529",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "This is a utility method. We don\u0027t need to log a PEL. Let the caller decide what needs to be done in case of failure scenarios.\n\nThe API should return generic errors as suggested in the PDI. Please check comments there.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 8,
+        "endLine": 1315,
+        "endChar": 1
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f9a15fa_d5365d28",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T13:09:59Z",
+      "side": 1,
+      "message": "Same here, a simple log to journal and return the error to caller should suffice.",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1330,
+        "endChar": 1
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
