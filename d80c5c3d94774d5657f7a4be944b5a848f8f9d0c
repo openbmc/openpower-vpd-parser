@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a6964d8_72c242c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T17:22:00Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "58610f47_bee2c360",
+      "range": {
+        "startLine": 13,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "d80c5c3d94774d5657f7a4be944b5a848f8f9d0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6600588a_db53908a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -37,6 +61,24 @@
       "writtenOn": "2026-08-03T13:35:22Z",
       "side": 1,
       "message": "Present property is read only to skip \"SYSTEM_VPD_FILE_PATH\"?",
+      "revId": "d80c5c3d94774d5657f7a4be944b5a848f8f9d0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed238e2_869516fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T17:22:00Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "6600588a_db53908a",
       "revId": "d80c5c3d94774d5657f7a4be944b5a848f8f9d0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
