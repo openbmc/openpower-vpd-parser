@@ -16,6 +16,24 @@
       "message": "I think we need to decrement `m_chassisCount` here. Similar to the handling in line 155.  If the exception path is taken, `m_chassisCount` stays positive forever and the queue stays empty.",
       "revId": "fbceb47c23f75df12dbf5bc51475c6c5e2d07d88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8778f076_763c1a19",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T09:07:46Z",
+      "side": 1,
+      "message": "Acknowledged, updated",
+      "parentUuid": "403916d3_f0d306a6",
+      "revId": "fbceb47c23f75df12dbf5bc51475c6c5e2d07d88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
