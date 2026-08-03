@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe23184f_c7cc3b21",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T12:34:41Z",
+      "side": 1,
+      "message": "Parsing of VPD can work even in absence of JSON. That is why the code continues with offset 0.\nAnyways error is set. Caller can use to to deviate.",
+      "parentUuid": "d58da70a_c04d4e56",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eedf627_ff3e26ca",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 25
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "I we didn\u0027t check for offset value in json, shouldn\u0027t assume it will start from 0.\nIf this failure happens, it will go and read from wrong offset.\nto test this scenario, force this error, and run it for DIMM type VPD. it will fail.",
       "parentUuid": "0f17370b_90ca6de6",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfcf541_89bdba8c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T12:34:41Z",
+      "side": 1,
+      "message": "Error code is set. If the caller needs to block the execution. It can make use of the error code.\nAlso, a JSON is not mandatory for parsing to work.",
+      "parentUuid": "6fb3bc97_a0b4aba7",
       "range": {
         "startLine": 76,
         "startChar": 6,
@@ -263,6 +311,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "607b48ff_801dc01f",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T12:34:41Z",
+      "side": 1,
+      "message": "\u003e  should ideally point to same binary data on EEPROM/file and hence same VPD offset.\n\n\nNot necessary, values can be different for file used for split mode and normal mode.",
+      "parentUuid": "a3b8584a_05f369fe",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "776537cb_a6c05414",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 25
@@ -322,6 +394,30 @@
       "side": 1,
       "message": "you are modifying line 53, you can update the variable name.",
       "parentUuid": "ea553d5c_dd15b016",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c7e326e_2a814459",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-03T12:34:41Z",
+      "side": 1,
+      "message": "\"m_vpdModeBasedFruPath\" is actually same as \"m_vpdFilePath\" and will get modified only for system VPD.\nBut yes, since the path can get modified, the variable used here should be \"m_vpdModeBasedFruPath\" and looks like a miss from previous change.\nAlso it should not be part of this commit. We will need a new patch set for fixing this.",
+      "parentUuid": "5de40c0d_eae87a59",
       "range": {
         "startLine": 53,
         "startChar": 49,
