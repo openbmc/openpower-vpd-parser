@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2baf41e6_00a85778",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T05:27:11Z",
+      "side": 1,
+      "message": "make use of device callout (ASYNC_PEL_WITH_DEVICE_CALLOUT), as placeholder is defined already.",
+      "revId": "9deec5c23596acc48567edcfc9cb286748672b8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f094662_fcf380fb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T05:27:11Z",
+      "side": 1,
+      "message": "add todo, \u0026 move above line 689",
+      "revId": "9deec5c23596acc48567edcfc9cb286748672b8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac6bf126_8f65dee4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T05:27:11Z",
+      "side": 1,
+      "message": "make use of device callout (ASYNC_PEL_WITH_DEVICE_CALLOUT), as placeholder is defined already.",
+      "revId": "9deec5c23596acc48567edcfc9cb286748672b8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059ac076_08faea01",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T05:27:11Z",
+      "side": 1,
+      "message": "add todo keyword, move above at line 887.",
+      "revId": "9deec5c23596acc48567edcfc9cb286748672b8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
