@@ -279,7 +279,7 @@ void VpdTool::populateFruJson(
         if (l_interface == constants::i2cDeviceInf)
         {
             const std::vector<std::string> l_properties = {"Address", "Bus"};
-            populateInterfaceJson<uint32_t>(i_inventoryObjPath,
+            populateInterfaceJson<uint64_t>(i_inventoryObjPath,
                                             constants::i2cDeviceInf,
                                             l_properties, io_fruJsonObject);
             continue;
