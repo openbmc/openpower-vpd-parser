@@ -953,6 +953,34 @@ int VpdTool::dumpInventory(bool i_dumpTable) const noexcept
 
     try
     {
+        const auto l_vpdCollectionStatus = utils::readDbusProperty(
+            constants::vpdManagerService, constants::vpdManagerObjectPath,
+            constants::vpdCollectionInterface,
+            constants::vpdCollectionStatusProperty);
+
+        if (!l_vpdCollectionStatus.has_value())
+        {
+            std::cerr << "Failed to read VPD collection status property"
+                      << std::endl;
+            return static_cast<int>(ErrorCode::DBUS_CALL_FAILED);
+        }
+
+        if (!std::get_if<std::string>(&l_vpdCollectionStatus.value()))
+        {
+            std::cerr << "Received invalid type from DBus." << std::endl;
+            return static_cast<int>(
+                ErrorCode::RECEIVED_INVALID_DATA_TYPE_FROM_DBUS);
+        }
+
+        if (*std::get_if<std::string>(&l_vpdCollectionStatus.value()) !=
+            constants::vpdCollectionCompleted)
+        {
+            std::cerr
+                << "VPD collection status is not completed. Cannot dump inventory."
+                << std::endl;
+            return static_cast<int>(ErrorCode::VPD_COLLECTION_NOT_COMPLETED);
+        }
+
         // get all object paths under PIM
         const auto l_objectPaths = utils::GetSubTreePaths(
             constants::baseInventoryPath, 0,
