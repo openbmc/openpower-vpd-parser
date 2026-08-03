@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7490a26_98e542e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T06:19:17Z",
+      "side": 1,
+      "message": "commit message: nit: \"working\"",
+      "parentUuid": "5a6ded69_e55ad578",
+      "range": {
+        "startLine": 29,
+        "startChar": 72,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4ca6f12_668a5d9d",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 25
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "This is similar to the existing error handling, where we assume offset to be 0 and continue with VPD parsing. \n\n\u003eIf configManager is not there, we shouldn\u0027t go ahead.\n\nWhy do you think so?\n\nIn any case, `ConfigManager` is being initialized by `Manager` at very initial stage of the daemon. This specific error handling is just to handle edge case where some caller calls `getVPDOffset()` before `Manager` initialization.",
       "parentUuid": "c4ca6f12_668a5d9d",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58da70a_c04d4e56",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T06:19:17Z",
+      "side": 1,
+      "message": "you need config manager to get a config json.\nAnd you need config json to find out offset .",
+      "parentUuid": "a85e95f8_9b58fbfb",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -120,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fb3bc97_a0b4aba7",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T06:19:17Z",
+      "side": 1,
+      "message": "I we didn\u0027t check for offset value in json, shouldn\u0027t assume it will start from 0.\nIf this failure happens, it will go and read from wrong offset.\nto test this scenario, force this error, and run it for DIMM type VPD. it will fail.",
+      "parentUuid": "0f17370b_90ca6de6",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c4dd588_ed8cf9fd",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 25
@@ -167,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3b8584a_05f369fe",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T06:19:17Z",
+      "side": 1,
+      "message": "this is about comment on line 53.\nSo If you agree, we should use same variable for all the actions.",
+      "parentUuid": "26ccd1f2_cf7b7ade",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "776537cb_a6c05414",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 25
@@ -202,6 +298,30 @@
       "side": 1,
       "message": "On initial thought, I think we should be using `m_vpdModeBasedFruPath` here to get the offset. But this is out of scope of this patch.",
       "parentUuid": "776537cb_a6c05414",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de40c0d_eae87a59",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T06:19:17Z",
+      "side": 1,
+      "message": "you are modifying line 53, you can update the variable name.",
+      "parentUuid": "ea553d5c_dd15b016",
       "range": {
         "startLine": 53,
         "startChar": 49,
