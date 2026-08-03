@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3df96a_76249b7a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-03T09:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bc22fd5_1ecc7cbe",
+      "revId": "4fb909b531e7c699813e502e040bde1cd4580400",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeee96e8_9880d332",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-03T09:12:54Z",
       "side": 1,
       "message": "Add a todo to remove this log once we move to cable manager based solution.",
+      "revId": "4fb909b531e7c699813e502e040bde1cd4580400",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3baf5722_3bf98c3d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-03T09:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeee96e8_9880d332",
       "revId": "4fb909b531e7c699813e502e040bde1cd4580400",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
