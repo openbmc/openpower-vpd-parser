@@ -167,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55e2e27_dd2c7bb3",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T13:24:45Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "fe23184f_c7cc3b21",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eedf627_ff3e26ca",
@@ -252,6 +276,30 @@
       "side": 1,
       "message": "Error code is set. If the caller needs to block the execution. It can make use of the error code.\nAlso, a JSON is not mandatory for parsing to work.",
       "parentUuid": "6fb3bc97_a0b4aba7",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b36ef8_7ab7fe65",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T13:24:45Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "6cfcf541_89bdba8c",
       "range": {
         "startLine": 76,
         "startChar": 6,
@@ -466,6 +514,30 @@
       "side": 1,
       "message": "\"m_vpdModeBasedFruPath\" is actually same as \"m_vpdFilePath\" and will get modified only for system VPD.\nBut yes, since the path can get modified, the variable used here should be \"m_vpdModeBasedFruPath\" and looks like a miss from previous change.\nAlso it should not be part of this commit. We will need a new patch set for fixing this.",
       "parentUuid": "5de40c0d_eae87a59",
+      "range": {
+        "startLine": 53,
+        "startChar": 49,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "3a9a6d35d81dd7afd72774df190efc15ee25a88c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f74a36c_578aad3a",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-03T13:24:45Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "6c7e326e_2a814459",
       "range": {
         "startLine": 53,
         "startChar": 49,
