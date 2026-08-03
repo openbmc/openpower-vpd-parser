@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1deae60f_af3ada7a",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "Nit: Empty input received/provided, as the log for the user ?\ncan we use cerr ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e02133_80bb87d3",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "should we use cerr ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e916541_4c723c70",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "need to update return doxygen",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b661528_19c1b5a1",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "as returning different error codes on failure, \nnumber bytes read on success.\nupdating same in doxygen is missing.",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbabff67_6d58cc67",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "do we need this change ?\nas variable only used at 110, we can keep the old way itself ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb2f130_61fc53b5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "why failed to file and returning same error code is missing .",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fce80e3_fadd30aa",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "as the size not going to chnage, we set in the beginning at one place ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75cce63_90585a1c",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "can we use FILE_SYSTEM_ERROR here ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd46ef1_8d1bb022",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-03T10:37:06Z",
+      "side": 1,
+      "message": "should we use EEPROM_PATH_NOT_FOUND when file not found but no error code set ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
