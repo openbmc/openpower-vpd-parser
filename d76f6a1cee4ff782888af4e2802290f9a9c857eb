@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8098dab_72f7e958",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4c2eaae_b0715884",
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f44b085_68dadd1e",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62be6a57_c5ac6268",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "The existing types   cannot be used as D-Bus return types.\nsdbusplus uses the D-Bus type system, which maps to sd-bus wire types. It can only serialise types it knows how to encode. \n\nWe need this because Every element maps cleanly to a D-Bus wire type: \nstd::map → a{...}, \nBinaryVector → ay, \nstd::string → s, \nuint64_t → t. \nThe std::variant here is a discriminated union that sdbusplus encodes as a D-Bus variant v. \nNo unordered_map, no size_t, no monostate.",
+      "parentUuid": "7f44b085_68dadd1e",
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8167c6dc_5cd37028",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 1
@@ -48,6 +84,30 @@
       "writtenOn": "2026-08-03T13:09:59Z",
       "side": 1,
       "message": "Why is this change required? Why can\u0027t we return what we read?",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1264,
+        "endChar": 13
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e2e053_6d61bd1c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "The conversion loop is required because the internal parsed type and the D-Bus return type are structurally different.\n\n// Internal parser output\nusing IPZKwdValueMap \u003d std::unordered_map\u003cstd::string, std::string\u003e;   // value \u003d string\nusing IPZVpdMap      \u003d std::unordered_map\u003cstd::string, IPZKwdValueMap\u003e;\n\n// D-Bus return type\nusing DbusIPZVpdMap  \u003d std::map\u003cRecord, std::map\u003cKeyword, BinaryVector\u003e\u003e;\n// value \u003d bytes",
+      "parentUuid": "8167c6dc_5cd37028",
       "range": {
         "startLine": 1252,
         "startChar": 12,
@@ -83,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b04cb9f_a7f09c35",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "The internal KWdVPDValueType uses size_t for the numeric alternative because it maps directly to the size of a keyword field as read off the wire. \nsize_t is platform-dependent (32-bit on 32-bit systems). \nThe D-Bus wire type is always uint64_t.",
+      "parentUuid": "96a96486_e0ecf1a9",
+      "range": {
+        "startLine": 1272,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 17
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbf26a43_3fe09529",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 1
@@ -94,6 +178,30 @@
       "writtenOn": "2026-08-03T13:09:59Z",
       "side": 1,
       "message": "This is a utility method. We don\u0027t need to log a PEL. Let the caller decide what needs to be done in case of failure scenarios.\n\nThe API should return generic errors as suggested in the PDI. Please check comments there.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 8,
+        "endLine": 1315,
+        "endChar": 1
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2745188_43e7a265",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf26a43_3fe09529",
       "range": {
         "startLine": 1307,
         "startChar": 8,
@@ -117,6 +225,30 @@
       "writtenOn": "2026-08-03T13:09:59Z",
       "side": 1,
       "message": "Same here, a simple log to journal and return the error to caller should suffice.",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1330,
+        "endChar": 1
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a027039_f2607a55",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-04T19:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f9a15fa_d5365d28",
       "range": {
         "startLine": 1322,
         "startChar": 8,
