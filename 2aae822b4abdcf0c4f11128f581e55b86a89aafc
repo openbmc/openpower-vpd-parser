@@ -176,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6cf3244_93c329ac",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-04T09:47:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8e15f015_e3df255a",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1eb2f130_61fc53b5",
