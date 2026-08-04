@@ -16,6 +16,24 @@
       "message": "l_configJsonObj this is not required now",
       "revId": "12d933b3937c02325336ee3d53fc3caae237533e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba96b91_6d86baaf",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-04T07:23:15Z",
+      "side": 1,
+      "message": "Agreed. Although I wonder why CI didn\u0027t catch this.",
+      "parentUuid": "97fe528c_7cf19cad",
+      "revId": "12d933b3937c02325336ee3d53fc3caae237533e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
