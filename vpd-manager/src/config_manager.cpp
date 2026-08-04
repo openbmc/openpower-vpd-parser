@@ -121,6 +121,13 @@ std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
     }
     else
     {
+        // see if the given EEPROM path is in the system configuration JSON
+        // if yes, return the system configuration JSON
+        if (m_systemConfigJson["frus"].contains(*i_vpdPath))
+        {
+            return std::cref(m_systemConfigJson);
+        }
+
         return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
     }
 
