@@ -211,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6861cca0_931becb6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T08:26:10Z",
+      "side": 1,
+      "message": "Updated to return error code",
+      "parentUuid": "d166d596_e997fd94",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fce80e3_fadd30aa",
