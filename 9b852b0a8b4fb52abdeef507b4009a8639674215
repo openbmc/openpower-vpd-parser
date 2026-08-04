@@ -16,6 +16,23 @@
       "message": "Looks good to me",
       "revId": "9b852b0a8b4fb52abdeef507b4009a8639674215",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa87f6d_fbff725d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-04T15:45:34Z",
+      "side": 1,
+      "message": "Merging on priority as the change is required to fix collection failure on every genesis boot.",
+      "revId": "9b852b0a8b4fb52abdeef507b4009a8639674215",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
