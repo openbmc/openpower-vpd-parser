@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc8bbdd_d9bb3896",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1deae60f_af3ada7a",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4e02133_80bb87d3",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-03T10:37:06Z",
       "side": 1,
       "message": "should we use cerr ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cff254f_72715f73",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4e02133_80bb87d3",
       "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22f721a_2f949dbd",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e916541_4c723c70",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b661528_19c1b5a1",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-08-03T10:37:06Z",
       "side": 1,
       "message": "as returning different error codes on failure, \nnumber bytes read on success.\nupdating same in doxygen is missing.",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6052d73f_e9ba3b0c",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "updated the doxygen",
+      "parentUuid": "4b661528_19c1b5a1",
       "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e15f015_e3df255a",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Now saveToFile() now returns std::expected\u003cbool, ErrorCode\u003e. \nUsing if (utils::saveToFile(...)) only checks that the expected contains a value, not whether the returned bool is true.",
+      "parentUuid": "bbabff67_6d58cc67",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1eb2f130_61fc53b5",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 5
@@ -99,6 +189,24 @@
       "writtenOn": "2026-08-03T10:37:06Z",
       "side": 1,
       "message": "why failed to file and returning same error code is missing .",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d166d596_e997fd94",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "When save to file is failed, it is displayed on console, so not returning error code here",
+      "parentUuid": "1eb2f130_61fc53b5",
       "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f15d337_13624d60",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fce80e3_fadd30aa",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c75cce63_90585a1c",
@@ -137,6 +263,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf1e79b_5371687d",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c75cce63_90585a1c",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dd46ef1_8d1bb022",
@@ -150,6 +294,24 @@
       "writtenOn": "2026-08-03T10:37:06Z",
       "side": 1,
       "message": "should we use EEPROM_PATH_NOT_FOUND when file not found but no error code set ?",
+      "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4159bc26_d662ac7f",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T07:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dd46ef1_8d1bb022",
       "revId": "2aae822b4abdcf0c4f11128f581e55b86a89aafc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
