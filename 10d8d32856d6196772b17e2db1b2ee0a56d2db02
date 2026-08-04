@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "043ad86b_a5202798",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T10:39:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6149fae_87f365fc",
+      "revId": "10d8d32856d6196772b17e2db1b2ee0a56d2db02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "005c447e_4d976b54",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-04T06:43:05Z",
       "side": 1,
       "message": "I think there should be another error code for this, maybe `INVALID_DATA_TYPE_FROM_DBUS`, so that caller/user gets exact information about the failure.",
+      "revId": "10d8d32856d6196772b17e2db1b2ee0a56d2db02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23421b37_2b196fc6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-04T10:39:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "005c447e_4d976b54",
       "revId": "10d8d32856d6196772b17e2db1b2ee0a56d2db02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
