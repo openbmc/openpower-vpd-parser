@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbacd63e_2c098e90",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-04T06:44:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b50e473_c3c00871",
+      "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1d6d64f_abc3d175",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "230be065_8e90e72d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-04T06:44:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1d6d64f_abc3d175",
+      "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b963f8_13643602",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-04T05:52:59Z",
       "side": 1,
       "message": "We need to notify `processChassisResults` after decrementing the counter here.\n\nIn the exception path, it\u0027s possible that `m_chassisCount` becomes 0 here. Without `notify_one()`, `processChassisResults` will block in wait_for until the timeout expires.",
+      "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "938c4cb2_fe23d81a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-04T06:44:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b963f8_13643602",
       "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
