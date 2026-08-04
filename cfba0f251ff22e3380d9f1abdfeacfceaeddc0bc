@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1d6d64f_abc3d175",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-04T05:52:59Z",
+      "side": 1,
+      "message": "If we hit this block, we log and proceed with updating system view with `l_isFruPresent \u003d false`. This log should reflect this. Maybe something like \"...proceeding by assuming Present \u003d false\"",
+      "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b963f8_13643602",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-04T05:52:59Z",
+      "side": 1,
+      "message": "We need to notify `processChassisResults` after decrementing the counter here.\n\nIn the exception path, it\u0027s possible that `m_chassisCount` becomes 0 here. Without `notify_one()`, `processChassisResults` will block in wait_for until the timeout expires.",
+      "revId": "cfba0f251ff22e3380d9f1abdfeacfceaeddc0bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
