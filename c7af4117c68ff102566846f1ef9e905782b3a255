@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfe3e22_0986e8f1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-05T04:53:57Z",
+      "side": 1,
+      "message": "Why static has been removed and the name has been changed?",
+      "revId": "c7af4117c68ff102566846f1ef9e905782b3a255",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4d556c9_0aa0a971",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-05T04:53:57Z",
+      "side": 1,
+      "message": "This check is already there in parser hence, it was not done here. Any specific reason it has been added here?",
+      "revId": "c7af4117c68ff102566846f1ef9e905782b3a255",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
