@@ -276,23 +276,11 @@ void updateFooter(CLI::App& i_app)
         "        On hardware, take keyword value from file:\n"
         "              vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
         "    Note: If record option is not provided, it will be considered as keyword format.\n"
-        "Dump Object:\n"
-        "    From DBus to console: "
-        "vpd-tool -o -O <DBus Object Path>\n"
-        "Fix System VPD:\n"
-        "    vpd-tool --fixSystemVPD\n"
-        "MfgClean:\n"
-        "        Flag to clean and reset specific keywords on system VPD to its default value.\n"
-        "        vpd-tool --mfgClean\n"
-        "        To sync BIOS attribute related keywords with BIOS Config Manager:\n"
-        "        vpd-tool --mfgClean --syncBiosAttributes\n"
         "Dump Inventory:\n"
         "   From DBus to console in JSON format: "
         "vpd-tool -i\n"
         "   From DBus to console in Table format: "
         "vpd-tool -i -t\n"
-        "Force Reset:\n"
-        "   vpd-tool --forceReset\n"
         "Validate EEPROM:\n"
         "   Validate given EEPROM against its redundant copy:\n"
         "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
@@ -312,7 +300,23 @@ void updateFooter(CLI::App& i_app)
         "       -9,     JSON parse error.\n"
         "       -10,    EEPROM path not found.\n"
         "       -11,    Empty file.\n"
-        "       -12,    Keyword name is not provided.\n");
+        "       -12,    Keyword name is not provided.\n"
+#if 0
+        " // Disabling these options for now, as they require additional refactoring to enable."
+        "Dump Object:\n"
+        "    From DBus to console: "
+        "vpd-tool -o -O <DBus Object Path>\n"
+        "Fix System VPD:\n"
+        "    vpd-tool --fixSystemVPD\n"
+        "MfgClean:\n"
+        "        Flag to clean and reset specific keywords on system VPD to its default value.\n"
+        "        vpd-tool --mfgClean\n"
+        "        To sync BIOS attribute related keywords with BIOS Config Manager:\n"
+        "        vpd-tool --mfgClean --syncBiosAttributes\n" 
+        "Force Reset:\n"
+        "   vpd-tool --forceReset\n"
+#endif
+    );
 }
 
 int main(int argc, char** argv)
@@ -360,6 +364,19 @@ int main(int argc, char** argv)
 
     // ToDo: Take offset value from user for hardware path.
 
+    auto l_dumpInventoryFlag =
+        l_app.add_flag("--dumpInventory, -i", "Dump all the inventory objects");
+
+    auto l_dumpInventoryTableFlag =
+        l_app.add_flag("--table, -t", "Dump inventory in table format");
+
+    auto l_validateRedundantEepromFlag =
+        l_app
+            .add_flag("--validateRedundantEeprom, -e",
+                      "Validate given EEPROM against its redundant EEPROM")
+            ->needs(l_objectOption);
+
+#if 0
     auto l_dumpObjFlag =
         l_app
             .add_flag("--dumpObject, -o",
@@ -369,18 +386,13 @@ int main(int argc, char** argv)
     auto l_fixSystemVpdFlag = l_app.add_flag(
         "--fixSystemVPD",
         "Use this option to interactively fix critical system VPD keywords");
-    auto l_dumpInventoryFlag =
-        l_app.add_flag("--dumpInventory, -i", "Dump all the inventory objects");
-
+ 
     auto l_mfgCleanFlag = l_app.add_flag(
         "--mfgClean", "Manufacturing clean on system VPD keyword");
 
     auto l_mfgCleanConfirmFlag = l_app.add_flag(
         "--yes", "Using this flag with --mfgClean option, assumes "
                  "yes to proceed without confirmation.");
-
-    auto l_dumpInventoryTableFlag =
-        l_app.add_flag("--table, -t", "Dump inventory in table format");
 
     auto l_mfgCleanSyncBiosAttributesFlag = l_app.add_flag(
         "--syncBiosAttributes, -s",
@@ -389,12 +401,7 @@ int main(int argc, char** argv)
     auto l_forceResetFlag = l_app.add_flag(
         "--forceReset, -f, -F",
         "Force collect for hardware. CAUTION: Developer only option.");
-
-    auto l_validateRedundantEepromFlag =
-        l_app
-            .add_flag("--validateRedundantEeprom, -e",
-                      "Validate given EEPROM against its redundant EEPROM")
-            ->needs(l_objectOption);
+#endif
 
     CLI11_PARSE(l_app, argc, argv);
 
@@ -443,6 +450,19 @@ int main(int argc, char** argv)
                             l_recordName, l_keywordName, l_keywordValue);
     }
 
+    if (!l_dumpInventoryFlag->empty())
+    {
+        vpd::VpdTool l_vpdToolObj;
+        return l_vpdToolObj.dumpInventory(!l_dumpInventoryTableFlag->empty());
+    }
+
+    if (!l_validateRedundantEepromFlag->empty())
+    {
+        vpd::VpdTool l_vpdToolObj;
+        return l_vpdToolObj.validateRedundantEeprom(l_vpdPath);
+    }
+
+#if 0
     if (!l_dumpObjFlag->empty())
     {
         vpd::VpdTool l_vpdToolObj;
@@ -461,22 +481,11 @@ int main(int argc, char** argv)
                           l_mfgCleanSyncBiosAttributesFlag);
     }
 
-    if (!l_dumpInventoryFlag->empty())
-    {
-        vpd::VpdTool l_vpdToolObj;
-        return l_vpdToolObj.dumpInventory(!l_dumpInventoryTableFlag->empty());
-    }
-
     if (!l_forceResetFlag->empty())
     {
         return forceReset();
     }
-
-    if (!l_validateRedundantEepromFlag->empty())
-    {
-        vpd::VpdTool l_vpdToolObj;
-        return l_vpdToolObj.validateRedundantEeprom(l_vpdPath);
-    }
+#endif
 
     std::cout << l_app.help() << std::endl;
     return vpd::constants::FAILURE;
