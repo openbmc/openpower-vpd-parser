@@ -11,6 +11,7 @@
 #include "utility/event_logger_utility.hpp"
 
 #include <CLI/CLI.hpp>
+#include <xyz/openbmc_project/State/Decorator/PowerState/common.hpp>
 
 #include <chrono>
 #include <thread>
@@ -120,6 +121,41 @@ inline int deleteAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to handle chassis poweron situation
+ *
+ * This API handles the functionality of this service when chassis is powered on
+ * at BMC boot.
+ *
+ * @return - On success returns 0, otherwise returns 1
+ */
+int handleChassisPowerOn()
+{
+    vpd::Logger::getLoggerInstance()->logMessage(
+        "Chassis is powered on at BMC boot. FRUs VPD cannot be collected. Marking FRUs VPD collection as complete.");
+
+    // chassis is powered on at BMC boot. In order to optimize performance,
+    // avoid FRUs VPD collection and simply mark collection as complete so
+    // that dependent services can proceed normally.
+    if (!vpd::dbusUtility::writeDbusProperty(
+            BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface, "Status",
+            vpd::constants::vpdCollectionCompleted))
+    {
+        vpd::Logger::getLoggerInstance()->logMessage(
+            std::format(
+                "Failed to mark FRUs VPD collection as complete. Exiting wait-vpd-parser service with failure."),
+            vpd::PlaceHolder::PEL,
+            vpd::types::PelInfoTuple{vpd::types::ErrorType::DbusFailure,
+                                     vpd::types::SeverityType::Warning, 0,
+                                     std::nullopt, std::nullopt, std::nullopt,
+                                     std::nullopt, std::nullopt});
+
+        return vpd::constants::VALUE_1;
+    }
+
+    return vpd::constants::VALUE_0;
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -129,7 +165,7 @@ int main(int argc, char** argv)
         // default collection status timeout in seconds
         unsigned l_collectionStatusTimeoutSecs{1200};
 
-        // The BMC role can be either active or passive. By default the BMC is
+        // The BMC role can be active or passive. By default the BMC is
         // considered as active.
         std::string l_role{active};
 
@@ -151,6 +187,34 @@ int main(int argc, char** argv)
                              BUSNAME, OBJPATH,
                              vpd::constants::vpdCollectionInterface, "Status",
                              vpd::constants::vpdCollectionFailed));
+        }
+
+        // Read the chassis PowerState property set by pgood-chassis-check.
+        // On any failure (property missing, type mismatch, D-Bus error) log
+        // and fall through to normal active flow (full VPD collection).
+        using PowerStateIface = sdbusplus::common::xyz::openbmc_project::state::
+            decorator::PowerState;
+
+        const auto l_powerStateVar = vpd::dbusUtility::readDbusProperty(
+            vpd::constants::pimServiceName, vpd::constants::systemInvPath,
+            PowerStateIface::interface,
+            PowerStateIface::property_names::power_state);
+
+        if (const auto l_stateStr = std::get_if<std::string>(&l_powerStateVar))
+        {
+            const auto l_state =
+                PowerStateIface::convertStringToState(*l_stateStr);
+
+            if (l_state == PowerStateIface::State::On)
+            {
+                return handleChassisPowerOn();
+            }
+        }
+        else
+        {
+            vpd::Logger::getLoggerInstance()->logMessage(
+                "Failed to read chassis PowerState from D-Bus. "
+                "Proceeding with full VPD collection.");
         }
 
         // check and see if there is any inventory backup data. If it's there
