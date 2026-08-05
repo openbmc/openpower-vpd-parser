@@ -156,10 +156,16 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
         i_fruPath = constants::baseInventoryPath + i_fruPath;
 
         nlohmann::json l_resultJsonArray = nlohmann::json::array({});
-        const nlohmann::json l_fruJson = getFruProperties(i_fruPath);
-        if (!l_fruJson.empty())
+        const auto l_fruJson = getFruProperties(i_fruPath);
+
+        if (!l_fruJson)
         {
-            l_resultJsonArray += l_fruJson;
+            return static_cast<int>(l_fruJson.error());
+        }
+
+        if (!l_fruJson.value().empty())
+        {
+            l_resultJsonArray += l_fruJson.value();
 
             utils::printJson(l_resultJsonArray);
         }
@@ -296,7 +302,8 @@ void VpdTool::populateFruJson(
     }
 }
 
-nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
+std::expected<nlohmann::json, ErrorCode> VpdTool::getFruProperties(
+    const std::string& i_objectPath) const
 {
     // check if FRU is present in the system
     if (!isFruPresent(i_objectPath))
@@ -306,37 +313,59 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 
     nlohmann::json l_fruJson = nlohmann::json::object_t({});
 
-    // need to trim out the base inventory path in the FRU JSON.
-    const std::string l_displayObjectPath =
-        (i_objectPath.find(constants::baseInventoryPath) == std::string::npos)
-            ? i_objectPath
-            : i_objectPath.substr(strlen(constants::baseInventoryPath));
-
-    l_fruJson.emplace(l_displayObjectPath, nlohmann::json::object_t({}));
-
-    auto& l_fruObject = l_fruJson[l_displayObjectPath];
-
-    types::MapperGetObject l_mapperResp = utils::GetServiceInterfacesForObject(
-        i_objectPath, std::vector<std::string>{});
-
-    for (const auto& [l_service, l_interfaceList] : l_mapperResp)
+    try
     {
-        if (l_service != constants::inventoryManagerService)
+        // need to trim out the base inventory path in the FRU JSON.
+        const std::string l_displayObjectPath =
+            (i_objectPath.find(constants::baseInventoryPath) ==
+             std::string::npos)
+                ? i_objectPath
+                : i_objectPath.substr(strlen(constants::baseInventoryPath));
+
+        l_fruJson.emplace(l_displayObjectPath, nlohmann::json::object_t({}));
+
+        auto& l_fruObject = l_fruJson[l_displayObjectPath];
+
+        const auto l_mapperResp = utils::GetServiceInterfacesForObject(
+            i_objectPath, std::vector<std::string>{});
+
+        if (!l_mapperResp)
         {
-            continue;
+            return std::unexpected(l_mapperResp.error());
         }
-        populateFruJson(i_objectPath, l_fruObject, l_interfaceList);
-    }
 
-    const auto l_typePropertyJson = getFruTypeProperty(i_objectPath);
-    if (!l_typePropertyJson.empty())
+        for (const auto& [l_service, l_interfaceList] : l_mapperResp.value())
+        {
+            if (l_service != constants::inventoryManagerService)
+            {
+                continue;
+            }
+            populateFruJson(i_objectPath, l_fruObject, l_interfaceList);
+        }
+
+        const auto l_typePropertyJson = getFruTypeProperty(i_objectPath);
+
+        if (!l_typePropertyJson)
+        {
+            return std::unexpected(l_typePropertyJson.error());
+        }
+
+        if (!l_typePropertyJson.value().empty())
+        {
+            l_fruObject.insert(l_typePropertyJson.value().cbegin(),
+                               l_typePropertyJson.value().cend());
+        }
+
+        // insert FRU "TYPE"
+        l_fruObject.emplace("TYPE", "FRU");
+    }
+    catch (const std::exception& l_ex)
     {
-        l_fruObject.insert(l_typePropertyJson.cbegin(),
-                           l_typePropertyJson.cend());
+        std::cerr << std::format(
+            "Failed to get FRU property JSON for path [{}]. Error : {}",
+            i_objectPath, l_ex.what());
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
-
-    // insert FRU "TYPE"
-    l_fruObject.emplace("TYPE", "FRU");
 
     return l_fruJson;
 }
@@ -844,14 +873,21 @@ bool VpdTool::fetchKeywordInfo(nlohmann::json& io_parsedJsonObj) const noexcept
     return l_returnValue;
 }
 
-nlohmann::json VpdTool::getFruTypeProperty(
+std::expected<nlohmann::json, ErrorCode> VpdTool::getFruTypeProperty(
     const std::string& i_objectPath) const noexcept
 {
     nlohmann::json l_resultInJson = nlohmann::json::object({});
     std::vector<std::string> l_pimInfList;
 
-    auto l_serviceInfMap = utils::GetServiceInterfacesForObject(
+    auto l_serviceInfMaprResult = utils::GetServiceInterfacesForObject(
         i_objectPath, std::vector<std::string>{constants::inventoryItemInf});
+
+    if (!l_serviceInfMaprResult)
+    {
+        return std::unexpected(l_serviceInfMaprResult.error());
+    }
+
+    auto l_serviceInfMap = l_serviceInfMaprResult.value();
     if (l_serviceInfMap.contains(constants::inventoryManagerService))
     {
         l_pimInfList = l_serviceInfMap[constants::inventoryManagerService];
@@ -986,99 +1022,112 @@ int VpdTool::dumpInventory(bool i_dumpTable) const noexcept
             constants::baseInventoryPath, 0,
             std::vector<std::string>{constants::inventoryItemInf});
 
-        if (!l_objectPaths.empty())
+        if (!l_objectPaths)
         {
-            nlohmann::json l_resultInJson = nlohmann::json::array({});
+            return static_cast<int>(l_objectPaths.error());
+        }
 
-            std::for_each(l_objectPaths.begin(), l_objectPaths.end(),
-                          [&](const auto& l_objectPath) {
-                              const auto l_fruJson =
-                                  getFruProperties(l_objectPath);
-                              if (!l_fruJson.empty())
-                              {
-                                  if (l_resultInJson.empty())
-                                  {
-                                      l_resultInJson += l_fruJson;
-                                  }
-                                  else
-                                  {
-                                      l_resultInJson.at(0).insert(
-                                          l_fruJson.cbegin(), l_fruJson.cend());
-                                  }
-                              }
-                          });
+        if (l_objectPaths.value().empty())
+        {
+            return constants::SUCCESS;
+        }
 
-            if (i_dumpTable)
-            {
-                // create Table object
-                utils::Table l_inventoryTable{};
+        nlohmann::json l_resultInJson = nlohmann::json::array({});
 
-                // columns to be populated in the Inventory table
-                const std::vector<types::TableColumnNameSizePair>
-                    l_tableColumns = {
-                        {"FRU", 100},         {"CC", 6},  {"DR", 20},
-                        {"LocationCode", 32}, {"PN", 8},  {"PrettyName", 80},
-                        {"SubModel", 10},     {"SN", 15}, {"type", 60}};
+        std::for_each(
+            l_objectPaths.value().begin(), l_objectPaths.value().end(),
+            [&](const auto& l_objectPath) {
+                const auto l_fruJsonResult = getFruProperties(l_objectPath);
 
-                types::TableInputData l_tableData;
-
-                // First prepare the Table Columns
-                for (const auto& l_column : l_tableColumns)
+                if (!l_fruJsonResult)
                 {
-                    if (constants::FAILURE ==
-                        l_inventoryTable.AddColumn(l_column.first,
-                                                   l_column.second))
-                    {
-                        // TODO: Enable logging when verbose is enabled.
-                        std::cerr << "Failed to add column " << l_column.first
-                                  << " in Inventory Table." << std::endl;
-                    }
+                    return;
                 }
 
-                // iterate through the json array
-                for (const auto& l_fruEntry : l_resultInJson[0].items())
+                auto l_fruJson = l_fruJsonResult.value();
+
+                if (!l_fruJson.empty())
                 {
-                    // if object path ends in "unit([0-9][0-9]?)", skip adding
-                    // the object path in the table
-                    if (std::regex_search(l_fruEntry.key(),
-                                          std::regex("unit([0-9][0-9]?)")))
+                    if (l_resultInJson.empty())
                     {
-                        continue;
+                        l_resultInJson += l_fruJson;
                     }
-
-                    std::vector<std::string> l_row;
-                    for (const auto& l_column : l_tableColumns)
+                    else
                     {
-                        const auto& l_fruJson = l_fruEntry.value();
+                        l_resultInJson.at(0).insert(l_fruJson.cbegin(),
+                                                    l_fruJson.cend());
+                    }
+                }
+            });
 
-                        if (l_column.first == "FRU")
+        if (i_dumpTable)
+        {
+            // create Table object
+            utils::Table l_inventoryTable{};
+
+            // columns to be populated in the Inventory table
+            const std::vector<types::TableColumnNameSizePair> l_tableColumns = {
+                {"FRU", 100},         {"CC", 6},  {"DR", 20},
+                {"LocationCode", 32}, {"PN", 8},  {"PrettyName", 80},
+                {"SubModel", 10},     {"SN", 15}, {"type", 60}};
+
+            types::TableInputData l_tableData;
+
+            // First prepare the Table Columns
+            for (const auto& l_column : l_tableColumns)
+            {
+                if (constants::FAILURE ==
+                    l_inventoryTable.AddColumn(l_column.first, l_column.second))
+                {
+                    // TODO: Enable logging when verbose is enabled.
+                    std::cerr << "Failed to add column " << l_column.first
+                              << " in Inventory Table." << std::endl;
+                }
+            }
+
+            // iterate through the json array
+            for (const auto& l_fruEntry : l_resultInJson[0].items())
+            {
+                // if object path ends in "unit([0-9][0-9]?)", skip adding
+                // the object path in the table
+                if (std::regex_search(l_fruEntry.key(),
+                                      std::regex("unit([0-9][0-9]?)")))
+                {
+                    continue;
+                }
+
+                std::vector<std::string> l_row;
+                for (const auto& l_column : l_tableColumns)
+                {
+                    const auto& l_fruJson = l_fruEntry.value();
+
+                    if (l_column.first == "FRU")
+                    {
+                        l_row.push_back(l_fruEntry.key());
+                    }
+                    else
+                    {
+                        if (l_fruJson.contains(l_column.first))
                         {
-                            l_row.push_back(l_fruEntry.key());
+                            l_row.push_back(l_fruJson[l_column.first]);
                         }
                         else
                         {
-                            if (l_fruJson.contains(l_column.first))
-                            {
-                                l_row.push_back(l_fruJson[l_column.first]);
-                            }
-                            else
-                            {
-                                l_row.push_back("");
-                            }
+                            l_row.push_back("");
                         }
                     }
-
-                    l_tableData.push_back(l_row);
                 }
 
-                l_rc = l_inventoryTable.Print(l_tableData);
+                l_tableData.push_back(l_row);
             }
-            else
-            {
-                // print JSON to console
-                utils::printJson(l_resultInJson);
-                l_rc = constants::SUCCESS;
-            }
+
+            l_rc = l_inventoryTable.Print(l_tableData);
+        }
+        else
+        {
+            // print JSON to console
+            utils::printJson(l_resultInJson);
+            l_rc = constants::SUCCESS;
         }
     }
     catch (const std::exception& l_ex)
