@@ -19,12 +19,6 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
                types::VpdCollectionMode i_vpdCollectionMode) :
     m_vpdFilePath(i_vpdFilePath), m_parsedJson(i_parsedJson),
     m_vpdCollectionMode(i_vpdCollectionMode),
-
-    /* @todo: m_vpdModeBasedFruPath gets updated only for system VPD path when
-    system is in File Mode. Revisit the usage of m_vpdFilePath and
-    m_vpdModeBasedFruPath in all the methods in this class and decide whether
-    both variables need to be kept or only one of them is sufficient. */
-
     m_vpdModeBasedFruPath(i_vpdFilePath), m_logger(Logger::getLoggerInstance())
 {
     std::error_code l_errCode;
@@ -56,14 +50,13 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
     }
 
     // Read VPD offset if applicable.
-    m_vpdStartOffset =
-        jsonUtility::getVPDOffset(m_vpdModeBasedFruPath, l_errorCode);
+    m_vpdStartOffset = jsonUtility::getVPDOffset(m_vpdFilePath, l_errorCode);
 
     if (l_errorCode)
     {
         m_logger->logMessage(std::format(
             "VPD offset for path [{}] not found. {}. Assuming offset as 0",
-            m_vpdModeBasedFruPath, commonUtility::getErrCodeMsg(l_errorCode)));
+            m_vpdFilePath, commonUtility::getErrCodeMsg(l_errorCode)));
     }
 }
 
