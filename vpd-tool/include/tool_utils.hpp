@@ -130,8 +130,11 @@ inline types::PropertyMap getPropertyMap(
  * @brief An API to print json data on stdout.
  *
  * @param[in] i_jsonData - JSON object.
+ *
+ * @return Error code in case of exception.
  */
-inline void printJson(const nlohmann::json& i_jsonData)
+inline std::expected<void, ErrorCode> printJson(
+    const nlohmann::json& i_jsonData)
 {
     try
     {
@@ -139,8 +142,9 @@ inline void printJson(const nlohmann::json& i_jsonData)
     }
     catch (const nlohmann::json::type_error& l_ex)
     {
-        throw std::runtime_error(
-            "Failed to dump JSON data, error: " + std::string(l_ex.what()));
+        std::cerr << std::format("Failed to dump JSON data, error: {}.\n",
+                                 std::string(l_ex.what()));
+        return std::unexpected(ErrorCode::JSON_EXCEPTION);
     }
 }
 
@@ -571,19 +575,19 @@ inline nlohmann::json getParsedJson(const std::string& i_pathToJson)
  * interfaces.
  *
  * @return On success, returns a map of service -> implemented interface(s),
- * else returns an empty map. The caller of this
- * API should check for empty map.
+ * Corresponding error code in case of exception.
  */
-inline types::MapperGetObject GetServiceInterfacesForObject(
-    const std::string& i_objectPath,
-    const std::vector<std::string>& i_constrainingInterfaces) noexcept
+inline std::expected<types::MapperGetObject, ErrorCode>
+    GetServiceInterfacesForObject(
+        const std::string& i_objectPath,
+        const std::vector<std::string>& i_constrainingInterfaces) noexcept
 {
     types::MapperGetObject l_serviceInfMap;
     if (i_objectPath.empty())
     {
         // TODO: log only when verbose is enabled
         std::cerr << "Object path is empty." << std::endl;
-        return l_serviceInfMap;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
     try
@@ -601,7 +605,10 @@ inline types::MapperGetObject GetServiceInterfacesForObject(
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: log only when verbose is enabled
-        std::cerr << std::string(l_ex.what()) << std::endl;
+        std::cerr << std::format(
+            "Failed to get service interface map for object path [{}]. Error : {}.\n",
+            i_objectPath, l_ex.what());
+        return std::unexpected(ErrorCode::DBUS_CALL_FAILED);
     }
     return l_serviceInfMap;
 }
@@ -619,10 +626,10 @@ inline types::MapperGetObject GetServiceInterfacesForObject(
  * fetched. For unconstrained fetches use a depth of zero.
  *
  * @return On success, returns a std::vector<std::string> of object paths in
- * Phosphor Inventory Manager DBus service's tree, else returns an empty vector.
- * The caller of this API should check for empty vector.
+ * Phosphor Inventory Manager DBus service's tree. Corresponding error code in
+ * case of exception.
  */
-inline std::vector<std::string> GetSubTreePaths(
+inline std::expected<std::vector<std::string>, ErrorCode> GetSubTreePaths(
     const std::string i_objectPath, const int i_depth = 0,
     const std::vector<std::string>& i_constrainingInterfaces = {}) noexcept
 {
@@ -643,7 +650,12 @@ inline std::vector<std::string> GetSubTreePaths(
     catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: log only when verbose is enabled
-        std::cerr << std::string(l_ex.what()) << std::endl;
+        std::cerr
+            << std::format(
+                   "Failed to get sub tree paths under object path [{}]. Error : {}.",
+                   i_objectPath, l_ex.what())
+            << std::endl;
+        return std::unexpected(ErrorCode::DBUS_CALL_FAILED);
     }
     return l_objectPaths;
 }
