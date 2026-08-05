@@ -13,7 +13,7 @@ libgpiodcxx = dependency(
     version: '<1.7.0',
 )
 
-dependency_list = [CLI_dep, sdbusplus, libgpiodcxx]
+dependency_list = [CLI_dep, sdbusplus, libgpiodcxx, phosphor_dbus_interfaces]
 
 parser_build_arguments = []
 if get_option('ibm_system').allowed()
