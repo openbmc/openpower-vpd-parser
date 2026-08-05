@@ -34,13 +34,12 @@ class VpdTool
      * @param[in] i_objectPath - DBus object path
      *
      * @return On success, returns the properties of the FRU in JSON format,
-     * otherwise returns an empty JSON.
+     * Corresponding error code in failure case.
      * If FRU's "Present" property is false, this API returns an empty JSON.
      * Note: The caller of this API should handle empty JSON.
-     *
-     * @throw json::exception, std::out_of_range, std::bad_alloc
      */
-    nlohmann::json getFruProperties(const std::string& i_objectPath) const;
+    std::expected<nlohmann::json, ErrorCode> getFruProperties(
+        const std::string& i_objectPath) const;
 
     /**
      * @brief API to populate FRU JSON.
@@ -106,10 +105,9 @@ class VpdTool
      * @param[in] i_objectPath - DBus object path.
      *
      * @return On success, returns the "type" property in JSON
-     * format, otherwise returns empty JSON. The caller of this API should
-     * handle empty JSON.
+     * format. Corresponding error code in case of exception.
      */
-    nlohmann::json getFruTypeProperty(
+    std::expected<nlohmann::json, ErrorCode> getFruTypeProperty(
         const std::string& i_objectPath) const noexcept;
 
     /**
