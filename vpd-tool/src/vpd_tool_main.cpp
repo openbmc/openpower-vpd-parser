@@ -313,7 +313,7 @@ void updateFooter(CLI::App& i_app)
         "       -6,     File system error.\n"
         "       -7,     File not found.\n"
         "       -8,     Standard exception occurred.\n"
-        "       -9,     JSON parse error.\n"
+        "       -9,     JSON exception.\n"
         "       -10,    EEPROM path not found.\n"
         "       -11,    Empty file.\n"
         "       -12,    Keyword name is not provided.\n"
