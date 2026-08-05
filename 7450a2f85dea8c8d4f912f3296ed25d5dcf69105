@@ -16,6 +16,24 @@
       "message": "Why 3001? As there are standard errors, lets have the same number as it is thrown so that mapping remains same?",
       "revId": "7450a2f85dea8c8d4f912f3296ed25d5dcf69105",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e43ff3_d698eae0",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-05T13:55:07Z",
+      "side": 1,
+      "message": "not required now.",
+      "parentUuid": "609139fd_e4d5b311",
+      "revId": "7450a2f85dea8c8d4f912f3296ed25d5dcf69105",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
