@@ -17,6 +17,7 @@
 
 constexpr auto active = "active";
 constexpr auto passive = "passive";
+constexpr auto poweron = "poweron";
 
 /**
  * @brief API to handle inventory backup data
@@ -120,6 +121,27 @@ inline int deleteAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to handle poweron role
+ *
+ * This API handles the functionality of this service when chassis is powered on
+ * at BMC boot.
+ *
+ * @return - On success returns 0, otherwise returns 1
+ */
+int handlePowerOnRole()
+{
+    vpd::Logger::getLoggerInstance()->logMessage(
+        "Chassis is powered on at BMC boot. FRUs VPD cannot be collected. Marking FRUs VPD collection as complete.");
+
+    // poweron role: chassis is powered on at BMC boot; VPD collection is
+    // not possible while the chassis is live.  Simply mark collection as
+    // complete so that dependent services can proceed normally.
+    return !(vpd::dbusUtility::writeDbusProperty(
+        BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface, "Status",
+        vpd::constants::vpdCollectionCompleted));
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -129,8 +151,8 @@ int main(int argc, char** argv)
         // default collection status timeout in seconds
         unsigned l_collectionStatusTimeoutSecs{1200};
 
-        // The BMC role can be either active or passive. By default the BMC is
-        // considered as active.
+        // The BMC role can be active, passive, or poweron. By default the BMC
+        // is considered as active.
         std::string l_role{active};
 
         l_app.add_option("--collectionStatusTimeout, -s",
@@ -151,6 +173,14 @@ int main(int argc, char** argv)
                              BUSNAME, OBJPATH,
                              vpd::constants::vpdCollectionInterface, "Status",
                              vpd::constants::vpdCollectionFailed));
+        }
+
+        // poweron role: chassis is powered on at BMC boot; VPD collection is
+        // not possible while the chassis is live.  Simply mark collection as
+        // complete so that dependent services can proceed normally.
+        if (l_role == poweron)
+        {
+            return handlePowerOnRole();
         }
 
         // check and see if there is any inventory backup data. If it's there
