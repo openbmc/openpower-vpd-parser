@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73ce17b_68837b7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "Can you clarify which part of the code is commented?",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a0e7d4_7d675e56",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "If this class is not intended to be extended, it should be marked as `final`",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f67b356_3aeb6987",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "Why is the error type hard-coded to `ErrorType::EssentialFru` and not based on the `m_errno`?",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2de9f8_a54de351",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "Can we use `std::format()` to construct the string? It\u0027s more efficient compared to the current implementation.",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9833c363_d852c85c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "I looked up the behavior of the global `errno` behavior in this scenario:\n\n\"When using C++ std::fstream with exceptions enabled, errno is not guaranteed to be reliable or preserved inside a catch block.By default, std::fstream fails silently. If you intentionally enable exceptions via .exceptions(), the thrown std::ios_base::failure can trigger intermediate cleanup or platform-specific teardown code before your catch block runs. This secondary internal processing can overwrite the global errno value.\"",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9bcbdaf_29ba4d67",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:41:40Z",
+      "side": 1,
+      "message": "Why is this line needed?",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
