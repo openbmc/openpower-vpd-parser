@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc38d43_a154c8e5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T14:42:55Z",
+      "side": 1,
+      "message": "My concern is from textbook point of view, casting signed integer into unsigned, there is  risk of underflow. I know POSIX error codes like ENOENT\u003d2, EACCES\u003d13, EIO\u003d5 are positive so chances of rollover are less in this scenario, but just pointing it out to see if we can avoid such conversions.\n\nAs discussed, we can live with this for now.",
+      "parentUuid": "1013c993_7240a29e",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e7cbd9e_3e0acfe3",
@@ -84,6 +102,41 @@
       "side": 1,
       "message": "Same here. I am not aware of any scenario in this case where err code can be negative.\nCould you please elaborate.",
       "parentUuid": "4e7cbd9e_3e0acfe3",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf67d273_f4bd66a3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T14:42:55Z",
+      "side": 1,
+      "message": "I agree practically, no negative `errno` is possible here.",
+      "parentUuid": "b5e2e392_5ff8066d",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1983b33_9ba7e3b9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T14:42:55Z",
+      "side": 1,
+      "message": "`std::strerror` is not MT safe as per C++ standard.\n```suggestion\n                        vpdFilePath,o_errCode,std::generic_category().message(errno);\n```",
       "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
