@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4b09ada_5fd5f8dc",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:10:37Z",
+      "side": 1,
+      "message": "\u003e ENOENT\u003d2, EACCES\u003d13, EIO\u003d5\n\nWe have these defined in PELs why are we not using those interfaces?",
+      "parentUuid": "3820bab1_26e73b9e",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b2de9f8_a54de351",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 20

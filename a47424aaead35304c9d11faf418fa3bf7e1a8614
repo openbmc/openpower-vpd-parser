@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1013c993_7240a29e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:10:37Z",
+      "side": 1,
+      "message": "I don\u0027t think in this scenario (Filestream) exceptions, any negative error code is exposed to user space code.\nCould you please specify which specific use case you are worried about?",
+      "parentUuid": "5aeca375_f66e7fd6",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e7cbd9e_3e0acfe3",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 21
@@ -48,6 +66,24 @@
       "writtenOn": "2026-08-06T13:41:58Z",
       "side": 1,
       "message": "`strerror()` should be called on `errno` and not on the type casted `uint16_t o_errCode`. Any negative value `errno` will not map correctly.",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e2e392_5ff8066d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:10:37Z",
+      "side": 1,
+      "message": "Same here. I am not aware of any scenario in this case where err code can be negative.\nCould you please elaborate.",
+      "parentUuid": "4e7cbd9e_3e0acfe3",
       "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
