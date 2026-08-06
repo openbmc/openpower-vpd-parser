@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3820bab1_26e73b9e",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T13:41:58Z",
+      "side": 1,
+      "message": "Alright. A comment explaining why it is hardcoded specifically to `EssentialFru` will help here.",
+      "parentUuid": "aff67a62_2f8e01b3",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b2de9f8_a54de351",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 20
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "For this specific case — a compile-time prefix literal concatenated with a single const char* value — operator+ is equivalent or marginally faster. std::format is genuinely beneficial when formatting multiple values, integers, floats, or complex field widths; not for a simple two-operand string join.\n\nstd::format would make the code syntactically cleaner but the claim that it is more efficient does not hold for a single-string concatenation. The current implementation is fine as-is.",
       "parentUuid": "5b2de9f8_a54de351",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "659189e7_3f61cbf4",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T13:41:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b9d4c485_d40dc203",
       "revId": "232f6539393cee755b4c651d1207a9c335847af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

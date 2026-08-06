@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81ee6a2_2f2da1da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T13:41:58Z",
+      "side": 1,
+      "message": "I think this header can be bit more descriptive about the changes. Maybe \"Switch system VPD PEL to i2c device callout\"",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aeca375_f66e7fd6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T13:41:58Z",
+      "side": 1,
+      "message": "`errno` is of type `int`. If `errno` has any negative value and we cast it to `uint16_t`, it will lead to rollover. For eg. If `errno` is -1, `o_errCode` will get value 65,535.",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e7cbd9e_3e0acfe3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T13:41:58Z",
+      "side": 1,
+      "message": "`strerror()` should be called on `errno` and not on the type casted `uint16_t o_errCode`. Any negative value `errno` will not map correctly.",
+      "revId": "a47424aaead35304c9d11faf418fa3bf7e1a8614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
