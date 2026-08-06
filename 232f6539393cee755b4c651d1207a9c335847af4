@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "497dd470_0ceaabfd",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T14:47:31Z",
+      "side": 1,
+      "message": "ENOENT\u003d2, EACCES\u003d13, EIO\u003d5 - there are errno values\n\nAnd what we are talking about is -\ngetErrorType() → ErrorType::EssentialFru → \"com.ibm.VPD.Error.RequiredFRUMissing\"\n\nThe ErrorType enum only has application-level VPD error categories (EccCheckFailed, JsonFailure, DbusFailure, InvalidEeprom, etc.).\n\nSystemException is thrown when a system-call fails while accessing an EEPROM device (open, read, seek). Regardless of which errno caused it (ENOENT, EIO, EACCES), the VPD-level consequence is the same: the FRU\u0027s EEPROM could not be read — which maps semantically to \"com.ibm.VPD.Error.RequiredFRUMissing\". \n\nexample-\ntypes::ErrorType getErrorType() const\n{\n    switch (m_errno)\n    {\n        case ENOENT: return types::ErrorType::EepromNotFound;\n        case EACCES: return types::ErrorType::EepromAccessDenied;\n        case EIO:    return types::ErrorType::EepromIOError;\n        default:     return types::ErrorType::EssentialFru;\n    }\n}",
+      "parentUuid": "e4b09ada_5fd5f8dc",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b2de9f8_a54de351",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 20
