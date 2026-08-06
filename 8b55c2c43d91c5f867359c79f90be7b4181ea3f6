@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c8f1a2_841b1ee6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1804,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:52:32Z",
+      "side": 1,
+      "message": "`getRedundantEepromPathFromJson` signature is different on latest `master`. Please check.",
+      "revId": "8b55c2c43d91c5f867359c79f90be7b4181ea3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71714f46_6ff80a8d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T05:52:32Z",
+      "side": 1,
+      "message": "Why are we using deprecated `logging::logMessage()`?",
+      "revId": "8b55c2c43d91c5f867359c79f90be7b4181ea3f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
