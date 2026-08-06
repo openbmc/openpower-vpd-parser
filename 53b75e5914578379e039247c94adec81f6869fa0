@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a4349b_2126b60c",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:14:14Z",
+      "side": 1,
+      "message": "\"VPD_COLLECTION_NOT_COMPLETED\"\nNot sure if this qualifies for an error code.\nThis is not an error, instead a state in which the flow does not allow the inventory to get dumped.\n\nAlso the idea is to keep this list limited as far as possible to standard error cases.",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45e15b4b_e58d63f5",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:14:14Z",
+      "side": 1,
+      "message": "Better name? Something precised and generic.\n\"DBUS_DATA_TYPE_ERROR\"?",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62327ae_47c9ef12",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T14:14:14Z",
+      "side": 1,
+      "message": "Please update these as well.",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
