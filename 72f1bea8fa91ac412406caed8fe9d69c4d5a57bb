@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b34fc5_1ab0bd85",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T07:17:37Z",
+      "side": 1,
+      "message": "We are repeating this code 3 times, Can we optimize that?",
+      "revId": "72f1bea8fa91ac412406caed8fe9d69c4d5a57bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc126ef6_ac3e938d",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T07:17:37Z",
+      "side": 1,
+      "message": "Do we need to fix the exception in this case? Also what about ECC exception?",
+      "revId": "72f1bea8fa91ac412406caed8fe9d69c4d5a57bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

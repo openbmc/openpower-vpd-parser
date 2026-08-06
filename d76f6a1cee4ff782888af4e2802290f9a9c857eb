@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4101360_da4a5f1d",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T07:17:37Z",
+      "side": 1,
+      "message": "With existing type I meant, why not use \"DbusVariantType\" which is already defined in the file as this new definition is subset of that.\nOnly downside I see is that, the already defined one has way more other options which will not be required for our use case.\nAnyways, lets go ahead with this new change.",
+      "parentUuid": "62be6a57_c5ac6268",
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8167c6dc_5cd37028",
@@ -118,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "651d60fe_fa1fc00c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T07:17:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "97e2e053_6d61bd1c",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1264,
+        "endChar": 13
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96a96486_e0ecf1a9",
@@ -155,6 +197,30 @@
       "side": 1,
       "message": "The internal KWdVPDValueType uses size_t for the numeric alternative because it maps directly to the size of a keyword field as read off the wire. \nsize_t is platform-dependent (32-bit on 32-bit systems). \nThe D-Bus wire type is always uint64_t.",
       "parentUuid": "96a96486_e0ecf1a9",
+      "range": {
+        "startLine": 1272,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 17
+      },
+      "revId": "d76f6a1cee4ff782888af4e2802290f9a9c857eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1be6eae7_e125a1ec",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-06T07:17:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6b04cb9f_a7f09c35",
       "range": {
         "startLine": 1272,
         "startChar": 12,
