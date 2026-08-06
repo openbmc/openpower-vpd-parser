@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "362fd67c_b6bd71cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T13:22:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b6ae70a_219c6cb7",
+      "revId": "30660bc3cf0b733094d87fc6a0861ccb9b0e9f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab397ab4_0de7aef3",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-08-06T13:11:02Z",
       "side": 1,
       "message": "This is a misleading statement.\nLocation codes are expanded with node information. Its just that it will be added dynamically from the code instead of hard coding statically in JSON file.",
+      "range": {
+        "startLine": 14,
+        "startChar": 26,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "30660bc3cf0b733094d87fc6a0861ccb9b0e9f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0832dbec_1b36d4cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T13:22:17Z",
+      "side": 1,
+      "message": "yeah, this information I received later. I will update it here.",
+      "parentUuid": "ab397ab4_0de7aef3",
       "range": {
         "startLine": 14,
         "startChar": 26,
