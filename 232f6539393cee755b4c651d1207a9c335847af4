@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e0143c9_4149db43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c73ce17b_68837b7e",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7a0e7d4_7d675e56",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-06T05:41:40Z",
       "side": 1,
       "message": "If this class is not intended to be extended, it should be marked as `final`",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "403c7849_ba20c750",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7a0e7d4_7d675e56",
       "revId": "232f6539393cee755b4c651d1207a9c335847af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aff67a62_2f8e01b3",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "m_errno holds a raw OS errno (e.g., ENOENT\u003d2, EACCES\u003d13, EIO\u003d5), which is completely unrelated to types::ErrorType.",
+      "parentUuid": "5f67b356_3aeb6987",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b2de9f8_a54de351",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 20
@@ -65,6 +119,24 @@
       "writtenOn": "2026-08-06T05:41:40Z",
       "side": 1,
       "message": "Can we use `std::format()` to construct the string? It\u0027s more efficient compared to the current implementation.",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d4c485_d40dc203",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "For this specific case — a compile-time prefix literal concatenated with a single const char* value — operator+ is equivalent or marginally faster. std::format is genuinely beneficial when formatting multiple values, integers, floats, or complex field widths; not for a simple two-operand string join.\n\nstd::format would make the code syntactically cleaner but the claim that it is more efficient does not hold for a single-string concatenation. The current implementation is fine as-is.",
+      "parentUuid": "5b2de9f8_a54de351",
       "revId": "232f6539393cee755b4c651d1207a9c335847af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4166e3_6ab1ad06",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "To fix it-\nerrno must be saved inside the try block, at the exact point of failure, before any destructor runs. The only reliable way to do that is- disable exceptions and check manually . I will make this change",
+      "parentUuid": "9833c363_d852c85c",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9bcbdaf_29ba4d67",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-08-06T05:41:40Z",
       "side": 1,
       "message": "Why is this line needed?",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3791c40_b90226a4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T08:49:01Z",
+      "side": 1,
+      "message": "because we will use l_savedErrno for device callout, and device callout is commented code right now. as it is not supported by phosphor-logging yet. Once they will support it, we will enable this code.\nI ll add a todo to remove this line .",
+      "parentUuid": "e9bcbdaf_29ba4d67",
       "revId": "232f6539393cee755b4c651d1207a9c335847af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
