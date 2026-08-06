@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caced745_b604881c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T14:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d87c26_dd19b23f",
+      "revId": "72f1bea8fa91ac412406caed8fe9d69c4d5a57bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ce1f2b8_196afb90",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-06T11:23:22Z",
       "side": 1,
       "message": "Since path doesn\u0027t exist, it indicates it is an invalid path, so it should be DbusInvalidArgument error?\n\nAnd we can move this check to line no-1218, as file should be present?",
+      "revId": "72f1bea8fa91ac412406caed8fe9d69c4d5a57bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31abdef3_e1cfa0cc",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T14:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce1f2b8_196afb90",
       "revId": "72f1bea8fa91ac412406caed8fe9d69c4d5a57bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
