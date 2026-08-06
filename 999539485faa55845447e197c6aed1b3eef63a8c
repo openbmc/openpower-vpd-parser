@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf25fad_0dbcc37b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1629,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T10:07:01Z",
+      "side": 1,
+      "message": "changed to constexpr - l_chassisId.substr(std::string_view{\"chassis\"}.size());",
+      "parentUuid": "ff3ed6a8_78ddd8a7",
+      "revId": "999539485faa55845447e197c6aed1b3eef63a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dd0d3f1_a8b78719",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-06T06:16:30Z",
       "side": 1,
       "message": "This will not work for legacy code where the object path was not having any details of chassis ID.\nIn that case default it to N00.\nLeave a comment there saying this is to support legacy code.",
+      "revId": "999539485faa55845447e197c6aed1b3eef63a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6744a71b_5ea6c406",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-06T10:07:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd0d3f1_a8b78719",
       "revId": "999539485faa55845447e197c6aed1b3eef63a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
