@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "517b2818_edf76ae5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1782,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-06T14:46:59Z",
+      "side": 1,
+      "message": "Should this log be marked as `PlaceHolder::COLLECTION` and re-directed to go into Collection log file?",
+      "revId": "74575730be5e3d2b71376a24e1e97afba75a27c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
