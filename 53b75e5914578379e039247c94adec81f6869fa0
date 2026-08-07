@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f5a6c7_b21333b0",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T04:49:09Z",
+      "side": 1,
+      "message": "Removed the error code.",
+      "parentUuid": "25a4349b_2126b60c",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45e15b4b_e58d63f5",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa160054_6b8096dd",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T04:49:09Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "45e15b4b_e58d63f5",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a62327ae_47c9ef12",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-06T14:14:14Z",
       "side": 1,
       "message": "Please update these as well.",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2bf6e1e_35312771",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T04:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62327ae_47c9ef12",
       "revId": "53b75e5914578379e039247c94adec81f6869fa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
