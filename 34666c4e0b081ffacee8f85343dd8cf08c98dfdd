@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80339637_f54153c0",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T06:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8780bad_ca181f97",
+      "range": {
+        "startLine": 310,
+        "startChar": 50,
+        "endLine": 310,
+        "endChar": 66
+      },
+      "revId": "34666c4e0b081ffacee8f85343dd8cf08c98dfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fa78f5e_bbf832c2",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-08-07T05:43:12Z",
       "side": 1,
       "message": "can we return \u0027l_rc\u0027 from here instead ? As this is error case and returning \u0027l_rc\u0027 here signify returning `constants::FAILURE` ?",
+      "range": {
+        "startLine": 1049,
+        "startChar": 20,
+        "endLine": 1049,
+        "endChar": 26
+      },
+      "revId": "34666c4e0b081ffacee8f85343dd8cf08c98dfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e89d63f_0283d9da",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T06:45:29Z",
+      "side": 1,
+      "message": "The `return` here exits only the current lambda invocation; it does not exit the enclosing function or `std::for_each`. It is equivalent to skipping the current object path and continuing with the next one, similar to `continue` in a range-based `for` loop.\n\nHere we need to continue with the next object path, and storing or propagating a return value from this point is not useful since the intention is only to skip the current iteration and proceed further.\n\nlog with the object path is printed on the console from where the error code is sent.",
+      "parentUuid": "9fa78f5e_bbf832c2",
       "range": {
         "startLine": 1049,
         "startChar": 20,
