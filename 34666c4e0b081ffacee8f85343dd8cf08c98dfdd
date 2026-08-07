@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8780bad_ca181f97",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-07T05:43:12Z",
+      "side": 1,
+      "message": "can we mark this api as noexcept, as it has try-catch block now ?",
+      "range": {
+        "startLine": 310,
+        "startChar": 50,
+        "endLine": 310,
+        "endChar": 66
+      },
+      "revId": "34666c4e0b081ffacee8f85343dd8cf08c98dfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa78f5e_bbf832c2",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-07T05:43:12Z",
+      "side": 1,
+      "message": "can we return \u0027l_rc\u0027 from here instead ? As this is error case and returning \u0027l_rc\u0027 here signify returning `constants::FAILURE` ?",
+      "range": {
+        "startLine": 1049,
+        "startChar": 20,
+        "endLine": 1049,
+        "endChar": 26
+      },
+      "revId": "34666c4e0b081ffacee8f85343dd8cf08c98dfdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
