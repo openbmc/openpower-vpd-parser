@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9368fd81_547e5754",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-07T07:54:08Z",
+      "side": 1,
+      "message": "ok, that is also 1 option.\nI passed it empty because of only 1 call site which needs to pass \"empty\". and that too in same file and code flow. Otherwise I could have taken it as optional.",
+      "parentUuid": "80bd8c79_248dfd4f",
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "224cda22_f6bd7379",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "884391ec_17c5d81c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-07T07:54:08Z",
+      "side": 1,
+      "message": "yes, it is verified before calling this helper function.\n1599:        if (l_fcKwdValue.size() \u003c constants::FC_KEYWORD_FIRST_4_BYTE)",
+      "parentUuid": "224cda22_f6bd7379",
+      "range": {
+        "startLine": 1430,
+        "startChar": 20,
+        "endLine": 1430,
+        "endChar": 35
+      },
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f393850_51469295",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -54,6 +96,24 @@
       "writtenOn": "2026-08-07T04:07:55Z",
       "side": 1,
       "message": "This code is limited to chassis node number as single digit.\nThe chassis id can go upto 2 digits in which case hard coding a \"0\" will lead to wrong expansion.",
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e29cd54_30dfadbb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-07T07:54:08Z",
+      "side": 1,
+      "message": "I know it can be 12 node also.\nthat\u0027s why there is this size check-\nl_nodeNumber.size() \u003d\u003d 1\nif it is 1 digit then add 0, otherwise direct node number, No 0.",
+      "parentUuid": "5f393850_51469295",
       "revId": "694072721eac09519363eff784a0532a4b009f50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
