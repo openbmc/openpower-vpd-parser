@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba4e352_e922ca55",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-07T04:49:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa160054_6b8096dd",
+      "revId": "53b75e5914578379e039247c94adec81f6869fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a62327ae_47c9ef12",
