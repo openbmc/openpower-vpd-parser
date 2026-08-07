@@ -1,0 +1,20 @@
+[Unit]
+Description=Check power-good chassis GPIO before VPD parsing on Huygens
+
+# Must complete before phosphor-power-control starts
+# and before wait-vpd-parsers starts so the role file exists before it runs.
+Before=phosphor-power-control.service
+Before=wait-vpd-parsers.service
+
+# ibm-power-highend-platform-apps writes /run/openbmc/bmc_position which is
+# read to select the correct GPIO line.  Without this ordering the position
+# file may not yet exist and BMC1 would read the wrong GPIO.
+After=ibm-power-highend-platform-apps.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/pgood-chassis-check
+
+[Install]
+WantedBy=obmc-bmc-active.target
