@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "801aaac5_e6623d41",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-07T07:59:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9368fd81_547e5754",
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "224cda22_f6bd7379",
@@ -83,6 +101,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71f4514_3ea96274",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-07T07:59:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "884391ec_17c5d81c",
+      "range": {
+        "startLine": 1430,
+        "startChar": 20,
+        "endLine": 1430,
+        "endChar": 35
+      },
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f393850_51469295",
@@ -114,6 +156,24 @@
       "side": 1,
       "message": "I know it can be 12 node also.\nthat\u0027s why there is this size check-\nl_nodeNumber.size() \u003d\u003d 1\nif it is 1 digit then add 0, otherwise direct node number, No 0.",
       "parentUuid": "5f393850_51469295",
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01af676b_26b4248f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-07T07:59:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2e29cd54_30dfadbb",
       "revId": "694072721eac09519363eff784a0532a4b009f50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
