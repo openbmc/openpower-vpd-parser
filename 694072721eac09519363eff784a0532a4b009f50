@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "224cda22_f6bd7379",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-07T06:46:59Z",
+      "side": 1,
+      "message": "Here , i_firstKwdValue isn\u0027t validated before substr() is called on it — if it\u0027s shorter than FIRST_POSITION + FC_KEYWORD_FIRST_4_BYTE, this throws std::out_of_range.\n\nIs i_firstKwdValue guaranteed to be validated by the caller here ?",
+      "range": {
+        "startLine": 1430,
+        "startChar": 20,
+        "endLine": 1430,
+        "endChar": 35
+      },
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f393850_51469295",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
