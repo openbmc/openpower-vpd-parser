@@ -125,6 +125,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb979711_8524e0a3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-07T08:17:53Z",
+      "side": 1,
+      "message": "I see this api is called from 2 places, i agree `getFcsExpandedLc` calls this helper api after validating `l_fcKwdValue` . But the second api `getMtsExpandedLc` calls this helper without doing validation of `l_tmKwdValue` as mentioned above in my comment.",
+      "parentUuid": "a71f4514_3ea96274",
+      "range": {
+        "startLine": 1430,
+        "startChar": 20,
+        "endLine": 1430,
+        "endChar": 35
+      },
+      "revId": "694072721eac09519363eff784a0532a4b009f50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f393850_51469295",
