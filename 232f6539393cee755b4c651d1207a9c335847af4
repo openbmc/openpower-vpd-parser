@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df1e7d13_7998f3ed",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-07T03:39:12Z",
+      "side": 1,
+      "message": "\u003e The ErrorType enum only has application-level VPD error categories \n\n(EccCheckFailed, JsonFailure, DbusFailure, InvalidEeprom, etc.).\n\nThe list can be extended, when the requirement is to log different error then the list also needs to be extended. Why there is a need to rely only on the existing ones?\n\n\u003e  The VPD-level consequence is the same: the FRU\u0027s EEPROM could not be read.\n\nVPD level consequence is internal to the code. When we are logging PEL, exact reason needs to be put down else the error message in the PEL will read as if the EEPROM is ok but the code failed to read the EEPROM, which can be misleading.",
+      "parentUuid": "497dd470_0ceaabfd",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b2de9f8_a54de351",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 20
