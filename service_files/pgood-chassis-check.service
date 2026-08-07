@@ -1,0 +1,19 @@
+[Unit]
+Description=Check chassis power-good for VPD
+
+# Must complete before wait-vpd-parsers starts so the PowerState property
+# exists on D-Bus before it is read.
+Before=wait-vpd-parsers.service
+
+# ibm-power-highend-platform-apps writes /run/openbmc/bmc_position which is
+# read to select the correct GPIO line.  Without this ordering the position
+# file may not yet exist and BMC with position 1 would read the wrong GPIO.
+After=ibm-power-highend-platform-apps.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/pgood-chassis-check
+
+[Install]
+WantedBy=obmc-bmc-active.target
