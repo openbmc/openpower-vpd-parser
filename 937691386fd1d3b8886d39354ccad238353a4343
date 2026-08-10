@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a538ee0_bdb6fe9f",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-10T07:04:29Z",
+      "side": 1,
+      "message": "Poweron is not a role it is a situation.",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db6fa81_53694109",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-10T07:04:29Z",
+      "side": 1,
+      "message": "It is possible. We just avoid it.",
+      "range": {
+        "startLine": 137,
+        "startChar": 57,
+        "endLine": 138,
+        "endChar": 45
+      },
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f303e6a_7e95633c",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-10T07:04:29Z",
+      "side": 1,
+      "message": "This is not a normal scenario. If we fail to update this status and we don\u0027t run the service also then the VPD collection status will always be in not started mode. We need a predictive PEL for this.",
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
