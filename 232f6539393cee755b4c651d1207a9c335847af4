@@ -178,6 +178,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e54a48_7f48226c",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-10T08:17:36Z",
+      "side": 1,
+      "message": "Added a todo. Will add this in new commit.",
+      "parentUuid": "df1e7d13_7998f3ed",
+      "revId": "232f6539393cee755b4c651d1207a9c335847af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2de9f8_a54de351",
