@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "227bf3eb_b9f7b077",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-10T07:41:43Z",
+      "side": 1,
+      "message": "Can we directly throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument \n\nWhy phosphor::logging::elog method is required?\nThis method is deprected - https://github.com/openbmc/phosphor-logging#journal-based-event-log-creation-deprecated",
+      "revId": "0f9b50619156ee331432f23a4c4c4fc75e1465ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd77bef_1c11e45b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1245,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-10T07:41:43Z",
+      "side": 1,
+      "message": "nit: \"JSON not found for path {}. Error : {}\", this make it clear that the second placeholder contains the error description.",
+      "revId": "0f9b50619156ee331432f23a4c4c4fc75e1465ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
