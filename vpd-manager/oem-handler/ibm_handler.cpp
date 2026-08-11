@@ -526,6 +526,25 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
                                     std::nullopt, std::nullopt});
         }
 
+        // Add PowerState interface with Unknown default on /system path
+        auto l_itrToSystemPath = l_objectInterfaceMap.find(
+            sdbusplus::object_path(constants::systemInvPath));
+        if (l_itrToSystemPath != l_objectInterfaceMap.end())
+        {
+            types::PropertyMap l_powerStateProperty;
+            l_powerStateProperty.emplace(
+                constants::powerStateProperty,
+                PowerState::convertStateToString(PowerState::State::Unknown));
+            (l_itrToSystemPath->second)
+                .emplace(PowerState::interface,
+                         std::move(l_powerStateProperty));
+        }
+        else
+        {
+            m_logger->logMessage(
+                "PowerState interface update failed. System path not found in object map.");
+        }
+
         addOrRestoreAvailableProperty(l_objectInterfaceMap);
 
         // Call method to update the dbus

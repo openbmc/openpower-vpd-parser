@@ -3,8 +3,14 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include <xyz/openbmc_project/State/Decorator/PowerState/common.hpp>
+
 namespace vpd
 {
+
+using PowerState =
+    sdbusplus::common::xyz::openbmc_project::state::decorator::PowerState;
+
 namespace constants
 {
 static constexpr auto KEYWORD_SIZE = 2;
@@ -172,6 +178,7 @@ constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
 constexpr auto availableProperty = "Available";
+constexpr auto powerStateProperty = "PowerState";
 constexpr auto FIRST_POSITION = 0;
 constexpr auto LOCATION_CODE_PREFIX_LENGTH = 3;
 constexpr auto FC_KEYWORD_FIRST_4_BYTE = 4;
