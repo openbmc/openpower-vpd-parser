@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "549cc653_9cc8ea67",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T18:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a538ee0_bdb6fe9f",
+      "range": {
+        "startLine": 125,
+        "startChar": 32,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2db6fa81_53694109",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65815d9_cf917f9f",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T18:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db6fa81_53694109",
+      "range": {
+        "startLine": 137,
+        "startChar": 57,
+        "endLine": 138,
+        "endChar": 45
+      },
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f303e6a_7e95633c",
@@ -60,6 +108,24 @@
       "writtenOn": "2026-08-10T07:04:29Z",
       "side": 1,
       "message": "This is not a normal scenario. If we fail to update this status and we don\u0027t run the service also then the VPD collection status will always be in not started mode. We need a predictive PEL for this.",
+      "revId": "937691386fd1d3b8886d39354ccad238353a4343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb99f9d6_d79f3d97",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T18:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f303e6a_7e95633c",
       "revId": "937691386fd1d3b8886d39354ccad238353a4343",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
