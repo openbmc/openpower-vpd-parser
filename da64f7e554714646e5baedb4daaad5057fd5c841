@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b80d5129_3340d34b",
+        "filename": "pgood-chassis-check/include/constants.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T17:44:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf57207_6e5f9e2c",
+      "revId": "da64f7e554714646e5baedb4daaad5057fd5c841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6393b13_f60bc1e1",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55ad77b_21aaa953",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T17:44:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6393b13_f60bc1e1",
+      "revId": "da64f7e554714646e5baedb4daaad5057fd5c841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b530116c_3f36e220",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-10T07:37:12Z",
       "side": 1,
       "message": "Can we have power state interface added to system path and read it from there?",
+      "revId": "da64f7e554714646e5baedb4daaad5057fd5c841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141f06d4_4355bcc7",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-11T17:44:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b530116c_3f36e220",
       "revId": "da64f7e554714646e5baedb4daaad5057fd5c841",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
