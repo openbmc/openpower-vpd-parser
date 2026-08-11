@@ -628,8 +628,6 @@ void IbmHandler::setDeviceTreeAndJson(
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
-    static std::string l_error;
-    static int l_savedErrno = 0;
     uint16_t l_errCode = 0;
     try
     {
@@ -657,25 +655,35 @@ void IbmHandler::setDeviceTreeAndJson(
     }
     catch (const std::exception& l_ex)
     {
-        if (typeid(l_ex) == typeid(SystemException))
+        // Capture errno from SystemException for device callout.
+        const int l_errno =
+            (typeid(l_ex) == typeid(SystemException))
+                ? static_cast<const SystemException&>(l_ex).getErrno()
+                : 0;
+
+        // Store primary and redundant messages separately so the PEL
+        // description can be composed in the correct order at the single
+        // logging site without any double-embedding.
+        if (i_fruPath == SYSTEM_VPD_FILE_PATH)
         {
-            l_savedErrno = static_cast<const SystemException&>(l_ex).getErrno();
-            // TODO: Remove below line once device callout is enabled in
-            // phosphor-logging.
-            (void)l_savedErrno;
+            m_primaryFailureResult.m_primaryErrMsg = std::format(
+                "Primary path [{}] failed, reason: {}. ",
+                i_fruPath, l_ex.what());
+            m_primaryFailureResult.m_primaryErrno = l_errno;
+        }
+        else
+        {
+            m_primaryFailureResult.m_redundantErrMsg = std::format(
+                "Redundant path [{}] also failed, reason: {}. ",
+                i_fruPath, l_ex.what());
+            m_primaryFailureResult.m_redundantErrno = l_errno;
         }
 
-        l_error += std::format(
-            "System VPD collection failed from path [{}], reason: {}. ",
-            i_fruPath, l_ex.what());
-
-        // if system is in split mode, and we failed to collect VPD from primary
-        // EEPROM file path, do not attempt to collect from redundant EEPROM
-        // file path.
+        // if system is in split mode, do not attempt the redundant EEPROM path.
         if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
         {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
+            m_logger->logMessage(m_primaryFailureResult.m_primaryErrMsg);
+            throw EepromException(m_primaryFailureResult.m_primaryErrMsg);
         }
 
         const std::string& l_redundantEepromPath{
@@ -683,50 +691,14 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
         {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
+            m_logger->logMessage(m_primaryFailureResult.m_primaryErrMsg);
+            throw EepromException(m_primaryFailureResult.m_primaryErrMsg);
         }
 
-        // Try system VPD collection from redundant path
+        // Try system VPD collection from redundant path.
         setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
 
         return;
-    }
-
-    /* TODO: Revisit the code and update the flow will specific error handling
-       so that specific failure type can be reported in the PEL.
-
-       Also, as per current flow in case redundant path collection fails post
-       this point, current implementation will end up logging two PELs which is
-       not desired and needs to be handled. Update code to log only one PEL
-       irrespective to any failure in the flow.*/
-    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
-    {
-        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
-        std::optional<types::CalloutData> l_callout =
-            types::InventoryCalloutData{SYSTEM_VPD_FILE_PATH,
-                                        types::CalloutPriority::High};
-        // TODO Enable device callout once supported in phosphor-logging.
-        // And remove inventory callout.
-#if 0
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
-            l_callout = types::DeviceCalloutData{
-                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
-                    .parent_path()
-                    .string(),
-                std::to_string(l_savedErrno)};
-#endif
-
-        m_logger->logMessage(
-            l_error +
-                std::format(
-                    " Successfully collected VPD from redundant path [{}].",
-                    i_fruPath),
-            l_placeHolder,
-            types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-                                l_callout});
     }
 
     // Implies it is default JSON.
@@ -842,6 +814,16 @@ void IbmHandler::performInitialSetup()
 {
     // Parse whatever JSON is set as of now.
     uint16_t l_errCode = 0;
+
+    // PEL parameters — populated in try or catch, logged once at the end.
+    // Defaults are the most conservative values so any missed code path
+    // produces a visible Critical PEL rather than a silent or misleading one.
+    std::string l_pelMsg;
+    types::SeverityType l_severity = types::SeverityType::Critical;
+    types::ErrorType l_errorType = types::ErrorType::InternalFailure;
+    PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL;
+    std::optional<types::CalloutData> l_callout = std::nullopt;
+
     try
     {
         m_sysCfgJsonObj =
@@ -879,12 +861,30 @@ void IbmHandler::performInitialSetup()
         // probe.
         enableMuxChips();
 
-        // Nothing needs to be done. Service restarted or BMC re-booted for
-        // some reason at system power on.
+        // Primary failed, redundant succeeded: Warning PEL with device callout.
+        if (!m_primaryFailureResult.m_primaryErrMsg.empty() &&
+            m_primaryFailureResult.m_redundantErrno == 0)
+        {
+            l_pelMsg = m_primaryFailureResult.m_primaryErrMsg +
+                       std::format(
+                           "Successfully collected VPD from redundant path [{}].",
+                           std::string(REDUNDANT_SYSTEM_VPD_FILE_PATH));
+            l_severity = types::SeverityType::Warning;
+            // Derive ErrorType from the primary errno using the same
+            // mapping that SystemException::getErrorType() applies.
+            l_errorType =
+                SystemException(m_primaryFailureResult.m_primaryErrno, "")
+                    .getErrorType();
+            l_callout = types::DeviceCalloutData{
+                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                    .parent_path()
+                    .string(),
+                std::to_string(m_primaryFailureResult.m_primaryErrno)};
+        }
     }
     catch (const std::exception& l_ex)
     {
-        // Seeting of collection status should be utility method
+        // Setting of collection status on failure.
         vpdSpecificUtility::setCollectionStatusProperty(
             SYSTEM_VPD_FILE_PATH, types::VpdCollectionStatus::Failed,
             m_sysCfgJsonObj, l_errCode);
@@ -899,9 +899,13 @@ void IbmHandler::performInitialSetup()
 
         // Any issue in system's initial set up is handled in this catch. Error
         // will not propagate to manager.
-
-        std::optional<types::CalloutData> l_callout = std::nullopt;
-        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL;
+        // Compose: redundant failure (if any) first, then primary failure.
+        // Do NOT embed l_ex.what() — for EepromException it is identical to
+        // m_primaryErrMsg and would cause the text to appear twice.
+        l_pelMsg = m_primaryFailureResult.m_redundantErrMsg +
+                   m_primaryFailureResult.m_primaryErrMsg;
+        l_severity = types::SeverityType::Critical;
+        l_errorType = EventLogger::getErrorType(l_ex);
 
         if (typeid(l_ex) == typeid(EepromException))
         {
@@ -912,25 +916,22 @@ void IbmHandler::performInitialSetup()
         }
         else if (typeid(l_ex) == typeid(SystemException))
         {
-            // TODO Enable above device callout once supported in
-            // phosphor-logging. And remove inventory callout.
-#if 0
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
+            // Use m_primaryErrno (not the redundant path's errno from l_ex)
+            // so the callout always identifies the primary failing device.
             l_callout = types::DeviceCalloutData{
                 std::filesystem::path(SYSTEM_VPD_FILE_PATH)
                     .parent_path()
                     .string(),
-                std::to_string(
-                    static_cast<const SystemException&>(l_ex).getErrno())};
-#endif
+                std::to_string(m_primaryFailureResult.m_primaryErrno)};
         }
+    }
 
+    // Single PEL logging site for the entire system VPD collection path.
+    if (!l_pelMsg.empty())
+    {
         m_logger->logMessage(
-            std::format("Exception while performing initial set up. Error: {}",
-                        EventLogger::getErrorMsg(l_ex)),
-            l_placeHolder,
-            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
-                                types::SeverityType::Critical, 0, std::nullopt,
+            l_pelMsg, l_placeHolder,
+            types::PelInfoTuple{l_errorType, l_severity, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt,
                                 l_callout});
     }

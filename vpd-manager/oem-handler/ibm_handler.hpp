@@ -238,6 +238,27 @@ class IbmHandler
      */
     void validateVpdCollectionMode() const;
 
+    /**
+     * @brief Holds context collected during system VPD EEPROM collection,
+     * used by performInitialSetup() as the single PEL logging site.
+     *
+     * m_primaryErrMsg  - Failure message from the primary EEPROM path.
+     * m_redundantErrMsg- Failure message from the redundant EEPROM path, empty
+     *                    if redundant collection succeeded or was not attempted.
+     * m_primaryErrno   - errno from SystemException on the primary path, 0 if
+     *                    no SystemException was raised.
+     * m_redundantErrno - errno from SystemException on the redundant path if
+     *                    redundant collection failed, 0 if redundant collection
+     *                    succeeded or was not attempted.
+     */
+    struct PrimaryFailureResult
+    {
+        std::string m_primaryErrMsg{};
+        std::string m_redundantErrMsg{};
+        int m_primaryErrno{0};
+        int m_redundantErrno{0};
+    } m_primaryFailureResult;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
