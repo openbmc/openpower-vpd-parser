@@ -21,6 +21,7 @@
  * to run full VPD collection (Off) or just mark collection complete (On).
  */
 
+#include "constants.hpp"
 #include "types.hpp"
 
 #include <gpiod.hpp>
@@ -29,6 +30,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <map>
 #include <string>
 #include <variant>
 
@@ -43,10 +45,43 @@ namespace pgood_chassis_check
  */
 int readBmcPosition() noexcept
 {
-    /** @todo Read the BMC position integer from bmcPositionFile.
-     *  Return 0 as default when the file is absent, unreadable, or fails
-     *  to parse. Log a warning via lg2 for each failure mode. */
-    return 0;
+    std::error_code l_ec{};
+    if (!std::filesystem::exists(bmcPositionFile, l_ec))
+    {
+        if (l_ec)
+        {
+            lg2::warning("pgood-chassis-check: could not stat '{FILE}': "
+                         "{ERR}, defaulting BMC position to 0",
+                         "FILE", bmcPositionFile, "ERR", l_ec.message());
+        }
+        else
+        {
+            lg2::info("pgood-chassis-check: '{FILE}' not found, "
+                      "defaulting BMC position to 0",
+                      "FILE", bmcPositionFile);
+        }
+        return 0;
+    }
+
+    std::ifstream l_ifs(bmcPositionFile);
+    if (!l_ifs)
+    {
+        lg2::warning("pgood-chassis-check: failed to open '{FILE}', "
+                     "defaulting BMC position to 0",
+                     "FILE", bmcPositionFile);
+        return 0;
+    }
+
+    int l_pos = 0;
+    if (!(l_ifs >> l_pos))
+    {
+        lg2::warning("pgood-chassis-check: failed to parse '{FILE}', "
+                     "defaulting BMC position to 0",
+                     "FILE", bmcPositionFile);
+        return 0;
+    }
+
+    return l_pos;
 }
 
 /**
@@ -57,14 +92,19 @@ int readBmcPosition() noexcept
  *         line was not found or an exception occurred. All exceptions are
  *         caught locally.
  */
-inline gpiod::line findGpioLine(
-    [[maybe_unused]] const std::string& i_gpioName) noexcept
+inline gpiod::line findGpioLine(const std::string& i_gpioName) noexcept
 {
-    /** @todo Call gpiod::find_line(i_gpioName) to locate the named GPIO line
-     *  across all chips. Catch any exception, log the error via lg2, and
-     *  return an empty gpiod::line{} so the caller treats the chassis as
-     *  off. */
-    return gpiod::line{};
+    try
+    {
+        return gpiod::find_line(i_gpioName);
+    }
+    catch (const std::exception& l_ex)
+    {
+        lg2::error("pgood-chassis-check: exception while searching for GPIO "
+                   "line '{GPIO}': {ERR}, treating chassis as off",
+                   "GPIO", i_gpioName, "ERR", l_ex.what());
+        return gpiod::line{};
+    }
 }
 
 /**
@@ -75,14 +115,21 @@ inline gpiod::line findGpioLine(
  * @return true on success, false on failure. All exceptions are caught
  *         locally.
  */
-inline bool requestGpioLine(
-    [[maybe_unused]] const gpiod::line& i_line,
-    [[maybe_unused]] const std::string& i_gpioName) noexcept
+inline bool requestGpioLine(const gpiod::line& i_line,
+                            const std::string& i_gpioName) noexcept
 {
-    /** @todo Call i_line.request() with DIRECTION_INPUT and consumerName.
-     *  Catch any exception, log the error via lg2, and return false so the
-     *  caller defaults to chassis off. */
-    return false;
+    try
+    {
+        i_line.request({consumerName, gpiod::line_request::DIRECTION_INPUT, 0});
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        lg2::error("pgood-chassis-check: failed to request GPIO '{GPIO}': "
+                   "{ERR}, treating chassis as off",
+                   "GPIO", i_gpioName, "ERR", l_ex.what());
+        return false;
+    }
 }
 
 /**
@@ -93,50 +140,135 @@ inline bool requestGpioLine(
  * @return 0 or 1 on success, -1 on failure. All exceptions are caught
  *         locally.
  */
-inline int readGpioValue(
-    [[maybe_unused]] const gpiod::line& i_line,
-    [[maybe_unused]] const std::string& i_gpioName) noexcept
+inline int readGpioValue(const gpiod::line& i_line,
+                         const std::string& i_gpioName) noexcept
 {
-    /** @todo Call i_line.get_value() to read the GPIO pin level (0 or 1).
-     *  Catch any exception, log the error via lg2, and return -1 so the
-     *  caller defaults to chassis off. */
-    return -1;
+    try
+    {
+        return i_line.get_value();
+    }
+    catch (const std::exception& l_ex)
+    {
+        lg2::error("pgood-chassis-check: failed to read GPIO '{GPIO}': "
+                   "{ERR}, treating chassis as off",
+                   "GPIO", i_gpioName, "ERR", l_ex.what());
+        return -1;
+    }
 }
 
 /**
- * @brief Set the chassis PowerState on D-Bus via
- * org.freedesktop.DBus.Properties.Set.
+ * @brief Publish the chassis PowerState on D-Bus via PIM Notify.
  *
- * Calls Set on xyz.openbmc_project.Inventory.Manager at
- * /xyz/openbmc_project/inventory/system to update the
- * xyz.openbmc_project.State.Decorator.PowerState PowerState property.
+ * Calls xyz.openbmc_project.Inventory.Manager Notify to create/update the
+ * xyz.openbmc_project.State.Decorator.PowerState interface and its
+ * PowerState property at /xyz/openbmc_project/inventory/system.
  *
- * @param[in] i_state PowerState enum value to set.
+ * @param[in] i_state PowerState enum value to publish.
  * @return true on success, false on failure. All exceptions are caught
  *         locally.
  */
-bool setChassisPowerState(
-    [[maybe_unused]] PowerStateIface::State i_state) noexcept
+bool setChassisPowerState(PowerStateIface::State i_state) noexcept
 {
-    /** @todo Convert i_state to its D-Bus string via
-     *  PowerStateIface::convertStateToString, then call PIM Notify on
-     *  pimServiceName / pimPath with a relative object path ("/system"),
-     *  interface PowerStateIface::interface, and property
-     *  PowerStateIface::property_names::power_state set to the state string.
-     *  Log success via lg2::info and any failure via lg2::error.
-     *  Return true on success, false on any exception. */
-    return false;
+    try
+    {
+        const std::string l_stateStr =
+            PowerStateIface::convertStateToString(i_state);
+
+        // PIM Notify expects paths relative to the PIM root
+        // (/xyz/openbmc_project/inventory), so strip the prefix and pass
+        // "/system" as the object path key.
+        using PropertyMap = std::map<std::string, std::variant<std::string>>;
+        using InterfaceMap = std::map<std::string, PropertyMap>;
+        using ObjectMap = std::map<sdbusplus::object_path, InterfaceMap>;
+
+        ObjectMap l_objectMap;
+        l_objectMap[sdbusplus::object_path{"/system"}]
+                   [PowerStateIface::interface]
+                   [PowerStateIface::property_names::power_state] = l_stateStr;
+
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(pimServiceName, pimPath,
+                                              pimInterface, "Notify");
+        l_method.append(std::move(l_objectMap));
+        l_bus.call(l_method);
+
+        lg2::info(
+            "pgood-chassis-check: published PowerState='{STATE}' on D-Bus",
+            "STATE", l_stateStr);
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        lg2::error("pgood-chassis-check: failed to publish PowerState on "
+                   "D-Bus: {ERR}",
+                   "ERR", l_ex.what());
+        return false;
+    }
 }
 }; // namespace pgood_chassis_check
 
 int main()
 {
-    /** @todo Read the BMC position via readBmcPosition() to select the
-     *  correct GPIO line name (gpioLineBmc0 or gpioLineBmc1). Find the line
-     *  via findGpioLine(), request it for input via requestGpioLine(), and
-     *  read its value via readGpioValue(). Based on the GPIO value (0 = off,
-     *  1 = on, -1 = error), call setChassisPowerState() with State::On or
-     *  State::Off (default to Off on error). Return 0 on success, 1 if
-     *  setChassisPowerState() fails. */
-    return 0;
+    // Determine which GPIO line to read based on BMC position
+    const int l_bmcPos = pgood_chassis_check::readBmcPosition();
+    const std::string l_gpioName =
+        (l_bmcPos == 1) ? pgood_chassis_check::gpioLineBmc1
+                        : pgood_chassis_check::gpioLineBmc0;
+
+    lg2::info("pgood-chassis-check: BMC position={POS}, reading GPIO '{GPIO}'",
+              "POS", l_bmcPos, "GPIO", l_gpioName);
+
+    // Find the GPIO line by name across all chips
+    gpiod::line l_line = pgood_chassis_check::findGpioLine(l_gpioName);
+    if (!l_line)
+    {
+        lg2::error("pgood-chassis-check: GPIO line '{GPIO}' not found, "
+                   "defaulting to chassis off",
+                   "GPIO", l_gpioName);
+        return pgood_chassis_check::setChassisPowerState(
+                   pgood_chassis_check::PowerStateIface::State::Off)
+                   ? 0
+                   : 1;
+    }
+
+    // Request the line for input
+    if (!pgood_chassis_check::requestGpioLine(l_line, l_gpioName))
+    {
+        return pgood_chassis_check::setChassisPowerState(
+                   pgood_chassis_check::PowerStateIface::State::Off)
+                   ? 0
+                   : 1;
+    }
+
+    // Read the GPIO value
+    const int l_pgood = pgood_chassis_check::readGpioValue(l_line, l_gpioName);
+    l_line.release();
+
+    if (l_pgood == -1)
+    {
+        // Error already logged in readGpioValue; default to chassis off
+        return pgood_chassis_check::setChassisPowerState(
+                   pgood_chassis_check::PowerStateIface::State::Off)
+                   ? 0
+                   : 1;
+    }
+
+    if (l_pgood == 1)
+    {
+        lg2::notice(
+            "pgood-chassis-check: GPIO '{GPIO}' is 1 - chassis is powered on",
+            "GPIO", l_gpioName);
+        return pgood_chassis_check::setChassisPowerState(
+                   pgood_chassis_check::PowerStateIface::State::On)
+                   ? 0
+                   : 1;
+    }
+
+    lg2::info(
+        "pgood-chassis-check: GPIO '{GPIO}' is 0 - chassis is powered off",
+        "GPIO", l_gpioName);
+    return pgood_chassis_check::setChassisPowerState(
+               pgood_chassis_check::PowerStateIface::State::Off)
+               ? 0
+               : 1;
 }
