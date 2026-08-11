@@ -619,21 +619,19 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
     m_isFactoryResetDone = true;
 }
 
-void IbmHandler::setDeviceTreeAndJson(
-    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
+types::VPDMapVariant IbmHandler::parseSystemVpd(
+    std::string& o_primaryFailErrMsg, int& o_primaryErrno)
 {
-    // JSON is mandatory for processing of this API.
     if (m_sysCfgJsonObj.empty())
     {
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
-    static std::string l_error;
-    static int l_savedErrno = 0;
     uint16_t l_errCode = 0;
+
     try
     {
-        std::string l_systemVpdPath{i_fruPath};
+        std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
         commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
                                            l_errCode);
 
@@ -645,95 +643,94 @@ void IbmHandler::setDeviceTreeAndJson(
                 "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // parse system VPD
         std::shared_ptr<Parser> l_vpdParser =
             std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
-        o_parsedSystemVpdMap = l_vpdParser->parse();
+        types::VPDMapVariant l_parsedVpdMap = l_vpdParser->parse();
 
-        if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+        if (std::holds_alternative<std::monostate>(l_parsedVpdMap))
         {
             throw std::runtime_error("VPD parsing failed");
         }
+
+        return l_parsedVpdMap;
     }
     catch (const std::exception& l_ex)
     {
-        if (typeid(l_ex) == typeid(SystemException))
-        {
-            l_savedErrno = static_cast<const SystemException&>(l_ex).getErrno();
-            // TODO: Remove below line once device callout is enabled in
-            // phosphor-logging.
-            (void)l_savedErrno;
-        }
-
-        l_error += std::format(
-            "System VPD collection failed from path [{}], reason: {}. ",
-            i_fruPath, l_ex.what());
-
-        // if system is in split mode, and we failed to collect VPD from primary
-        // EEPROM file path, do not attempt to collect from redundant EEPROM
-        // file path.
-        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
-        {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
-        }
-
-        const std::string& l_redundantEepromPath{
-            REDUNDANT_SYSTEM_VPD_FILE_PATH};
-
-        if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
-        {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
-        }
-
-        // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
-
-        return;
+        o_primaryErrno =
+            (typeid(l_ex) == typeid(SystemException))
+                ? static_cast<const SystemException&>(l_ex).getErrno()
+                : 0;
+        o_primaryFailErrMsg =
+            std::format("Primary path [{}] failed, reason: {}. ",
+                        SYSTEM_VPD_FILE_PATH, l_ex.what());
     }
 
-    /* TODO: Revisit the code and update the flow will specific error handling
-       so that specific failure type can be reported in the PEL.
-
-       Also, as per current flow in case redundant path collection fails post
-       this point, current implementation will end up logging two PELs which is
-       not desired and needs to be handled. Update code to log only one PEL
-       irrespective to any failure in the flow.*/
-    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
+    // if system is in split mode, do not attempt the redundant EEPROM path.
+    if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
     {
-        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
-        std::optional<types::CalloutData> l_callout =
-            types::InventoryCalloutData{SYSTEM_VPD_FILE_PATH,
-                                        types::CalloutPriority::High};
-        // TODO Enable device callout once supported in phosphor-logging.
-        // And remove inventory callout.
-#if 0
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
-            l_callout = types::DeviceCalloutData{
-                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
-                    .parent_path()
-                    .string(),
-                std::to_string(l_savedErrno)};
-#endif
-
-        m_logger->logMessage(
-            l_error +
-                std::format(
-                    " Successfully collected VPD from redundant path [{}].",
-                    i_fruPath),
-            l_placeHolder,
-            types::PelInfoTuple{types::ErrorType::FirmwareError,
-                                types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-                                l_callout});
+        throw EepromException(o_primaryFailErrMsg);
     }
+
+    const std::string l_redundantEepromPath{REDUNDANT_SYSTEM_VPD_FILE_PATH};
+
+    if (l_redundantEepromPath.empty() ||
+        l_redundantEepromPath == SYSTEM_VPD_FILE_PATH)
+    {
+        throw EepromException(o_primaryFailErrMsg);
+    }
+
+    try
+    {
+        std::string l_redundantVpdPath{l_redundantEepromPath};
+        commonUtility::getEffectiveFruPath(m_vpdCollectionMode,
+                                           l_redundantVpdPath, l_errCode);
+
+        if (l_errCode)
+        {
+            throw std::runtime_error(
+                "Failed to get effective System VPD path, for [" +
+                l_redundantVpdPath +
+                "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        std::shared_ptr<Parser> l_vpdParser =
+            std::make_shared<Parser>(l_redundantVpdPath, m_sysCfgJsonObj);
+        types::VPDMapVariant l_parsedVpdMap = l_vpdParser->parse();
+
+        if (std::holds_alternative<std::monostate>(l_parsedVpdMap))
+        {
+            throw std::runtime_error("VPD parsing failed");
+        }
+
+        // Primary failed but redundant succeeded — pass warning message to
+        // caller to log a single PEL after the full flow completes.
+        o_primaryFailErrMsg +=
+            std::format("Successfully collected VPD from redundant path [{}].",
+                        l_redundantEepromPath);
+
+        return l_parsedVpdMap;
+    }
+    catch (const std::exception& l_redundantEx)
+    {
+        const std::string l_redundantErrMsg =
+            std::format("Redundant path [{}] also failed, reason: {}. ",
+                        l_redundantEepromPath, l_redundantEx.what());
+
+        // Both paths failed — throw so caller logs one critical PEL.
+        throw EepromException(l_redundantErrMsg + o_primaryFailErrMsg);
+    }
+}
+
+void IbmHandler::setDeviceTreeAndJson(
+    types::VPDMapVariant& io_parsedSystemVpdMap)
+{
+    uint16_t l_errCode = 0;
 
     // Implies it is default JSON.
     std::string l_systemJson{JSON_ABSOLUTE_PATH_PREFIX};
 
     // get system JSON as per the system configuration.
-    getSystemJson(l_systemJson, o_parsedSystemVpdMap);
+    getSystemJson(l_systemJson, io_parsedSystemVpdMap);
 
     if (!l_systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
     {
@@ -820,7 +817,7 @@ void IbmHandler::setDeviceTreeAndJson(
             if (isBackupOnCache() &&
                 jsonUtility::isBackupAndRestoreRequired(l_errCode))
             {
-                performBackupAndRestore(o_parsedSystemVpdMap);
+                performBackupAndRestore(io_parsedSystemVpdMap);
             }
             else if (l_errCode)
             {
@@ -840,8 +837,11 @@ void IbmHandler::setDeviceTreeAndJson(
 
 void IbmHandler::performInitialSetup()
 {
-    // Parse whatever JSON is set as of now.
     uint16_t l_errCode = 0;
+
+    std::string l_primaryFailErrMsg;
+    int l_primaryErrno = 0;
+
     try
     {
         m_sysCfgJsonObj =
@@ -855,10 +855,11 @@ void IbmHandler::performInitialSetup()
                                 m_configJsonPath);
         }
 
-        types::VPDMapVariant l_parsedSysVpdMap;
-        setDeviceTreeAndJson(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap);
+        types::VPDMapVariant l_parsedSysVpdMap =
+            parseSystemVpd(l_primaryFailErrMsg, l_primaryErrno);
 
-        // proceed to publish system VPD.
+        setDeviceTreeAndJson(l_parsedSysVpdMap);
+
         publishSystemVPD(l_parsedSysVpdMap);
 
         vpdSpecificUtility::setCollectionStatusProperty(
@@ -879,8 +880,22 @@ void IbmHandler::performInitialSetup()
         // probe.
         enableMuxChips();
 
-        // Nothing needs to be done. Service restarted or BMC re-booted for
-        // some reason at system power on.
+        // Primary path failed but VPD collection succeeded via redundant path,
+        // and JSON and device tree set up completed successfully.
+        if (!l_primaryFailErrMsg.empty())
+        {
+            m_logger->logMessage(
+                l_primaryFailErrMsg, PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT,
+                types::PelInfoTuple{
+                    SystemException(l_primaryErrno, "").getErrorType(),
+                    types::SeverityType::Warning, 0, std::nullopt, std::nullopt,
+                    std::nullopt, std::nullopt,
+                    types::DeviceCalloutData{
+                        std::filesystem::path(SYSTEM_VPD_FILE_PATH)
+                            .parent_path()
+                            .string(),
+                        std::to_string(l_primaryErrno)}});
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -899,40 +914,15 @@ void IbmHandler::performInitialSetup()
 
         // Any issue in system's initial set up is handled in this catch. Error
         // will not propagate to manager.
-
-        std::optional<types::CalloutData> l_callout = std::nullopt;
-        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL;
-
-        if (typeid(l_ex) == typeid(EepromException))
-        {
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
-            l_callout =
-                types::InventoryCalloutData{std::string(SYSTEM_VPD_FILE_PATH),
-                                            types::CalloutPriority::High};
-        }
-        else if (typeid(l_ex) == typeid(SystemException))
-        {
-            // TODO Enable above device callout once supported in
-            // phosphor-logging. And remove inventory callout.
-#if 0
-            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_DEVICE_CALLOUT;
-            l_callout = types::DeviceCalloutData{
-                std::filesystem::path(SYSTEM_VPD_FILE_PATH)
-                    .parent_path()
-                    .string(),
-                std::to_string(
-                    static_cast<const SystemException&>(l_ex).getErrno())};
-#endif
-        }
-
         m_logger->logMessage(
-            std::format("Exception while performing initial set up. Error: {}",
+            std::format("Exception during initial setup, system VPD "
+                        "collection failed. Error: {}",
                         EventLogger::getErrorMsg(l_ex)),
-            l_placeHolder,
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                l_callout});
+                                std::nullopt});
     }
 }
 

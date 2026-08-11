@@ -34,7 +34,7 @@ Parser::Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
             ", error : " + commonUtility::getErrCodeMsg(l_errorCode));
     }
 
-    // ToDo: Add minimum file size check in all the concert praser classes,
+    // ToDo: Add minimum file size check in all the concert parser classes,
     // depends on their VPD type.
     if (!std::filesystem::exists(m_vpdModeBasedFruPath, l_errCode))
     {

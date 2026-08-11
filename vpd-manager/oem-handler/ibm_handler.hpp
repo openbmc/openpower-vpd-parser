@@ -56,7 +56,30 @@ class IbmHandler
 
   private:
     /**
-     * @brief API tocollect system VPD and set appropriate device tree and JSON.
+     * @brief API to parse system VPD from primary EEPROM path, falling back
+     * to the redundant path on failure.
+     *
+     * On success returns the finalized parsed VPD map.
+     * If primary failed but redundant succeeded, populates o_primaryFailErrMsg
+     * and o_primaryErrno so the caller can log a single Warning PEL after the
+     * full flow completes.
+     * Throws EepromException if both paths fail so the caller logs one
+     * Critical PEL.
+     *
+     * @throw JsonException, EepromException
+     *
+     * @param[out] o_primaryFailErrMsg - Warning message to log if primary
+     * failed but redundant succeeded. Empty if primary succeeded.
+     * @param[out] o_primaryErrno - errno from the primary path SystemException,
+     * 0 if no SystemException was raised on the primary path.
+     *
+     * @return Parsed system VPD map.
+     */
+    types::VPDMapVariant parseSystemVpd(std::string& o_primaryFailErrMsg,
+                                        int& o_primaryErrno);
+
+    /**
+     * @brief API to set appropriate device tree and JSON based on parsed VPD.
      *
      * This API based on system chooses corresponding device tree and JSON.
      * If device tree change is required, it updates the "fitconfig" and reboots
@@ -64,11 +87,10 @@ class IbmHandler
      *
      * @throw std::exception
      *
-     * @param[in] i_fruPath - System VPD EEPROM path.
-     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
+     * @param[in,out] io_parsedSystemVpdMap - Parsed system VPD map. May be
+     * updated by backup and restore if applicable.
      */
-    void setDeviceTreeAndJson(const std::string& i_fruPath,
-                              types::VPDMapVariant& o_parsedSystemVpdMap);
+    void setDeviceTreeAndJson(types::VPDMapVariant& io_parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
