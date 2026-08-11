@@ -7,6 +7,7 @@
 
 #include <sdbusplus/asio/object_server.hpp>
 
+#include <expected>
 #include <memory>
 
 namespace vpd
@@ -56,7 +57,26 @@ class IbmHandler
 
   private:
     /**
-     * @brief API tocollect system VPD and set appropriate device tree and JSON.
+     * @brief API to parse system VPD from the given EEPROM path.
+     *
+     * Resolves the effective FRU path, parses the system VPD, and populates
+     * the output map. On failure, attempts to fall back to the redundant
+     * EEPROM path (unless the system is in FILE_MODE or no redundant path is
+     * configured). Logs critical PEL (both paths failed) or warning PEL
+     * (primary failed, redundant succeeded) inside this method.
+     *
+     * @param[in] i_fruPath - System VPD EEPROM path.
+     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
+     *
+     * @return std::expected with the path that succeeded on success, or
+     * std::monostate on failure (PEL already logged).
+     */
+    std::expected<std::string, std::monostate> getParsedSystemVpd(
+        const std::string& i_fruPath,
+        types::VPDMapVariant& o_parsedSystemVpdMap);
+
+    /**
+     * @brief API to set appropriate device tree and JSON based on parsed VPD.
      *
      * This API based on system chooses corresponding device tree and JSON.
      * If device tree change is required, it updates the "fitconfig" and reboots
@@ -64,11 +84,12 @@ class IbmHandler
      *
      * @throw std::exception
      *
-     * @param[in] i_fruPath - System VPD EEPROM path.
-     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
+     * @param[in] i_vpdPath - VPD path that succeeded (from parseSystemVpd).
+     * @param[in,out] io_parsedSystemVpdMap - Parsed system VPD map. May be
+     * updated by backup and restore if applicable.
      */
-    void setDeviceTreeAndJson(const std::string& i_fruPath,
-                              types::VPDMapVariant& o_parsedSystemVpdMap);
+    void setDeviceTreeAndJson(const std::string& i_vpdPath,
+                              types::VPDMapVariant& io_parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
