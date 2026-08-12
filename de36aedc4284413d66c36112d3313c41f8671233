@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915310c4_5fa5b8a1",
+        "filename": "vpd-tool/include/tool_error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-12T14:37:04Z",
+      "side": 1,
+      "message": "Better to call chassis ID? As that is the nomenclature being used at all other places?",
+      "revId": "de36aedc4284413d66c36112d3313c41f8671233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf38d347_7045736e",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-12T14:37:04Z",
+      "side": 1,
+      "message": "Chassis ID to have the same nomenclature across board.",
+      "range": {
+        "startLine": 1128,
+        "startChar": 13,
+        "endLine": 1128,
+        "endChar": 28
+      },
+      "revId": "de36aedc4284413d66c36112d3313c41f8671233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
