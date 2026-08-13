@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e874a8_18ffb0c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-13T05:58:21Z",
+      "side": 1,
+      "message": "local ~ chassis with the BMC.",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c08c05_a3024b27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-13T05:58:21Z",
+      "side": 1,
+      "message": "What is local and active BMC?",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7486ba57_4685a8e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-13T05:58:21Z",
+      "side": 1,
+      "message": "Why FRU VPD collection should not be triggered?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 41
+      },
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a159db_32aa0cd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-13T05:58:21Z",
+      "side": 1,
+      "message": "How to understand the relation that is is tied up to active BMC and what is active BMC?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "200de748_49a7874f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-13T05:58:21Z",
+      "side": 1,
+      "message": "How is it dictating? I can\u0027t find that in the implementation.",
+      "range": {
+        "startLine": 14,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
