@@ -114,6 +114,23 @@
       },
       "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d8528c_088f2cd2",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-13T07:21:57Z",
+      "side": 1,
+      "message": "do we need 3 different api\u0027s to read the GPIO value. if failure handle is same at the caller for each api, then should we combine into one API. one API can be used later if required. ?",
+      "revId": "369d8da6e31e3c4ef752a69b3a1e70b312378b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
