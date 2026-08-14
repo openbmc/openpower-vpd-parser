@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2087ec94_f6816e72",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-14T05:48:03Z",
+      "side": 1,
+      "message": "as we are calling it chassis ID, can we have the same name here?",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 41
+      },
+      "revId": "b6c6918a25d2ff4bb505e7a72d7776df4c0d49e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc8dcbe_85467c74",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-14T05:48:03Z",
+      "side": 1,
+      "message": "If this is required with \"l_dumpChassisInventoryFlag\" then should we make it mandatory in the flag as well?\nadd --\u003eneeds options there?",
+      "revId": "b6c6918a25d2ff4bb505e7a72d7776df4c0d49e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
