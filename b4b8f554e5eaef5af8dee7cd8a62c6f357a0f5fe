@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ceda3b50_00dbd811",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-14T07:03:25Z",
+      "side": 1,
+      "message": "as the API doyxgen uses terminology \u0027publish\u0027, can we use the same for the API name as well.",
+      "parentUuid": "4936140b_7a83d103",
+      "revId": "b4b8f554e5eaef5af8dee7cd8a62c6f357a0f5fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb89ede9_bf3517bc",
         "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
         "patchSetId": 6
