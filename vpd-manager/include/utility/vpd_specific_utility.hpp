@@ -12,6 +12,8 @@
 #include <utility/dbus_utility.hpp>
 #include <utility/event_logger_utility.hpp>
 
+#include <algorithm>
+#include <cctype>
 #include <filesystem>
 #include <format>
 #include <fstream>
@@ -1531,6 +1533,16 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
     const std::string l_nodeNumber =
         l_chassisId.substr(std::string_view{"chassis"}.size());
 
+    // Check if l_nodeNumber read is a valid value.
+    if (!l_nodeNumber.empty() &&
+        !std::all_of(l_nodeNumber.begin(), l_nodeNumber.end(), ::isdigit))
+    {
+        Logger::getLoggerInstance()->logMessage(
+            std::format("Invalid node value: {} read from inventory path: {}",
+                        l_nodeNumber, i_inventoryPath));
+        return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+    }
+
     std::string l_nodeIdentifier;
     if (l_nodeNumber.empty())
     {
@@ -1545,8 +1557,10 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
     }
     else
     {
-        l_nodeIdentifier = "N" + (l_nodeNumber.size() == 1 ? "0" + l_nodeNumber
-                                                           : l_nodeNumber);
+        const int l_nodeNum = std::stoi(l_nodeNumber) - constants::VALUE_1;
+        l_nodeIdentifier = "N" + (l_nodeNum < constants::VALUE_10
+                                      ? "0" + std::to_string(l_nodeNum)
+                                      : std::to_string(l_nodeNum));
     }
 
     return buildExpandedLc(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
