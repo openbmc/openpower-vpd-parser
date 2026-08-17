@@ -528,10 +528,6 @@ int VpdTool::writeKeyword(
             }
 
             l_rc = utils::writeKeywordOnHardware(i_vpdPath, l_paramsToWrite);
-            if (l_rc <= 0)
-            {
-                return static_cast<int>(ErrorCode::DBUS_CALL_FAILED);
-            }
         }
         else
         {
@@ -542,14 +538,49 @@ int VpdTool::writeKeyword(
             }
 
             i_vpdPath = constants::baseInventoryPath + i_vpdPath;
+
+            // Check if record is part of inventory item and retrive the base
+            // inventory path of the FRU from the JSON, as vpd-manager service
+            // D-Bus method "updateKeyword" accepts only the base inventory path
+            // to update keyword.
+            const auto l_isRecordPartOfFru =
+                utils::checkIfRecordPartOfInventoryItem(i_vpdPath,
+                                                        i_recordName);
+
+            if (!l_isRecordPartOfFru.has_value())
+            {
+                if (l_isRecordPartOfFru.error() == ErrorCode::NOT_ALLOWED)
+                {
+                    std::cerr << std::format(
+                        "Record [{}] is not part of the inventory path [{}]. Cannot update keyword.\n",
+                        i_recordName, i_vpdPath);
+                }
+
+                return static_cast<int>(l_isRecordPartOfFru.error());
+            }
+
+            const auto l_baseInventoryPath =
+                utils::getBaseInventoryPath(i_vpdPath);
+
+            if (!l_baseInventoryPath.has_value())
+            {
+                return static_cast<int>(l_baseInventoryPath.error());
+            }
+
             auto l_paramsToWrite = std::make_tuple(i_recordName, i_keywordName,
                                                    l_binaryVector.value());
-            l_rc = utils::writeKeyword(i_vpdPath, l_paramsToWrite);
+            l_rc = utils::writeKeyword(l_baseInventoryPath.value(),
+                                       l_paramsToWrite);
+        }
 
-            if (l_rc <= 0)
-            {
-                return static_cast<int>(ErrorCode::DBUS_CALL_FAILED);
-            }
+        if (l_rc <= 0)
+        {
+            std::cerr << std::format(
+                "Failed to update keyword [{}{}] for path [{}]. DBus call failed.\n",
+                (!i_recordName.empty() ? std::format("{} : ", i_recordName)
+                                       : ""),
+                i_keywordName, i_vpdPath);
+            return static_cast<int>(ErrorCode::DBUS_CALL_FAILED);
         }
 
         const std::string& l_recordKeywordName = std::format(
