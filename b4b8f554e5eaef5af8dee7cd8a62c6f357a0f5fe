@@ -262,6 +262,24 @@
       "parentUuid": "6df50d25_b2de51bc",
       "revId": "b4b8f554e5eaef5af8dee7cd8a62c6f357a0f5fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32679cc1_ea910647",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-17T08:03:24Z",
+      "side": 1,
+      "message": "Agree but lg2 is an external library and if there is an exception there, it will propagate to this code as well and we might core dump.\nI don\u0027t see a downside in wrapping the method around try catch to avoid those corner cases.",
+      "parentUuid": "d84218a0_e4c466ef",
+      "revId": "b4b8f554e5eaef5af8dee7cd8a62c6f357a0f5fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
