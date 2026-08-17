@@ -71,6 +71,22 @@ class IbmHandler
                               types::VPDMapVariant& o_parsedSystemVpdMap);
 
     /**
+     * @brief API to parse system VPD from the given EEPROM path.
+     *
+     * Resolves the effective FRU path, parses the system VPD, and populates
+     * the output map. On failure, attempts to fall back to the redundant
+     * EEPROM path (unless the system is in FILE_MODE or no redundant path is
+     * configured).
+     *
+     * @throw EepromException, std::exception
+     *
+     * @param[in] i_fruPath - System VPD EEPROM path.
+     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
+     */
+    void getParsedSystemVpd(const std::string& i_fruPath,
+                            types::VPDMapVariant& o_parsedSystemVpdMap);
+
+    /**
      * @brief API to detect if system vpd is backed up in cache.
      *
      * System vpd can be cached either in cache or some other location. The

@@ -619,15 +619,9 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
     m_isFactoryResetDone = true;
 }
 
-void IbmHandler::setDeviceTreeAndJson(
+void IbmHandler::getParsedSystemVpd(
     const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
 {
-    // JSON is mandatory for processing of this API.
-    if (m_sysCfgJsonObj.empty())
-    {
-        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
-    }
-
     static std::string l_error;
     uint16_t l_errCode = 0;
     try
@@ -679,10 +673,24 @@ void IbmHandler::setDeviceTreeAndJson(
         }
 
         // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
+        getParsedSystemVpd(l_redundantEepromPath, o_parsedSystemVpdMap);
 
         return;
     }
+}
+
+void IbmHandler::setDeviceTreeAndJson(
+    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
+{
+    // JSON is mandatory for processing of this API.
+    if (m_sysCfgJsonObj.empty())
+    {
+        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
+    }
+
+    uint16_t l_errCode = 0;
+
+    getParsedSystemVpd(i_fruPath, o_parsedSystemVpdMap);
 
     /* TODO: Revisit the code and update the flow will specific error handling
        so that specific failure type can be reported in the PEL.
