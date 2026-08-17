@@ -619,15 +619,9 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
     m_isFactoryResetDone = true;
 }
 
-void IbmHandler::setDeviceTreeAndJson(
-    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
+bool IbmHandler::getParsedSystemVpd(const std::string& i_fruPath,
+                                    types::VPDMapVariant& o_parsedSystemVpdMap)
 {
-    // JSON is mandatory for processing of this API.
-    if (m_sysCfgJsonObj.empty())
-    {
-        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
-    }
-
     static std::string l_error;
     uint16_t l_errCode = 0;
     try
@@ -660,29 +654,43 @@ void IbmHandler::setDeviceTreeAndJson(
             "System VPD collection failed from path [{}], reason: {}. ",
             i_fruPath, l_ex.what());
 
-        // if system is in split mode, and we failed to collect VPD from primary
-        // EEPROM file path, do not attempt to collect from redundant EEPROM
-        // file path.
-        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
-        {
-            m_logger->logMessage(l_error);
-            throw EepromException(l_error);
-        }
-
         const std::string& l_redundantEepromPath{
             REDUNDANT_SYSTEM_VPD_FILE_PATH};
 
-        if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
+        // if system is in split mode, and we failed to collect VPD from primary
+        // EEPROM file path, do not attempt to collect from redundant EEPROM
+        // file path.
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE ||
+            l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
         {
             m_logger->logMessage(l_error);
-            throw EepromException(l_error);
+            // LOG PEL HERE;
+            return false;
         }
 
         // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
-
-        return;
+        return getParsedSystemVpd(l_redundantEepromPath, o_parsedSystemVpdMap);
     }
+
+    // Implies primary path succeeded. If this call was for the redundant path,
+    // log a PEL to indicate primary had failed.
+    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
+    {
+        // LOG PEL HERE;
+    }
+    return true;
+}
+
+void IbmHandler::setDeviceTreeAndJson(
+    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
+{
+    // JSON is mandatory for processing of this API.
+    if (m_sysCfgJsonObj.empty())
+    {
+        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
+    }
+
+    uint16_t l_errCode = 0;
 
     /* TODO: Revisit the code and update the flow will specific error handling
        so that specific failure type can be reported in the PEL.
@@ -835,6 +843,12 @@ void IbmHandler::performInitialSetup()
         }
 
         types::VPDMapVariant l_parsedSysVpdMap;
+        if (!getParsedSystemVpd(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap))
+        {
+            // PEL is already logged.
+            return;
+        }
+
         setDeviceTreeAndJson(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap);
 
         // proceed to publish system VPD.
