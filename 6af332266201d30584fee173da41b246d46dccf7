@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3cbce80_30383511",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-17T15:49:21Z",
+      "side": 1,
+      "message": "should we check if the value is either 0 /1 otherwise report an issue and defalut position to 0 ?",
+      "revId": "6af332266201d30584fee173da41b246d46dccf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76cf958_d55aee7a",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-17T15:49:21Z",
+      "side": 1,
+      "message": "we can combine this with the end return as well, just ::ON check should be enough ?",
+      "revId": "6af332266201d30584fee173da41b246d46dccf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce02fc70_50182c4d",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-17T15:49:21Z",
+      "side": 1,
+      "message": "need a space after failed, we can add \u0027reason: {}\u0027",
+      "revId": "6af332266201d30584fee173da41b246d46dccf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
