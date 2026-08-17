@@ -1,4 +1,5 @@
 #pragma once
+#include "config.h"
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
@@ -1183,6 +1184,96 @@ inline std::expected<std::string, ErrorCode> validateChassisPath(
             "Failed to get chassis object path for chassis [{}]. Error: {}.\n",
             i_chassisId, l_ex.what());
 
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+}
+/**
+ * @brief Returns the base inventory path of the FRU if the given record is
+ * allowed to be updated on the specified sub-FRU inventory path.
+ *
+ * Looks up the supplied inventory path in the system config JSON and checks
+ * whether the given record is permitted for update on that inventory item.
+ * A record is considered allowed when any of the following conditions hold:
+ * - The inventory item has `inherit` set to true.
+ * - The record name is present in the item's `copyRecords` list.
+ * - The item has a `skipRecords` list defined and the record name is NOT
+ *   present in that list.
+ *
+ * If the record is permitted to update returns the base inventory path of FRU.
+ *
+ * @param[in] i_inventoryPath - Inventory path.
+ * @param[in] i_recordName    - Record name.
+ *
+ * @return The base inventory path of the corresponding FRU on success.
+ * - ErrorCode::INVALID_INPUT_PARAMETER if either input is empty or the
+ * inventory path is not found in the config JSON.
+ * - ErrorCode::NOT_ALLOWED if the record is not permitted for update on the
+ * given inventory path.
+ * - ErrorCode::STANDARD_EXCEPTION if an exception is thrown during JSON parsing
+ * or lookup.
+ */
+inline std::expected<std::string, ErrorCode> getBaseInventoryPathForRecord(
+    std::string& i_inventoryPath, const std::string& i_recordName) noexcept
+{
+    if (i_inventoryPath.empty() || i_recordName.empty())
+    {
+        std::cerr << "Received empty input parameters" << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+
+    try
+    {
+        const nlohmann::json l_cfgJsonObject =
+            getParsedJson(INVENTORY_JSON_SYM_LINK);
+        const nlohmann::json& l_fruList =
+            l_cfgJsonObject["frus"].get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& l_fru : l_fruList.items())
+        {
+            for (const auto& l_inventoryItem : l_fru.value())
+            {
+                if (i_inventoryPath ==
+                    l_inventoryItem.value("inventoryPath", ""))
+                {
+                    const std::string l_baseInvPath =
+                        l_fru.value().at(0).value("inventoryPath", "");
+                    if (l_inventoryItem.value("inherit", true))
+                    {
+                        return l_baseInvPath;
+                    }
+
+                    if (l_inventoryItem.contains("copyRecords") &&
+                        (std::find(l_inventoryItem["copyRecords"].begin(),
+                                   l_inventoryItem["copyRecords"].end(),
+                                   i_recordName) !=
+                         l_inventoryItem["copyRecords"].end()))
+                    {
+                        return l_baseInvPath;
+                    }
+
+                    if (l_inventoryItem.contains("skipRecords") &&
+                        (std::find(l_inventoryItem["skipRecords"].begin(),
+                                   l_inventoryItem["skipRecords"].end(),
+                                   i_recordName) ==
+                         l_inventoryItem["skipRecords"].end()))
+                    {
+                        return l_baseInvPath;
+                    }
+
+                    return std::unexpected(ErrorCode::NOT_ALLOWED);
+                }
+            }
+        }
+
+        std::cerr << "Invalid inventory path : " << i_inventoryPath
+                  << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << std::format(
+            "Failed to check if record [{}] is part of inventory path [{}]. Error : {}\n",
+            i_recordName, i_inventoryPath, l_ex.what());
         return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
 }
