@@ -648,11 +648,45 @@ void Worker::populateDbus(const nlohmann::json& i_configJsonObj,
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
 
+#ifdef IBM_SYSTEM
+            processBmcReadyToRemoveProperty(aFru, interfaces);
+#endif // IBM_SYSTEM
+
             objectInterfaceMap.emplace(std::move(fruObjectPath),
                                        std::move(interfaces));
         }
     }
 }
+
+#ifdef IBM_SYSTEM
+void Worker::processBmcReadyToRemoveProperty(const nlohmann::json& i_singleFru,
+                                             types::InterfaceMap& io_interfaces)
+{
+    // Identify the BMC FRU entry by the presence of
+    // xyz.openbmc_project.Inventory.Item.Bmc in its extraInterfaces.
+    if (!i_singleFru.contains("extraInterfaces") ||
+        !i_singleFru["extraInterfaces"].contains(
+            constants::bmcInventoryItemInf))
+    {
+        return;
+    }
+
+    uint16_t l_errCode = 0;
+    types::PropertyMap l_propMap;
+    l_propMap.emplace("ReadyToRemove", true);
+    vpdSpecificUtility::insertOrMerge(io_interfaces,
+                                      constants::readyToRemoveInf,
+                                      std::move(l_propMap), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "processBmcReadyToRemoveProperty: Failed to insert "
+            "ReadyToRemove interface, error: " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
+}
+#endif // IBM_SYSTEM
 
 types::BaseActionResult Worker::processPreAction(
     const nlohmann::json& i_configJson, const std::string& i_vpdFilePath,

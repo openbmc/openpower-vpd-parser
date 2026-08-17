@@ -146,6 +146,8 @@ constexpr auto operationalStatusInf =
 constexpr auto enableInf = "xyz.openbmc_project.Object.Enable";
 constexpr auto availabilityInf =
     "xyz.openbmc_project.State.Decorator.Availability";
+constexpr auto readyToRemoveInf = "xyz.openbmc_project.State.ReadyToRemove";
+constexpr auto bmcInventoryItemInf = "xyz.openbmc_project.Inventory.Item.Bmc";
 constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto inventoryItemInf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto pldmServiceName = "xyz.openbmc_project.PLDM";
@@ -237,5 +239,25 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+
+static constexpr auto redundancyService =
+    "xyz.openbmc_project.State.BMC.Redundancy";
+static constexpr auto redundancyObjectPathBmc0 =
+    "/xyz/openbmc_project/state/bmc0";
+static constexpr auto redundancyInterface =
+    "xyz.openbmc_project.State.BMC.Redundancy";
+static constexpr auto redundancyPropertyRole = "Role";
+
+static constexpr auto redundancyRolePassive =
+    "xyz.openbmc_project.State.BMC.Redundancy.Role.Passive";
+static constexpr auto redundancyRoleActive =
+    "xyz.openbmc_project.State.BMC.Redundancy.Role.Active";
+static constexpr auto redundancyRoleUnknown =
+    "xyz.openbmc_project.State.BMC.Redundancy.Role.Unknown";
+
+static constexpr auto bmc0InventoryPath =
+    "/xyz/openbmc_project/inventory/system/chassis1/motherboard/ebmc_card";
+static constexpr auto bmc1InventoryPath =
+    "/xyz/openbmc_project/inventory/system/chassis2/motherboard/ebmc_card";
 } // namespace constants
 } // namespace vpd

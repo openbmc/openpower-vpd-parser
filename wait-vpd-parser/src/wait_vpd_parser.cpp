@@ -91,6 +91,72 @@ bool checkAndHandleInventoryBackup()
     return l_rc;
 }
 
+#ifdef IBM_SYSTEM
+inline void setReadyToRemoveOnPassiveBMC() noexcept
+{
+    auto l_logger = vpd::Logger::getLoggerInstance();
+    try
+    {
+        auto retValue = vpd::dbusUtility::readDbusProperty(
+            vpd::constants::redundancyService,
+            vpd::constants::redundancyObjectPathBmc0,
+            vpd::constants::redundancyInterface,
+            vpd::constants::redundancyPropertyRole);
+
+        const auto bmcRole = std::get_if<std::string>(&retValue);
+        if (!bmcRole || bmcRole->empty())
+        {
+            l_logger->logMessage(
+                "setReadyToRemoveOnPassiveBMC: failed to read BMC Role");
+            return;
+        }
+
+        std::string l_passiveInventoryPath;
+
+        if (*bmcRole == vpd::constants::redundancyRolePassive)
+        {
+            l_passiveInventoryPath = vpd::constants::bmc0InventoryPath;
+        }
+        else if (*bmcRole == vpd::constants::redundancyRoleActive)
+        {
+            l_passiveInventoryPath = vpd::constants::bmc1InventoryPath;
+        }
+        else
+        {
+            l_logger->logMessage(
+                "setReadyToRemoveOnPassiveBMC: BMC Role is unknown, skipping");
+            return;
+        }
+
+        vpd::types::PropertyMap l_propertyMap;
+        l_propertyMap.emplace("ReadyToRemove", true);
+
+        vpd::types::InterfaceMap l_interfaceMap;
+        l_interfaceMap.emplace(vpd::constants::readyToRemoveInf, l_propertyMap);
+
+        vpd::types::ObjectMap l_objectMap;
+        l_objectMap.emplace(l_passiveInventoryPath, l_interfaceMap);
+
+        if (!vpd::dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
+        {
+            l_logger->logMessage(
+                "setReadyToRemoveOnPassiveBMC: failed to publish ReadyToRemove on " +
+                l_passiveInventoryPath);
+            return;
+        }
+
+        l_logger->logMessage(
+            "setReadyToRemoveOnPassiveBMC: ReadyToRemove set on " +
+            l_passiveInventoryPath);
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_logger->logMessage("setReadyToRemoveOnPassiveBMC: exception: " +
+                             std::string(l_ex.what()));
+    }
+}
+#endif // IBM_SYSTEM
+
 /**
  * @brief API to delete VPD for all FRUs.
  *
@@ -142,7 +208,9 @@ int main(int argc, char** argv)
 
         if (l_role == passive)
         {
-            return deleteAllFruVpd()
+            const bool l_deleteSuccess = deleteAllFruVpd();
+
+            return l_deleteSuccess
                        ? !(vpd::dbusUtility::writeDbusProperty(
                              BUSNAME, OBJPATH,
                              vpd::constants::vpdCollectionInterface, "Status",
@@ -171,6 +239,10 @@ int main(int argc, char** argv)
             l_collectionStatusTimeoutSecs};
 
         l_collectionOrchestrator.triggerFruVpdCollectionAndCheckStatus();
+
+#ifdef IBM_SYSTEM
+        setReadyToRemoveOnPassiveBMC();
+#endif // IBM_SYSTEM
 
         return vpd::constants::VALUE_0;
     }

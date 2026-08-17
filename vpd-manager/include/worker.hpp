@@ -391,6 +391,34 @@ class Worker
     void processEnabledProperty(const std::string& i_inventoryObjPath,
                                 types::InterfaceMap& io_interfaces);
 
+#ifdef IBM_SYSTEM
+    /**
+     * @brief API to publish ReadyToRemove interface for the BMC FRU.
+     *
+     * On IBM systems only the passive BMC is concurrently maintainable
+     * (CM-able).  This API identifies the BMC FRU entry by checking for the
+     * xyz.openbmc_project.Inventory.Item.Bmc interface in the FRU's
+     * extraInterfaces and, when found, adds the
+     * xyz.openbmc_project.State.ReadyToRemove interface with
+     * "ReadyToRemove": true to io_interfaces.
+     *
+     * Because BMC card VPD is only collected on the active BMC, this
+     * function is reached on the active side only.  The active-to-passive
+     * failover service (active-to-passive.service) deletes all FRU VPD via
+     * DeleteAllFRUVPD, causing PIM to restart without the ReadyToRemove
+     * interface on the (now) active BMC object.  The new passive BMC then
+     * re-collects BMC card VPD, calling populateDbus again which re-adds
+     * ReadyToRemove via this function — ensuring only the passive BMC is
+     * ever marked CM-able.
+     *
+     * @param[in] i_singleFru - JSON block for a single FRU entry.
+     * @param[out] io_interfaces - Map to hold interface along with its
+     * properties.
+     */
+    void processBmcReadyToRemoveProperty(const nlohmann::json& i_singleFru,
+                                         types::InterfaceMap& io_interfaces);
+#endif // IBM_SYSTEM
+
     /**
      * @brief API to set present property.
      *
