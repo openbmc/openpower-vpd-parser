@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca42e4f7_433022ca",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-17T07:23:31Z",
+      "side": 1,
+      "message": "The comment covers that currently? \"or 0 on any error (file missing, unreadable, or parse failure)\"",
+      "parentUuid": "58488d32_11fb9d22",
+      "revId": "67ad0b3831cb6fce43bfc96d58537f3e0c87fbdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46342f9b_1e9ba295",
         "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-14T06:38:04Z",
       "side": 1,
       "message": "Nit: instead of using varible convention, we say it in words for bmcPositionFile",
+      "revId": "67ad0b3831cb6fce43bfc96d58537f3e0c87fbdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3e52a1_1bddd84d",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-17T07:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46342f9b_1e9ba295",
       "revId": "67ad0b3831cb6fce43bfc96d58537f3e0c87fbdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-14T06:38:04Z",
       "side": 1,
       "message": "Nit: can we say \"BMC with position 1\" more descriptively ?",
+      "revId": "67ad0b3831cb6fce43bfc96d58537f3e0c87fbdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e46aa8ab_706a14a3",
+        "filename": "service_files/pgood-chassis-check.service",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-17T07:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5279e5d0_1710e5b0",
       "revId": "67ad0b3831cb6fce43bfc96d58537f3e0c87fbdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
