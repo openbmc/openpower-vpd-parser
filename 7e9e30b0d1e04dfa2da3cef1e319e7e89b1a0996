@@ -16,6 +16,24 @@
       "message": "There is always a risk of out of memory or std::bad alloc exception in these cases.\nThough the probability is very less, it is still there and throwing from a no except method can terminate the exe.\nFor safe side, wrap it is try/catch.",
       "revId": "7e9e30b0d1e04dfa2da3cef1e319e7e89b1a0996",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf39bc1_e461ae15",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-17T10:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a4ad4a9_6c1520cc",
+      "revId": "7e9e30b0d1e04dfa2da3cef1e319e7e89b1a0996",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
