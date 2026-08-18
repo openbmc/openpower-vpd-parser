@@ -15,11 +15,11 @@ enum class GpioValue : int8_t
     ON
 };
 
-enum class BmcPosition : uint8_t
+enum class BmcPosition : int8_t
 {
+    INVALID_VALUE = -1,
     POSITION_0,
-    POSITION_1,
-    DEFAULT = POSITION_0
+    POSITION_1
 };
 } // namespace types
 } // namespace pgood_chassis_check
