@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5729ed07_7bf9c621",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-18T10:27:23Z",
+      "side": 1,
+      "message": "Instead of hardcoding these enum strings, can we get them from PDI generated header files? This will help in avoiding rewriting these strings in case PDI YAML is changed in future.",
+      "revId": "dd5e89d9cf349859428f431876e3f0d034e5498f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
