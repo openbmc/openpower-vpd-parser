@@ -7,6 +7,7 @@
 #include <xyz/openbmc_project/Common/Progress/common.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
+#include <optional>
 #include <tuple>
 #include <unordered_map>
 #include <variant>
@@ -78,6 +79,26 @@ using KWdVPDValueType = std::variant<BinaryVector,std::string, size_t>;
 /* This hold map of parsed data of keyword VPD type*/
 using KeywordVpdMap = std::unordered_map<std::string, KWdVPDValueType>;
 
+/* Data structure for holding IPMI VPD data */
+enum class IpmiVpdAreaIndex : uint8_t
+{
+    COMMON_HEADER,
+    INTERNAL_USE_AREA,
+    CHASSIS_INFO_AREA,
+    BOARD_INFO_AREA,
+    PRODUCT_INFO_AREA,
+    MULTI_RECORD_AREA,
+    SIZE    // total number of areas. This should always be the last entry in the enum
+};
+
+/* Map for holding per Area data
+    The format is <Keyword, Value>. For example, for Manufacturer Name in  Product Info Area,  the map entry will be of format <MNAME, IBM>
+*/
+using IPMIVpdValueMap = std::unordered_map<std::string, KWdVPDValueType>;
+/* Map for holding IPMI VPD data by area. For example for Manufacturer Name in  Product Info Area Product Info Area, the map entry will be of format <Product Info Area, <MNAME, IBM>> */
+using IPMIVpdMap = std::array<std::optional<IPMIVpdValueMap>,
+                              static_cast<std::size_t>(IpmiVpdAreaIndex::SIZE)>;
+
 /**
  * Both Keyword VPD parser and DDIMM parser stores the
  * parsed VPD in the same format.
@@ -115,7 +136,7 @@ using PoundKwSize = uint16_t;
 
 using RecordOffsetList = std::vector<uint32_t>;
 
-using VPDMapVariant = std::variant<std::monostate, IPZVpdMap, KeywordVpdMap>;
+using VPDMapVariant = std::variant<std::monostate, IPZVpdMap, KeywordVpdMap, IPMIVpdMap>;
 
 using HWVerList = std::vector<std::pair<std::string, std::string>>;
 /**
