@@ -59,17 +59,98 @@ int publishChassisPowerState(
 }
 
 /**
- * @brief Read BMC position from /run/openbmc/bmc_position.
+ * @brief Read BMC position from file /run/openbmc/bmc_position.
  *
- * @return BMC position value, or 0 on any error (file missing, unreadable,
+ * @return BMC position value, or -1 on any error (file missing, unreadable,
  *         or parse failure). All exceptions are caught locally.
  */
-types::BmcPosition readBmcPosition() noexcept
+types::BmcPosition readBmcPositionFromFile() noexcept
 {
-    /** @todo Read the BMC position integer from file containing BMC position.
-     *  Return 0 as default when the file is absent, unreadable, or fails
-     *  to parse. Log a warning via lg2 for each failure mode. */
-    return types::BmcPosition::DEFAULT;
+    try
+    {
+        std::error_code ec{};
+        if (!std::filesystem::exists(constants::bmcPositionFile, ec))
+        {
+            if (ec)
+            {
+                lg2::warning(
+                    "pgood-chassis-check: could not stat '{FILE}': "
+                    "{ERR}, Returning BMC position as invalid value '{INVALID_VALUE}'",
+                    "FILE", constants::bmcPositionFile, "ERR", ec.message(),
+                    "INVALID_VALUE", types::BmcPosition::INVALID_VALUE);
+            }
+            else
+            {
+                lg2::info(
+                    "pgood-chassis-check: '{FILE}' not found, "
+                    "Returning BMC position as invalid value '{INVALID_VALUE}'",
+                    "FILE", constants::bmcPositionFile, "INVALID_VALUE",
+                    types::BmcPosition::INVALID_VALUE);
+            }
+            return types::BmcPosition::INVALID_VALUE;
+        }
+
+        std::ifstream ifs(constants::bmcPositionFile);
+        if (!ifs)
+        {
+            lg2::warning(
+                "pgood-chassis-check: failed to open '{FILE}', "
+                "Returning BMC position as invalid value '{INVALID_VALUE}'",
+                "FILE", constants::bmcPositionFile, "INVALID_VALUE",
+                types::BmcPosition::INVALID_VALUE);
+
+            return types::BmcPosition::INVALID_VALUE;
+        }
+
+        int bmcPosition{std::to_underlying(types::BmcPosition::INVALID_VALUE)};
+        if (!(ifs >> bmcPosition))
+        {
+            lg2::warning(
+                "pgood-chassis-check: failed to parse '{FILE}', "
+                "Returning BMC position as invalid value '{INVALID_VALUE}'",
+                "FILE", constants::bmcPositionFile, "INVALID_VALUE",
+                types::BmcPosition::INVALID_VALUE);
+
+            return types::BmcPosition::INVALID_VALUE;
+        }
+
+        ifs.close();
+
+        types::BmcPosition retVal{types::BmcPosition::INVALID_VALUE};
+
+        switch (bmcPosition)
+        {
+            case 0:
+            {
+                retVal = types::BmcPosition::POSITION_0;
+                break;
+            }
+            case 1:
+            {
+                retVal = types::BmcPosition::POSITION_1;
+                break;
+            }
+            default:
+            {
+                retVal = types::BmcPosition::INVALID_VALUE;
+                lg2::error(
+                    "pgood-chassis-check: invalid BMC position value '{VALUE}' read from file. Returning BMC position as invalid value '{INVALID_VALUE}'",
+                    "VALUE", bmcPosition, "INVALID_VALUE",
+                    types::BmcPosition::INVALID_VALUE);
+            }
+        }
+
+        return retVal;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while trying to read BMC position from file."
+            "{ERR}. Returning BMC position as default value, '{INVALID_VALUE}'",
+            "ERR", ex.what(), "INVALID_VALUE",
+            types::BmcPosition::INVALID_VALUE);
+    }
+    return types::BmcPosition::INVALID_VALUE;
 }
 
 /**
@@ -99,14 +180,38 @@ inline types::GpioValue readGpioValue(
 
 int main()
 {
-    /** @todo
-     * 1. Read the BMC position via readBmcPosition() to select the
-     *  correct GPIO line name (gpioLineBmc0 or gpioLineBmc1).
-     * 2. Read its value via readGpioValue().
-     * 3. Based on the GPIO value (0 = off,
-     *  1 = on, -1 = error), call publishChassisPowerState() with State::On or
-     *  State::Off (default to Off on error).
-     * 4. Return 0 on success, 1 if
-     *  publishChassisPowerState() fails. */
+    try
+    {
+        // read the BMC position
+        const auto bmcPosition = pgood_chassis_check::readBmcPositionFromFile();
+        if (bmcPosition ==
+            pgood_chassis_check::types::BmcPosition::INVALID_VALUE)
+        {
+            lg2::error(
+                "pgood-chassis-check: invalid BMC position value read from file. Updating chassis power state as off to allow FRUs VPD collection to proceed.");
+
+            // could not read the BMC position, so cannot determine which GPIO
+            // to read, assume chassis is powered off to allow FRUs VPD
+            // collection to proceed
+            return pgood_chassis_check::publishChassisPowerState(
+                pgood_chassis_check::types::PowerStateIface::State::Off);
+        }
+
+        /** @todo
+         * 1. Select GPIO pin based on BMC position and read its value via
+         * readGpioValue().
+         * 2. Based on the GPIO value (0 = off,
+         *  1 = on, -1 = error), call publishChassisPowerState() with State::On
+         * or State::Off (default to Off on error).
+         * 3. Return 0 on success, 1 if
+         *  publishChassisPowerState() fails. */
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception in main: {ERR}. Returning failure",
+            "ERR", ex.what());
+        return pgood_chassis_check::constants::failure;
+    }
     return pgood_chassis_check::constants::success;
 }
