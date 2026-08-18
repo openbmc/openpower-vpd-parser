@@ -4,10 +4,6 @@
  * Reads the power-good GPIO for the local chassis and publishes the chassis
  * power state on D-Bus via a Notify call on Phosphor Inventory Manager service.
  *
- * BMC position is read from /run/openbmc/bmc_position:
- *   0 (or file missing/unreadable) -> read GPIO "power-good-chassis1"
- *   1                               -> read GPIO "power-good-chassis2"
- *
  * Outcome published on D-Bus at:
  *   service  : xyz.openbmc_project.Inventory.Manager
  *   path     : /xyz/openbmc_project/inventory/system
@@ -27,13 +23,44 @@
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
 
-#include <filesystem>
-#include <fstream>
+#include <map>
 #include <string>
 #include <variant>
 
 namespace pgood_chassis_check
 {
+/**
+ * @brief Create an informational PEL via the phosphor-logging D-Bus Create
+ * method.
+ *
+ * @param[in] message - The Message property of the event log entry, used to
+ * look up the event in the message registry.
+ * @param[in] description - Human-readable description stored in the PEL's
+ * additional data under the DESCRIPTION key.
+ */
+void createInformationalPel(const std::string& message,
+                            const std::string& description) noexcept
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            types::CreateIface::default_service,
+            types::CreateIface::instance_path, types::CreateIface::interface,
+            types::CreateIface::method_names::create);
+        method.append(
+            message, types::EntryIface::Level::Informational,
+            std::map<std::string, std::string>{{"DESCRIPTION", description}});
+        bus.call_noreply(method);
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: failed to create informational PEL: {ERR}",
+            "ERR", ex.what());
+    }
+}
+
 /**
  * @brief Publish the chassis PowerState on D-Bus via PIM Notify.
  *
@@ -59,17 +86,65 @@ int publishChassisPowerState(
 }
 
 /**
- * @brief Read BMC position from /run/openbmc/bmc_position.
+ * @brief Read BMC position from D-Bus
  *
- * @return BMC position value, or 0 on any error (file missing, unreadable,
- *         or parse failure). All exceptions are caught locally.
+ * This method reads the BMC position published on Position interface on
+ * /xyz/openbmc_project/inventory/system of phosphor inventory manager and
+ * returns the corresponding enum value.
+ *
+ * @return BMC position value, or -1 on any error. All exceptions are caught
+ * locally.
  */
-types::BmcPosition readBmcPosition() noexcept
+types::BmcPosition readBmcPositionFromDbus() noexcept
 {
-    /** @todo Read the BMC position integer from file containing BMC position.
-     *  Return 0 as default when the file is absent, unreadable, or fails
-     *  to parse. Log a warning via lg2 for each failure mode. */
-    return types::BmcPosition::DEFAULT;
+    types::BmcPosition retVal{types::BmcPosition::INVALID_VALUE};
+    try
+    {
+        size_t bmcPosition{
+            static_cast<size_t>(types::BmcPosition::INVALID_VALUE)};
+
+        // read BMC position from D-Bus
+        auto bus = sdbusplus::bus::new_default();
+
+        auto method = bus.new_method_call(
+            constants::pimService, constants::systemVpdInvPath,
+            "org.freedesktop.DBus.Properties", "Get");
+
+        method.append(constants::positionInterface,
+                      constants::positionPropertyName);
+
+        auto result = bus.call(method);
+        std::variant<size_t> variantPosition;
+        result.read(variantPosition);
+        bmcPosition = std::get<size_t>(variantPosition);
+
+        lg2::info(
+            "pgood-chassis-check: BMC position read from D-Bus is '{VALUE}'",
+            "VALUE", bmcPosition);
+
+        if (bmcPosition == constants::value_0 ||
+            bmcPosition == constants::value_1)
+        {
+            retVal = static_cast<types::BmcPosition>(bmcPosition);
+        }
+        else
+        {
+            retVal = types::BmcPosition::INVALID_VALUE;
+            lg2::error(
+                "pgood-chassis-check: invalid BMC position value '{VALUE}' read from D-Bus. Returning BMC position as invalid value '{INVALID_VALUE}'",
+                "VALUE", bmcPosition, "INVALID_VALUE",
+                types::BmcPosition::INVALID_VALUE);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while trying to read BMC position from D-Bus. "
+            "{ERR}. Returning BMC position as default value, '{INVALID_VALUE}'",
+            "ERR", ex.what(), "INVALID_VALUE",
+            types::BmcPosition::INVALID_VALUE);
+    }
+    return retVal;
 }
 
 /**
@@ -99,14 +174,39 @@ inline types::GpioValue readGpioValue(
 
 int main()
 {
-    /** @todo
-     * 1. Read the BMC position via readBmcPosition() to select the
-     *  correct GPIO line name (gpioLineBmc0 or gpioLineBmc1).
-     * 2. Read its value via readGpioValue().
-     * 3. Based on the GPIO value (0 = off,
-     *  1 = on, -1 = error), call publishChassisPowerState() with State::On or
-     *  State::Off (default to Off on error).
-     * 4. Return 0 on success, 1 if
-     *  publishChassisPowerState() fails. */
+    try
+    {
+        // read the BMC position
+        const auto bmcPosition = pgood_chassis_check::readBmcPositionFromDbus();
+        if (bmcPosition ==
+            pgood_chassis_check::types::BmcPosition::INVALID_VALUE)
+        {
+            pgood_chassis_check::createInformationalPel(
+                pgood_chassis_check::types::DbusFailureError::errName,
+                "pgood-chassis-check: invalid BMC position value read "
+                "from D-Bus. Updating chassis power state as off.");
+
+            // could not read the BMC position, so cannot determine which GPIO
+            // to read, assume chassis is powered off
+            return pgood_chassis_check::publishChassisPowerState(
+                pgood_chassis_check::types::PowerStateIface::State::Off);
+        }
+
+        /** @todo
+         * 1. Select GPIO pin based on BMC position and read its value via
+         * readGpioValue().
+         * 2. Based on the GPIO value (0 = off,
+         *  1 = on, -1 = error), call publishChassisPowerState() with State::On
+         * or State::Off (default to Off on error).
+         * 3. Return 0 on success, 1 if
+         *  publishChassisPowerState() fails. */
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception in main: {ERR}. Returning failure",
+            "ERR", ex.what());
+        return pgood_chassis_check::constants::failure;
+    }
     return pgood_chassis_check::constants::success;
 }
