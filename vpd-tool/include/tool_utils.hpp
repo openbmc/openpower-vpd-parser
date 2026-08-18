@@ -373,7 +373,7 @@ inline void displayOnConsole(const std::string& i_fruPath,
     l_keywordValInJson.emplace(i_keywordName, i_keywordStrValue);
     l_resultInJson.emplace(i_fruPath, l_keywordValInJson);
 
-    printJson(l_resultInJson);
+    std::ignore = printJson(l_resultInJson);
 }
 
 /**
