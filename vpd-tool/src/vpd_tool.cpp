@@ -100,8 +100,13 @@ int VpdTool::readKeyword(
 
             if (i_fileToSave.empty())
             {
-                utils::displayOnConsole(i_vpdPath, i_keywordName,
-                                        l_keywordStrValue);
+                const auto l_displayRes = utils::displayOnConsole(
+                    i_vpdPath, i_keywordName, l_keywordStrValue);
+
+                if (l_displayRes < constants::VALUE_0)
+                {
+                    return l_displayRes;
+                }
             }
             else
             {
@@ -120,8 +125,15 @@ int VpdTool::readKeyword(
                         << i_fileToSave
                         << "\nDisplaying the read value on console"
                         << std::endl;
-                    utils::displayOnConsole(i_vpdPath, i_keywordName,
-                                            l_keywordStrValue);
+
+                    const auto l_displayRes = utils::displayOnConsole(
+                        i_vpdPath, i_keywordName, l_keywordStrValue);
+
+                    if (l_displayRes < constants::VALUE_0)
+                    {
+                        return l_displayRes;
+                    }
+
                     l_rc = static_cast<int>(l_fileSaveStatus.error());
                 }
             }
