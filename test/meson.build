@@ -44,6 +44,7 @@ configuration_inc = include_directories(
 test_sources = [
     '../vpd-manager/src/logger.cpp',
     '../vpd-manager/src/ddimm_parser.cpp',
+    '../vpd-manager/src/ipmi_fru_parser.cpp',
     '../vpd-manager/src/parser.cpp',
     '../vpd-manager/src/parser_factory.cpp',
     '../vpd-manager/src/isdimm_parser.cpp',
