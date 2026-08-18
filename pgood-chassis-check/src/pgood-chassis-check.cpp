@@ -66,9 +66,86 @@ int publishChassisPowerState(
  */
 types::BmcPosition readBmcPosition() noexcept
 {
-    /** @todo Read the BMC position integer from file containing BMC position.
-     *  Return 0 as default when the file is absent, unreadable, or fails
-     *  to parse. Log a warning via lg2 for each failure mode. */
+    try
+    {
+        std::error_code ec{};
+        if (!std::filesystem::exists(constants::bmcPositionFile, ec))
+        {
+            if (ec)
+            {
+                lg2::warning(
+                    "pgood-chassis-check: could not stat '{FILE}': "
+                    "{ERR}, Returning BMC position as default value '{VALUE}'",
+                    "FILE", constants::bmcPositionFile, "ERR", ec.message(),
+                    "VALUE", types::BmcPosition::DEFAULT);
+            }
+            else
+            {
+                lg2::info("pgood-chassis-check: '{FILE}' not found, "
+                          "Returning BMC position as default value '{VALUE}",
+                          "FILE", constants::bmcPositionFile, "VALUE",
+                          types::BmcPosition::DEFAULT);
+            }
+            return types::BmcPosition::DEFAULT;
+        }
+
+        std::ifstream ifs(constants::bmcPositionFile);
+        if (!ifs)
+        {
+            lg2::warning("pgood-chassis-check: failed to open '{FILE}', "
+                         "Returning BMC position as default value '{VALUE}",
+                         "FILE", constants::bmcPositionFile, "VALUE",
+                         types::BmcPosition::DEFAULT);
+
+            return types::BmcPosition::DEFAULT;
+        }
+
+        int bmcPosition{std::to_underlying(types::BmcPosition::DEFAULT)};
+        if (!(ifs >> bmcPosition))
+        {
+            lg2::warning("pgood-chassis-check: failed to parse '{FILE}', "
+                         "Returning BMC position as default value '{VALUE}",
+                         "FILE", constants::bmcPositionFile, "VALUE",
+                         types::BmcPosition::DEFAULT);
+
+            return types::BmcPosition::DEFAULT;
+        }
+
+        ifs.close();
+
+        types::BmcPosition retVal{types::BmcPosition::DEFAULT};
+
+        switch (bmcPosition)
+        {
+            case 0:
+            {
+                retVal = types::BmcPosition::POSITION_0;
+                break;
+            }
+            case 1:
+            {
+                retVal = types::BmcPosition::POSITION_1;
+                break;
+            }
+            default:
+            {
+                retVal = types::BmcPosition::DEFAULT;
+                lg2::error(
+                    "pgood-chassis-check: invalid BMC position value '{VALUE}' read from file. Returning BMC position as default value '{DEFAULT_VALUE}'",
+                    "VALUE", bmcPosition, "DEFAULT_VALUE",
+                    types::BmcPosition::DEFAULT);
+            }
+        }
+
+        return retVal;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while trying to read BMC position from file."
+            "{ERR}. Returning BMC position as default value, '{DEFAULT_VALUE}'",
+            "ERR", ex.what(), "DEFAULT_VALUE", types::BmcPosition::DEFAULT);
+    }
     return types::BmcPosition::DEFAULT;
 }
 
