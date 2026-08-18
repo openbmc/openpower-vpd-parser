@@ -362,10 +362,12 @@ inline std::expected<bool, ErrorCode> saveToFile(
  * @param[in] i_fruPath - FRU path.
  * @param[in] i_keywordName - Keyword name.
  * @param[in] i_keywordStrValue - Keyword's value.
+ *
+ * @return 0 on success, error code in case of failure.
  */
-inline void displayOnConsole(const std::string& i_fruPath,
-                             const std::string& i_keywordName,
-                             const std::string& i_keywordStrValue)
+inline int displayOnConsole(const std::string& i_fruPath,
+                            const std::string& i_keywordName,
+                            const std::string& i_keywordStrValue)
 {
     nlohmann::json l_resultInJson = nlohmann::json::object({});
     nlohmann::json l_keywordValInJson = nlohmann::json::object({});
@@ -373,7 +375,14 @@ inline void displayOnConsole(const std::string& i_fruPath,
     l_keywordValInJson.emplace(i_keywordName, i_keywordStrValue);
     l_resultInJson.emplace(i_fruPath, l_keywordValInJson);
 
-    std::ignore = printJson(l_resultInJson);
+    const auto l_printJsonRes = printJson(l_resultInJson);
+
+    if (!l_printJsonRes)
+    {
+        return static_cast<int>(l_printJsonRes.error());
+    }
+
+    return constants::SUCCESS;
 }
 
 /**
