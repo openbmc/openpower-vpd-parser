@@ -15,6 +15,13 @@ constexpr auto positionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
 constexpr auto positionPropertyName = "Position";
 
+constexpr auto gpioLineBmc0 = "power-good-chassis1";
+constexpr auto gpioLineBmc1 = "power-good-chassis2";
+constexpr auto consumerName = "pgood-chassis-check";
+
+// D-Bus constants for the PIM Notify call
+constexpr auto pimPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimInterface = "xyz.openbmc_project.Inventory.Manager";
 } // namespace constants
 
 } // namespace pgood_chassis_check
