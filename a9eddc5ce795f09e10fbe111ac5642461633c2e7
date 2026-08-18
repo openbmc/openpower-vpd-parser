@@ -34,6 +34,24 @@
       "parentUuid": "9c84c2c9_a145a8ea",
       "revId": "a9eddc5ce795f09e10fbe111ac5642461633c2e7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20435888_0f54ceb5",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-18T14:42:50Z",
+      "side": 1,
+      "message": "The log is already there on line 229.",
+      "parentUuid": "b1f858ce_5578ca77",
+      "revId": "a9eddc5ce795f09e10fbe111ac5642461633c2e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
