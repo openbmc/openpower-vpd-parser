@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8562f7e_fcc50f3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-18T14:19:28Z",
+      "side": 1,
+      "message": "Submitting this code to fix CI failure issue \nhttps://gerrit.openbmc.org/c/openbmc/openbmc/+/93658",
+      "revId": "ec077f4523bd34a0494f100a1e1366906d883c8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
