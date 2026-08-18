@@ -16,6 +16,24 @@
       "message": "Should we declare variable as const, as it is used as input to the api.",
       "revId": "55d5658248f59595c3864fb8cfa0ba0deed4e850",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c705f8da_0eca94de",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-18T04:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3977087c_5613176a",
+      "revId": "55d5658248f59595c3864fb8cfa0ba0deed4e850",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
