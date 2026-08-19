@@ -1387,6 +1387,108 @@ inline std::string buildExpandedLc(
 }
 
 /**
+ * @brief Derives the node identifier string from a chassis ID.
+ *
+ * Maps the chassis segment of an inventory object path to the node identifier
+ * string embedded in expanded location codes:
+ *   "chassis"  (legacy, no numeric suffix) -> "N00"
+ *   "chassis0"                             -> "SC0"
+ *   "chassis1"                             -> "N00"
+ *   "chassis2"                             -> "N01"
+ *   "chassisN"                             -> "N{N-1}" (zero-padded to 2
+ * digits)
+ *
+ * @param[in] i_chassisId - Chassis ID string (e.g. "chassis", "chassis0",
+ *                          "chassis2").
+ *
+ * @return On success, returns the node identifier string. On failure, returns
+ *         an error code
+ */
+inline std::expected<std::string, error_code> getNodeIdentifierFromChassisId(
+    const std::string& i_chassisId) noexcept
+{
+    try
+    {
+        constexpr std::string_view l_prefix{"chassis"};
+
+        if (!i_chassisId.starts_with(l_prefix))
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        const std::string l_nodeNumber = i_chassisId.substr(l_prefix.size());
+
+        if (l_nodeNumber.empty())
+        {
+            // Legacy path with no numeric suffix (e.g. ".../chassis/...").
+            return "N00";
+        }
+
+        // Reject malformed suffixes like "chassis_bad" or "chassis1abc".
+        if (!std::all_of(l_nodeNumber.begin(), l_nodeNumber.end(), ::isdigit))
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        if (l_nodeNumber == "0")
+        {
+            return "SC0";
+        }
+
+        const size_t l_num = std::stoul(l_nodeNumber);
+        return std::format("N{:02}", l_num - 1);
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to get node identifier from chassis ID: {}. Error: {}",
+            i_chassisId, l_ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+/**
+ * @brief Builds a node-qualified map key from an unexpanded location code
+ * and a node number.
+ *
+ * Derives the node identifier string from @p i_nodeNumber and delegates
+ * to the string overload. Node number 0 maps to "SC0", 1 maps to "N00",
+ * 2 maps to "N01", and so on. Inserts @p i_nodeId into @p
+ *  i_unexpandedLocationCode right after the
+ * first '-' (e.g. "Ufcs-P0" -> "Ufcs-N00-P0"). If no '-' is present
+ * (bare prefix like "Ufcs"), the node identifier is appended
+ * (e.g. "Ufcs" -> "Ufcs-N00").
+ *
+ * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+ * @param[in] i_nodeNumber - Node number as received from the D-Bus caller.
+ *
+ * @return Node-qualified location code key string.
+ *
+ * @note The caller is responsible for ensuring the location code is valid (e.g.
+ * starts with "Ufcs" or "Umts" and meets the minimum length requirement) before
+ * invoking this function. Use isValidUnexpandedLocationCode() to validate
+ * beforehand.
+ */
+inline std::string buildNodeQualifiedLocCodeKey(
+    const std::string& i_unexpandedLocationCode,
+    const uint16_t i_nodeNumber) noexcept
+{
+    const std::string l_nodeId =
+        (i_nodeNumber == constants::VALUE_0)
+            ? "SC0"
+            : std::format("N{:02}", static_cast<size_t>(i_nodeNumber - 1));
+
+    const auto l_dashPos = i_unexpandedLocationCode.find('-');
+    if (l_dashPos != std::string::npos)
+    {
+        return i_unexpandedLocationCode.substr(0, l_dashPos + 1) + l_nodeId +
+               "-" + i_unexpandedLocationCode.substr(l_dashPos + 1);
+    }
+
+    return i_unexpandedLocationCode + "-" + l_nodeId;
+}
+
+/**
  * @brief Expands an FCS-type unexpanded location code.
  *
  * Tries to read FC and SE keywords from D-Bus (vcenInf) first:
@@ -1529,42 +1631,21 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
             return std::unexpected(error_code::INVALID_KEYWORD_LENGTH);
         }
     }
+    const auto l_nodeIdentifierResult =
+        vpdSpecificUtility::getNodeIdentifierFromChassisId(l_chassisId);
 
-    const std::string l_nodeNumber =
-        l_chassisId.substr(std::string_view{"chassis"}.size());
-
-    // Check if l_nodeNumber read is a valid value.
-    if (!l_nodeNumber.empty() &&
-        !std::all_of(l_nodeNumber.begin(), l_nodeNumber.end(), ::isdigit))
+    if (!l_nodeIdentifierResult.has_value())
     {
-        Logger::getLoggerInstance()->logMessage(
-            std::format("Invalid node value: {} read from inventory path: {}",
-                        l_nodeNumber, i_inventoryPath));
-        return std::unexpected(error_code::INVALID_INVENTORY_PATH);
-    }
-
-    std::string l_nodeIdentifier;
-    if (l_nodeNumber.empty())
-    {
-        // Legacy object paths carry no numeric suffix on the chassis segment
-        // (e.g. ".../chassis/..."). Default to "N00" so that location-code
-        // expansion still succeeds for such systems.
-        l_nodeIdentifier = "N00";
-    }
-    else if (l_nodeNumber == "0")
-    {
-        l_nodeIdentifier = "SC0";
-    }
-    else
-    {
-        const int l_nodeNum = std::stoi(l_nodeNumber) - constants::VALUE_1;
-        l_nodeIdentifier = "N" + (l_nodeNum < constants::VALUE_10
-                                      ? "0" + std::to_string(l_nodeNum)
-                                      : std::to_string(l_nodeNum));
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Invalid node value read from inventory path: {}. "
+            "Error: {}",
+            i_inventoryPath,
+            commonUtility::getErrCodeMsg(l_nodeIdentifierResult.error())));
+        return std::unexpected(l_nodeIdentifierResult.error());
     }
 
     return buildExpandedLc(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
-                           l_seKwdValue, l_nodeIdentifier);
+                           l_seKwdValue, l_nodeIdentifierResult.value());
 }
 
 /**
