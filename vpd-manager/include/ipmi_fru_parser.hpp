@@ -99,6 +99,15 @@ class IpmiFruParser final : public ParserInterface
     /** Common Header size in bytes (always 8). */
     static constexpr size_t COMMON_HEADER_SIZE = 8;
 
+    /** Multiplier to convert offset units to actual byte offsets. */
+    static constexpr size_t AREA_OFFSET_MULTIPLIER = 8U;
+
+    /** End-of-fields sentinel byte in the IPMI FRU type/length stream. */
+    static constexpr uint8_t FIELD_END_SENTINEL = 0xC1;
+
+    /** Size in bytes of one MultiRecord area header. */
+    static constexpr size_t MULTIRECORD_HEADER_SIZE = 5;
+
     /* ------------------------------------------------------------------ */
     /* Internal helpers                                                    */
     /* ------------------------------------------------------------------ */
@@ -114,6 +123,19 @@ class IpmiFruParser final : public ParserInterface
      * otherwise sets error code.
      */
     std::expected<AreaByteOffsets, error_code> processCommonHeader() noexcept;
+
+    /**
+     * @brief Compute the IPMI zero-checksum over a contiguous byte range.
+     *
+     * Returns the modulo-256 sum of all bytes.  A valid checksum region
+     * (data bytes + stored checksum byte) must sum to 0.
+     *
+     * @param[in] i_begin - Start of the byte range.
+     * @param[in] i_end   - One-past-end of the byte range.
+     * @return uint8_t - Modulo-256 sum.
+     */
+    uint8_t computeChecksum(types::BinaryVector::const_iterator i_begin,
+                            types::BinaryVector::const_iterator i_end) const;
 
     /**
      * @brief Parse the Internal Use Area format
