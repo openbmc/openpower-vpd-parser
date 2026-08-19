@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f93ca5a0_de2901e2",
+        "filename": "pgood-chassis-check/include/constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T05:24:06Z",
+      "side": 1,
+      "message": "They are used in the next patch. Removed from this one.",
+      "parentUuid": "67c4ad33_5492c7a9",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eecd604b_e3d91414",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-19T04:17:10Z",
       "side": 1,
       "message": "would be better if the api had the mention of file like readBmcPositionFromFile()\nbecause we could have readBmcPositionFromHardware() also maybe",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb3a077_8e32cfd2",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T05:24:06Z",
+      "side": 1,
+      "message": "The documentation on line 62 does explain that the BMC position is read from file.",
+      "parentUuid": "eecd604b_e3d91414",
       "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f908b083_e2235bf6",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T05:24:06Z",
+      "side": 1,
+      "message": "Addressed. Now initializing the value with `INVALID_VALUE` (-1).",
+      "parentUuid": "1386cf9a_e8d7cbf9",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5a8ddcb_e844117e",
         "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
         "patchSetId": 1
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94250265_8e0678b6",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T05:24:06Z",
+      "side": 1,
+      "message": "Addressed. In case of edge case scenarios like values other than 0 or 1 read from file, this API will return `INVALID_VALUE` (-1).",
+      "parentUuid": "a5a8ddcb_e844117e",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7777f56_aadcee01",
         "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2026-08-19T04:17:10Z",
       "side": 1,
       "message": "move the return value from below into here",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "052d1a5d_d2c036d5",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T05:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7777f56_aadcee01",
       "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
