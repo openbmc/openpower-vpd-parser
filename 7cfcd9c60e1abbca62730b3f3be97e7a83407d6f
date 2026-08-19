@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18d5ac74_8527c8c3",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T09:40:09Z",
+      "side": 1,
+      "message": "I see it is added to `erorMsgMap`, but do not see code using this error type.",
+      "parentUuid": "9cc5b045_7eae0c38",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c989e65_0acd96d5",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 34
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "It is different problem-\nINVALID_INPUT_PARAMETER should be defined in errorType and errorMsgMap.\n\u003e getVpdDataInVector can return error_code::INVALID_INPUT_PARAMETER",
       "parentUuid": "5c989e65_0acd96d5",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0927b28_bbfd44f2",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T09:40:09Z",
+      "side": 1,
+      "message": "I do not agree.  `SystemException` class is meant for handling system-level (errno) exceptions.\n`INVALID_INPUT_PARAMETER` is not a system level exception. So I think we should not construct `SystemException` object using `INVALID_INPUT_PARAMETER`",
+      "parentUuid": "f310857c_bce3a415",
       "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
