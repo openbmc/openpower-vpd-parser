@@ -27,7 +27,8 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
-    m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
+    m_ioContext(ioCon),
+    m_interface(iFace), m_progressInterface(progressiFace),
     m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
     m_logger->setConn(m_asioConnection);
@@ -575,8 +576,7 @@ bool Manager::isValidUnexpandedLocationCode(
 }
 
 std::string Manager::getExpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -597,26 +597,25 @@ std::string Manager::getExpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+    const auto l_nodeLocCodeKey =
+        vpdSpecificUtility::buildNodeQualifiedLocCodeKey(
+            i_unexpandedLocationCode, i_nodeNumber);
 
-    if (!l_inventoryPathsResult.has_value())
+    const auto l_inventoryPathResult =
+        m_configManager->getInventoryPath(l_nodeLocCodeKey);
+
+    if (!l_inventoryPathResult.has_value())
     {
         m_logger->logMessage(std::format(
             "Failed to get inventory path corresponding to location code {}. Error: {}",
             i_unexpandedLocationCode,
-            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+            commonUtility::getErrCodeMsg(l_inventoryPathResult.error())));
 
         throw types::DbusInvalidArgument();
     }
 
-    /*
-        - select one inventory path
-        - use selected inventory path to get expanded location code from D-Bus
-    */
-
     auto l_dbusReadRes = dbusUtility::readDbusProperty(
-        constants::pimServiceName, l_inventoryPathsResult.value().at(0),
+        constants::pimServiceName, l_inventoryPathResult.value(),
         constants::locationCodeInf, "LocationCode");
 
     const auto l_expandedLocationCodeRes =
@@ -638,8 +637,7 @@ std::string Manager::getExpandedLocationCode(
 }
 
 types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -660,24 +658,26 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+    const auto l_nodeLocCodeKey =
+        vpdSpecificUtility::buildNodeQualifiedLocCodeKey(
+            i_unexpandedLocationCode, i_nodeNumber);
 
-    if (!l_inventoryPathsResult.has_value())
+    const auto l_inventoryPathResult =
+        m_configManager->getInventoryPath(l_nodeLocCodeKey);
+
+    if (!l_inventoryPathResult.has_value())
     {
         //@todo: a PEL used to be logged here using deprecated
         // phosphor::logging::elog API. Should we still log a PEL here?
         m_logger->logMessage(std::format(
             "Failed to get inventory paths for unexpanded location code: {}. Error: {}",
             i_unexpandedLocationCode,
-            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+            commonUtility::getErrCodeMsg(l_inventoryPathResult.error())));
 
         throw types::DbusInvalidArgument();
     }
-    else
-    {
-        return l_inventoryPathsResult.value();
-    }
+
+    return types::ListOfPaths{l_inventoryPathResult.value()};
 }
 
 types::EepromPathList Manager::getHwPath(
