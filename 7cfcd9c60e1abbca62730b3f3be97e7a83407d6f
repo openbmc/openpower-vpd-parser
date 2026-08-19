@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cc5b045_7eae0c38",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T05:41:00Z",
+      "side": 1,
+      "message": "yes, all these errors types are being added to handle file error, being used in errorMsgMap.",
+      "parentUuid": "dd7a18b5_5a7067da",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c989e65_0acd96d5",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 34
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-18T14:09:23Z",
       "side": 1,
       "message": "`getVpdDataInVector` can return `error_code::INVALID_INPUT_PARAMETER` (value \u003d 2033). When we construct `SystemException` object here with value 2033, `SystemException::getErrorType()` will hit default condition and return `EssentialFru` as error type. So even for non-essential FRUs we end up creating a PEL with error type as \"EssentialFru\" which can be misleading.",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f310857c_bce3a415",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T05:41:00Z",
+      "side": 1,
+      "message": "It is different problem-\nINVALID_INPUT_PARAMETER should be defined in errorType and errorMsgMap.\n\u003e getVpdDataInVector can return error_code::INVALID_INPUT_PARAMETER",
+      "parentUuid": "5c989e65_0acd96d5",
       "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
