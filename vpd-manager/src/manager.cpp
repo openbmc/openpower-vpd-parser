@@ -575,8 +575,7 @@ bool Manager::isValidUnexpandedLocationCode(
 }
 
 std::string Manager::getExpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -597,8 +596,8 @@ std::string Manager::getExpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+    const auto l_inventoryPathsResult = m_configManager->getInventoryPaths(
+        i_unexpandedLocationCode, i_nodeNumber);
 
     if (!l_inventoryPathsResult.has_value())
     {
@@ -609,9 +608,8 @@ std::string Manager::getExpandedLocationCode(
 
         throw types::DbusInvalidArgument();
     }
-
     /*
-        - select one inventory path
+       - select one inventory path
         - use selected inventory path to get expanded location code from D-Bus
     */
 
@@ -638,8 +636,7 @@ std::string Manager::getExpandedLocationCode(
 }
 
 types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -660,8 +657,8 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+    const auto l_inventoryPathsResult = m_configManager->getInventoryPaths(
+        i_unexpandedLocationCode, i_nodeNumber);
 
     if (!l_inventoryPathsResult.has_value())
     {
