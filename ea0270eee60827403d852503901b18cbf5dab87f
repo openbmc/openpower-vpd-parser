@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b4ad96_91e18037",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "If we need to collect from redundant, shall we not do getEffectiveFruPath ?\nSame as primary path?",
+      "range": {
+        "startLine": 657,
+        "startChar": 8,
+        "endLine": 658,
+        "endChar": 44
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a95a13_0e238310",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "Here we know what is i_fruPath. we should call setDeviceTreeAndJson() here.",
+      "range": {
+        "startLine": 677,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 16
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b0cd3f1_b80601e6",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "this will be gone - 695-718.\nAlready done in new method.",
+      "range": {
+        "startLine": 695,
+        "startChar": 2,
+        "endLine": 718,
+        "endChar": 0
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ee3e5f_e9e47a13",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "shall we update it to i_fruPath. It can be primary or Redundant.",
+      "range": {
+        "startLine": 743,
+        "startChar": 7,
+        "endLine": 743,
+        "endChar": 28
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7f0875_4aae643c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "same as 743",
+      "range": {
+        "startLine": 749,
+        "startChar": 41,
+        "endLine": 749,
+        "endChar": 61
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe1fde4_9d1d4e9a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "we are logging error as \"Mandatory value for device tree missing from JSON[{}]\", and continuing. \nIT is conflicting.\nEither it is NOT mandatory OR we should throw a json error.",
+      "range": {
+        "startLine": 758,
+        "startChar": 5,
+        "endLine": 758,
+        "endChar": 38
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e577af1_a8ab3a8b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "i_fruPath?",
+      "range": {
+        "startLine": 782,
+        "startChar": 53,
+        "endLine": 782,
+        "endChar": 74
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d2fb20_ec70cf97",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "We only logged the error in called method, but we should update the status too as failed.\nwe are already doing it in 878-914.\nShall we not utilise it by throwing? \n\nIN getParsedSystemVpd() - instead of returning false with critical PEL - just throw and here catch will log the critical PEL.",
+      "range": {
+        "startLine": 849,
+        "startChar": 12,
+        "endLine": 849,
+        "endChar": 19
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9bd67a_053ef224",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T06:45:17Z",
+      "side": 1,
+      "message": "Now , we need to know, which FRU path VPD was collected in getParsedSystemVpd.\nCan we call  setDeviceTreeAndJson from getParsedSystemVpd(), once Vpd is collected.\nOtherwise anyway it will throw back.",
+      "range": {
+        "startLine": 852,
+        "startChar": 29,
+        "endLine": 852,
+        "endChar": 49
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
