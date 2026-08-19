@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d953ae07_2957861a",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:22:02Z",
+      "side": 1,
+      "message": "Lets not tie it up with only VPD collection.\nLets this service log what it detects. Use case is something out of scope of this service.",
+      "range": {
+        "startLine": 191,
+        "startChar": 120,
+        "endLine": 191,
+        "endChar": 157
+      },
+      "revId": "31a919c0795eaeef53c3f0fc9d290912f161f319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
