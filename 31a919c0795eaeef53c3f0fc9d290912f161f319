@@ -22,6 +22,30 @@
       },
       "revId": "31a919c0795eaeef53c3f0fc9d290912f161f319",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "746acd15_9d0fc017",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-19T08:04:49Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "d953ae07_2957861a",
+      "range": {
+        "startLine": 191,
+        "startChar": 120,
+        "endLine": 191,
+        "endChar": 157
+      },
+      "revId": "31a919c0795eaeef53c3f0fc9d290912f161f319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
