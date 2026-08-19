@@ -3,6 +3,7 @@
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <algorithm>
 #include <filesystem>
@@ -265,7 +266,7 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
         // build unexpanded location code to inventory path map
-        return buildLocCodeToInvPathsMap(l_subFruJsonArray);
+        return buildLocCodeToInvPathsMap(l_subFruJsonArray, l_chassisId);
     }
     catch (const std::exception& l_ex)
     {
@@ -277,10 +278,24 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
 }
 
 std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
-    const auto& i_subFruJsonArray) noexcept
+    const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept
 {
     try
     {
+        const auto l_nodeIdResult =
+            vpdSpecificUtility::getNodeIdentifierFromChassisId(i_chassisId);
+
+        if (!l_nodeIdResult.has_value())
+        {
+            m_logger->logMessage(std::format(
+                "Failed to get node identifier for chassis ID: {}. Error: {}",
+                i_chassisId,
+                commonUtility::getErrCodeMsg(l_nodeIdResult.error())));
+            return std::unexpected(l_nodeIdResult.error());
+        }
+
+        const std::string& l_nodeId = l_nodeIdResult.value();
+
         for (const auto& l_subFruJson : i_subFruJsonArray)
         {
             // get the inventory path
@@ -293,8 +308,22 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
                     getUnexpandedLocationCodeForFru(l_subFruJson);
                 if (l_locationCode.has_value())
                 {
-                    m_unexpandedLocCodeToInvPathsMap[l_locationCode.value()]
-                        .emplace_back(l_inventoryPath);
+                    std::string l_mapKey = l_locationCode.value();
+                    // Only insert the node identifier if the location code is
+                    // long enough to contain a valid prefix (e.g. "Ufcs").
+                    if (l_mapKey.length() >=
+                        constants::UNEXP_LOCATION_CODE_MIN_LENGTH)
+                    {
+                        // Unexpanded location codes have the form "Ufcs-..." or
+                        // "Umts-...". Insert the node identifier after the
+                        // 4-character prefix so the key becomes
+                        // "Ufcs-<nodeId>-..." making each node's location code
+                        // unique in the map.
+                        l_mapKey.insert(constants::VALUE_4, "-" + l_nodeId);
+                        m_unexpandedLocCodeToInvPathsMap[l_mapKey] = {
+                            sdbusplus::object_path{
+                                std::string{l_inventoryPath}}};
+                    }
                 }
                 else
                 {
