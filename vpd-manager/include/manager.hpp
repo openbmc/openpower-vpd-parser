@@ -157,10 +157,13 @@ class Manager
      * invalid argument.
      *
      * @return Location code of the FRU.
+     *
+     * @note We currently support a maximum of 12 nodes because the patch
+     * panel supports a maximum of 12 sleds.
      */
     std::string getExpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get D-Bus object path of FRUs from expanded location code.
@@ -195,7 +198,7 @@ class Manager
      */
     types::ListOfPaths getFrusByUnexpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get Hardware path

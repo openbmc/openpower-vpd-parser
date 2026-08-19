@@ -93,6 +93,7 @@ static constexpr auto VALUE_7 = 7;
 static constexpr auto VALUE_8 = 8;
 static constexpr auto VALUE_10 = 10;
 static constexpr auto VALUE_21 = 21;
+static constexpr auto VALUE_12 = 12;
 
 static constexpr auto MASK_BYTE_BITS_01 = 0x03;
 static constexpr auto MASK_BYTE_BITS_345 = 0x38;
