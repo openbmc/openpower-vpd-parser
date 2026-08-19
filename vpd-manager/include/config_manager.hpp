@@ -113,7 +113,8 @@ class ConfigManager final
             const noexcept;
 
     /**
-     * @brief API to get inventory path(s) for given unexpanded location code
+     * @brief API to get inventory path(s) for a given node-qualified unexpanded
+     * location code.
      *
      * This API returns inventory path(s) for given unexpanded location code. An
      * unexpanded location code can map to single or multiple inventory paths,
@@ -121,7 +122,8 @@ class ConfigManager final
      *
      * @param[in] i_unexpandedLocationCode - Unexpanded location code
      *
-     * @return Vector containing matching inventory paths, error code otherwise.
+     * @return Vector containing matching inventory path(s), error code
+     *         otherwise.
      */
     std::expected<types::ListOfPaths, error_code> getInventoryPaths(
         const std::string& i_unexpandedLocationCode) const noexcept;
@@ -285,15 +287,21 @@ class ConfigManager final
     /**
      * @brief API to build location code to inventory path(s) map for a FRU
      *
-     * This API builds following configuration maps for a given FRU :
-     * - Unexpanded location code to inventory path(s) map
+     * This API builds the unexpanded location code to inventory path(s) map.
+     * The node identifier is inserted after prefix "Ufcs/Umts".
+     * of the location code to form a unique map key per (loc-code, node):
+     *   "chassis"  (legacy, no suffix) -> inserts "N00"
+     *   "chassis0"                     -> inserts "SC0"
+     *   "chassis1"                     -> inserts "N00"
+     *   "chassis2"                     -> inserts "N01"  etc.
      *
      * @param[in] i_subFruJsonArray - Sub FRU JSON array
+     * @param[in] i_chassisId - Chassis ID for the FRU
      *
      * @return On success, returns true, otherwise sets error code
      */
     std::expected<bool, error_code> buildLocCodeToInvPathsMap(
-        const auto& i_subFruJsonArray) noexcept;
+        const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept;
 
     /**
      * @brief Extract chassis ID from given inventory object path.
@@ -385,9 +393,9 @@ class ConfigManager final
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
 
-    // Unexpanded location code to inventory paths map - O(1) lookup
-    // since same location code can be mapped to multiple
-    // inventory paths, use a vector of paths as the value
+    // Node-qualified unexpanded location code to inventory paths map - O(1)
+    // lookup. The key is the unexpanded location code with the node identifier
+    // inserted after prefix "Ufcs/Umts"
     std::unordered_map<std::string, types::ListOfPaths>
         m_unexpandedLocCodeToInvPathsMap;
 
