@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904c1dc4_c1e89280",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "Why it can be confusing?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb6345c_93ef8c64",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "This needs to be wrapped in one line mostly.",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3348dc07_08129b27",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "Can be const?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53dea327_66ad9299",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "Can we use reference?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b57fae4_d575127f",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "Same here, avoid copying the string.",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71874c23_571b71d4",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T08:25:04Z",
+      "side": 1,
+      "message": "This is at 6th level of indentation. Can we do something about that?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
