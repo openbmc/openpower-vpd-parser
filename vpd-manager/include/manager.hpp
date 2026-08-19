@@ -160,7 +160,7 @@ class Manager
      */
     std::string getExpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get D-Bus object path of FRUs from expanded location code.
@@ -195,7 +195,7 @@ class Manager
      */
     types::ListOfPaths getFrusByUnexpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get Hardware path
