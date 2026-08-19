@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c75eac56_b8262e98",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T15:26:20Z",
+      "side": 1,
+      "message": "Being used in system exception - \n default:\n                return types::ErrorType::FileOpenError;",
+      "parentUuid": "18d5ac74_8527c8c3",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c989e65_0acd96d5",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "I do not agree.  `SystemException` class is meant for handling system-level (errno) exceptions.\n`INVALID_INPUT_PARAMETER` is not a system level exception. So I think we should not construct `SystemException` object using `INVALID_INPUT_PARAMETER`",
       "parentUuid": "f310857c_bce3a415",
+      "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b7df36a_d5405c09",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T15:26:20Z",
+      "side": 1,
+      "message": "if (l_errCode \u003d\u003d error_code::INVALID_INPUT_PARAMETER) handled separately.",
+      "parentUuid": "b0927b28_bbfd44f2",
       "revId": "7cfcd9c60e1abbca62730b3f3be97e7a83407d6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
