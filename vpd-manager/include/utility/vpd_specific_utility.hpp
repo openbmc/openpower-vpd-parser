@@ -1385,6 +1385,60 @@ inline std::string buildExpandedLc(
 }
 
 /**
+ * @brief Derives the node identifier string from a chassis ID.
+ *
+ * Maps the chassis segment of an inventory object path to the node identifier
+ * string embedded in expanded location codes:
+ *   "chassis"  (legacy, no numeric suffix) -> "N00"
+ *   "chassis0"                             -> "SC0"
+ *   "chassis1"                             -> "N00"
+ *   "chassis2"                             -> "N01"
+ *   "chassisN"                             -> "N{N-1}" (zero-padded to 2
+ * digits)
+ *
+ * @param[in] i_chassisId - Chassis ID string (e.g. "chassis", "chassis0",
+ *                          "chassis2").
+ *
+ * @return Node identifier string. Returns an empty string for an unrecognised
+ *         or malformed chassis ID.
+ */
+inline std::string getNodeIdentifierFromChassisId(
+    const std::string& i_chassisId)
+{
+    constexpr std::string_view l_prefix{"chassis"};
+
+    if (!i_chassisId.starts_with(l_prefix))
+    {
+        return {};
+    }
+
+    const std::string l_nodeNumber = i_chassisId.substr(l_prefix.size());
+
+    if (l_nodeNumber.empty())
+    {
+        // Legacy path with no numeric suffix (e.g. ".../chassis/...").
+        return "N00";
+    }
+
+    if (l_nodeNumber == "0")
+    {
+        return "SC0";
+    }
+
+    try
+    {
+        size_t l_num = std::stoul(l_nodeNumber);
+        return std::format("N{:02}", l_num - 1);
+    }
+    catch (const std::exception& e)
+    {
+        // If someone passes "chassis_bad_data", catch it safely instead of
+        // crashing
+        return {};
+    }
+}
+
+/**
  * @brief Expands an FCS-type unexpanded location code.
  *
  * Tries to read FC and SE keywords from D-Bus (vcenInf) first:
@@ -1527,27 +1581,8 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
             return std::unexpected(error_code::INVALID_KEYWORD_LENGTH);
         }
     }
-
-    const std::string l_nodeNumber =
-        l_chassisId.substr(std::string_view{"chassis"}.size());
-
-    std::string l_nodeIdentifier;
-    if (l_nodeNumber.empty())
-    {
-        // Legacy object paths carry no numeric suffix on the chassis segment
-        // (e.g. ".../chassis/..."). Default to "N00" so that location-code
-        // expansion still succeeds for such systems.
-        l_nodeIdentifier = "N00";
-    }
-    else if (l_nodeNumber == "0")
-    {
-        l_nodeIdentifier = "SC0";
-    }
-    else
-    {
-        l_nodeIdentifier = "N" + (l_nodeNumber.size() == 1 ? "0" + l_nodeNumber
-                                                           : l_nodeNumber);
-    }
+    const std::string l_nodeIdentifier =
+        vpdSpecificUtility::getNodeIdentifierFromChassisId(l_chassisId);
 
     return buildExpandedLc(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
                            l_seKwdValue, l_nodeIdentifier);
