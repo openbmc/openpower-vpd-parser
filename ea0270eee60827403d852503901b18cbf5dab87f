@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2f4b4ec_27981fbb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:09:45Z",
+      "side": 1,
+      "message": "Not required as getEffectiveFruPath is only applicable in split mode where there will be no concept of redundant.",
+      "parentUuid": "16b4ad96_91e18037",
+      "range": {
+        "startLine": 657,
+        "startChar": 8,
+        "endLine": 658,
+        "endChar": 44
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61a95a13_0e238310",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 4
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d00675a_999d1f69",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:09:45Z",
+      "side": 1,
+      "message": "Yes can be done but there is no upside of clubbing those functions so I would say better approach is to keep function limited to single functionality.",
+      "parentUuid": "61a95a13_0e238310",
+      "range": {
+        "startLine": 677,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 16
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b0cd3f1_b80601e6",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2026-08-19T06:45:17Z",
       "side": 1,
       "message": "this will be gone - 695-718.\nAlready done in new method.",
+      "range": {
+        "startLine": 695,
+        "startChar": 2,
+        "endLine": 718,
+        "endChar": 0
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb22d36_ed7d48a4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:09:45Z",
+      "side": 1,
+      "message": "These modifications you will have to check, I have not gone through these clean ups.\nI was just checking with some basic changes if the approach works.",
+      "parentUuid": "1b0cd3f1_b80601e6",
       "range": {
         "startLine": 695,
         "startChar": 2,
@@ -187,6 +259,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24bfe05e_178e66f2",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:09:45Z",
+      "side": 1,
+      "message": "What I have pushed here is a very high level approach to check if it can be done this way.This is not the full solution. So you can always look into these modifications on top of this approach and then we can review those changes.\nJust to note if you throw from here then you need some mechanism in catch to detect the failure and based on that take appropriate action.",
+      "parentUuid": "53d2fb20_ec70cf97",
+      "range": {
+        "startLine": 849,
+        "startChar": 12,
+        "endLine": 849,
+        "endChar": 19
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c9bd67a_053ef224",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 4
@@ -198,6 +294,30 @@
       "writtenOn": "2026-08-19T06:45:17Z",
       "side": 1,
       "message": "Now , we need to know, which FRU path VPD was collected in getParsedSystemVpd.\nCan we call  setDeviceTreeAndJson from getParsedSystemVpd(), once Vpd is collected.\nOtherwise anyway it will throw back.",
+      "range": {
+        "startLine": 852,
+        "startChar": 29,
+        "endLine": 852,
+        "endChar": 49
+      },
+      "revId": "ea0270eee60827403d852503901b18cbf5dab87f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c6cfcd_8cacd462",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-19T07:09:45Z",
+      "side": 1,
+      "message": "You can use std::expected to solve this concern where the API \"getParsedSystemVpd\" can return the path which succeeded in collection case else send you a specific error code to state that system VPD collection failed?",
+      "parentUuid": "3c9bd67a_053ef224",
       "range": {
         "startLine": 852,
         "startChar": 29,
