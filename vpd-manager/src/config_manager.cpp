@@ -265,7 +265,7 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
         // build unexpanded location code to inventory path map
-        return buildLocCodeToInvPathsMap(l_subFruJsonArray);
+        return buildLocCodeToInvPathsMap(l_subFruJsonArray, l_chassisId);
     }
     catch (const std::exception& l_ex)
     {
@@ -277,10 +277,25 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
 }
 
 std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
-    const auto& i_subFruJsonArray) noexcept
+    const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept
 {
     try
     {
+        // Static map mapping exact chassis IDs to their node identifiers
+        const std::unordered_map<std::string, std::string> l_chassisToNodeId = {
+            {"chassis", "N00"},  {"chassis0", "SC0"}, {"chassis1", "N00"},
+            {"chassis2", "N01"}, {"chassis3", "N02"}, {"chassis4", "N03"},
+            {"chassis5", "N04"}, {"chassis6", "N05"}, {"chassis7", "N06"},
+            {"chassis8", "N07"}};
+
+        // Derive the node identifier from the map.
+        const std::string l_nodeId;
+        if (auto l_it = l_chassisToNodeId.find(i_chassisId);
+            l_it != l_chassisToNodeId.end())
+        {
+            l_nodeId = l_it->second;
+        }
+
         for (const auto& l_subFruJson : i_subFruJsonArray)
         {
             // get the inventory path
@@ -293,8 +308,15 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
                     getUnexpandedLocationCodeForFru(l_subFruJson);
                 if (l_locationCode.has_value())
                 {
-                    m_unexpandedLocCodeToInvPathsMap[l_locationCode.value()]
-                        .emplace_back(l_inventoryPath);
+                    std::string l_mapKey = l_locationCode.value();
+                    if (l_mapKey.length() >=
+                        constants::UNEXP_LOCATION_CODE_MIN_LENGTH)
+                    {
+                        l_mapKey.insert(constants::VALUE_4, "-" + l_nodeId);
+                        m_unexpandedLocCodeToInvPathsMap[l_mapKey] = {
+                            sdbusplus::object_path{
+                                std::string{l_inventoryPath}}};
+                    }
                 }
                 else
                 {

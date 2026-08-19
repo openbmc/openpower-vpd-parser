@@ -574,9 +574,26 @@ bool Manager::isValidUnexpandedLocationCode(
     return true;
 }
 
+std::string Manager::generateLocationCodeKey(
+    const std::string& i_unexpandedLocCode,
+    const uint16_t i_nodeNumber) const noexcept
+{
+    std::string l_nodeId;
+    if (i_nodeNumber == 0)
+    {
+        l_nodeId = "SC0";
+    }
+    else
+    {
+        l_nodeId = std::format("N{:02}", static_cast<size_t>(i_nodeNumber - 1));
+    }
+
+    return i_unexpandedLocCode.substr(0, 4) + "-" + l_nodeId +
+           i_unexpandedLocCode.substr(4);
+}
+
 std::string Manager::getExpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -597,8 +614,11 @@ std::string Manager::getExpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
+    const auto l_nodeLocCodeKey =
+        generateLocationCodeKey(i_unexpandedLocationCode, i_nodeNumber);
+
     const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+        m_configManager->getInventoryPaths(l_nodeLocCodeKey);
 
     if (!l_inventoryPathsResult.has_value())
     {
@@ -611,7 +631,7 @@ std::string Manager::getExpandedLocationCode(
     }
 
     /*
-        - select one inventory path
+       - select one inventory path
         - use selected inventory path to get expanded location code from D-Bus
     */
 
@@ -638,8 +658,7 @@ std::string Manager::getExpandedLocationCode(
 }
 
 types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
-    const std::string& i_unexpandedLocationCode,
-    [[maybe_unused]] const uint16_t i_nodeNumber)
+    const std::string& i_unexpandedLocationCode, const uint16_t i_nodeNumber)
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
@@ -660,8 +679,11 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
+    const auto l_nodeLocCodeKey =
+        generateLocationCodeKey(i_unexpandedLocationCode, i_nodeNumber);
+
     const auto l_inventoryPathsResult =
-        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+        m_configManager->getInventoryPaths(l_nodeLocCodeKey);
 
     if (!l_inventoryPathsResult.has_value())
     {
