@@ -41,8 +41,38 @@
 #include "constants.hpp"
 #include "utility/common_utility.hpp"
 
+#include <format>
+#include <numeric>
+
 namespace vpd
 {
+
+/* ========================================================================= */
+/* Private helpers                                                            */
+/* ========================================================================= */
+
+std::expected<uint8_t, error_code> IpmiFruParser::computeChecksum(
+    types::BinaryVector::const_iterator i_begin,
+    types::BinaryVector::const_iterator i_end) const noexcept
+{
+    try
+    {
+        // sum all bytes mod 256
+        const uint8_t l_sum =
+            std::accumulate(i_begin, i_end, static_cast<uint8_t>(0),
+                            [](uint8_t l_acc, uint8_t l_byte) {
+                                return static_cast<uint8_t>(l_acc + l_byte);
+                            });
+        // return the two's complement
+        return static_cast<uint8_t>(-l_sum);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Error while computing checksum: {}", l_ex.what()));
+        return std::unexpected(error_code::INVALID_CHECKSUM_VALUE);
+    }
+}
 
 /* ========================================================================= */
 /* Area parsers                                                               */
@@ -51,12 +81,52 @@ namespace vpd
 std::expected<IpmiFruParser::AreaByteOffsets, error_code>
     IpmiFruParser::processCommonHeader() noexcept
 {
-    IpmiFruParser::AreaByteOffsets l_result{};
+    // Validate the Common Header zero checksum: the modulo-256 sum of all 8
+    // header bytes must be 0.
+    auto l_checksumResult = computeChecksum(
+        m_vpdVector.cbegin(),
+        m_vpdVector.cbegin() + static_cast<ptrdiff_t>(COMMON_HEADER_SIZE));
+    // error while computing checksum
+    if (!l_checksumResult)
+    {
+        return std::unexpected(l_checksumResult.error());
+    }
+    // checksum value is not zero
+    if (*l_checksumResult != constants::VALUE_0)
+    {
+        return std::unexpected(error_code::INVALID_CHECKSUM_VALUE);
+    }
 
-    // @todo:
-    // parse the Common Header section
-    // get individual area byte offsets by multiplying by 8
-    // compute and validate checksum
+    // Helper: convert an IpmiVpdAreaIndex enumerator to size_t once,
+    // used both as the result-array subscript and as the Common Header
+    // byte index (the spec places each area's offset byte at the same
+    // position as the area's enum value).
+    constexpr auto toIdx = [](types::IpmiVpdAreaIndex i_area) constexpr {
+        return static_cast<size_t>(i_area);
+    };
+
+    // l_result is zero-initialised, so COMMON_HEADER's byte offset (0) is
+    // already correct.  The remaining areas are read from the Common Header:
+    // the spec places each area's offset byte at the same position as the
+    // area's enum ordinal, so a single loop covers all of them.
+    IpmiFruParser::AreaByteOffsets l_result{};
+    for (size_t l_i = toIdx(types::IpmiVpdAreaIndex::INTERNAL_USE_AREA);
+         l_i < toIdx(types::IpmiVpdAreaIndex::SIZE); ++l_i)
+    {
+        l_result[l_i] =
+            static_cast<size_t>(m_vpdVector[l_i]) * AREA_OFFSET_MULTIPLIER;
+    }
+
+    // Store the Common Header area map with the format-version byte.
+    {
+        types::IPMIVpdValueMap l_hdrMap;
+        l_hdrMap.emplace(
+            "HEADER_FormatVersion",
+            types::KWdVPDValueType{types::BinaryVector{m_vpdVector[0]}});
+        m_fruMap[toIdx(types::IpmiVpdAreaIndex::COMMON_HEADER)] =
+            std::move(l_hdrMap);
+    }
+
     return l_result;
 }
 
