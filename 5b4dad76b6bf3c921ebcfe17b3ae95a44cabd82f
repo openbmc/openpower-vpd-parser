@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399f4c85_624d2cdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-19T14:59:09Z",
+      "side": 1,
+      "message": "the caller decides what value to publish, so should we say like - chassis power state is published as \"off\" if invalid is recieved.",
+      "revId": "5b4dad76b6bf3c921ebcfe17b3ae95a44cabd82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf0db52_abbf0e7b",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-19T14:59:09Z",
+      "side": 1,
+      "message": "should we log a PEL here ?",
+      "revId": "5b4dad76b6bf3c921ebcfe17b3ae95a44cabd82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
