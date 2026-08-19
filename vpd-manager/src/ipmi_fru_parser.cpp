@@ -39,9 +39,40 @@
 #include "ipmi_fru_parser.hpp"
 
 #include "constants.hpp"
+#include "utility/common_utility.hpp"
+
+#include <format>
+#include <numeric>
 
 namespace vpd
 {
+
+/* ========================================================================= */
+/* Private helpers                                                            */
+/* ========================================================================= */
+
+std::expected<uint8_t, error_code> IpmiFruParser::computeChecksum(
+    types::BinaryVector::const_iterator i_begin,
+    types::BinaryVector::const_iterator i_end) const noexcept
+{
+    try
+    {
+        // sum all bytes mod 256
+        const uint8_t l_sum =
+            std::accumulate(i_begin, i_end, static_cast<uint8_t>(0),
+                            [](uint8_t l_acc, uint8_t l_byte) {
+                                return static_cast<uint8_t>(l_acc + l_byte);
+                            });
+        // return the two's complement
+        return static_cast<uint8_t>(-l_sum);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Error while computing checksum: {}", l_ex.what()));
+        return std::unexpected(error_code::CHECKSUM_VALIDATION_FAILED);
+    }
+}
 
 /* ========================================================================= */
 /* Area parsers                                                               */
@@ -50,12 +81,40 @@ namespace vpd
 std::expected<IpmiFruParser::AreaByteOffsets, error_code>
     IpmiFruParser::processCommonHeader() noexcept
 {
-    IpmiFruParser::AreaByteOffsets l_result{};
+    // Validate the Common Header zero checksum: the modulo-256 sum of all 8
+    // header bytes must be 0.
+    auto l_checksumResult = computeChecksum(
+        m_vpdVector.cbegin(),
+        m_vpdVector.cbegin() + static_cast<ptrdiff_t>(COMMON_HEADER_SIZE));
+    if (!l_checksumResult || *l_checksumResult != constants::VALUE_0)
+    {
+        return std::unexpected(error_code::CHECKSUM_VALIDATION_FAILED);
+    }
 
-    // @todo:
-    // parse the Common Header section
-    // get individual area byte offsets by multiplying by 8
-    // compute and validate checksum
+    IpmiFruParser::AreaByteOffsets l_result{};
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::COMMON_HEADER)] =
+        constants::VALUE_0;
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::INTERNAL_USE_AREA)] =
+        static_cast<size_t>(m_vpdVector[1]) * AREA_OFFSET_MULTIPLIER;
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::CHASSIS_INFO_AREA)] =
+        static_cast<size_t>(m_vpdVector[2]) * AREA_OFFSET_MULTIPLIER;
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::BOARD_INFO_AREA)] =
+        static_cast<size_t>(m_vpdVector[3]) * AREA_OFFSET_MULTIPLIER;
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::PRODUCT_INFO_AREA)] =
+        static_cast<size_t>(m_vpdVector[4]) * AREA_OFFSET_MULTIPLIER;
+    l_result[static_cast<size_t>(types::IpmiVpdAreaIndex::MULTI_RECORD_AREA)] =
+        static_cast<size_t>(m_vpdVector[5]) * AREA_OFFSET_MULTIPLIER;
+
+    // Store the Common Header area map with the format-version byte.
+    {
+        types::IPMIVpdValueMap l_hdrMap;
+        l_hdrMap.emplace(
+            "HEADER_FormatVersion",
+            types::KWdVPDValueType{types::BinaryVector{m_vpdVector[0]}});
+        m_fruMap[static_cast<size_t>(types::IpmiVpdAreaIndex::COMMON_HEADER)] =
+            std::move(l_hdrMap);
+    }
+
     return l_result;
 }
 
@@ -120,16 +179,86 @@ std::expected<size_t, error_code> IpmiFruParser::parseMultiRecordArea(
 
 types::VPDMapVariant IpmiFruParser::parse()
 {
-    // TODO:
-    //       Validate the Common Header zero checksum.
-    //       Read area offsets from bytes [1]-[5] (multiply by 8 to get byte
-    //       offsets; 0 means absent).
-    //       Call parseInternalUseArea(), parseChassisInfoArea(),
-    //       parseBoardInfoArea(), parseProductInfoArea(), and
-    //       parseMultiRecordArea() for each present area.
-    //       Store INTERNAL_Data (version byte + raw data) directly here
-    //       after parseInternalUseArea() returns.
-    //       Return m_fruMap.
+    auto l_headerStatus = processCommonHeader();
+    if (!l_headerStatus)
+    {
+        throw DataException(
+            std::format("IPMI FRU: Common Header checksum mismatch. Error: {}",
+                        commonUtility::getErrCodeMsg(l_headerStatus.error())));
+    }
+
+    const auto& l_areaOffsets = *l_headerStatus;
+    const size_t l_internalUseOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::INTERNAL_USE_AREA)];
+    const size_t l_chassisOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::CHASSIS_INFO_AREA)];
+    const size_t l_boardOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::BOARD_INFO_AREA)];
+    const size_t l_productOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::PRODUCT_INFO_AREA)];
+    const size_t l_multirecordOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::MULTI_RECORD_AREA)];
+
+    // Internal Use Area
+    if (l_internalUseOffset != constants::VALUE_0)
+    {
+        auto l_status = parseInternalUseArea(l_internalUseOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse Internal Use Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
+    // Chassis Info Area
+    if (l_chassisOffset != constants::VALUE_0)
+    {
+        auto l_status = parseChassisInfoArea(l_chassisOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse Chassis Info Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
+    // Board Info Area
+    if (l_boardOffset != constants::VALUE_0)
+    {
+        auto l_status = parseBoardInfoArea(l_boardOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse Board Info Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
+    // Product Info Area
+    if (l_productOffset != constants::VALUE_0)
+    {
+        auto l_status = parseProductInfoArea(l_productOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse Product Info Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
+    // MultiRecord Area
+    if (l_multirecordOffset != constants::VALUE_0)
+    {
+        auto l_status = parseMultiRecordArea(l_multirecordOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse MultiRecord Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
     return m_fruMap;
 }
 
