@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac450755_669ca40f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T12:13:38Z",
+      "side": 1,
+      "message": "log it in same function, no need to return.",
+      "range": {
+        "startLine": 623,
+        "startChar": 4,
+        "endLine": 623,
+        "endChar": 57
+      },
+      "revId": "bffcdeceb21584002d029ca758c37823dea24810",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08fdc54_2d2ea3e5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T12:13:38Z",
+      "side": 1,
+      "message": "this can be part of recursive call.",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 0
+      },
+      "revId": "bffcdeceb21584002d029ca758c37823dea24810",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20ca1a2_2bc6b0d8",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T12:13:38Z",
+      "side": 1,
+      "message": "Instead of sending, we can log warning PEL here.",
+      "range": {
+        "startLine": 707,
+        "startChar": 6,
+        "endLine": 709,
+        "endChar": 47
+      },
+      "revId": "bffcdeceb21584002d029ca758c37823dea24810",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee59d5d7_afb38ccb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-08-19T12:13:38Z",
+      "side": 1,
+      "message": "I can log this warning PEL in new Method itself.\nNO additional code change here.",
+      "range": {
+        "startLine": 883,
+        "startChar": 1,
+        "endLine": 898,
+        "endChar": 9
+      },
+      "revId": "bffcdeceb21584002d029ca758c37823dea24810",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
