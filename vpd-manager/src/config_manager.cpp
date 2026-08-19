@@ -265,7 +265,7 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
         // build unexpanded location code to inventory path map
-        return buildLocCodeToInvPathsMap(l_subFruJsonArray);
+        return buildLocCodeToInvPathsMap(l_subFruJsonArray, l_chassisId);
     }
     catch (const std::exception& l_ex)
     {
@@ -277,10 +277,33 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
 }
 
 std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
-    const auto& i_subFruJsonArray) noexcept
+    const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept
 {
     try
     {
+        // Derive the node identifier from the chassis ID suffix.
+        // The node identifier is inserted right after the 4-char prefix
+        //   "chassis"  (legacy, no suffix) -> "N00"
+        //   "chassis0"                     -> "SC0"
+        //   "chassis1"                     -> "N01"
+        //   "chassis2"                     -> "N02"  etc.
+        const std::string l_nodeStr =
+            i_chassisId.substr(std::string_view{"chassis"}.size());
+
+        std::string l_nodeIdentifier;
+        if (l_nodeStr.empty())
+        {
+            l_nodeIdentifier = "N00";
+        }
+        else if (l_nodeStr == "0")
+        {
+            l_nodeIdentifier = "SC0";
+        }
+        else
+        {
+            l_nodeIdentifier = std::format("N{:02}", std::stoul(l_nodeStr));
+        }
+
         for (const auto& l_subFruJson : i_subFruJsonArray)
         {
             // get the inventory path
@@ -293,8 +316,14 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
                     getUnexpandedLocationCodeForFru(l_subFruJson);
                 if (l_locationCode.has_value())
                 {
-                    m_unexpandedLocCodeToInvPathsMap[l_locationCode.value()]
-                        .emplace_back(l_inventoryPath);
+                    std::string l_mapKey = l_locationCode.value();
+                    if (l_mapKey.length() >= 4)
+                    {
+                        l_mapKey.insert(4, "-" + l_nodeIdentifier);
+                        m_unexpandedLocCodeToInvPathsMap[l_mapKey] = {
+                            sdbusplus::object_path{
+                                std::string{l_inventoryPath}}};
+                    }
                 }
                 else
                 {
@@ -318,16 +347,43 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
 }
 
 std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
-    const std::string& i_unexpandedLocationCode) const noexcept
+    const std::string& i_unexpandedLocationCode,
+    const uint16_t i_nodeNumber) const noexcept
 {
     try
     {
-        if (auto l_it =
-                m_unexpandedLocCodeToInvPathsMap.find(i_unexpandedLocationCode);
-            l_it != m_unexpandedLocCodeToInvPathsMap.end())
+        // Derive the node identifier to reconstruct the map key:
+        //   nodeNumber 0 -> "SC0"  (chassis0)
+        //                   "N00"  (legacy "chassis", no suffix) as fallback
+        //   nodeNumber 1 -> "N01"  (chassis1)
+        //   nodeNumber 2 -> "N02"  etc.
+        std::vector<std::string> l_identifiersToTry;
+        if (i_nodeNumber == 0)
         {
-            return l_it->second;
+            // Try SC0 first (chassis0), fall back to N00 (legacy chassis)
+            l_identifiersToTry = {"SC0", "N00"};
         }
+        else
+        {
+            l_identifiersToTry = {
+                std::format("N{:02}", static_cast<size_t>(i_nodeNumber))};
+        }
+
+        for (const auto& l_nodeId : l_identifiersToTry)
+        {
+            std::string l_mapKey = i_unexpandedLocationCode;
+            if (l_mapKey.length() >= 4)
+            {
+                l_mapKey.insert(4, "-" + l_nodeId);
+            }
+
+            if (auto l_it = m_unexpandedLocCodeToInvPathsMap.find(l_mapKey);
+                l_it != m_unexpandedLocCodeToInvPathsMap.end())
+            {
+                return l_it->second;
+            }
+        }
+
         return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
     }
     catch (const std::exception& l_ex)
