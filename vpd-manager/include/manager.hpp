@@ -160,7 +160,7 @@ class Manager
      */
     std::string getExpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get D-Bus object path of FRUs from expanded location code.
@@ -195,7 +195,7 @@ class Manager
      */
     types::ListOfPaths getFrusByUnexpandedLocationCode(
         const std::string& i_unexpandedLocationCode,
-        [[maybe_unused]] const uint16_t i_nodeNumber = 0);
+        const uint16_t i_nodeNumber = 0);
 
     /**
      * @brief Get Hardware path
@@ -308,6 +308,26 @@ class Manager
      * @return True/False based on validity check.
      */
     bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
+
+    /**
+     * @brief API to generate a node-qualified location code key.
+     *
+     * This API clubs the unexpanded location code and node number into the key used
+     * to look up inventory paths in ConfigManager's map. The key is formed
+     * by inserting the node identifier after the 4-char prefix:
+     *   nodeNumber 0 -> "SC0"  (chassis0)
+     *   nodeNumber 1 -> "N00"  (legacy, chassis with no suffix)
+     *   nodeNumber 2 -> "N01"  (chassis1)
+     *   nodeNumber N -> "N{N-1}"
+     *
+     * @param[in] i_unexpandedLocationCode - Unexpanded location code.
+     * @param[in] i_nodeNumber - Node number.
+     *
+     * @return Node-qualified location code key string.
+     */
+    std::string generateLocationCodeKey(
+        const std::string& i_unexpandedLocationCode,
+        uint16_t i_nodeNumber) const noexcept;
 
     /**
      * @brief API to read VPD collection mode.
