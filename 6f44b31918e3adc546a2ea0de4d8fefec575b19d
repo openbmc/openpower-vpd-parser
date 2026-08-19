@@ -107,6 +107,40 @@
       "message": "This is at 6th level of indentation. Can we do something about that?",
       "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417583e8_8ce625d2",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-19T10:19:23Z",
+      "side": 1,
+      "message": "Record is part of inventory item \u0026 the details are found in the inventory item in the JSON, should we say\nCheck if record is part of inventory item in the system config JSON ?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e70f5326_da3d25df",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-08-19T10:19:23Z",
+      "side": 1,
+      "message": "Can we add return code as well ?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
