@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c4ad33_5492c7a9",
+        "filename": "pgood-chassis-check/include/constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-08-19T04:17:10Z",
+      "side": 1,
+      "message": "why is this added , as I do not see it used,\nsame for the below two also",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eecd604b_e3d91414",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-08-19T04:17:10Z",
+      "side": 1,
+      "message": "would be better if the api had the mention of file like readBmcPositionFromFile()\nbecause we could have readBmcPositionFromHardware() also maybe",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1386cf9a_e8d7cbf9",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-08-19T04:17:10Z",
+      "side": 1,
+      "message": "why do you default this with types::BmcPosition::DEFAULT",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a8ddcb_e844117e",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-08-19T04:17:10Z",
+      "side": 1,
+      "message": "what if I get integer 55 or something else from the file ?",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7777f56_aadcee01",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-08-19T04:17:10Z",
+      "side": 1,
+      "message": "move the return value from below into here",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
