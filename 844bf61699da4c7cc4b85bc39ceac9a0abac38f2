@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f8b16c0_751b7d68",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T16:39:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f908b083_e2235bf6",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5a8ddcb_e844117e",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Addressed. In case of edge case scenarios like values other than 0 or 1 read from file, this API will return `INVALID_VALUE` (-1).",
       "parentUuid": "a5a8ddcb_e844117e",
+      "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d44894e2_e68c547b",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T16:39:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94250265_8e0678b6",
       "revId": "844bf61699da4c7cc4b85bc39ceac9a0abac38f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

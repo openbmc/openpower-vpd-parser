@@ -16,6 +16,24 @@
       "message": "instead of naming informational PEL, can we keep name generic \u0026 receive severity as input. Keeping API generic, will be useful, future if we need to change severity or another PEL needs to be created with non-info PEL.",
       "revId": "b6259eb806e7c14274c1c37901dbf4959575f38e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e65ae45a_251fcc72",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T16:39:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f67bc244_53a1af9a",
+      "revId": "b6259eb806e7c14274c1c37901dbf4959575f38e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
