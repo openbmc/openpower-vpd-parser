@@ -34,6 +34,24 @@
       "parentUuid": "707c9f05_6083885c",
       "revId": "7fa6ccd585a8e7a62a545e1f40daf5257df41691",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede2edfc_6ad1b252",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T09:15:41Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "58ae04c9_6ae24e69",
+      "revId": "7fa6ccd585a8e7a62a545e1f40daf5257df41691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -69,6 +69,24 @@
       "parentUuid": "4bf0db52_abbf0e7b",
       "revId": "5b4dad76b6bf3c921ebcfe17b3ae95a44cabd82f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003e9541_98ca8a59",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T09:15:41Z",
+      "side": 1,
+      "message": "Added code to generate informational PEL",
+      "parentUuid": "2e8f449e_55dc58c0",
+      "revId": "5b4dad76b6bf3c921ebcfe17b3ae95a44cabd82f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
