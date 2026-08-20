@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf73f96c_1d2f95ce",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-20T07:02:27Z",
+      "side": 1,
+      "message": "nit: we should use `commonUtility::getErrCodeMsg()` to get the string representation of the error code.",
+      "revId": "bfacff4e5ff539e29b8a5ffac183d4ce55a54e94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
