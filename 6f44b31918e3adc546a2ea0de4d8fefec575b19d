@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26176ddf_9f293fe8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "904c1dc4_c1e89280",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bb6345c_93ef8c64",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-08-19T08:25:04Z",
       "side": 1,
       "message": "This needs to be wrapped in one line mostly.",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01b448c2_e5571763",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bb6345c_93ef8c64",
       "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc8a491d_66c6d05b",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3348dc07_08129b27",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53dea327_66ad9299",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-08-19T08:25:04Z",
       "side": 1,
       "message": "Can we use reference?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6935679_1dd83208",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53dea327_66ad9299",
       "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f47b3cf_d6f42184",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b57fae4_d575127f",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71874c23_571b71d4",
@@ -105,6 +201,24 @@
       "writtenOn": "2026-08-19T08:25:04Z",
       "side": 1,
       "message": "This is at 6th level of indentation. Can we do something about that?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f791216_1082e595",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71874c23_571b71d4",
       "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -126,6 +240,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f497ca_59d8171d",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "417583e8_8ce625d2",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70f5326_da3d25df",
@@ -139,6 +271,24 @@
       "writtenOn": "2026-08-19T10:19:23Z",
       "side": 1,
       "message": "Can we add return code as well ?",
+      "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b68daf4_db4b467b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-20T08:57:39Z",
+      "side": 1,
+      "message": "Here the return code indicates D-Bus call failed. Mentioned same in the log.",
+      "parentUuid": "e70f5326_da3d25df",
       "revId": "6f44b31918e3adc546a2ea0de4d8fefec575b19d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
