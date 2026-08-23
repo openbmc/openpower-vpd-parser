@@ -742,12 +742,20 @@ void IbmHandler::setDeviceTreeAndJson(
                              commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    std::string l_devTreeFromJson;
+    std::vector<std::string> l_devTreesFromJson;
     if (m_sysCfgJsonObj.contains("devTree"))
     {
-        l_devTreeFromJson = m_sysCfgJsonObj["devTree"];
+        const auto& l_devTreeVal = m_sysCfgJsonObj["devTree"];
+        if (l_devTreeVal.is_array())
+        {
+            l_devTreesFromJson = l_devTreeVal.get<std::vector<std::string>>();
+        }
+        else if (l_devTreeVal.is_string())
+        {
+            l_devTreesFromJson.emplace_back(l_devTreeVal.get<std::string>());
+        }
 
-        if (l_devTreeFromJson.empty())
+        if (l_devTreesFromJson.empty())
         {
             m_logger->logMessage(
                 std::format(
@@ -763,8 +771,14 @@ void IbmHandler::setDeviceTreeAndJson(
 
     auto l_fitConfigVal = readFitConfigValue();
 
-    if (l_devTreeFromJson.empty() ||
-        l_fitConfigVal.find(l_devTreeFromJson) != std::string::npos)
+    // Check if any of the device trees from JSON is already set in fitconfig.
+    const bool l_devTreeAlreadySet = std::any_of(
+        l_devTreesFromJson.begin(), l_devTreesFromJson.end(),
+        [&l_fitConfigVal](const std::string& l_devTree) {
+            return l_fitConfigVal.find(l_devTree) != std::string::npos;
+        });
+
+    if (l_devTreesFromJson.empty() || l_devTreeAlreadySet)
     { // Skipping setting device tree as either devtree info is missing from
         // Json or it is rightly set.
 
@@ -811,7 +825,9 @@ void IbmHandler::setDeviceTreeAndJson(
         return;
     }
 
-    setEnvAndReboot("fitconfig", l_devTreeFromJson);
+    std::cout << "Set fitconfig and reboot from VPD-Manager" << std::endl;
+    // Use the first entry in the array as the preferred device tree to set.
+    setEnvAndReboot("fitconfig", l_devTreesFromJson.front());
 #ifdef SKIP_REBOOT_ON_FITCONFIG_CHANGE
     setJsonSymbolicLink(l_systemJson);
 #endif
