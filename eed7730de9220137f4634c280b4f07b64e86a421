@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3062db3_d1d52ba9",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T05:52:40Z",
+      "side": 1,
+      "message": "Can we skip this info log. Dbus will give the correct value and any exception will be logged.\nTrying to limit informational logging as far as possible.",
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8fa753_788f1a33",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T05:52:40Z",
+      "side": 1,
+      "message": "In this case even if the reading of value succeeds and release in the next line throws an exception, the current flow ends up returning invalid value where the value has actually been read properly.\nCan we handle that scenario to ensure if we have read the value then we don\u0027t loose that due to some other failure in the flow.",
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9064271_01bae52c",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T05:52:40Z",
+      "side": 1,
+      "message": "nit: Wrapping it in a function will keep the main clean and makes code more modular and readable?",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 69
+      },
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
