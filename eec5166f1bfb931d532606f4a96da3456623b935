@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5a99778_94ef8575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:30:58Z",
+      "side": 1,
+      "message": "This part is already taken care by `buildConfigMapsForFru` api , from where `buildLocCodeToInvPathsMap` api is called and node identifier is determined .",
+      "parentUuid": "9e559c03_5416d458",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee56e5a8_14470c9b",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 10
@@ -82,6 +100,24 @@
       "writtenOn": "2026-08-24T07:06:22Z",
       "side": 1,
       "message": "\"N00\" is inserted for both \"chassis\" and \"chassis1\". Can there be any conflicts if there are identical inventory paths in the same system configuration JSON?\nFor example\n\n`/xyz/openbmc_project/inventory/system/chassis/motherboard`\n\n`/xyz/openbmc_project/inventory/system/chassis1/motherboard`",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f919951_2aaf88e7",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:30:58Z",
+      "side": 1,
+      "message": "No there won\u0027t be conflict - As in the same system there is no possibility that FRUs will be having `\"/xyz/openbmc_project/inventory/system/chassis/motherboard\"` inv path and `\"/xyz/openbmc_project/inventory/system/chassis1/motherboard\"` inv path also in same system config json.. \n\nEither the inventory path in json will be - `.../chassis/motherboard` (legacy)\nOr, `.../chassisX/motherboard` .",
+      "parentUuid": "ee56e5a8_14470c9b",
       "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
