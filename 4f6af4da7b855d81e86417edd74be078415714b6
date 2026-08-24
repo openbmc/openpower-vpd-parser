@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261f0889_c7ed6ecb",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T12:36:15Z",
+      "side": 1,
+      "message": "This looks like an utility method. Can this be re-used in config manager instead of static map that has been introduced?",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb2daa8_8b4a325e",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T12:36:15Z",
+      "side": 1,
+      "message": "Chassis can be extended and in that case this logic will need a revisit.\nCan we calculate this dynamically and update?",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81fb138_654c62a2",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-24T12:36:15Z",
+      "side": 1,
+      "message": "This looks like a utility method.",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
