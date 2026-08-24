@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08878b58_0ab8c829",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-24T06:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3062db3_d1d52ba9",
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f8fa753_788f1a33",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "081d5206_39751d68",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-24T06:35:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f8fa753_788f1a33",
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9064271_01bae52c",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-08-24T05:52:40Z",
       "side": 1,
       "message": "nit: Wrapping it in a function will keep the main clean and makes code more modular and readable?",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 69
+      },
+      "revId": "eed7730de9220137f4634c280b4f07b64e86a421",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c9f36d_4acf23f6",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-24T06:35:51Z",
+      "side": 1,
+      "message": "Can you please clarify? All functionalities are already wrapped in individual methods, only the core flow is handled by `main()`",
+      "parentUuid": "b9064271_01bae52c",
       "range": {
         "startLine": 235,
         "startChar": 8,
