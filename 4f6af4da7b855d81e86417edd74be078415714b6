@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f02ea780_a221b099",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T14:27:31Z",
+      "side": 1,
+      "message": "Removed this api .",
+      "parentUuid": "261f0889_c7ed6ecb",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cb2daa8_8b4a325e",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-24T12:36:15Z",
       "side": 1,
       "message": "Chassis can be extended and in that case this logic will need a revisit.\nCan we calculate this dynamically and update?",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5252b61a_010e671a",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T14:27:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cb2daa8_8b4a325e",
       "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-24T12:36:15Z",
       "side": 1,
       "message": "This looks like a utility method.",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de0169ad_7ce08a49",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T14:27:31Z",
+      "side": 1,
+      "message": "Acknowledged , Removed the new api `generateLocationCodeKey` .",
+      "parentUuid": "b81fb138_654c62a2",
       "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
