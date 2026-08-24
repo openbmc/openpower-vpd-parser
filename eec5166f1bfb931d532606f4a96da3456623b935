@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4312fa23_c73d6b8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "f2e61dad_c1e36e9e",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc04c94a_31758677",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-24T07:06:22Z",
       "side": 1,
       "message": "nit: \n\n\u003eapi\n\nAPI",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e08fc31_149b6173",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc04c94a_31758677",
       "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-08-24T07:06:22Z",
       "side": 1,
       "message": "What do you mean by \"build time\"?\nIt can be confused with \"compile time\". Can we use some phrase like \"into the map key while building the location code to inventory paths map\"",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7f5fd3_59415299",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d0be6a9_21cfb461",
       "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f2f238_905180b2",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ece65b5_c6bafc80",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77205352_df4627cf",
@@ -156,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d8642a_54682b79",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77205352_df4627cf",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10f2590b_eaf42e86",
@@ -169,6 +259,24 @@
       "writtenOn": "2026-08-24T07:06:22Z",
       "side": 1,
       "message": "Please try to use `constexpr` variables for \"magic numbers\" like 4.",
+      "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b4e7bed_9e9f60a4",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-24T08:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f2590b_eaf42e86",
       "revId": "eec5166f1bfb931d532606f4a96da3456623b935",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
