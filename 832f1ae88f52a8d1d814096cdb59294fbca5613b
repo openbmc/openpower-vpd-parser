@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0617381c_a9c62878",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "A comment explaining this check would be helpful.",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2b14d6_82beeed3",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "A comment explaining this would be helpful.\n\nInstead of inserting at hard-coded string index \"4\", can we search for \"-\" in the `l_mapKey` string and then insert the `l_nodeId` after that?\nThis way, if in future \"Ufcs\" string length changes, we wouldn\u0027t need to refactor this code.",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "927804b2_e2b5c608",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "With this change, `m_unexpandedLocCodeToInvPathsMap` will have entries where each node qualified unexpanded location code maps to a unique inventory path.\n\nCurrently, `m_unexpandedLocCodeToInvPathsMap` is of type `    std::unordered_map\u003cstd::string, types::ListOfPaths\u003e`, where each map unexpanded location code maps to a list of paths. Do we still need to maintain this data structure format where the map values are a list of paths?",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3a6376_76bd1c49",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "Can we wrap this logic in a utility API? That way it can be re-used if required by other parts of the code. Also, reduces the number of lines in `getExpandedLocationCode` implementation.",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e08d13_0d07ad4e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "nit: use `constants::VALUE_0`",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f393427_5f648e0b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "Can we wrap this logic in a utility API?",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ba769b_b05bc33f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "Same as above. Can this logic be wrapped in an utility API?",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

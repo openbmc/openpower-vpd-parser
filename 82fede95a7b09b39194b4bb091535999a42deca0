@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ad7dc68_7833f1f2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "Suggestion: Return error code instead of an empty string. This approach provides more information to the caller with respect to the exact failure, and let\u0027s the caller take decision based on the error code.",
+      "revId": "82fede95a7b09b39194b4bb091535999a42deca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad7b6bb7_359c931b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "Please use `noexcept` specifier if feasible, otherwise specify exception in the doxygen.",
+      "revId": "82fede95a7b09b39194b4bb091535999a42deca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81a1529_f48b540d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T07:10:59Z",
+      "side": 1,
+      "message": "It\u0027s better to wrap the entire logic of this method inside `try` block in order to be on the safer side. Future refactoring may add code here which can throw exceptions, which can be thrown up the stack.",
+      "revId": "82fede95a7b09b39194b4bb091535999a42deca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ed74970_403ef435",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 17
