@@ -16,6 +16,24 @@
       "message": "Did you miss the check of validity that we there in the earlier code or it is not required anymore?",
       "revId": "82fede95a7b09b39194b4bb091535999a42deca0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8d98e4_85800720",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T06:42:22Z",
+      "side": 1,
+      "message": "try-catch block would catch the exception , but to handle cases like std::stoul overflow, added safeguard check and removed try-catch block from the api .",
+      "parentUuid": "4ed74970_403ef435",
+      "revId": "82fede95a7b09b39194b4bb091535999a42deca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
