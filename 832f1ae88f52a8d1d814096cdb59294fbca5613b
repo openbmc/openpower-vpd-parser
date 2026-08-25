@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ec64f0c_c3a37109",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T10:54:39Z",
+      "side": 1,
+      "message": "Updated the code .",
+      "parentUuid": "6c60afe0_df79d3ee",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "927804b2_e2b5c608",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 18
@@ -144,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bc5161d_93dc1a7d",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T10:54:39Z",
+      "side": 1,
+      "message": "removed `types::ListOfPaths` and placed `sdbusplus::object_path `",
+      "parentUuid": "f70c52e7_ea9442c9",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea3a6376_76bd1c49",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -191,6 +227,24 @@
       "side": 1,
       "message": "This code change is being used at multiple places. Today, it\u0027s a two liner, what if the logic changes in future?",
       "parentUuid": "d281b457_83b33624",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26da97cd_736cd0ec",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T10:54:39Z",
+      "side": 1,
+      "message": "Acknowledged.",
+      "parentUuid": "45c57f56_7f3386da",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -285,6 +339,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58444b7b_96f64d90",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T10:54:39Z",
+      "side": 1,
+      "message": "Acknowledged.",
+      "parentUuid": "88ba4dc3_303846b9",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75ba769b_b05bc33f",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -332,6 +404,24 @@
       "side": 1,
       "message": "This code change is being used at multiple places. Today, it\u0027s a two liner, what if the logic changes in future?",
       "parentUuid": "9cb0e977_840a78f6",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c49db64_64df3121",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T10:54:39Z",
+      "side": 1,
+      "message": "Acknowledged.",
+      "parentUuid": "1ac25d12_4e7087be",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
