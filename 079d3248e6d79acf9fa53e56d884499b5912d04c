@@ -16,6 +16,24 @@
       "message": "\u003e Builds a node-qualified map key\n\nWhy does this have to build a map key specifically? It\u0027s an utility API to build node-qualified unexpanded location code. How it get\u0027s consumed is up to the caller to decide.",
       "revId": "079d3248e6d79acf9fa53e56d884499b5912d04c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c58dd45_1b6e6393",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T15:36:51Z",
+      "side": 1,
+      "message": "Updated the doxygen comment.",
+      "parentUuid": "82a4be47_bedeea27",
+      "revId": "079d3248e6d79acf9fa53e56d884499b5912d04c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
