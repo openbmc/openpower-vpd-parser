@@ -99,6 +99,55 @@ class IpmiFruParser final : public ParserInterface
     /** Multiplier to convert offset units to actual byte offsets. */
     static constexpr size_t AREA_OFFSET_MULTIPLIER = 8U;
 
+    // ---- Type/Length byte fields (IPMI FRU spec §13) -------------------
+
+    /** Mask for type code bits [7:6]. */
+    static constexpr uint8_t TL_TYPE_MASK = 0xC0U;
+
+    /** Mask for data-length bits [5:0]. */
+    static constexpr uint8_t TL_LENGTH_MASK = 0x3FU;
+
+    /** Type code: binary / unspecified. */
+    static constexpr uint8_t TL_TYPE_BINARY = 0x00U;
+
+    /** Type code: BCD+. */
+    static constexpr uint8_t TL_TYPE_BCD_PLUS = 0x40U;
+
+    /** Type code: 6-bit ASCII packed. */
+    static constexpr uint8_t TL_TYPE_6BIT_ASCII = 0x80U;
+
+    /** Type code: 8-bit ASCII / Latin-1 (or Unicode when non-English). */
+    static constexpr uint8_t TL_TYPE_8BIT_ASCII = 0xC0U;
+
+    /** Sentinel byte indicating end of variable-length fields (C1h). */
+    static constexpr uint8_t END_OF_FIELDS = 0xC1U;
+
+    // ---- Product Info Area keyword names (NVMe-MI spec §8.2.2) ---------
+
+    /** Keyword name for the language code byte. */
+    static constexpr auto KW_PRODUCT_LANGUAGE_CODE = "PLCODE";
+
+    /** Keyword name for Manufacturer Name. */
+    static constexpr auto KW_PRODUCT_MNAME = "MNAME";
+
+    /** Keyword name for Product Name. */
+    static constexpr auto KW_PRODUCT_PNAME = "PNAME";
+
+    /** Keyword name for Product Part/Model Number. */
+    static constexpr auto KW_PRODUCT_PPMN = "PPMN";
+
+    /** Keyword name for Product Version. */
+    static constexpr auto KW_PRODUCT_PVER = "PVER";
+
+    /** Keyword name for Product Serial Number. */
+    static constexpr auto KW_PRODUCT_PSN = "PSN";
+
+    /** Keyword name for Asset Tag. */
+    static constexpr auto KW_PRODUCT_ASSET_TAG = "ASSET_TAG";
+
+    /** Keyword name for FRU File ID. */
+    static constexpr auto KW_PRODUCT_FRU_FILE_ID = "FRU_FILE_ID";
+
     /* ------------------------------------------------------------------ */
     /* Internal helpers                                                    */
     /* ------------------------------------------------------------------ */
@@ -128,6 +177,58 @@ class IpmiFruParser final : public ParserInterface
     std::expected<uint8_t, error_code> computeChecksum(
         types::BinaryVector::const_iterator i_begin,
         types::BinaryVector::const_iterator i_end) const noexcept;
+
+    /**
+     * @brief Decode one variable-length field from a type/length-prefixed
+     *        byte sequence.
+     *
+     * Reads the type/length byte at @p i_pos, advances @p i_pos past the
+     * data bytes, and returns the decoded value as a @c KWdVPDValueType:
+     *   - TL_TYPE_BINARY    → BinaryVector of raw bytes
+     *   - TL_TYPE_BCD_PLUS  → BinaryVector of raw nibble bytes
+     *   - TL_TYPE_6BIT_ASCII→ std::string decoded from packed 6-bit ASCII
+     *   - TL_TYPE_8BIT_ASCII→ std::string of 8-bit ASCII / Latin-1 bytes
+     *
+     * An empty field (length == 0) returns an empty std::string regardless
+     * of type code, consistent with a "null" field placeholder.
+     *
+     * @param[in,out] i_pos   - Iterator positioned at the type/length byte;
+     *                          advanced to one-past-the-last data byte on
+     *                          success.
+     * @param[in]     i_end   - One-past-end of the safe readable range.
+     *
+     * @return On success, the decoded KWdVPDValueType; on failure (e.g.
+     *         field extends past i_end), an error_code.
+     */
+    std::expected<types::KWdVPDValueType, error_code> decodeField(
+        types::BinaryVector::const_iterator& i_pos,
+        types::BinaryVector::const_iterator i_end) const noexcept;
+
+    /**
+     * @brief Decode the seven predefined variable-length fields of the
+     *        Product Info Area into a keyword/value map.
+     *
+     * Walks the ordered list of predefined fields (MNAME, PNAME, PPMN, PVER,
+     * PSN, ASSET_TAG, FRU_FILE_ID) from @p i_pos up to @p i_end, calling
+     * decodeField() for each one and inserting the result into @p o_map.
+     * Stops early (without error) if the end-of-fields sentinel (0xC1) is
+     * encountered before all seven fields have been read.
+     *
+     * @param[in,out] i_pos - Iterator at the first type/length byte of the
+     *                        predefined field sequence; advanced past every
+     *                        consumed byte on success.
+     * @param[in]     i_end - One-past-end of the safe field region (i.e.
+     *                        excludes the area checksum byte).
+     * @param[out]    o_map - Map to receive the decoded keyword/value pairs.
+     *
+     * @return constants::VALUE_0 on success, or an error_code on the first
+     *         field that fails to decode or when data is exhausted before the
+     *         sentinel.
+     */
+    std::expected<uint8_t, error_code> parsePredefinedProductFields(
+        types::BinaryVector::const_iterator& i_pos,
+        types::BinaryVector::const_iterator i_end,
+        types::IPMIVpdValueMap& o_map) noexcept;
 
     /**
      * @brief Parse the Product Info Area
