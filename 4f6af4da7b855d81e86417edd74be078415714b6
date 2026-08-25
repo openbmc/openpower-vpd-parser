@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7439afef_6e45a874",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-25T06:07:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f02ea780_a221b099",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cb2daa8_8b4a325e",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Acknowledged , Removed the new api `generateLocationCodeKey` .",
       "parentUuid": "b81fb138_654c62a2",
+      "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09abc58d_957ecf58",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-25T06:07:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "de0169ad_7ce08a49",
       "revId": "4f6af4da7b855d81e86417edd74be078415714b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
