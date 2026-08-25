@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a92ba509_a4435470",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T15:16:58Z",
+      "side": 1,
+      "message": "How does this API know that input parameter is being derived from inventory object path? I think this error code should also be `INVALID_INPUT_PARAMETER`",
+      "parentUuid": "d4fb0a84_921d015a",
+      "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0838f65d_b9ae7e92",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 19
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I don\u0027t see any error log at the caller of `buildLocCodeToInvPathsMap` API side in case of any failure ?",
       "parentUuid": "0838f65d_b9ae7e92",
+      "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f28d6603_8a38afa0",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T15:16:58Z",
+      "side": 1,
+      "message": "Please look at https://github.com/openbmc/openpower-vpd-parser/blob/09910e07438f78bc3c21e51aaa3ce09039f69705/vpd-manager/src/config_manager.cpp#L202",
+      "parentUuid": "2ddd93b9_55eaefd3",
       "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
