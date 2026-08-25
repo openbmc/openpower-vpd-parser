@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e297e1f_cb05b255",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0617381c_a9c62878",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab2b14d6_82beeed3",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-25T07:10:59Z",
       "side": 1,
       "message": "A comment explaining this would be helpful.\n\nInstead of inserting at hard-coded string index \"4\", can we search for \"-\" in the `l_mapKey` string and then insert the `l_nodeId` after that?\nThis way, if in future \"Ufcs\" string length changes, we wouldn\u0027t need to refactor this code.",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d23a061_dcff6967",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "The LOC will be more if I follow this approach , As stated incase in future if Ufcs string length changes that can be updated in constants file and we need to just use the same expression here in place of `\"constants::VALUE_4\"` .\nAlso one thing If I go via this approach, I have to also explicitly handle the Loc. code where there is no dash character \"-\" such as `\"Ufcs\"`",
+      "parentUuid": "ab2b14d6_82beeed3",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d57dfb83_07c8e676",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "This map is used by the api `getFrusByUnexpandedLocationCode` and it returns types::ListOfPaths as its D-Bus contract. Changing the map value type means we still have to reconstruct a single-element list at the return boundary — so the gain is minimal and adds a conversion. The current ListOfPaths type keeps the getter trivial (return l_it-\u003esecond with no wrapping),",
+      "parentUuid": "927804b2_e2b5c608",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea3a6376_76bd1c49",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d281b457_83b33624",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "It\u0027s two liner code-change and creating a new API for this looks overkill here .",
+      "parentUuid": "ea3a6376_76bd1c49",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8e08d13_0d07ad4e",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -82,6 +154,24 @@
       "writtenOn": "2026-08-25T07:10:59Z",
       "side": 1,
       "message": "nit: use `constants::VALUE_0`",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90318270_90ad749b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e08d13_0d07ad4e",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d354baae_31caa1ff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "It\u0027s two liner code-change and creating a new API for this looks overkill here .",
+      "parentUuid": "1f393427_5f648e0b",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75ba769b_b05bc33f",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -116,6 +224,24 @@
       "writtenOn": "2026-08-25T07:10:59Z",
       "side": 1,
       "message": "Same as above. Can this logic be wrapped in an utility API?",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cb0e977_840a78f6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:06:37Z",
+      "side": 1,
+      "message": "It\u0027s two liner code-change and creating a new API for this looks overkill here .",
+      "parentUuid": "75ba769b_b05bc33f",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
