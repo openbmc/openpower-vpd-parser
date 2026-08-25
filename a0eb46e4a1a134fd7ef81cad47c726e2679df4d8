@@ -33,6 +33,24 @@
       "message": "The function name reflects that we are just trying to get the base inventory path, can we put some more thoughts in this to reflect all the use cases it is covering? Or \nBreak the code into two methods one which will verify and another which will get the base path?",
       "revId": "a0eb46e4a1a134fd7ef81cad47c726e2679df4d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbfdb27f_0bd9f807",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-08-25T11:03:04Z",
+      "side": 1,
+      "message": "Done, divided the code into two methods",
+      "parentUuid": "b9ab83dc_4993c4e1",
+      "revId": "a0eb46e4a1a134fd7ef81cad47c726e2679df4d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
