@@ -16,6 +16,121 @@
       "message": "Pushing a new functionality should not mean a base commit with 300+ LOC of empty functions in multiple source files.\n\nAn implementation should start from somewhere and base commit should set the context of the functionality being introduced with base implementation and a detailed commit message that what the whole functionality will bring it. There couple of functionality which will be called in the base commit can be pushed as stub with proper explanation.\n\nThe issue is that an empty API doesn\u0027t give anything to validate against. I can\u0027t tell whether a signature is correct without seeing a caller, whether the error handling is right without a return path, or whether a given function is needed at all without seeing where it fits in the flow.",
       "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb88095_8c0ddc0f",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T13:52:41Z",
+      "side": 1,
+      "message": "Indentation does not look correct ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 111,
+        "endChar": 33
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95eef4b8_5eff9d5b",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T13:52:41Z",
+      "side": 1,
+      "message": "@nit: can we leave one line gap ?",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 80
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d46337_8ec814a7",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T13:52:41Z",
+      "side": 1,
+      "message": "@nit: at the start ,\"*\" is missing",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0208bef8_4ef19432",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T13:52:41Z",
+      "side": 1,
+      "message": "@nit: at the start ,\"*\" is missing",
+      "range": {
+        "startLine": 164,
+        "startChar": 5,
+        "endLine": 164,
+        "endChar": 14
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba05417b_b154c52a",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T13:52:41Z",
+      "side": 1,
+      "message": "`Product Info Area` -\u003e is repeated two times ?\n\n\u003d\u003d\u003e Product Info Area, the map entry will",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 105
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
