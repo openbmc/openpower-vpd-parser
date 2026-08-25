@@ -74,6 +74,28 @@ std::expected<uint8_t, error_code> IpmiFruParser::computeChecksum(
     }
 }
 
+std::expected<types::KWdVPDValueType, error_code> IpmiFruParser::decodeField(
+    [[maybe_unused]] types::BinaryVector::const_iterator& i_pos,
+    [[maybe_unused]] types::BinaryVector::const_iterator i_end) const noexcept
+{
+    /* @todo: implement decode field
+     1. Check for area bounds
+     2. Extract type code (8-bit ASCII or 6-bit ASCII)
+     3. Extract the data bytes
+    */
+    return types::KWdVPDValueType{types::BinaryVector()};
+}
+
+std::expected<uint8_t, error_code> IpmiFruParser::parsePredefinedProductFields(
+    [[maybe_unused]] types::BinaryVector::const_iterator& i_offset) noexcept
+{
+    /* @todo: parse the 7 predefined product fields in Product Information Area
+        MNAME, PNAME, PPMN, PVER, PSN, AT, FFID
+
+    */
+    return constants::VALUE_0;
+}
+
 /* ========================================================================= */
 /* Area parsers                                                               */
 /* ========================================================================= */
@@ -125,14 +147,121 @@ std::expected<IpmiFruParser::AreaByteOffsets, error_code>
 }
 
 std::expected<uint8_t, error_code> IpmiFruParser::parseProductInfoArea(
-    [[maybe_unused]] const size_t i_offset) noexcept
+    const size_t i_offset) noexcept
 {
-    // TODO: Validate area bounds and checksum.
-    //       Populate: PRODUCT_LanguageCode, PRODUCT_Manufacturer,
-    //       PRODUCT_ProductName, PRODUCT_PartModelNumber, PRODUCT_Version,
-    //       PRODUCT_SerialNumber, PRODUCT_AssetTag, PRODUCT_FruFileId,
-    //       and any PRODUCT_Custom<N> fields.
-    //       Record offsets in m_fieldOffsets / m_fieldAreaInfo.
+    // ----------------------------------------------------------------
+    // §8.2.2 Product Info Area layout (IPMI FRU spec §12 / NVMe-MI §8.2.2)
+    //
+    //   [0]  Format version  (bits 3:0 = 0x01)
+    //   [1]  Product Info Area Length (PALEN) in multiples of 8 bytes
+    //   [2]  Language code (LCODE)   (0x19 = English in NVMe-MI factory
+    //   default) [3]  Manufacturer Name Type/Length (MNTL)
+    //   ...  Manufacturer Name (MNAME)
+    //   ...  Product Name Type/Length(PNTL)
+    //   ...  Product Name (PNAME)
+    //   ...  Product Part/Model Number Type/Length(PPMNNTL)
+    //        Product Part/Model Number (PPMN)
+    //   ...  Product Version Type/Length (PVTL)
+    //   ...  Product Version (PVER)
+    //   ...  Product Serial Number Type/Length (PSNTL)
+    //   ...  Product Serial Number (PSN)
+    //   ...  Asset Tag Type/Length (ATTL)
+    //.  ...  Asset Tag (AT)
+    //   ...  FRU File ID Type/Length (FFTL)
+    //.  ...  FRU File ID (FFI)
+    //.  ...  Custom Product Info Area (CPIA)
+    //   ...  0xC1 End of Record (EOR) sentinel
+    //   ...  0x00 padding to area boundary
+    //   ...  Product Info Area checksum (PICHK) (zero-sum over the whole area)
+    // ----------------------------------------------------------------
+    // Minimum area is 8 bytes (1 unit): header + checksum with no fields.
+    const size_t l_minAreaSize = AREA_OFFSET_MULTIPLIER;
+
+    //  Validate format version byte (bits 3:0 must be 0x01).
+    if ((m_vpdVector[i_offset] & 0x0FU) != IPMI_FRU_FORMAT_VERSION)
+    {
+        m_logger->logMessage(std::format(
+            "IPMI FRU: Product Info Area format version mismatch at offset "
+            "{:#x}, got {:#x}",
+            i_offset, static_cast<unsigned>(m_vpdVector[i_offset] & 0x0FU)));
+        return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+    }
+
+    // Read the Product Info Area Length (PALEN) field (byte 1) and compute the
+    // full area size.
+    const size_t l_areaSize =
+        static_cast<size_t>(m_vpdVector[i_offset + constants::VALUE_1]) *
+        AREA_OFFSET_MULTIPLIER;
+
+    if (l_areaSize < l_minAreaSize)
+    {
+        m_logger->logMessage(std::format(
+            "IPMI FRU: Product Info Area length field is zero at offset "
+            "{:#x}",
+            i_offset));
+        return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+    }
+
+    // Validate if the area exceeds the buffer size
+    if (i_offset + l_areaSize > m_vpdVector.size())
+    {
+        m_logger->logMessage(std::format(
+            "IPMI FRU: Product Info Area (offset {:#x}, size {}) exceeds "
+            "buffer size {}",
+            i_offset, l_areaSize, m_vpdVector.size()));
+        return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+    }
+
+    // Validate the area checksum (zero-sum over the entire area including
+    //    the checksum byte itself must equal 0x00).
+    auto l_checksumResult = computeChecksum(
+        m_vpdVector.cbegin() + static_cast<ptrdiff_t>(i_offset),
+        m_vpdVector.cbegin() + static_cast<ptrdiff_t>(i_offset + l_areaSize));
+    if (!l_checksumResult)
+    {
+        return std::unexpected(l_checksumResult.error());
+    }
+    if (*l_checksumResult != constants::VALUE_0)
+    {
+        m_logger->logMessage(std::format(
+            "IPMI FRU: Product Info Area checksum validation failed at "
+            "offset {:#x}",
+            i_offset));
+        return std::unexpected(error_code::INVALID_CHECKSUM_VALUE);
+    }
+
+    // Build the per-area value map
+    types::IPMIVpdValueMap l_productInfoAreaMap;
+
+    // Language code is a fixed single byte at offset +2 (no TL prefix)
+    const uint8_t l_langCode = m_vpdVector[i_offset + constants::VALUE_2];
+    l_productInfoAreaMap.emplace(KW_PRODUCT_LANGUAGE_CODE,
+                                 types::BinaryVector{l_langCode});
+
+    //  Walk variable-length fields starting at byte offset +3.
+    //    The safe range ends one byte before the area checksum
+    //    (last byte of the area), so the sentinel and all field data
+    //    must fit inside [i_offset+3, i_offset+l_areaSize-1).
+    auto l_pos = m_vpdVector.cbegin() +
+                 static_cast<ptrdiff_t>(i_offset + constants::VALUE_3);
+
+    // One-past-end of the field region (excludes the checksum byte).
+    [[maybe_unused]] const auto l_areaFieldsEnd =
+        m_vpdVector.cbegin() +
+        static_cast<ptrdiff_t>(i_offset + l_areaSize - constants::VALUE_1);
+
+    const auto l_predefinedFields = parsePredefinedProductFields(l_pos);
+    if (l_predefinedFields.error())
+    {
+        return std::unexpected(l_predefinedFields.error());
+    }
+
+    //@todo: parse any custom fields until the End Of Record sentinel.
+
+    // Store the completed area map
+    m_fruMap[static_cast<size_t>(types::IpmiVpdAreaIndex::PRODUCT_INFO_AREA)] =
+        std::move(l_productInfoAreaMap);
+
     return constants::VALUE_0;
 }
 
