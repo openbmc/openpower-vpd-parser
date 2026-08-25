@@ -16,6 +16,40 @@
       "message": "The API name still says \"..LocCodeKey\"\n\nSuggestion: `buildNodeQualifiedLocCode`",
       "revId": "3001649adc23530e439810f9bca610e75ff46b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfaf034_1371b45a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T18:57:43Z",
+      "side": 1,
+      "message": "Please wrap the method body in `try` `catch` block as it has been specified as `noexcept`",
+      "revId": "3001649adc23530e439810f9bca610e75ff46b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23236da0_9386c649",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T18:57:43Z",
+      "side": 1,
+      "message": "Do we need the ending \u0027-\u0027 here while creating the map key?\n\nEg. for \"Ufcs\", we add node identifier let\u0027s say \"N00\". \"Ufcs-N00\" is the node qualified unexpanded location code which can be used as key for map.",
+      "revId": "3001649adc23530e439810f9bca610e75ff46b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
