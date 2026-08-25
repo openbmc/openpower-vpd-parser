@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1343e07_1cdbc3b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-25T09:11:31Z",
+      "side": 1,
+      "message": "Pushing a new functionality should not mean a base commit with 300+ LOC of empty functions in multiple source files.\n\nAn implementation should start from somewhere and base commit should set the context of the functionality being introduced with base implementation and a detailed commit message that what the whole functionality will bring it. There couple of functionality which will be called in the base commit can be pushed as stub with proper explanation.\n\nThe issue is that an empty API doesn\u0027t give anything to validate against. I can\u0027t tell whether a signature is correct without seeing a caller, whether the error handling is right without a return path, or whether a given function is needed at all without seeing where it fits in the flow.",
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
