@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c60afe0_df79d3ee",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "I agree LOC will be more, but its better to go with a generic approach rather than hard-coded approach as that will be future proof and reduce refactoring effort.",
+      "parentUuid": "5d23a061_dcff6967",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "927804b2_e2b5c608",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 18
@@ -108,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f70c52e7_ea9442c9",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "I agree about the API \u0027s \"D-Bus contract\". But with this change, we are unnecessarily maintaining a list of paths, which unnecessarily consumes more memory at runtime. \n\nAlso, if any entry already exists in the map with key \u003d\u003d `l_mapKey`, we are overriding it instead of appending to the existing list.",
+      "parentUuid": "d57dfb83_07c8e676",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea3a6376_76bd1c49",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "It\u0027s two liner code-change and creating a new API for this looks overkill here .",
       "parentUuid": "ea3a6376_76bd1c49",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c57f56_7f3386da",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "This code change is being used at multiple places. Today, it\u0027s a two liner, what if the logic changes in future?",
+      "parentUuid": "d281b457_83b33624",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -213,6 +267,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88ba4dc3_303846b9",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "This code change is being used at multiple places. Today, it\u0027s a two liner, what if the logic changes in future?",
+      "parentUuid": "d354baae_31caa1ff",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75ba769b_b05bc33f",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 18
@@ -242,6 +314,24 @@
       "side": 1,
       "message": "It\u0027s two liner code-change and creating a new API for this looks overkill here .",
       "parentUuid": "75ba769b_b05bc33f",
+      "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac25d12_4e7087be",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "This code change is being used at multiple places. Today, it\u0027s a two liner, what if the logic changes in future?",
+      "parentUuid": "9cb0e977_840a78f6",
       "revId": "832f1ae88f52a8d1d814096cdb59294fbca5613b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

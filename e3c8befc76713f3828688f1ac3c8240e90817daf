@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d5965b_a1c7f1af",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "The input parameter is \"chassis ID\" and not inventory path. Why are we setting error code as `INVALID_INVENTORY_PATH`?",
+      "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0838f65d_b9ae7e92",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-25T08:28:31Z",
+      "side": 1,
+      "message": "Do we need this log? We are returning error code from here, the caller of `buildLocCodeToInvPathsMap` is already logging an error message. There would be duplicate logs.",
+      "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
