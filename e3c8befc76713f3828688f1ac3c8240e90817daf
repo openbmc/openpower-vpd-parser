@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4fb0a84_921d015a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-25T08:40:24Z",
+      "side": 1,
+      "message": "Because chassisId is derived from inventory object path, so if input parameter which is chassisId is invalid that means the inv object path is not corret/valid.",
+      "parentUuid": "25d5965b_a1c7f1af",
+      "revId": "e3c8befc76713f3828688f1ac3c8240e90817daf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0838f65d_b9ae7e92",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 19
