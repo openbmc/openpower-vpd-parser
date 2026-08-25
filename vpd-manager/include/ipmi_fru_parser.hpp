@@ -99,6 +99,9 @@ class IpmiFruParser final : public ParserInterface
     /** Multiplier to convert offset units to actual byte offsets. */
     static constexpr size_t AREA_OFFSET_MULTIPLIER = 8U;
 
+    /** Keyword name for the language code byte. */
+    static constexpr auto KW_PRODUCT_LANGUAGE_CODE = "PLCODE";
+
     /* ------------------------------------------------------------------ */
     /* Internal helpers                                                    */
     /* ------------------------------------------------------------------ */
@@ -128,6 +131,32 @@ class IpmiFruParser final : public ParserInterface
     std::expected<uint8_t, error_code> computeChecksum(
         types::BinaryVector::const_iterator i_begin,
         types::BinaryVector::const_iterator i_end) const noexcept;
+
+    /**
+     * @brief Decode the seven predefined variable-length fields of the
+     *        Product Info Area into a keyword/value map.
+     *
+     * Walks the ordered list of predefined fields (MNAME, PNAME, PPMN, PVER,
+     * PSN, ASSET_TAG, FRU_FILE_ID) from @p i_pos up to @p i_end, calling
+     * decodeField() for each one and inserting the result into @p o_map.
+     * Stops early (without error) if the end-of-fields sentinel (0xC1) is
+     * encountered before all seven fields have been read.
+     *
+     * @param[in,out] i_pos - Iterator at the first type/length byte of the
+     *                        predefined field sequence; advanced past every
+     *                        consumed byte on success.
+     * @param[in]     i_end - One-past-end of the safe field region (i.e.
+     *                        excludes the area checksum byte).
+     * @param[out]    o_map - Map to receive the decoded keyword/value pairs.
+     *
+     * @return constants::VALUE_0 on success, or an error_code on the first
+     *         field that fails to decode or when data is exhausted before the
+     *         sentinel.
+     */
+    std::expected<uint8_t, error_code> parsePredefinedProductFields(
+        types::BinaryVector::const_iterator& i_pos,
+        types::BinaryVector::const_iterator i_end,
+        types::IPMIVpdValueMap& o_map) noexcept;
 
     /**
      * @brief Parse the Product Info Area
