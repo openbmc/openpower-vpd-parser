@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ac17ee_8371b96b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-26T04:44:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dfaf034_1371b45a",
+      "revId": "3001649adc23530e439810f9bca610e75ff46b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23236da0_9386c649",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-08-25T18:57:43Z",
       "side": 1,
       "message": "Do we need the ending \u0027-\u0027 here while creating the map key?\n\nEg. for \"Ufcs\", we add node identifier let\u0027s say \"N00\". \"Ufcs-N00\" is the node qualified unexpanded location code which can be used as key for map.",
+      "revId": "3001649adc23530e439810f9bca610e75ff46b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed64798_8026cd65",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-26T04:44:26Z",
+      "side": 1,
+      "message": "The code actually doesn\u0027t add an ending dash at the end of the final string; it only adds the trailing dash when injecting into the middle of an existing string.\n\nFor example:\n\nFor exactly \"Ufcs\", it falls into the `else` block and appends \"-N00\", resulting in exactly \"Ufcs-N00\" (as you suggested).\n\nFor \"Ufcs-FAN2\", it falls into the `if` block.",
+      "parentUuid": "23236da0_9386c649",
       "revId": "3001649adc23530e439810f9bca610e75ff46b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
