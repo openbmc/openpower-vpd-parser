@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0656238b_fa835cc6",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-26T06:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bb88095_8c0ddc0f",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 111,
+        "endChar": 33
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95eef4b8_5eff9d5b",
@@ -54,6 +78,30 @@
       "writtenOn": "2026-08-25T13:52:41Z",
       "side": 1,
       "message": "@nit: can we leave one line gap ?",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 80
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5308b2_3e0854a6",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-26T06:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95eef4b8_5eff9d5b",
       "range": {
         "startLine": 141,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c4f9898_0e0b878e",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-26T06:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d46337_8ec814a7",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0208bef8_4ef19432",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0362e8_898b896d",
+        "filename": "vpd-manager/include/ipmi_fru_parser.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-26T06:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0208bef8_4ef19432",
+      "range": {
+        "startLine": 164,
+        "startChar": 5,
+        "endLine": 164,
+        "endChar": 14
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba05417b_b154c52a",
@@ -123,6 +219,30 @@
       "writtenOn": "2026-08-25T13:52:41Z",
       "side": 1,
       "message": "`Product Info Area` -\u003e is repeated two times ?\n\n\u003d\u003d\u003e Product Info Area, the map entry will",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 105
+      },
+      "revId": "f0bfec33c6c5d1d7471bc0713455f3df78fa9ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea484c7_45e17106",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-26T06:04:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba05417b_b154c52a",
       "range": {
         "startLine": 99,
         "startChar": 0,
