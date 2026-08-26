@@ -112,6 +112,16 @@ class IpmiFruParser final : public ParserInterface
      */
     std::expected<AreaByteOffsets, error_code> processCommonHeader() noexcept;
 
+    /**
+     * @brief Parse the Product Info Area
+     *
+     * @param[in] i_offset - Byte offset of the area.
+     *
+     * @return On success, returns 0, otherwise returns error code
+     */
+    std::expected<uint8_t, error_code> parseProductInfoArea(
+        const size_t i_offset) noexcept;
+
     /* ------------------------------------------------------------------ */
     /* Member data                                                         */
     /* ------------------------------------------------------------------ */
