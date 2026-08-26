@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c97075e_015dad7f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-26T14:40:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e676a6b8_3df38fa1",
+      "revId": "9944807c7d8140838182440e0bb7e65975c106b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "250e55a4_2b57a17c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-26T09:17:27Z",
       "side": 1,
       "message": "can we add why first entry is the preferred device tree to set?",
+      "revId": "9944807c7d8140838182440e0bb7e65975c106b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b151defd_e9c2c75b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-26T14:40:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "250e55a4_2b57a17c",
       "revId": "9944807c7d8140838182440e0bb7e65975c106b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
