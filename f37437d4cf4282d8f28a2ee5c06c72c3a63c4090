@@ -16,6 +16,24 @@
       "message": "We need a parameter check for i_nodenumber. That is missing can lead to undesired behavior if the value sent by caller happens to be negative.",
       "revId": "f37437d4cf4282d8f28a2ee5c06c72c3a63c4090",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d553c83b_d3271e0a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-08-26T10:15:20Z",
+      "side": 1,
+      "message": "Done , added validation check .",
+      "parentUuid": "02cef4d5_71e42a01",
+      "revId": "f37437d4cf4282d8f28a2ee5c06c72c3a63c4090",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
