@@ -59,6 +59,7 @@ tests = [
     'utest_keyword_parser.cpp',
     'utest_ddimm_parser.cpp',
     'utest_ipz_parser.cpp',
+    'utest_ipmi_fru_parser.cpp',
     #'utest_json_utility.cpp',
 ]
 
