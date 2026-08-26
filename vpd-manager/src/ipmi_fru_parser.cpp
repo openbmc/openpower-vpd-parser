@@ -60,6 +60,18 @@ std::expected<IpmiFruParser::AreaByteOffsets, error_code>
     return l_result;
 }
 
+std::expected<uint8_t, error_code> IpmiFruParser::parseProductInfoArea(
+    [[maybe_unused]] const size_t i_offset) noexcept
+{
+    // TODO: Validate area bounds and checksum.
+    //       Populate: PRODUCT_LanguageCode, PRODUCT_Manufacturer,
+    //       PRODUCT_ProductName, PRODUCT_PartModelNumber, PRODUCT_Version,
+    //       PRODUCT_SerialNumber, PRODUCT_AssetTag, PRODUCT_FruFileId,
+    //       and any PRODUCT_Custom<N> fields.
+    //       Record offsets in m_fieldOffsets / m_fieldAreaInfo.
+    return constants::VALUE_0;
+}
+
 /* ========================================================================= */
 /* Public API                                                                 */
 /* ========================================================================= */
@@ -74,12 +86,26 @@ types::VPDMapVariant IpmiFruParser::parse()
             commonUtility::getErrCodeMsg(l_headerStatus.error())));
     }
 
-    // TODO:
-    //       Read area offsets from l_headerStatus
-    //       Call parseInternalUseArea(), parseChassisInfoArea(),
-    //       parseBoardInfoArea(), parseProductInfoArea(), and
-    //       parseMultiRecordArea() for each present area.
-    //       Return m_fruMap.
+    // Read area offsets
+    const auto& l_areaOffsets = *l_headerStatus;
+    const size_t l_productOffset = l_areaOffsets[static_cast<size_t>(
+        types::IpmiVpdAreaIndex::PRODUCT_INFO_AREA)];
+
+    // Product Info Area
+    if (l_productOffset != constants::VALUE_0)
+    {
+        auto l_status = parseProductInfoArea(l_productOffset);
+        if (!l_status)
+        {
+            m_logger->logMessage(
+                std::format("Failed to parse Product Info Area, error: {}",
+                            commonUtility::getErrCodeMsg(l_status.error())));
+        }
+    }
+
+    // @todo: parse the other areas defined in IPMI FRU VPD format if they are
+    // present
+
     return m_fruMap;
 }
 
