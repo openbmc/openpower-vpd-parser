@@ -99,6 +99,26 @@ class IpmiFruParser final : public ParserInterface
     /** Multiplier to convert offset units to actual byte offsets. */
     static constexpr size_t AREA_OFFSET_MULTIPLIER = 8U;
 
+    // ---- Type/Length byte fields (IPMI FRU spec §13) -------------------
+
+    /** Mask for type code bits [7:6]. */
+    static constexpr uint8_t TL_TYPE_MASK = 0xC0U;
+
+    /** Mask for data-length bits [5:0]. */
+    static constexpr uint8_t TL_LENGTH_MASK = 0x3FU;
+
+    /** Type code: binary / unspecified. */
+    static constexpr uint8_t TL_TYPE_BINARY = 0x00U;
+
+    /** Type code: BCD+. */
+    static constexpr uint8_t TL_TYPE_BCD_PLUS = 0x40U;
+
+    /** Type code: 6-bit ASCII packed. */
+    static constexpr uint8_t TL_TYPE_6BIT_ASCII = 0x80U;
+
+    /** Type code: 8-bit ASCII / Latin-1 (or Unicode when non-English). */
+    static constexpr uint8_t TL_TYPE_8BIT_ASCII = 0xC0U;
+
     // ---- Product Info Area keyword names (NVMe-MI spec §8.2.2) ---------
 
     /** Keyword name for the language code byte. */
