@@ -99,8 +99,34 @@ class IpmiFruParser final : public ParserInterface
     /** Multiplier to convert offset units to actual byte offsets. */
     static constexpr size_t AREA_OFFSET_MULTIPLIER = 8U;
 
+    // ---- Product Info Area keyword names (NVMe-MI spec §8.2.2) ---------
+
     /** Keyword name for the language code byte. */
     static constexpr auto KW_PRODUCT_LANGUAGE_CODE = "PLCODE";
+
+    /** Sentinel byte indicating end of variable-length fields (C1h). */
+    static constexpr uint8_t END_OF_FIELDS = 0xC1U;
+
+    /** Keyword name for Manufacturer Name. */
+    static constexpr auto KW_PRODUCT_MNAME = "MNAME";
+
+    /** Keyword name for Product Name. */
+    static constexpr auto KW_PRODUCT_PNAME = "PNAME";
+
+    /** Keyword name for Product Part/Model Number. */
+    static constexpr auto KW_PRODUCT_PPMN = "PPMN";
+
+    /** Keyword name for Product Version. */
+    static constexpr auto KW_PRODUCT_PVER = "PVER";
+
+    /** Keyword name for Product Serial Number. */
+    static constexpr auto KW_PRODUCT_PSN = "PSN";
+
+    /** Keyword name for Asset Tag. */
+    static constexpr auto KW_PRODUCT_ASSET_TAG = "ASSET_TAG";
+
+    /** Keyword name for FRU File ID. */
+    static constexpr auto KW_PRODUCT_FRU_FILE_ID = "FRU_FILE_ID";
 
     /* ------------------------------------------------------------------ */
     /* Internal helpers                                                    */
