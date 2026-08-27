@@ -74,15 +74,65 @@ std::expected<uint8_t, error_code> IpmiFruParser::computeChecksum(
     }
 }
 
-std::expected<uint8_t, error_code> IpmiFruParser::parsePredefinedProductFields(
+std::expected<types::KWdVPDValueType, error_code> IpmiFruParser::decodeField(
     [[maybe_unused]] types::BinaryVector::const_iterator& i_pos,
-    [[maybe_unused]] types::BinaryVector::const_iterator i_end,
-    [[maybe_unused]] types::IPMIVpdValueMap& o_map) noexcept
+    [[maybe_unused]] types::BinaryVector::const_iterator i_end) const noexcept
 {
-    /* @todo: parse the 7 predefined product fields in Product Information Area
-        MNAME, PNAME, PPMN, PVER, PSN, AT, FFID
-
+    /* @todo: implement decode field
+     1. Check for area bounds
+     2. Extract type code (8-bit ASCII or 6-bit ASCII)
+     3. Extract the data bytes
     */
+    return types::KWdVPDValueType{types::BinaryVector()};
+}
+
+std::expected<uint8_t, error_code> IpmiFruParser::parsePredefinedProductFields(
+    types::BinaryVector::const_iterator& i_pos,
+    types::BinaryVector::const_iterator i_end,
+    types::IPMIVpdValueMap& o_map) noexcept
+{
+    // Ordered list of the seven predefined Product Info Area fields per
+    // NVMe-MI spec §8.2.2 / IPMI FRU spec §12.
+    const std::array<const char*, constants::VALUE_7> l_predefinedKeys{
+        KW_PRODUCT_MNAME,       KW_PRODUCT_PNAME, KW_PRODUCT_PPMN,
+        KW_PRODUCT_PVER,        KW_PRODUCT_PSN,   KW_PRODUCT_ASSET_TAG,
+        KW_PRODUCT_FRU_FILE_ID,
+    };
+
+    for (const auto* l_key : l_predefinedKeys)
+    {
+        if (i_pos >= i_end)
+        {
+            // Ran out of data before reaching end-of-fields sentinel.
+            m_logger->logMessage(std::format(
+                "IPMI FRU: Product Info Area truncated while reading "
+                "predefined field \"{}\" at offset {:#x}",
+                l_key,
+                static_cast<size_t>(
+                    std::distance(m_vpdVector.cbegin(), i_pos))));
+            return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+        }
+
+        // Stop immediately if we hit the end-of-fields sentinel.
+        if (*i_pos == END_OF_FIELDS)
+        {
+            break;
+        }
+
+        auto l_fieldResult = decodeField(i_pos, i_end);
+        if (!l_fieldResult)
+        {
+            m_logger->logMessage(std::format(
+                "IPMI FRU: Failed to decode Product Info Area field \"{}\" "
+                "at offset {:#x}, error: {}",
+                l_key,
+                static_cast<size_t>(std::distance(m_vpdVector.cbegin(), i_pos)),
+                commonUtility::getErrCodeMsg(l_fieldResult.error())));
+            return std::unexpected(l_fieldResult.error());
+        }
+        o_map.emplace(l_key, std::move(*l_fieldResult));
+    }
+
     return constants::VALUE_0;
 }
 
