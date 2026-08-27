@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f1e250_00938fce",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-08-27T04:56:21Z",
+      "side": 1,
+      "message": "Should we log which device tree we are assigning to `fitconfig` variable?",
+      "revId": "d78bd60e256db3cfc6120ea9d708ba93b5d66f82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
