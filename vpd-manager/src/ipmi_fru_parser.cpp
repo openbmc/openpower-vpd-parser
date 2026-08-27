@@ -75,15 +75,92 @@ std::expected<uint8_t, error_code> IpmiFruParser::computeChecksum(
 }
 
 std::expected<types::KWdVPDValueType, error_code> IpmiFruParser::decodeField(
-    [[maybe_unused]] types::BinaryVector::const_iterator& i_pos,
-    [[maybe_unused]] types::BinaryVector::const_iterator i_end) const noexcept
+    types::BinaryVector::const_iterator& i_pos,
+    types::BinaryVector::const_iterator i_end) const noexcept
 {
-    /* @todo: implement decode field
-     1. Check for area bounds
-     2. Extract type code (8-bit ASCII or 6-bit ASCII)
-     3. Extract the data bytes
-    */
-    return types::KWdVPDValueType{types::BinaryVector()};
+    // Need at least one byte for the type/length byte itself.
+    if (i_pos >= i_end)
+    {
+        return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+    }
+
+    const uint8_t l_tl = *i_pos;
+    ++i_pos;
+
+    const uint8_t l_typeCode = static_cast<uint8_t>(l_tl & TL_TYPE_MASK);
+    const uint8_t l_len = static_cast<uint8_t>(l_tl & TL_LENGTH_MASK);
+
+    // Empty field (null placeholder): return an empty string.
+    if (l_len == 0)
+    {
+        return types::KWdVPDValueType{std::string{}};
+    }
+
+    // Bounds check: make sure the declared data bytes are within range.
+    if (static_cast<ptrdiff_t>(l_len) > std::distance(i_pos, i_end))
+    {
+        return std::unexpected(error_code::OUT_OF_BOUND_EXCEPTION);
+    }
+
+    const auto l_dataBegin = i_pos;
+    const auto l_dataEnd = i_pos + static_cast<ptrdiff_t>(l_len);
+    i_pos = l_dataEnd;
+
+    if (l_typeCode == TL_TYPE_8BIT_ASCII)
+    {
+        // 8-bit ASCII / Latin-1: copy bytes directly to string.
+        // NVMe-MI spec §8.2.2 Figure 151 notes that in this specification the
+        // type code 11b always corresponds to ASCII.
+        return types::KWdVPDValueType{std::string(l_dataBegin, l_dataEnd)};
+    }
+
+    if (l_typeCode == TL_TYPE_6BIT_ASCII)
+    {
+        // Packed 6-bit ASCII: 4 characters per 3 bytes, LS-char first.
+        // Each 6-bit value maps to ASCII by adding 0x20 (space = 0).
+        std::string l_str;
+        l_str.reserve((l_len * 4U + 2U) / 3U);
+
+        auto l_it = l_dataBegin;
+        while (l_it < l_dataEnd)
+        {
+            // Consume up to 3 bytes, decode up to 4 characters.
+            const size_t l_remaining =
+                static_cast<size_t>(std::distance(l_it, l_dataEnd));
+            const size_t l_chunk =
+                std::min(l_remaining, static_cast<size_t>(3));
+
+            // Load bytes (pad missing bytes with 0).
+            const uint8_t l_b0 = *l_it;
+            const uint8_t l_b1 =
+                (l_chunk >= 2U) ? *(l_it + 1) : static_cast<uint8_t>(0);
+            const uint8_t l_b2 =
+                (l_chunk >= 3U) ? *(l_it + 2) : static_cast<uint8_t>(0);
+            l_it += static_cast<ptrdiff_t>(l_chunk);
+
+            // Extract four 6-bit values from the three bytes.
+            // Byte layout: char0[5:0]=b0[5:0], char1[5:0]=b1[1:0]|b0[7:6],
+            //              char2[5:0]=b2[3:0]|b1[7:2], char3[5:0]=b2[7:4]
+            const uint32_t l_packed = (static_cast<uint32_t>(l_b2) << 16U) |
+                                      (static_cast<uint32_t>(l_b1) << 8U) |
+                                      static_cast<uint32_t>(l_b0);
+
+            const size_t l_numChars = (l_chunk == 3U)   ? 4U
+                                      : (l_chunk == 2U) ? 3U
+                                                        : 2U;
+
+            for (size_t l_i = 0; l_i < l_numChars; ++l_i)
+            {
+                const uint8_t l_sixBit =
+                    static_cast<uint8_t>((l_packed >> (6U * l_i)) & 0x3FU);
+                l_str += static_cast<char>(l_sixBit + 0x20U);
+            }
+        }
+        return types::KWdVPDValueType{std::move(l_str)};
+    }
+
+    // TL_TYPE_BINARY and TL_TYPE_BCD_PLUS: return as raw bytes.
+    return types::KWdVPDValueType{types::BinaryVector(l_dataBegin, l_dataEnd)};
 }
 
 std::expected<uint8_t, error_code> IpmiFruParser::parsePredefinedProductFields(
