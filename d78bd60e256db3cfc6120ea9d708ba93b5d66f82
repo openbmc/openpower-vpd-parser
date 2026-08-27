@@ -16,6 +16,24 @@
       "message": "Should we log which device tree we are assigning to `fitconfig` variable?",
       "revId": "d78bd60e256db3cfc6120ea9d708ba93b5d66f82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "691dfc0f_fb807f4d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-08-27T05:43:39Z",
+      "side": 1,
+      "message": "Two reasons to not do that.\n1) We were not doing that earlier.\n2) If it is an array of dts then logging here does not make sense as actual one will be picked by HE APP and hence we are logging it there.",
+      "parentUuid": "b0f1e250_00938fce",
+      "revId": "d78bd60e256db3cfc6120ea9d708ba93b5d66f82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
