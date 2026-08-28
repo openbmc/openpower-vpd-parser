@@ -1,5 +1,6 @@
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_split_mode.hpp"
 #include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
@@ -300,6 +301,14 @@ void updateFooter(CLI::App& i_app)
         "Validate EEPROM:\n"
         "   Validate given EEPROM against its redundant copy:\n"
         "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
+        "Enter Split mode:\n"
+        "   Configure the system to enter split mode.\n"
+        "   vpd-tool --enterSplitMode\n"
+        "   File path is optional. If provided, copies the path to file mode location. Otherwise tool assumes path is already copied to file mode loaction.\n"
+        "   vpd-tool --enterSplitMode --file <File Path>\n"
+        "Exit Split mode:\n"
+        "   Exit split mode and restore the system to normal operation.\n"
+        "   vpd-tool --exitSplitMode\n"
         "Return Values:\n"
         "   Success:\n"
         "       Non-negative number.\n"
@@ -403,6 +412,12 @@ int main(int argc, char** argv)
             .add_flag("--validateRedundantEeprom, -e",
                       "Validate given EEPROM against its redundant EEPROM")
             ->needs(l_objectOption);
+
+    auto l_enterSplitModeFlag =
+        l_app.add_flag("--enterSplitMode", "Sets the system in split mode.");
+
+    auto l_exitSplitModeFlag =
+        l_app.add_flag("--exitSplitMode", "Exit split mode on the system.");
 
 #if 0
     auto l_dumpObjFlag =
@@ -520,6 +535,18 @@ int main(int argc, char** argv)
         return l_vpdToolObj.validateRedundantEeprom(l_vpdPath);
     }
 
+    if (!l_enterSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.enterSplitMode(l_filePath);
+    }
+
+    if (!l_exitSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.exitSplitMode();
+    }
+
 #if 0
     if (!l_dumpObjFlag->empty())
     {
@@ -537,11 +564,6 @@ int main(int argc, char** argv)
     {
         return doMfgClean(l_mfgCleanConfirmFlag,
                           l_mfgCleanSyncBiosAttributesFlag);
-    }
-
-    if (!l_forceResetFlag->empty())
-    {
-        return forceReset();
     }
 #endif
 
