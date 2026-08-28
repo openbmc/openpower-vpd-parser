@@ -1,5 +1,6 @@
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_split_mode.hpp"
 #include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
@@ -300,6 +301,13 @@ void updateFooter(CLI::App& i_app)
         "Validate EEPROM:\n"
         "   Validate given EEPROM against its redundant copy:\n"
         "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
+        "Enter Split mode:\n"
+        "   Configure the system to enter split mode. If path is provided, copies path to file mode location. Else, considers the system VPD file is available at file mode location.\n"
+        "   With file option: vpd-tool --enterSplitMode --file <File Path>\n"
+        "   Without file option: vpd-tool --enterSplitMode\n"
+        "Exit Split mode:\n"
+        "   Exit split mode and restore the system to normal operation.\n"
+        "   vpd-tool --exitSplitMode\n"
         "Return Values:\n"
         "   Success:\n"
         "       Non-negative number.\n"
@@ -403,6 +411,12 @@ int main(int argc, char** argv)
             .add_flag("--validateRedundantEeprom, -e",
                       "Validate given EEPROM against its redundant EEPROM")
             ->needs(l_objectOption);
+
+    auto l_enterSplitModeFlag =
+        l_app.add_flag("--enterSplitMode", "Sets the system in split mode.");
+
+    auto l_exitSplitModeFlag =
+        l_app.add_flag("--exitSplitMode", "Exit split mode");
 
 #if 0
     auto l_dumpObjFlag =
@@ -518,6 +532,20 @@ int main(int argc, char** argv)
     {
         vpd::VpdTool l_vpdToolObj;
         return l_vpdToolObj.validateRedundantEeprom(l_vpdPath);
+    }
+
+    if (!l_enterSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.enterSplitMode(
+            !l_fileOption->empty() ? std::optional<std::string>(l_filePath)
+                                   : std::nullopt);
+    }
+
+    if (!l_exitSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.exitSplitMode();
     }
 
 #if 0
