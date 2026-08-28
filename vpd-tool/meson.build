@@ -8,7 +8,11 @@ endif
 sdbusplus = dependency('sdbusplus', fallback: ['sdbusplus', 'sdbusplus_dep'])
 dependency_list = [CLI11_dep, sdbusplus]
 
-sources = ['src/vpd_tool_main.cpp', 'src/vpd_tool.cpp']
+sources = [
+    'src/vpd_tool_main.cpp',
+    'src/vpd_tool.cpp',
+    'src/tool_split_mode.cpp',
+]
 
 vpd_tool_exe = executable(
     'vpd-tool',
