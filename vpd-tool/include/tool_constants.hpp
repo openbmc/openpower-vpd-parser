@@ -69,6 +69,9 @@ constexpr auto vpdCollectionInProgress =
 constexpr auto chassisInventoryPath =
     "/xyz/openbmc_project/inventory/system/chassis";
 
+constexpr auto splitModeVpdFilePath =
+    "/var/lib/vpd/vpd_tool_split_mode.bin";
+
 // Valid IM values list.
 static std::vector<std::string> validImValues{
     "0x50001000", "0x50001001", "0x50001002", "0x50003000", "0x50004000",

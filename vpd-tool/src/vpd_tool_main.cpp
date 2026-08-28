@@ -1,5 +1,6 @@
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_split_mode.hpp"
 #include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
@@ -349,6 +350,7 @@ int main(int argc, char** argv)
     std::string l_filePath{};
     std::string l_keywordValue{};
     std::optional<int> l_chassisId;
+    std::string l_splitModeFilePath{};
 
     updateFooter(l_app);
 
@@ -403,6 +405,13 @@ int main(int argc, char** argv)
             .add_flag("--validateRedundantEeprom, -e",
                       "Validate given EEPROM against its redundant EEPROM")
             ->needs(l_objectOption);
+
+    auto l_enterSplitModeFlag =
+        l_app.add_flag("--enterSplitMode",
+                       "Sets the system in split mode.");
+
+    auto l_exitSplitModeFlag =
+        l_app.add_flag("--exitSplitMode", "Exit split mode on the system.");
 
 #if 0
     auto l_dumpObjFlag =
@@ -520,6 +529,18 @@ int main(int argc, char** argv)
         return l_vpdToolObj.validateRedundantEeprom(l_vpdPath);
     }
 
+    if (!l_enterSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.setUpSplitMode(l_filePath);
+    }
+
+    if (!l_exitSplitModeFlag->empty())
+    {
+        vpd::SplitMode l_splitModeObj;
+        return l_splitModeObj.exitSplitMode();
+    }
+
 #if 0
     if (!l_dumpObjFlag->empty())
     {
@@ -537,11 +558,6 @@ int main(int argc, char** argv)
     {
         return doMfgClean(l_mfgCleanConfirmFlag,
                           l_mfgCleanSyncBiosAttributesFlag);
-    }
-
-    if (!l_forceResetFlag->empty())
-    {
-        return forceReset();
     }
 #endif
 
