@@ -223,24 +223,49 @@ int SplitMode::enterSplitMode(
 
 int SplitMode::exitSplitMode() const noexcept
 {
-    try
+    std::error_code l_ec;
+    if (std::filesystem::exists(constants::splitModeSystemVpdPath, l_ec))
     {
-        // TODO: Inplement the following steps:
-        //  1. If system VPD file is present at the file mode location delete
-        //  the path.
-        //  2. set U-Boot variables "fieldmmode" as false and "vpdmode" to
-        //  hardware.
-        //  3. Validate if U-Boot variables are correctly set.
+        if (l_ec)
+        {
+            std::cerr << std::format("Failed to check if file mode VPD file path [{}] exists. Error : {}.", constants::splitModeSystemVpdPath, l_ec.message()) << std::endl;
+        }
+
+        std::filesystem::remove_all(constants::fileModeDirectory, l_ec);
+
+        if (l_ec)
+        {
+            std::cerr << std::format("Failed to delete file mode system VPD file path [{}]. Error : {}.", constants::fileModeDirectory, l_ec.message()) << std::endl;
+        }
     }
-    catch (const std::exception& l_ex)
+
+    if (const auto& l_setUBootVarialbeStatus = setUbootVar("false", "hardware"); !l_setUBootVarialbeStatus)
     {
-        std::cerr
-            << std::format(
-                   "Exception occured while exiting split mode. Error : {}",
-                   l_ex.what())
-            << std::endl;
+        return static_cast<int>(l_setUBootVarialbeStatus.error());
+    }
+
+    const auto l_getUBootVariableStatus = getUbootVar();
+
+    if (!l_getUBootVariableStatus)
+    {
+        return static_cast<int>(l_getUBootVariableStatus.error());
+    }
+
+    if (std::get<0>(l_getUBootVariableStatus.value()) != "false")
+    {
+        std::cerr << "Field mode value is not false. Exit" << std::endl;
         return constants::FAILURE;
     }
+
+    if (std::get<1>(l_getUBootVariableStatus.value()) != "hardware")
+    {
+        std::cout << std::get<1>(l_getUBootVariableStatus.value());
+        std::cerr << "VPD mode is not in hardware mode. Exit" << std::endl;
+        return constants::FAILURE;
+    }
+
+    std::cout << "Exit split mode process completed. Proceed with factory reset and boot the BMC with CDFP connected." << std::endl;
+
     return constants::SUCCESS;
 }
 } // namespace vpd

@@ -9,7 +9,9 @@
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/exception.hpp>
 
+#include <array>
 #include <cctype>
+#include <cstdio>
 #include <expected>
 #include <fstream>
 #include <iostream>
