@@ -1,6 +1,10 @@
 #pragma once
 
+#include "tool_error_codes.hpp"
+
+#include <expected>
 #include <string>
+#include <tuple>
 
 namespace vpd
 {
@@ -12,6 +16,28 @@ namespace vpd
  */
 class SplitMode
 {
+  private:
+    /**
+     * @brief Set U-Boot environment variables for split mode
+     *
+     * @param[in] i_fieldModeValue - Value to set for fieldmode variable.
+     * @param[in] i_vpdModeValue   - Value to set for vpdmode variable.
+     *
+     * @return On success returns void, corresponding error code on failure.
+     */
+    std::expected<void, ErrorCode> setUbootVar(
+        const std::string& i_fieldModeValue,
+        const std::string& i_vpdModeValue) const noexcept;
+
+    /**
+     * @brief Read U-Boot environment variables for split mode
+     *
+     * @return On success returns a tuple of (fieldmode value, vpdmode value),
+     * corresponding error code on failure.
+     */
+    std::expected<std::tuple<std::string, std::string>, ErrorCode>
+        getUbootVar() const noexcept;
+
   public:
     /**
      * @brief Set up the system in split mode.

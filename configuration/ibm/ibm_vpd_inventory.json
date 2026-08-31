@@ -86,7 +86,7 @@
                 }
             }
         ],
-        "/sys/bus/i2c/drivers/at24/8-0053/eeprom": [
+        "/usr/share/vpd/system_vpd_template1.vpd": [
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
