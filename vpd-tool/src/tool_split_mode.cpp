@@ -225,12 +225,79 @@ int SplitMode::exitSplitMode() const noexcept
 {
     try
     {
-        // TODO: Inplement the following steps:
-        //  1. If system VPD file is present at the file mode location delete
-        //  the path.
-        //  2. set U-Boot variables "fieldmmode" as false and "vpdmode" to
-        //  hardware.
-        //  3. Validate if U-Boot variables are correctly set.
+        std::error_code l_ec;
+
+        const auto l_splitModeSystemVPDPath{
+            constants::fileModeDirectory /
+            std::filesystem::path(SYSTEM_VPD_FILE_PATH).relative_path()};
+
+        const bool l_fileExists =
+            std::filesystem::exists(l_splitModeSystemVPDPath, l_ec);
+
+        if (l_ec)
+        {
+            std::cerr
+                << std::format(
+                       "Failed to check if system VPD file-mode path [{}] exists. "
+                       "Error: {}, error code [{}]. Aborting exit split mode.",
+                       l_splitModeSystemVPDPath.string(), l_ec.message(),
+                       l_ec.value())
+                << std::endl;
+
+            return static_cast<int>(ErrorCode::FILE_SYSTEM_ERROR);
+        }
+
+        if (l_fileExists)
+        {
+            std::filesystem::remove_all(constants::fileModeDirectory, l_ec);
+
+            if (l_ec)
+            {
+                std::cerr
+                    << std::format(
+                           "Failed to remove file-mode system VPD path [{}]. "
+                           "Error: {}, error code [{}]. Aborting exit split mode.",
+                           constants::fileModeDirectory, l_ec.message(),
+                           l_ec.value())
+                    << std::endl;
+
+                return static_cast<int>(ErrorCode::FILE_SYSTEM_ERROR);
+            }
+        }
+
+        if (const auto& l_setUBootVariableStatus =
+                setUbootVariables("false", "hardware");
+            !l_setUBootVariableStatus)
+        {
+            return static_cast<int>(l_setUBootVariableStatus.error());
+        }
+
+        const auto l_getUBootVariableStatus = getUbootVariableValues();
+
+        if (!l_getUBootVariableStatus)
+        {
+            return static_cast<int>(l_getUBootVariableStatus.error());
+        }
+
+        if (std::get<0>(l_getUBootVariableStatus.value()) != "false")
+        {
+            std::cerr
+                << "Failed to set system in lab mode. Aborting exit split mode."
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        if (std::get<1>(l_getUBootVariableStatus.value()) != "hardware")
+        {
+            std::cerr
+                << "VPD mode is not in hardware mode. Aborting exit split mode."
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        std::cout
+            << "Exit split mode completed. Proceed with factory reset and boot the BMC with CDFP connected."
+            << std::endl;
     }
     catch (const std::exception& l_ex)
     {
@@ -239,8 +306,10 @@ int SplitMode::exitSplitMode() const noexcept
                    "Exception occured while exiting split mode. Error : {}",
                    l_ex.what())
             << std::endl;
-        return constants::FAILURE;
+
+        return static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
     }
+
     return constants::SUCCESS;
 }
 } // namespace vpd
