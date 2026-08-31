@@ -172,22 +172,69 @@ int SplitMode::exitSplitMode() const noexcept
 {
     try
     {
-        // TODO: Inplement the following steps:
-        //  1. If system VPD file is present at the file mode location delete
-        //  the path.
-        //  2. set U-Boot variables "fieldmmode" as false and "vpdmode" to
-        //  hardware.
-        //  3. Validate if U-Boot variables are correctly set.
+        std::string l_errMsg;
+        std::error_code l_ec;
+
+        // As part of split-mode setup, the file-mode directory is created and
+        // the system VPD is copied to the file-mode path. Since the system is
+        // exiting split mode, the file-mode directory and its contents are no
+        // longer required.
+        std::filesystem::remove_all(constants::fileModeDirectory, l_ec);
+
+        if (l_ec)
+        {
+            l_errMsg += std::format(
+                " Failed to remove file-mode system VPD path [{}]. "
+                "Error: {}, error code [{}].",
+                constants::fileModeDirectory, l_ec.message(), l_ec.value());
+        }
+
+        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
+            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
+
+        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
+        {
+            l_errMsg +=
+                std::format("Failed to set U-boot variable [{}] to [{}].",
+                            constants::ubootVarFieldMode,
+                            constants::ubootValFieldModeFalse);
+        }
+
+        const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
+            constants::ubootVarVpdMode, constants::ubootValVpdModeHardware);
+
+        if (!l_ubootVpdModeSetResult || !(*l_ubootVpdModeSetResult))
+        {
+            std::cerr
+                << std::format(
+                       " Failed to set U-boot variable [{}] to [{}]. Aborting exit split mode.",
+                       constants::ubootVarVpdMode,
+                       constants::ubootValVpdModeHardware)
+                << std::endl;
+
+            return (!l_ubootVpdModeSetResult)
+                       ? static_cast<int>(l_ubootFieldModeSetResult.error())
+                       : constants::FAILURE;
+        }
+
+        std::cout
+            << std::format(
+                   "Environment is set to exit split mode.{}\n"
+                   "Do factory reset and boot the BMC with CDFP cables connected.",
+                   l_errMsg)
+            << std::endl;
     }
     catch (const std::exception& l_ex)
     {
         std::cerr
             << std::format(
-                   "Exception occured while exiting split mode. Error : {}",
+                   "Exception occured while exiting split mode. Error : {}. Aborting exit split mode.",
                    l_ex.what())
             << std::endl;
-        return constants::FAILURE;
+
+        return static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
     }
+
     return constants::SUCCESS;
 }
 } // namespace vpd

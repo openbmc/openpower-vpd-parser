@@ -76,6 +76,7 @@ constexpr auto ubootVarFieldMode = "fieldmode";
 constexpr auto ubootVarVpdMode = "vpdmode";
 constexpr auto ubootValFieldModeFalse = "false";
 constexpr auto ubootValVpdModeFile = "file";
+constexpr auto ubootValVpdModeHardware = "hardware";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{
