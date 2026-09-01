@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6cfcecc_9581094a",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-01T06:19:24Z",
+      "side": 1,
+      "message": "Need brief details about what is split mode.",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7268fd7_a9227620",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-01T06:19:24Z",
+      "side": 1,
+      "message": "Nit: setting up the system",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfc23a2a_f1a39f9f",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-01T06:19:24Z",
+      "side": 1,
+      "message": "nit: location",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f76dbcc3_e654ff28",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-01T06:19:24Z",
+      "side": 1,
+      "message": "can we devide statment into two one fits without --file option and other statemnt with --file option and both goes with thier example command.",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
