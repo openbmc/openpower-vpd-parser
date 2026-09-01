@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee59cde2_42aa4e84",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6cfcecc_9581094a",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5e970f9_7023f7db",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-01T07:01:35Z",
       "side": 1,
       "message": "Get this part removed. We just give an option to the user to update any keyword if required.",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9d64b2_146bcc5c",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5e970f9_7023f7db",
       "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c706cbc_dc5029fd",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a1bfaf1_5be9be19",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7268fd7_a9227620",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-09-01T06:19:24Z",
       "side": 1,
       "message": "Nit: setting up the system",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9b0e251_499113df",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7268fd7_a9227620",
       "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa0db3d4_1a472127",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfc23a2a_f1a39f9f",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f76dbcc3_e654ff28",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c36d85_77b29199",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f76dbcc3_e654ff28",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19755395_41f42b0a",
@@ -116,6 +224,30 @@
       "writtenOn": "2026-09-01T07:01:35Z",
       "side": 1,
       "message": "May need rephrasing. \"on the system\" part is confusing.",
+      "range": {
+        "startLine": 420,
+        "startChar": 47,
+        "endLine": 420,
+        "endChar": 72
+      },
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bc4dbf1_8f4f7e75",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-01T08:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19755395_41f42b0a",
       "range": {
         "startLine": 420,
         "startChar": 47,
