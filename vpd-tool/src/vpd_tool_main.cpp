@@ -302,7 +302,7 @@ void updateFooter(CLI::App& i_app)
         "   Validate given EEPROM against its redundant copy:\n"
         "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
         "Enter Split mode:\n"
-        "   Configure the system to enter split mode. If path is provided, copies path to file mode loaction. Else, considers the file is available at file mode location.\n"
+        "   Configure the system to enter split mode. If path is provided, copies path to file mode location. Else, considers the system VPD file is available at file mode location.\n"
         "   With file option: vpd-tool --enterSplitMode --file <File Path>\n"
         "   Without file option: vpd-tool --enterSplitMode\n"
         "Exit Split mode:\n"
