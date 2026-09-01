@@ -71,6 +71,12 @@ constexpr auto chassisInventoryPath =
 
 constexpr auto fileModeDirectory = "/var/lib/vpd/file";
 
+// U-Boot variable names and their values used for split/file mode.
+constexpr auto ubootVarFieldMode = "fieldmode";
+constexpr auto ubootVarVpdMode = "vpdmode";
+constexpr auto ubootValFieldModeFalse = "false";
+constexpr auto ubootValVpdModeFile = "file";
+
 // Valid IM values list.
 static std::vector<std::string> validImValues{
     "0x50001000", "0x50001001", "0x50001002", "0x50003000", "0x50004000",
