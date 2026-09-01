@@ -71,6 +71,8 @@ constexpr auto chassisInventoryPath =
 
 constexpr auto splitModeSystemVpdPath =
     "/var/lib/vpd/file/sys/bus/i2c/drivers/at24/8-0053/eeprom";
+constexpr auto fieldMode = "fieldmode";
+constexpr auto vpdMode = "vpdmode";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{
