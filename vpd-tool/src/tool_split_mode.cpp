@@ -4,6 +4,7 @@
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_utils.hpp"
 
 #include <filesystem>
 #include <format>
@@ -11,6 +12,42 @@
 
 namespace vpd
 {
+std::expected<void, ErrorCode> SplitMode::setUbootVariables(
+    const std::string& i_fieldModeValue,
+    const std::string& i_vpdModeValue) const noexcept
+{
+    try
+    {
+        if (const auto& l_cmdStatus = utils::executeCmd(
+                std::format("fw_setenv fieldmode {}", i_fieldModeValue));
+            !l_cmdStatus)
+        {
+            std::cerr << std::format("Failed to set fieldmode to {}.\n",
+                                     i_fieldModeValue);
+            return std::unexpected(l_cmdStatus.error());
+        }
+
+        if (const auto& l_cmdStatus = utils::executeCmd(
+                std::format("fw_setenv vpdmode {}", i_vpdModeValue));
+            !l_cmdStatus)
+        {
+            std::cerr << std::format("Failed to set vpdmode to {}.\n",
+                                     i_vpdModeValue);
+            return std::unexpected(l_cmdStatus.error());
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr
+            << std::format(
+                   "Exception occured while setting up U-Boot variables. Error : {}.",
+                   l_ex.what())
+            << std::endl;
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+    return {};
+}
+
 int SplitMode::enterSplitMode(
     const std::optional<std::string>& i_filePath) const noexcept
 {
@@ -77,7 +114,16 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        // TODO - set and validate U-Boot variables
+        // set up U-Boot variables filedmode=false and vpdmode=file. So after
+        // reboot BMC can read system VPD from file mode path.
+        const auto& l_setUBootVarialbeStatus =
+            setUbootVariables("false", "file");
+        if (!l_setUBootVarialbeStatus)
+        {
+            return static_cast<int>(l_setUBootVarialbeStatus.error());
+        }
+
+        // TODO - validate U-Boot variables.
     }
     catch (const std::exception& l_ex)
     {

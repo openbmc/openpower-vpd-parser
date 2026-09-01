@@ -1296,5 +1296,62 @@ inline std::expected<std::string, ErrorCode>
         return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
 }
+
+/**
+ * @brief Execute a shell command and capture output
+ *
+ * Executes a shell command using popen and captures the output lines.
+ * The exit status of the command is checked via pclose; a non-zero exit
+ * status is treated as a failure even if output was produced.
+ *
+ * @param[in] i_command - Command to execute
+ *
+ * @return  On success, contains the captured output lines. Corresponding error
+ * code on failure.
+ */
+inline std::expected<std::vector<std::string>, ErrorCode> executeCmd(
+    const std::string& i_command) noexcept
+{
+    try
+    {
+        using l_pCloseFunc = int (*)(FILE*);
+        std::unique_ptr<FILE, l_pCloseFunc> l_pipe(
+            popen(i_command.c_str(), "r"), pclose);
+
+        if (!l_pipe)
+        {
+            std::cerr << std::format("Failed to execute command: {}\n",
+                                     i_command);
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        std::vector<std::string> l_output;
+        char l_buffer[256];
+        while (fgets(l_buffer, sizeof(l_buffer), l_pipe.get()) != nullptr)
+        {
+            l_output.push_back(std::string(l_buffer));
+        }
+
+        // Release ownership so we can call pclose manually and inspect the
+        // command's exit status — the destructor would discard it silently.
+        int l_status = pclose(l_pipe.release());
+        if (!WIFEXITED(l_status) || WEXITSTATUS(l_status) != 0)
+        {
+            std::cerr << std::format(
+                             "Command [{}] exited with non-zero status: {}",
+                             i_command, WEXITSTATUS(l_status))
+                      << std::endl;
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        return l_output;
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << std::format("Exception while executing command {}: {}",
+                                 i_command, l_ex.what());
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+}
 } // namespace utils
 } // namespace vpd
