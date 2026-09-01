@@ -48,6 +48,56 @@ std::expected<void, ErrorCode> SplitMode::setUbootVariables(
     return {};
 }
 
+std::expected<std::tuple<std::string, std::string>, ErrorCode>
+    SplitMode::getUbootVariableValues() const noexcept
+{
+    const auto l_fieldModeOutput =
+        utils::executeCmd(std::format("fw_printenv {}", constants::fieldMode));
+    if (!l_fieldModeOutput)
+    {
+        std::cerr << std::format("Failed to read {} variable value.\n",
+                                 constants::fieldMode);
+        return std::unexpected(l_fieldModeOutput.error());
+    }
+
+    const auto l_vpdModeOutput =
+        utils::executeCmd(std::format("fw_printenv {}", constants::vpdMode));
+    if (!l_vpdModeOutput)
+    {
+        std::cerr << std::format("Failed to read {} variable value.\n",
+                                 constants::vpdMode);
+        return std::unexpected(l_vpdModeOutput.error());
+    }
+
+    // fw_printenv outputs "<var>=<value>\n"; extract the value after "=".
+    auto l_parseValue = [](const std::vector<std::string>& l_cmdOutput,
+                           const std::string& l_varName) -> std::string {
+        if (l_cmdOutput.empty())
+        {
+            return {};
+        }
+
+        std::string l_ubootVarValue = l_cmdOutput.front();
+
+        // Remove the new line character from the string.
+        l_ubootVarValue.erase(l_ubootVarValue.length() - 1);
+        const auto& l_equalPos = l_ubootVarValue.find("=");
+
+        if (l_equalPos == std::string::npos)
+        {
+            std::cerr << std::format(
+                "Unexpected output from fw_printenv for [{}]: [{}].", l_varName,
+                l_ubootVarValue);
+        }
+
+        return l_ubootVarValue.substr(l_equalPos + 1);
+    };
+
+    return std::make_tuple(
+        l_parseValue(l_fieldModeOutput.value(), constants::fieldMode),
+        l_parseValue(l_vpdModeOutput.value(), constants::vpdMode));
+}
+
 int SplitMode::enterSplitMode(
     const std::optional<std::string>& i_filePath) const noexcept
 {
@@ -159,7 +209,48 @@ int SplitMode::enterSplitMode(
             return static_cast<int>(l_setUBootVariableStatus.error());
         }
 
-        // TODO - validate U-Boot variables.
+        const auto l_getUBootVariableStatus = getUbootVariableValues();
+
+        if (!l_getUBootVariableStatus)
+        {
+            std::cerr
+                << "Failed to validate U-Boot environment variables. Aborting split mode environment setup."
+                << std::endl;
+            return static_cast<int>(l_getUBootVariableStatus.error());
+        }
+
+        const auto& [l_fieldMode, l_vpdMode] = l_getUBootVariableStatus.value();
+
+        if (l_fieldMode != "false")
+        {
+            std::cerr
+                << std::format(
+                       "Field mode is set to [{}], expected [false]. Cannot enter split mode.",
+                       l_fieldMode)
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        if (l_vpdMode != "file")
+        {
+            std::cerr << std::format(
+                             "VPD mode is set to [{}], expected [file]. "
+                             "Cannot enter split mode.",
+                             l_vpdMode)
+                      << std::endl;
+            return constants::FAILURE;
+        }
+
+        std::cout
+            << std::format(
+                   "Split mode environment setup completed. Reboot the BMC with "
+                   "CDFP cables disconnected to start the BMC in split mode.\n"
+                   "Note: To update a keyword in the system VPD file, use the "
+                   "following vpd-tool command:\n\n"
+                   "Usage: vpd-tool -w -H -O /var/lib/vpd/file{} "
+                   "-R <record_name> -K <keyword_name> -V <value>",
+                   SYSTEM_VPD_FILE_PATH)
+            << std::endl;
     }
     catch (const std::exception& l_ex)
     {

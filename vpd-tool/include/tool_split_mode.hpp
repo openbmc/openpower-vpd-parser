@@ -5,6 +5,7 @@
 #include <expected>
 #include <optional>
 #include <string>
+#include <tuple>
 
 namespace vpd
 {
@@ -37,6 +38,18 @@ class SplitMode
     std::expected<void, ErrorCode> setUbootVariables(
         const std::string& i_fieldModeValue,
         const std::string& i_vpdModeValue) const noexcept;
+
+    /**
+     * @brief Read U-Boot environment variables
+     *
+     * Reads the U-Boot environment variables for field mode and VPD mode and
+     * returns their values.
+     *
+     * @return On success returns a tuple of (fieldmode value, vpdmode value),
+     * corresponding error code on failure.
+     */
+    std::expected<std::tuple<std::string, std::string>, ErrorCode>
+        getUbootVariableValues() const noexcept;
 
   public:
     /**
