@@ -239,5 +239,10 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+
+//@todo: use PDI generated header once Position interface gets merged upstream
+constexpr auto positionInterface =
+    "xyz.openbmc_project.Inventory.Decorator.Position";
+constexpr auto positionPropertyName = "Position";
 } // namespace constants
 } // namespace vpd

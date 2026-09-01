@@ -12,6 +12,7 @@
 
 #include <CLI/CLI.hpp>
 #include <xyz/openbmc_project/State/Decorator/PowerState/common.hpp>
+#include <xyz/openbmc_project/State/ReadyToRemove/common.hpp>
 
 #include <chrono>
 #include <thread>
@@ -169,21 +170,89 @@ int handleChassisPowerOn()
  *
  *  @return - On success returns 0, otherwise returns 1
  */
-int processBmcReadyToRemove(
-    [[maybe_unused]] const std::string_view i_role) noexcept
+int processBmcReadyToRemove(const std::string_view i_role) noexcept
 {
-    /*  @todo
-        - read the BMC position published by IBM HE app on D-Bus
-            - use the BMC position to determine the current BMC's inventory path
-        - if the role parameter is "passive"
-            - publish "ReadyToRemove" property as false under interface
-       xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
-       path
-        - if the role parameter is "active"
-            - delete "ReadyToRemove" property as false under interface
-       xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
-       path
-    */
+    using ReadyToRemoveIface =
+        sdbusplus::common::xyz::openbmc_project::state::ReadyToRemove;
+
+    auto l_logger = vpd::Logger::getLoggerInstance();
+
+    // Read BMC position to select the correct BMC inventory path.
+    // Position 0 → chassis1, Position 1 → chassis2.
+    const auto l_bmcPositionResult =
+        vpd::dbusUtility::readBmcPositionFromDbus();
+    if (!l_bmcPositionResult.has_value())
+    {
+        l_logger->logMessage(
+            "Failed to read BMC position from D-Bus. Cannot process "
+            "ReadyToRemove property. Error code: " +
+            std::to_string(static_cast<int>(l_bmcPositionResult.error())));
+        return vpd::constants::VALUE_1;
+    }
+
+    const std::string l_bmcInvPath =
+        (l_bmcPositionResult.value() == vpd::constants::VALUE_0)
+            ? "/xyz/openbmc_project/inventory/system/chassis1/motherboard/ebmc_card"
+            : "/xyz/openbmc_project/inventory/system/chassis2/motherboard/ebmc_card";
+
+    if (i_role == passive)
+    {
+        // On passive BMC: publish ReadyToRemove=false so that the Concurrent
+        // Maintenance flow can identify this BMC as concurrently maintainable.
+        vpd::types::ObjectMap l_objectMap;
+        l_objectMap[sdbusplus::object_path{l_bmcInvPath}]
+                   [ReadyToRemoveIface::interface]
+                   [ReadyToRemoveIface::property_names::ready_to_remove] =
+                       false;
+
+        if (!vpd::dbusUtility::callPIM(std::move(l_objectMap)))
+        {
+            l_logger->logMessage(
+                "Failed to publish ReadyToRemove interface on PIM for BMC "
+                "inventory path: " +
+                l_bmcInvPath);
+            return vpd::constants::VALUE_1;
+        }
+    }
+    else
+    {
+        // On active BMC: delete the ReadyToRemove interface from PIM so that
+        // the Concurrent Maintenance flow does not treat the active BMC as
+        // concurrently maintainable.
+        try
+        {
+            auto l_bus = sdbusplus::bus::new_default();
+
+            // Strip the PIM root prefix to get the path relative to PIM root,
+            // as required by the org.freedesktop.DBus.ObjectManager.
+            // PIM root = /xyz/openbmc_project/inventory
+            constexpr auto l_pimRoot = "/xyz/openbmc_project/inventory";
+            const std::string l_relPath =
+                l_bmcInvPath.substr(std::strlen(l_pimRoot));
+
+            auto l_method = l_bus.new_method_call(
+                vpd::constants::pimServiceName, vpd::constants::pimPath,
+                vpd::constants::pimIntf, "Notify");
+
+            // Pass an empty PropertyMap for the ReadyToRemove interface.
+            // PIM treats an empty interface entry as a signal to remove
+            // that interface from the managed object.
+            vpd::types::ObjectMap l_objectMap;
+            l_objectMap[sdbusplus::object_path{l_relPath}]
+                       [ReadyToRemoveIface::interface] = {};
+
+            l_method.append(std::move(l_objectMap));
+            l_bus.call_noreply(l_method);
+        }
+        catch (const std::exception& l_ex)
+        {
+            l_logger->logMessage(
+                "Failed to delete ReadyToRemove interface from PIM for BMC "
+                "inventory path: " +
+                l_bmcInvPath + ". Error: " + std::string(l_ex.what()));
+            return vpd::constants::VALUE_1;
+        }
+    }
 
     return vpd::constants::VALUE_0;
 }
