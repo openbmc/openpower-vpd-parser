@@ -4,6 +4,7 @@
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_utils.hpp"
 
 #include <filesystem>
 #include <format>
@@ -110,7 +111,44 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        // TODO - set and validate U-Boot variables
+        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
+            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
+
+        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
+        {
+            std::cerr
+                << std::format(
+                       "Failed to set U-boot variable [{}] to [{}]. Aborting slpit mode setup.",
+                       constants::ubootVarFieldMode,
+                       constants::ubootValFieldModeFalse)
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
+            constants::ubootVarVpdMode, constants::ubootValVpdModeFile);
+
+        if (!l_ubootVpdModeSetResult || !(*l_ubootVpdModeSetResult))
+        {
+            std::cerr
+                << std::format(
+                       "Failed to set U-boot variable [{}] to [{}]. Aborting slpit mode setup.",
+                       constants::ubootVarVpdMode,
+                       constants::ubootValVpdModeFile)
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        std::cout
+            << std::format(
+                   "Split mode environment set up is complete.\n"
+                   "Next steps:\n"
+                   "  1. If any VPD record/keyword in the system VPD file needs to be updated, update before rebooting\n"
+                   "     use the following command: \n"
+                   "       vpd-tool -w -H -O \"{}\" -R <record_name> -K <keyword_name> -V <value_to_update>\n"
+                   "  2. Disconnect the CDFP cables and reboot the BMC to start in split mode.",
+                   l_splitModeSystemVPDPath.string())
+            << std::endl;
     }
     catch (const std::exception& l_ex)
     {
