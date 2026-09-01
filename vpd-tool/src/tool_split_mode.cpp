@@ -1,35 +1,106 @@
-#include "tool_split_mode.hpp"
+#include "config.h"
 
 #include "tool_constants.hpp"
+#include "tool_split_mode.hpp"
+
+#include <filesystem>
 
 #include <format>
 #include <iostream>
 
 namespace vpd
 {
-int SplitMode::enterSplitMode(
-    const std::optional<std::string>& i_filePath) const noexcept
+
+std::expected<void, ErrorCode> SplitMode::setUbootVar(const std::string& i_fieldModeValue,
+                             const std::string& i_vpdModeValue) const noexcept
+{
+    if (const auto& l_cmdStatus = utils::executeCmd(std::format("fw_setenv fieldmode {}", i_fieldModeValue)); !l_cmdStatus)
+    {
+        std::cerr << std::format("Failed to set fieldmode to {}.\n", i_fieldModeValue);
+        return std::unexpected(l_cmdStatus.error());
+    }
+
+    if (const auto& l_cmdStatus = utils::executeCmd(std::format("fw_setenv vpdmode {}", i_vpdModeValue)); !l_cmdStatus)
+    {
+        std::cerr << std::format("Failed to set vpdmode to {}.\n", i_vpdModeValue);
+        return std::unexpected(l_cmdStatus.error());
+    }
+
+    return {};
+}
+
+int SplitMode::enterSplitMode(const std::optional<std::string>& i_filePath) const noexcept
 {
     try
     {
-        (void)i_filePath;
-        // TODO: Implement the following steps:
-        // 1. Check if system VPD file path is accessible.
-        // 2. copy to file mode location if path given, else verify
-        //    if file is present at file mode location.
-        // 3. Set both U-Boot environment variables for split mode.
-        // 4. Validate the U-Boot variables are correctly set.
+        std::error_code l_ec;
+        if (std::filesystem::exists(SYSTEM_VPD_FILE_PATH, l_ec) &&
+            !l_ec)
+        {
+            std::cerr << "Error: Cable connected, can't enter split mode."
+                      << std::endl;
+            return constants::FAILURE;
+        }
+
+        if (i_filePath)
+        {
+            // Path provided — create the destination directory hierarchy and
+            // copy the source file to the file mode location, overwriting any
+            // existing file.
+            const std::filesystem::path l_dest{constants::splitModeSystemVpdPath};
+
+            std::filesystem::create_directories(l_dest.parent_path(), l_ec);
+            if (l_ec)
+            {
+                std::cerr << std::format(
+                    "Error: Failed to create directory [{}]: {}",
+                    l_dest.parent_path().string(), l_ec.message())
+                          << std::endl;
+                return constants::FAILURE;
+            }
+
+            std::filesystem::copy_file(
+                i_filePath.value(), l_dest,
+                std::filesystem::copy_options::overwrite_existing, l_ec);
+            if (l_ec)
+            {
+                std::cerr << std::format(
+                    "Error: Failed to copy [{}] to [{}]: {}", i_filePath.value(),
+                    l_dest.string(), l_ec.message())
+                          << std::endl;
+                return constants::FAILURE;
+            }
+        }
+        else
+        {
+            // No path provided — verify the file already exists at the file
+            // mode location.
+            if (!std::filesystem::exists(constants::splitModeSystemVpdPath,
+                                         l_ec) ||
+                l_ec)
+            {
+                std::cerr << std::format(
+                    "Error: Need system VPD file to continue. "
+                    "File not found at [{}].",
+                    constants::splitModeSystemVpdPath)
+                          << std::endl;
+                return constants::FAILURE;
+            }
+        }
+
+        if (const auto& l_setUBootVarialbeStatus = setUbootVar("false", "file"); !l_setUBootVarialbeStatus)
+        {
+            return static_cast<int>(l_setUBootVarialbeStatus.error());
+        }
+
+        //TODO: validate U-Boot variables
     }
     catch (const std::exception& l_ex)
     {
-        std::cerr
-            << std::format(
-                   "Exception occured while setting system in split mode. Error : {}",
-                   l_ex.what())
-            << std::endl;
+        std::cerr << std::format("Exception in setUpSplitMode: {}", l_ex.what())
+                  << std::endl;
         return constants::FAILURE;
     }
-
     return constants::SUCCESS;
 }
 
