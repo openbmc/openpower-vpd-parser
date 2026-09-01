@@ -19,7 +19,6 @@ namespace vpd
  */
 class SplitMode
 {
-    // TODO - Private methods will be implemented in subsequent commits.
   public:
     /**
      * @brief Set up the system in split mode.
