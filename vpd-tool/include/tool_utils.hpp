@@ -1438,5 +1438,57 @@ inline std::expected<std::string, ErrorCode> readUbootVariableValue(
         return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
 }
+
+/**
+ * @brief API to set and validate U-Boot variable
+ *
+ * This API sets the U-Boot variable with the value provided and validates
+ * whether the value is set with correct value or not.
+ *
+ * @param[in] i_ubootVariable - U-Boot variable to be set.
+ * @param[in] i_ubootVariableValue - Value to be set to U-Boot variable.
+ *
+ * @return std::expected<bool, ErrorCode> On success, true/false based on the
+ * value set. Corresponding error code in case of failure.
+ */
+inline std::expected<bool, ErrorCode> setAndValidateUbootVar(
+    const std::string& i_ubootVariable,
+    const std::string& i_ubootVariableValue) noexcept
+{
+    if (i_ubootVariable.empty() || i_ubootVariableValue.empty())
+    {
+        std::cerr << "Received empty input parameters." << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+
+    try
+    {
+        const auto& l_setVarRes = executeCmd(std::format(
+            "fw_setenv {} {}", i_ubootVariable, i_ubootVariableValue));
+
+        if (!l_setVarRes)
+        {
+            return std::unexpected(l_setVarRes.error());
+        }
+
+        const auto& l_readVarRes = readUbootVariableValue(i_ubootVariable);
+
+        if (!l_readVarRes)
+        {
+            return std::unexpected(l_readVarRes.error());
+        }
+
+        return i_ubootVariableValue == l_readVarRes.value() ? true : false;
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr
+            << std::format(
+                   "Failed to set and validate U-Boot variable [{}] value [{}], reason : {}",
+                   i_ubootVariable, i_ubootVariableValue, l_ex.what())
+            << std::endl;
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
+}
 } // namespace utils
 } // namespace vpd
