@@ -111,8 +111,8 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
+        const auto l_ubootFieldModeSetResult =
+            utils::setAndValidateUbootVar(constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
 
         if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
         {
@@ -127,8 +127,8 @@ int SplitMode::enterSplitMode(
                        : constants::FAILURE;
         }
 
-        const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarVpdMode, constants::ubootValVpdModeFile);
+        const auto l_ubootVpdModeSetResult =
+            utils::setAndValidateUbootVar(constants::ubootVarVpdMode, constants::ubootValVpdModeFile);
 
         if (!l_ubootVpdModeSetResult || !(*l_ubootVpdModeSetResult))
         {

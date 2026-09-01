@@ -1312,8 +1312,78 @@ inline std::expected<std::string, ErrorCode>
 inline std::expected<std::vector<std::string>, ErrorCode> executeCmd(
     [[maybe_unused]] const std::string& i_command) noexcept
 {
-    // TODO: Execute the command and return its output.
-    return std::vector<std::string>{};
+    if (i_command.empty())
+    {
+        std::cerr << "Received empty input command." << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+
+    try
+    {
+        using l_pCloseFunc = int (*)(FILE*);
+        std::unique_ptr<FILE, l_pCloseFunc> l_pipe(
+            popen(i_command.c_str(), "r"), pclose);
+
+        if (!l_pipe)
+        {
+            std::cerr << std::format("Failed to execute command: [{}]\n",
+                                     i_command);
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        std::vector<std::string> l_output;
+        char l_buffer[constants::VALUE_256];
+        while (fgets(l_buffer, sizeof(l_buffer), l_pipe.get()) != nullptr)
+        {
+            l_output.push_back(std::string(l_buffer));
+        }
+
+        if (ferror(l_pipe.get()))
+        {
+            std::cerr << std::format(
+                             "Read error while capturing output of [{}].",
+                             i_command)
+                      << std::endl;
+
+            pclose(l_pipe.release());
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        // Release ownership so we can call pclose manually and inspect the
+        // command's exit status — the destructor would discard it silently.
+        int l_status = pclose(l_pipe.release());
+
+        if (!WIFEXITED(l_status))
+        {
+            std::cerr
+                << std::format(
+                       "Command [{}] did not exit normally. Signaled: [{}], signal: [{}].",
+                       i_command, WIFSIGNALED(l_status),
+                       WIFSIGNALED(l_status) ? WTERMSIG(l_status) : 0)
+                << std::endl;
+
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        if (WEXITSTATUS(l_status) != 0)
+        {
+            std::cerr << std::format(
+                             "Command [{}] exited with non-zero status. "
+                             "Exit status: [{}].",
+                             i_command, WEXITSTATUS(l_status))
+                      << std::endl;
+
+            return std::unexpected(ErrorCode::SYS_CMD_FAILED);
+        }
+
+        return l_output;
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << std::format("Exception while executing command {}: {}",
+                                 i_command, l_ex.what());
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
 }
 
 /**
@@ -1328,8 +1398,57 @@ inline std::expected<std::vector<std::string>, ErrorCode> executeCmd(
 inline std::expected<std::string, ErrorCode> readUbootVariableValue(
     [[maybe_unused]] const std::string& i_ubootVariable) noexcept
 {
-    // TODO: Read the U-Boot variable value and return it.
-    return std::string{};
+    if (i_ubootVariable.empty())
+    {
+        std::cerr << "U-Boot variable is empty" << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
+    }
+
+    try
+    {
+        const auto& l_cmdOutput =
+            executeCmd(std::format("fw_printenv {}", i_ubootVariable));
+
+        if (!l_cmdOutput)
+        {
+            return std::unexpected(l_cmdOutput.error());
+        }
+
+        if (l_cmdOutput->empty())
+        {
+            return std::unexpected(ErrorCode::NOT_FOUND);
+        }
+
+        std::string l_ubootVarValue = l_cmdOutput->front();
+
+        // Remove the new line character from the string.
+        if (l_ubootVarValue.ends_with('\n'))
+        {
+            l_ubootVarValue.pop_back();
+        }
+
+        // fw_printenv outputs "<var>=<value>\n"; extract the value after "=".
+        const auto& l_pos = l_ubootVarValue.find("=");
+
+        if (l_pos == std::string::npos || l_pos + 1 >= l_ubootVarValue.size())
+        {
+            std::cerr << std::format(
+                "Unexpected output from fw_printenv for [{}]: [{}].",
+                i_ubootVariable, l_ubootVarValue);
+            return std::unexpected(ErrorCode::NOT_FOUND);
+        }
+
+        return l_ubootVarValue.substr(l_pos + 1);
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr
+            << std::format(
+                   "Failed to read U-Boot variable [{}] value, reason : {}",
+                   i_ubootVariable, l_ex.what())
+            << std::endl;
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
+    }
 }
 
 /**
