@@ -156,6 +156,38 @@ int handleChassisPowerOn()
     return vpd::constants::VALUE_0;
 }
 
+/**
+ *  @brief API to handle BMC ReadyToRemove property
+ *
+ *  This API handles ReadyToRemove interface property for BMC. ReadyToRemove
+ * property is used by Concurrent Maintenance flow to identify whether a FRU is
+ * ready to be replaced. On redundant BMC systems, only Passive BMC is
+ * concurrently maintenable and hence only Passive BMC should have the
+ * ReadyToRemove property.
+ *
+ *  @param[in] i_role - BMC role, which can be "active" or "passive"
+ *
+ *  @return - On success returns 0, otherwise returns 1
+ */
+int processBmcReadyToRemove(
+    [[maybe_unused]] const std::string_view i_role) noexcept
+{
+    /*  @todo
+        - read the BMC position published by IBM HE app on D-Bus
+            - use the BMC position to determine the current BMC's inventory path
+        - if the role parameter is "passive"
+            - publish "ReadyToRemove" property as false under interface
+       xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
+       path
+        - if the role parameter is "active"
+            - delete "ReadyToRemove" property as false under interface
+       xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
+       path
+    */
+
+    return vpd::constants::VALUE_0;
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -178,15 +210,25 @@ int main(int argc, char** argv)
 
         if (l_role == passive)
         {
-            return deleteAllFruVpd()
-                       ? !(vpd::dbusUtility::writeDbusProperty(
-                             BUSNAME, OBJPATH,
-                             vpd::constants::vpdCollectionInterface, "Status",
-                             vpd::constants::vpdCollectionCompleted))
-                       : !(vpd::dbusUtility::writeDbusProperty(
-                             BUSNAME, OBJPATH,
-                             vpd::constants::vpdCollectionInterface, "Status",
-                             vpd::constants::vpdCollectionFailed));
+            const bool l_deleteFruVpdSuccess = deleteAllFruVpd();
+
+            if (!processBmcReadyToRemove(l_role))
+            {
+                vpd::Logger::getLoggerInstance()->logMessage(
+                    "Failed to handle BMC ReadyToRemove property on Passive BMC");
+            }
+
+            return vpd::dbusUtility::writeDbusProperty(
+                BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface,
+                "Status",
+                l_deleteFruVpdSuccess ? vpd::constants::vpdCollectionCompleted
+                                      : vpd::constants::vpdCollectionFailed);
+        }
+
+        if (!processBmcReadyToRemove(l_role))
+        {
+            vpd::Logger::getLoggerInstance()->logMessage(
+                "Failed to handle BMC ReadyToRemove property on Active BMC");
         }
 
         // Read the chassis PowerState property set by pgood-chassis-check.
