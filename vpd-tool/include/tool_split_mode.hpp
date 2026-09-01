@@ -1,5 +1,8 @@
 #pragma once
 
+#include "tool_error_codes.hpp"
+
+#include <expected>
 #include <optional>
 #include <string>
 
@@ -19,7 +22,22 @@ namespace vpd
  */
 class SplitMode
 {
-    // TODO - Private methods will be implemented in subsequent commits.
+  private:
+    /**
+     * @brief Set U-Boot environment variables
+     *
+     * This API sets the U-Boot variables "fieldmode" and "vpdmode" with the
+     * given values.
+     *
+     * @param[in] i_fieldModeValue - Value to set for fieldmode variable.
+     * @param[in] i_vpdModeValue   - Value to set for vpdmode variable.
+     *
+     * @return On success returns void, corresponding error code on failure.
+     */
+    std::expected<void, ErrorCode> setUbootVariables(
+        const std::string& i_fieldModeValue,
+        const std::string& i_vpdModeValue) const noexcept;
+
   public:
     /**
      * @brief Set up the system in split mode.
