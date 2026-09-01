@@ -4,6 +4,7 @@
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_utils.hpp"
 
 #include <filesystem>
 #include <format>
@@ -110,7 +111,7 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        // TODO - set and validate U-Boot variables
+        // TODO - set and validate U-Boot variables.
     }
     catch (const std::exception& l_ex)
     {

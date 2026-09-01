@@ -328,6 +328,8 @@ void updateFooter(CLI::App& i_app)
         "       -13,    DBus returned a value of an unexpected type.\n"
         "       -14,    Requested operation is not allowed.\n"
         "       -15     Chassis id not provided.\n"
+        "       -16     System command execution failed.\n"
+        "       -17     Required data not found in command output"
         "\n Note: vpd-tool operations are blocked while the VPD collection is in progress.\n"
 #if 0
         " // Disabling these options for now, as they require additional refactoring to enable."

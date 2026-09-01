@@ -1,5 +1,8 @@
 #pragma once
 
+#include "tool_error_codes.hpp"
+
+#include <expected>
 #include <optional>
 #include <string>
 
