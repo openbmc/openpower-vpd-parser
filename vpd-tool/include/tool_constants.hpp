@@ -93,5 +93,6 @@ static constexpr auto VALUE_6 = 6;
 static constexpr auto VALUE_7 = 7;
 static constexpr auto VALUE_8 = 8;
 static constexpr auto VALUE_32 = 32;
+static constexpr auto VALUE_256 = 256;
 } // namespace constants
 } // namespace vpd
