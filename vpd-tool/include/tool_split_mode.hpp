@@ -1,5 +1,9 @@
 #pragma once
 
+#include "tool_error_codes.hpp"
+
+#include <expected>
+#include <map>
 #include <optional>
 #include <string>
 
@@ -19,7 +23,6 @@ namespace vpd
  */
 class SplitMode
 {
-    // TODO - Private methods will be implemented in subsequent commits.
   public:
     /**
      * @brief Set up the system in split mode.
@@ -51,5 +54,25 @@ class SplitMode
      * @return 0 on success. Corresponding error code on failure.
      */
     int exitSplitMode() const noexcept;
+
+  private:
+    /**
+     * @brief Set and validate a map of U-Boot environment variables.
+     *
+     * Iterates over the supplied variable-to-value map and calls
+     * utils::setAndValidateUbootVar for each entry.
+     *
+     * @param[in] i_ubootVarMap - Map of U-Boot variable name to its desired
+     * value.
+     *
+     * @return std::expected<bool, ErrorCode>
+     *         - true  : all variables were set and validated successfully.
+     *         - false : a variable was set but its value did not match the
+     *                   expected value after validation.
+     *         - std::unexpected(ErrorCode) : a call to
+     *           utils::setAndValidateUbootVar failed with an error.
+     */
+    std::expected<bool, ErrorCode> setAndValidateUbootVariables(
+        const std::map<std::string, std::string>& i_ubootVarMap) const noexcept;
 };
 } // namespace vpd

@@ -4,6 +4,7 @@
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_utils.hpp"
 
 #include <filesystem>
 #include <format>
@@ -110,7 +111,36 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        // TODO - set and validate U-Boot variables
+        const auto l_ubootResult = setAndValidateUbootVariables(
+            {{constants::ubootVarFieldMode, constants::ubootValFieldModeFalse},
+             {constants::ubootVarVpdMode, constants::ubootValVpdModeFile}});
+
+        if (!l_ubootResult)
+        {
+            std::cerr
+                << "Failed to set and validate U-Boot variables for split mode. Aborting split mode environment set up."
+                << std::endl;
+            return static_cast<int>(l_ubootResult.error());
+        }
+
+        if (!(*l_ubootResult))
+        {
+            std::cerr
+                << "Failed to set and validate U-Boot variables for split mode. Aborting split mode environment set up."
+                << std::endl;
+            return constants::FAILURE;
+        }
+
+        std::cout
+            << std::format(
+                   "Split mode environment set up is complete.\n"
+                   "Next steps:\n"
+                   "  1. If any VPD record/keyword in the system VPD file needs to be updated, update before rebooting\n"
+                   "     use the following command: \n"
+                   "       vpd-tool -w -H -O \"{}\" -R <record_name> -K <keyword_name> -V <value_to_update>\n"
+                   "  2. Disconnect the CDFP cables and reboot the BMC to start in split mode.",
+                   l_splitModeSystemVPDPath.string())
+            << std::endl;
     }
     catch (const std::exception& l_ex)
     {
@@ -147,5 +177,30 @@ int SplitMode::exitSplitMode() const noexcept
         return constants::FAILURE;
     }
     return constants::SUCCESS;
+}
+
+std::expected<bool, ErrorCode> SplitMode::setAndValidateUbootVariables(
+    const std::map<std::string, std::string>& i_ubootVarMap) const noexcept
+{
+    for (const auto& [l_ubootVariable, l_value] : i_ubootVarMap)
+    {
+        const auto l_result =
+            utils::setAndValidateUbootVar(l_ubootVariable, l_value);
+
+        if (!l_result)
+        {
+            return std::unexpected(l_result.error());
+        }
+
+        if (!(*l_result))
+        {
+            std::cerr << std::format(
+                             "Failed to set U-boot variable [{}] to [{}].",
+                             l_ubootVariable, l_value)
+                      << std::endl;
+            return false;
+        }
+    }
+    return true;
 }
 } // namespace vpd
