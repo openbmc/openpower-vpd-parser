@@ -23,6 +23,7 @@ enum class ErrorCode
     KEYWORD_NAME_NOT_PROVIDED = -12,
     DBUS_TYPE_MISMATCH = -13,
     NOT_ALLOWED = -14,
-    CHASSIS_ID_NOT_PROVIDED = -15
+    CHASSIS_ID_NOT_PROVIDED = -15,
+    SYS_CMD_FAILED = -16
 };
 } // namespace vpd
