@@ -48,6 +48,54 @@ std::expected<void, ErrorCode> SplitMode::setUbootVariables(
     return {};
 }
 
+std::expected<std::tuple<std::string, std::string>, ErrorCode>
+    SplitMode::getUbootVariableValues() const noexcept
+{
+    const auto l_fieldModeOutput =
+        utils::executeCmd(std::format("fw_printenv {}", constants::fieldMode));
+    if (!l_fieldModeOutput)
+    {
+        std::cerr << std::format("Failed to get {}.\n", constants::fieldMode);
+        return std::unexpected(l_fieldModeOutput.error());
+    }
+
+    const auto l_vpdModeOutput =
+        utils::executeCmd(std::format("fw_printenv {}", constants::vpdMode));
+    if (!l_vpdModeOutput)
+    {
+        std::cerr << std::format("Failed to get {}.\n", constants::vpdMode);
+        return std::unexpected(l_vpdModeOutput.error());
+    }
+
+    // fw_printenv outputs "<var>=<value>\n"; extract the value after "=".
+    auto l_parseValue = [](const std::vector<std::string>& i_lines,
+                           const std::string& i_varName) -> std::string {
+        if (i_lines.empty())
+        {
+            return {};
+        }
+        const std::string l_prefix = i_varName + "=";
+        const std::string& l_line = i_lines.front();
+        if (l_line.substr(0, l_prefix.size()) == l_prefix)
+        {
+            std::string l_val = l_line.substr(l_prefix.size());
+            if (!l_val.empty() && l_val.back() == '\n')
+            {
+                l_val.pop_back();
+            }
+            return l_val;
+        }
+        std::cerr << std::format(
+            "Unexpected output from fw_printenv for [{}]: [{}].", i_varName,
+            l_line);
+        return {};
+    };
+
+    return std::make_tuple(
+        l_parseValue(l_fieldModeOutput.value(), constants::fieldMode),
+        l_parseValue(l_vpdModeOutput.value(), constants::vpdMode));
+}
+
 int SplitMode::enterSplitMode(
     const std::optional<std::string>& i_filePath) const noexcept
 {
@@ -123,7 +171,24 @@ int SplitMode::enterSplitMode(
             return static_cast<int>(l_setUBootVarialbeStatus.error());
         }
 
-        // TODO - validate U-Boot variables.
+        const auto l_getUBootVariableStatus = getUbootVariableValues();
+
+        if (!l_getUBootVariableStatus)
+        {
+            return static_cast<int>(l_getUBootVariableStatus.error());
+        }
+
+        if (std::get<0>(l_getUBootVariableStatus.value()) != "false")
+        {
+            std::cerr << "Field mode value is not false. Exitig" << std::endl;
+            return constants::FAILURE;
+        }
+
+        if (std::get<1>(l_getUBootVariableStatus.value()) != "file")
+        {
+            std::cerr << "VPD mode is not in file mode." << std::endl;
+            return constants::FAILURE;
+        }
     }
     catch (const std::exception& l_ex)
     {
