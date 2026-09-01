@@ -170,6 +170,9 @@ constexpr auto hostService = "xyz.openbmc_project.State.Host";
 constexpr auto hostRunningState =
     "xyz.openbmc_project.State.Host.HostState.Running";
 
+constexpr auto readyToRemoveIface = "xyz.openbmc_project.State.ReadyToRemove";
+constexpr auto readyToRemoveProperty = "ReadyToRemove";
+
 constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
@@ -239,5 +242,16 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+
+//@todo: use PDI generated header once Position interface gets merged upstream
+static constexpr auto positionInterface =
+    "xyz.openbmc_project.Inventory.Decorator.Position";
+static constexpr auto positionPropertyName = "Position";
+
+static constexpr auto bmc0InvPath =
+    "/xyz/openbmc_project/inventory/system/chassis1/motherboard/ebmc_card";
+static constexpr auto bmc1InvPath =
+    "/xyz/openbmc_project/inventory/system/chassis2/motherboard/ebmc_card";
+
 } // namespace constants
 } // namespace vpd

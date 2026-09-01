@@ -174,36 +174,67 @@ int handleChassisPowerOn()
  *
  *  @return - On success returns 0, otherwise returns 1
  */
-int handleBmcReadyToRemove(
-    [[maybe_unused]] const std::string_view i_role) noexcept
+int handleBmcReadyToRemove(const std::string_view i_role) noexcept
 {
     int l_retVal{vpd::constants::VALUE_1};
+    auto l_logger = vpd::Logger::getLoggerInstance();
     try
     {
-        /*  @todo
-            - read the BMC position published by IBM HE app on D-Bus
-                - use the BMC position to determine the current BMC's inventory
-           path
-            - if the role parameter is "passive"
-                - publish "ReadyToRemove" property as false under interface
-           xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
-           path
-                - the "ReadyToRemove" interface on sibling(active) BMC should's
-           inventory path is assumed to be cleared as part of deleteAllFruVpd()
-                which is called before this method
-            - if the role parameter is "active"
-                - delete interface
-           xyz.openbmc_project.State.ReadyToRemove under current BMC's inventory
-           path
-           - publish "ReadyToRemove" property as false under interface
-           xyz.openbmc_project.State.ReadyToRemove under sibling(Passive) BMC's
-           inventory path
-        */
+        // Read BMC position to select the correct BMC inventory path.
+        // Position 0 → chassis1, Position 1 → chassis2.
+        const auto l_bmcPositionResult =
+            vpd::dbusUtility::readBmcPositionFromDbus();
+        if (!l_bmcPositionResult.has_value())
+        {
+            l_logger->logMessage(
+                "Failed to read BMC position from D-Bus. Cannot process "
+                "ReadyToRemove property. Error code: " +
+                std::to_string(static_cast<int>(l_bmcPositionResult.error())));
+            return vpd::constants::VALUE_1;
+        }
+
+        const std::string l_bmcInvPath =
+            (l_bmcPositionResult.value() == vpd::constants::VALUE_0)
+                ? vpd::constants::bmc0InvPath
+                : vpd::constants::bmc1InvPath;
+
+        if (i_role == passive)
+        {
+            // On passive BMC: publish ReadyToRemove=false so that the
+            // Concurrent Maintenance flow can identify this BMC as concurrently
+            // maintainable.
+            vpd::types::ObjectMap l_objectMap;
+            l_objectMap[sdbusplus::object_path{l_bmcInvPath}]
+                       [vpd::constants::readyToRemoveIface]
+                       [vpd::constants::readyToRemoveProperty] = false;
+
+            if (!vpd::dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
+            {
+                l_logger->logMessage(
+                    "Failed to publish ReadyToRemove interface on PIM for BMC "
+                    "inventory path: " +
+                    l_bmcInvPath);
+                return vpd::constants::VALUE_1;
+            }
+        }
+        else
+        {
+            /* @todo:
+             - On active BMC
+               - delete the ReadyToRemove interface from current BMC's inventory
+             path on PIM so that the Concurrent Maintenance flow does not treat
+             the active BMC as concurrently maintainable.
+               - publish ReadyToRemove=false so that the
+                 Concurrent Maintenance flow can identify this BMC as
+             concurrently maintainable.
+            */
+        }
+
         l_retVal = vpd::constants::VALUE_0;
     }
     catch (const std::exception& l_ex)
     {
-        vpd::Logger::getLoggerInstance()->logMessage(std::format(
+        l_logger->logMessage(std::format(
             "Failed to handle ReadyToRemove property on {} BMC. Error: {}",
             i_role, l_ex.what()));
     }
@@ -234,7 +265,7 @@ int main(int argc, char** argv)
         {
             const bool l_deleteFruVpdSuccess = deleteAllFruVpd();
 
-            if (!handleBmcReadyToRemove(l_role))
+            if (handleBmcReadyToRemove(l_role))
             {
                 vpd::Logger::getLoggerInstance()->logMessage(
                     "Failed to handle BMC ReadyToRemove property on Passive BMC");
@@ -247,7 +278,7 @@ int main(int argc, char** argv)
                                       : vpd::constants::vpdCollectionFailed);
         }
 
-        if (!handleBmcReadyToRemove(l_role))
+        if (handleBmcReadyToRemove(l_role))
         {
             vpd::Logger::getLoggerInstance()->logMessage(
                 "Failed to handle BMC ReadyToRemove property on Active BMC");
