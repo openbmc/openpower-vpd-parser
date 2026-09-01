@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5e970f9_7023f7db",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-01T07:01:35Z",
+      "side": 1,
+      "message": "Get this part removed. We just give an option to the user to update any keyword if required.",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1bfaf1_5be9be19",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-01T07:01:35Z",
+      "side": 1,
+      "message": "Why not std::optional?",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7268fd7_a9227620",
         "filename": "vpd-tool/include/tool_split_mode.hpp",
         "patchSetId": 6
@@ -65,6 +99,29 @@
       "writtenOn": "2026-09-01T06:19:24Z",
       "side": 1,
       "message": "can we devide statment into two one fits without --file option and other statemnt with --file option and both goes with thier example command.",
+      "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19755395_41f42b0a",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-01T07:01:35Z",
+      "side": 1,
+      "message": "May need rephrasing. \"on the system\" part is confusing.",
+      "range": {
+        "startLine": 420,
+        "startChar": 47,
+        "endLine": 420,
+        "endChar": 72
+      },
       "revId": "b37708b94a941af2115866d208d75f3ce03333ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
