@@ -70,6 +70,8 @@ constexpr auto chassisInventoryPath =
     "/xyz/openbmc_project/inventory/system/chassis";
 
 constexpr auto fileModeDirectory = "/var/lib/vpd/file";
+constexpr auto fieldMode = "fieldmode";
+constexpr auto vpdMode = "vpdmode";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{

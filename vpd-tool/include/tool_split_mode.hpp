@@ -1,5 +1,8 @@
 #pragma once
 
+#include "tool_error_codes.hpp"
+
+#include <expected>
 #include <optional>
 #include <string>
 
@@ -51,5 +54,18 @@ class SplitMode
      * @return 0 on success. Corresponding error code on failure.
      */
     int exitSplitMode() const noexcept;
+
+  private:
+    /**
+     * @brief Set U-Boot environment variables for split mode
+     *
+     * @param[in] i_fieldModeValue - Value to set for fieldmode variable.
+     * @param[in] i_vpdModeValue   - Value to set for vpdmode variable.
+     *
+     * @return On success returns void, corresponding error code on failure.
+     */
+    std::expected<void, ErrorCode> setUbootVar(
+        const std::string& i_fieldModeValue,
+        const std::string& i_vpdModeValue) const noexcept;
 };
 } // namespace vpd
