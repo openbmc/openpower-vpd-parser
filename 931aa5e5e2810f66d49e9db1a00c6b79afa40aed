@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd1870d_fb6f065f",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T14:52:11Z",
+      "side": 1,
+      "message": "instead of sending true/false string values, should we send bool. at the receiver side can be consumed as bool value directly at the caller ?",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a171936_0943b857",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T14:52:11Z",
+      "side": 1,
+      "message": "leaving comment, at 0 what value is fetched will be more descriptive for the reader",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f72168_2a495bd8",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T14:52:11Z",
+      "side": 1,
+      "message": "should specify directly update SE keyword if required here ?",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
