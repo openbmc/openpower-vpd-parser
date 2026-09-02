@@ -34,6 +34,24 @@
       "parentUuid": "a0e64d53_f8efdefb",
       "revId": "d6bca062c4273e41da8c9fdb5595d4f27b705f4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb9a3c0_306ae4e8",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-02T13:02:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8f3ffa15_6079d895",
+      "revId": "d6bca062c4273e41da8c9fdb5595d4f27b705f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
