@@ -163,6 +163,7 @@ constexpr auto objectMapperInf = "xyz.openbmc_project.ObjectMapper";
 constexpr auto systemVpdInvPath = systemInvPath;
 constexpr auto motherboardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
+constexpr auto itemBoardInterface = "xyz.openbmc_project.Inventory.Item.Board";
 constexpr auto assetTagInf = "xyz.openbmc_project.Inventory.Decorator.AssetTag";
 constexpr auto hostObjectPath = "/xyz/openbmc_project/state/host0";
 constexpr auto hostInterface = "xyz.openbmc_project.State.Host";
@@ -244,5 +245,11 @@ static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
 static constexpr auto positionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
 static constexpr auto positionPropertyName = "Position";
+
+//@todo: use PDI generated header once ReadyToRemove interface gets merged
+// upstream
+static constexpr auto readyToRemoveIface =
+    "xyz.openbmc_project.State.ReadyToRemove";
+static constexpr auto readyToRemoveProperty = "ReadyToRemove";
 } // namespace constants
 } // namespace vpd
