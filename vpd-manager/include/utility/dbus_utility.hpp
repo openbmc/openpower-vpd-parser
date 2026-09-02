@@ -819,5 +819,60 @@ inline std::expected<size_t, error_code> readBmcPositionFromDbus() noexcept
     }
 }
 
+/**
+ * @brief API to fetch BMC inventory paths from PIM.
+ *
+ * The API performs a two-step lookup to identify BMC inventory paths:
+ *   1. Calls GetSubTree on PIM to retrieve all object paths that implement
+ *      the "xyz.openbmc_project.Inventory.Item.Board" interface.
+ *   2. Filters the result to retain only those paths whose interface list
+ *      also contains "xyz.openbmc_project.Inventory.Decorator.Position".
+ *      The presence of both interfaces together is the guaranteed indicator
+ *      of a BMC inventory path.
+ *
+ * @return On success, returns a std::vector<std::string> of BMC inventory
+ *         object paths. Returns std::unexpected(error_code::DBUS_FAILURE) if
+ *         the mapper call throws, or
+ * std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS) if the subtree
+ * result is empty (no Item.Board objects found under PIM).
+ */
+inline std::expected<std::vector<std::string>, error_code>
+    getBMCInventoryPaths() noexcept
+{
+    try
+    {
+        const auto l_subTreeMap = getObjectSubTree(
+            constants::pimPath, 0,
+            std::vector<std::string>{constants::itemBoardInterface});
+
+        if (l_subTreeMap.empty())
+        {
+            return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+        }
+
+        std::vector<std::string> l_bmcPaths;
+
+        for (const auto& [l_objectPath, l_serviceInterfaceMap] : l_subTreeMap)
+        {
+            for (const auto& [l_service, l_interfaces] : l_serviceInterfaceMap)
+            {
+                if (std::find(l_interfaces.cbegin(), l_interfaces.cend(),
+                              constants::positionInterface) !=
+                    l_interfaces.cend())
+                {
+                    l_bmcPaths.emplace_back(l_objectPath);
+                    break;
+                }
+            }
+        }
+
+        return l_bmcPaths;
+    }
+    catch (const std::exception&)
+    {
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
+}
+
 } // namespace dbusUtility
 } // namespace vpd
