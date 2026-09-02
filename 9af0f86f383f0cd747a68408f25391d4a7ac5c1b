@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d13eb6_ecc597ba",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ac9567_e8ffc81f",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc81c818_3b3b9277",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-02T14:48:37Z",
       "side": 1,
       "message": "Error creating destination path for file mode system VPD. Aborting split mode environment set up.\nIt will be good if we can also log the exact error code why it failed?",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27b693af_41966589",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc81c818_3b3b9277",
       "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db461b60_36d526d3",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aac18781_c0c15eb1",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7cefb61_5bde4daa",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-09-02T14:48:37Z",
       "side": 1,
       "message": "System VPD file not found at the required path. Cannot enter split mode. Use --path to specify the system VPD file to copy to the file-mode VPD path.",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c4f5c1f_ff6e2d76",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7cefb61_5bde4daa",
       "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
