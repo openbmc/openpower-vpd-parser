@@ -247,5 +247,11 @@ static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
 static constexpr auto positionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
 static constexpr auto positionPropertyName = "Position";
+
+//@todo: use PDI generated header once ReadyToRemove interface gets merged
+// upstream
+static constexpr auto readyToRemoveIface =
+    "xyz.openbmc_project.State.ReadyToRemove";
+static constexpr auto readyToRemoveProperty = "ReadyToRemove";
 } // namespace constants
 } // namespace vpd
