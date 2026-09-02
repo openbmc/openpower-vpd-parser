@@ -61,6 +61,8 @@ conf_data.set_quoted(
     'REDUNDANT_SYSTEM_VPD_FILE_PATH',
     get_option('REDUNDANT_SYSTEM_VPD_FILE_PATH'),
 )
+conf_data.set_quoted('BMC0_INV_PATH', get_option('BMC0_INV_PATH'))
+conf_data.set_quoted('BMC1_INV_PATH', get_option('BMC1_INV_PATH'))
 configure_file(output: 'config.h', configuration: conf_data)
 
 services = ['service_files/vpd-manager.service']

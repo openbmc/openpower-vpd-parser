@@ -1137,6 +1137,35 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
            xyz.openbmc_project.State.ReadyToRemove under sibling(Passive) BMC's
            inventory path
         */
+
+        // Read BMC position to select the correct BMC inventory path.
+        const auto l_bmcPositionResult =
+            vpd::dbusUtility::readBmcPositionFromDbus();
+        if (!l_bmcPositionResult.has_value())
+        {
+            m_logger->logMessage(
+                "Failed to read BMC position from D-Bus. Cannot process "
+                "ReadyToRemove property. Error code: " +
+                std::to_string(static_cast<int>(l_bmcPositionResult.error())));
+            return l_retVal;
+        }
+
+        // @todo: revisit BMC inventory path selection logic once Context
+        // interface is implemented
+        const std::string l_bmcInvPath =
+            (l_bmcPositionResult.value() == vpd::constants::VALUE_0)
+                ? BMC0_INV_PATH
+                : BMC1_INV_PATH;
+
+        /* @todo:
+               - delete the ReadyToRemove interface from current BMC's inventory
+             path on PIM so that the Concurrent Maintenance flow does not treat
+             the active BMC as concurrently maintainable.
+               - publish ReadyToRemove=false on sibling(passive) BMC's
+           ReadyToRemove interface so that the Concurrent Maintenance flow can
+           identify the sibling(passive) BMC as concurrently maintainable.
+            */
+
         l_retVal = constants::SUCCESS;
     }
     catch (const std::exception& l_ex)
