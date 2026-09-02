@@ -16,6 +16,40 @@
       "message": "looks good to me",
       "revId": "f191f32a644e6a0d11337603faf3196df975d982",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2fc10d8_34bde904",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-02T05:45:09Z",
+      "side": 1,
+      "message": "This class encapsulates only couple of `public` methods and has no data members or private methods. If the intention is to avoid namespace collisions, can we wrap these methods in a `namespace` instead of a `class` ?\n\nA `class` has overhead attached with it. To use any of the class methods, we would need to create an object of the class, whereas a `namespace` is the most memory-efficient option because it guarantees zero overhead.",
+      "revId": "f191f32a644e6a0d11337603faf3196df975d982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef42964_9134dc90",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-02T05:45:09Z",
+      "side": 1,
+      "message": "Can you please elaborate what is \"reset U-Boot variables\"? What values will the variables be reset to?",
+      "revId": "f191f32a644e6a0d11337603faf3196df975d982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
