@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ac9567_e8ffc81f",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-02T14:48:37Z",
+      "side": 1,
+      "message": "nit: As it is a message for user. Cable will be generic.\nA more descriptive one can be used as the next action will be based on this output.\"CDFP cable appears to be connected to patch panel. Can\u0027t initiate split mode configuration. Disconnect patch panel, Unpair/factory reset BMC and retry.\"",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc81c818_3b3b9277",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-02T14:48:37Z",
+      "side": 1,
+      "message": "Error creating destination path for file mode system VPD. Aborting split mode environment set up.\nIt will be good if we can also log the exact error code why it failed?",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac18781_c0c15eb1",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-02T14:48:37Z",
+      "side": 1,
+      "message": "Same here.\nFailed to copy system VPD file at the file mode location. reason \u003c\u003e. Aborting ...",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7cefb61_5bde4daa",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-02T14:48:37Z",
+      "side": 1,
+      "message": "System VPD file not found at the required path. Cannot enter split mode. Use --path to specify the system VPD file to copy to the file-mode VPD path.",
+      "revId": "9af0f86f383f0cd747a68408f25391d4a7ac5c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
