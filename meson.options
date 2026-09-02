@@ -77,3 +77,15 @@ option(
     value: '',
     description: 'Redundant EEPROM path of system VPD.',
 )
+option(
+    'BMC0_INV_PATH',
+    type: 'string',
+    value: '/xyz/openbmc_project/inventory/system/chassis1/motherboard/ebmc_card',
+    description: 'Inventory path for BMC0',
+)
+option(
+    'BMC1_INV_PATH',
+    type: 'string',
+    value: '/xyz/openbmc_project/inventory/system/chassis2/motherboard/ebmc_card',
+    description: 'Inventory path for BMC1',
+)
