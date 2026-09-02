@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <format>
 #include <fstream>
+#include <regex>
 
 namespace vpd
 {
@@ -235,6 +236,19 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         if (l_chassisId.empty())
         {
             return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        // Populate BMC inventory paths if this FRU matches a BMC pattern
+        if (std::regex_search(l_baseInvObjPath,
+                              std::regex(constants::bmc0InventoryPathRegex)))
+        {
+            m_bmcInventoryPaths.first = l_baseInvObjPath;
+        }
+        else if (std::regex_search(
+                     l_baseInvObjPath,
+                     std::regex(constants::bmc1InventoryPathRegex)))
+        {
+            m_bmcInventoryPaths.second = l_baseInvObjPath;
         }
 
         // Create entry in EEPROM to chassis ID map

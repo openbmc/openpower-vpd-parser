@@ -1624,5 +1624,31 @@ inline bool isFruPresenceHandled(const std::string& i_vpdFruPath,
     return l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
         "handlePresence", true);
 }
+
+/**
+ * @brief API to get BMC inventory paths from ConfigManager.
+ *
+ * Returns the pair of BMC inventory paths held by ConfigManager, where
+ * 'first' is the BMC0 inventory path and 'second' is the BMC1 inventory
+ * path. An empty string in either field means the corresponding BMC path
+ * was not found in the system configuration JSON.
+ *
+ * @return On success, a const reference wrapper to the BMC inventory paths
+ *         pair. On failure, CONFIG_MANAGER_UNINITIALIZED error code.
+ */
+inline std::expected<
+    std::reference_wrapper<const std::pair<std::string, std::string>>,
+    error_code>
+    getBmcInventoryPaths() noexcept
+{
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
+    }
+
+    return std::cref(l_configManager->getBmcInventoryPaths());
+}
+
 } // namespace jsonUtility
 } // namespace vpd
