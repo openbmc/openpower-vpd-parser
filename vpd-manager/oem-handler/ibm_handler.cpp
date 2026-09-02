@@ -1,5 +1,3 @@
-#include "config.h"
-
 #include "ibm_handler.hpp"
 
 #include "configuration.hpp"
@@ -1153,13 +1151,80 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
             return l_retVal;
         }
 
-        /*  @todo
-            - use the BMC position to determine the sibling(Passive) BMC's
-            inventory path
-            - publish "ReadyToRemove" property as false under interface
-            xyz.openbmc_project.State.ReadyToRemove under sibling(Passive)
-           BMC's inventory path
-        */
+        // get the BMC inventory paths
+        const auto l_bmcInvPathsResult = dbusUtility::getBMCInventoryPaths();
+        if (!l_bmcInvPathsResult)
+        {
+            m_logger->logMessage(std::format(
+                "Failed to get BMC inventory paths from D-Bus. Cannot process "
+                "ReadyToRemove property. Error code: ",
+                commonUtility::getErrCodeMsg(l_bmcInvPathsResult.error())));
+            return l_retVal;
+        }
+
+        // check if there are two BMC inventory paths which indicate this system
+        // is a redundant BMC system otherwise consider it as a single BMC
+        // system and do not process ReadyToRemove interface and property
+        if (l_bmcInvPathsResult.value().size() < constants::VALUE_2)
+        {
+            m_logger->logMessage(
+                "Number of BMC inventory paths is less than 2, considering this system as a single BMC system, not processing ReadyToRemove property for BMC");
+            return constants::SUCCESS;
+        }
+
+        // Loop through the BMC inventory paths, read the Position property from
+        // the Decorator.Position interface, and find the sibling BMC path.
+        // The sibling (passive) BMC is the one whose position differs from the
+        // active BMC position: position 0 → sibling is position 1, and
+        // vice-versa.
+        const size_t l_siblingPosition = (*l_bmcPosition == constants::VALUE_0)
+                                             ? constants::VALUE_1
+                                             : constants::VALUE_0;
+
+        std::string l_passiveBmcInvPath;
+        for (const auto& l_bmcInvPath : l_bmcInvPathsResult.value())
+        {
+            const auto l_positionVariant = dbusUtility::readDbusProperty(
+                constants::pimServiceName, l_bmcInvPath.str,
+                constants::positionInterface, constants::positionPropertyName);
+
+            if (const auto* l_position =
+                    std::get_if<size_t>(&l_positionVariant))
+            {
+                if (*l_position == l_siblingPosition)
+                {
+                    l_passiveBmcInvPath = l_bmcInvPath.str;
+                    break;
+                }
+            }
+        }
+
+        if (l_passiveBmcInvPath.empty())
+        {
+            m_logger->logMessage(
+                "Passive BMC inventory path is empty. Cannot process "
+                "ReadyToRemove property.");
+            return l_retVal;
+        }
+
+        // publish ReadyToRemove=false on sibling(passive) BMC's
+        // ReadyToRemove interface so that the Concurrent Maintenance flow can
+        // identify the sibling(passive) BMC as concurrently maintainable.
+
+        vpd::types::ObjectMap l_objectMap;
+        l_objectMap[sdbusplus::object_path{l_passiveBmcInvPath}]
+                   [vpd::constants::readyToRemoveIface]
+                   [vpd::constants::readyToRemoveProperty] = false;
+
+        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
+        {
+            m_logger->logMessage(
+                "Failed to publish ReadyToRemove interface on PIM for BMC "
+                "inventory path: " +
+                l_passiveBmcInvPath);
+            return l_retVal;
+        }
+
         l_retVal = constants::SUCCESS;
     }
     catch (const std::exception& l_ex)
