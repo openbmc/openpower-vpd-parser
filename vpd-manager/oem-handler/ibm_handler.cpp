@@ -978,6 +978,12 @@ void IbmHandler::collectionStatusChangeCallback(
                         "Correlated properties JSON path is not defined in system config JSON. Correlated properties listener is disabled.");
                 }
             }
+
+            if (constants::FAILURE == handleBmcReadyToRemove())
+            {
+                m_logger->logMessage(
+                    "Failed to handle ReadyToRemove property for BMC");
+            }
         }
     }
     catch (const std::exception& l_ex)
@@ -1114,6 +1120,62 @@ void IbmHandler::validateVpdCollectionMode() const
                 l_ec.message()));
         }
     }
+}
+
+int IbmHandler::handleBmcReadyToRemove() const noexcept
+{
+    int l_retVal{constants::FAILURE};
+    try
+    {
+        // Read BMC position to identify the passive (sibling) BMC.
+        [[maybe_unused]] size_t l_bmcPositionResult{
+            std::numeric_limits<int>::max()};
+
+        const auto l_variantPosition = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemVpdInvPath,
+            constants::positionInterface, constants::positionPropertyName);
+
+        if (const auto* l_bmcPosition = std::get_if<size_t>(&l_variantPosition))
+        {
+            if (*l_bmcPosition == constants::VALUE_0 ||
+                *l_bmcPosition == constants::VALUE_1)
+            {
+                l_bmcPositionResult = *l_bmcPosition;
+            }
+            else
+            {
+                m_logger->logMessage(std::format(
+                    "Invalid BMC position {} read from D-Bus. Cannot process "
+                    "ReadyToRemove property.",
+                    *l_bmcPosition));
+
+                return l_retVal;
+            }
+        }
+        else
+        {
+            m_logger->logMessage(std::format(
+                "Invalid BMC position data type read from D-Bus. Cannot process "
+                "ReadyToRemove property."));
+
+            return l_retVal;
+        }
+
+        /*  @todo
+                - use the BMC position to determine the sibling(Passive) BMC's
+           inventory path
+           - publish "ReadyToRemove" property as false under interface
+           xyz.openbmc_project.State.ReadyToRemove under sibling(Passive) BMC's
+           inventory path
+        */
+        l_retVal = constants::SUCCESS;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to handle ReadyToRemove property. Error: {}", l_ex.what()));
+    }
+    return l_retVal;
 }
 
 } // namespace vpd
