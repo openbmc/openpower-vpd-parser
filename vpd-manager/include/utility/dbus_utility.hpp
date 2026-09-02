@@ -779,5 +779,35 @@ inline std::string getServiceNameFromConnectionId(
     return std::string{};
 }
 
+/**
+ * @brief API to fetch BMC inventory paths from PIM.
+ *
+ * The API performs a two-step lookup to identify BMC inventory paths:
+ *   1. Calls GetSubTree on PIM to retrieve all object paths that implement
+ *      the "xyz.openbmc_project.Common.PhysicalContext" interface.
+ *   2. Filters the result to retain only those paths whose "Type" property
+ * under PhysicalContext interface is "Manager" This positively identifies all
+ * BMC inventory paths hosted by inventory manager service on D-Bus.
+ *
+ * @return On success, returns a types::ListOfPaths of BMC inventory
+ *         object paths. Returns std::unexpected(error_code::DBUS_FAILURE) if
+ *         the mapper call throws, or
+ * std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS) if the subtree
+ * result is empty (no Common.PhysicalContext objects found under PIM).
+ */
+inline std::expected<types::ListOfPaths, error_code>
+    getBMCInventoryPaths() noexcept
+{
+    /* @todo:
+    - do mapper call to get all the object paths along with with all its
+    interfaces which are implementing Common.PhysicalContext, under PIM
+    - from that list filter paths which have "Type" property under
+    PhysicalContext interface is "Manager"
+    - now we have only BMC paths.
+    - return the BMC inventory paths
+    */
+    return types::ListOfPaths{};
+}
+
 } // namespace dbusUtility
 } // namespace vpd
