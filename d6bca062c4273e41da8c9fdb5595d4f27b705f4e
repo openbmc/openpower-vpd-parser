@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e64d53_f8efdefb",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-02T05:53:55Z",
+      "side": 1,
+      "message": "This path is specific to a particular PST system. How do we handle this for other systems?",
+      "revId": "d6bca062c4273e41da8c9fdb5595d4f27b705f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
