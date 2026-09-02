@@ -779,5 +779,45 @@ inline std::string getServiceNameFromConnectionId(
     return std::string{};
 }
 
+/**
+ * @brief Read BMC position from D-Bus
+ *
+ * This method reads the BMC position published on Position interface on
+ * /xyz/openbmc_project/inventory/system of phosphor inventory manager and
+ * returns the corresponding value.
+ *
+ * @return BMC position value (0 or 1) on success, or an error_code on failure.
+ * All exceptions are caught locally.
+ */
+inline std::expected<size_t, error_code> readBmcPositionFromDbus() noexcept
+{
+    try
+    {
+        // read BMC position from D-Bus
+        const auto variantPosition = readDbusProperty(
+            constants::pimServiceName, constants::systemVpdInvPath,
+            constants::positionInterface, constants::positionPropertyName);
+
+        if (const auto* bmcPosition = std::get_if<size_t>(&variantPosition))
+        {
+            if (*bmcPosition == constants::VALUE_0 ||
+                *bmcPosition == constants::VALUE_1)
+            {
+                return *bmcPosition;
+            }
+        }
+
+        return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+    }
+    catch (const std::exception& ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to read BMC position from D-Bus. Error: " +
+            std::string(ex.what()));
+
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
+}
+
 } // namespace dbusUtility
 } // namespace vpd
