@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "inventory_backup_handler.hpp"
 
 #include "error_codes.hpp"
@@ -6,6 +8,42 @@
 
 #include "format"
 #include "unordered_set"
+
+// Static definition of the interface skip map.
+// Key   : relative filesystem path of the inventory object (no leading '/').
+// Value : set of interface names (leaf directory names) to skip at that path.
+const std::unordered_map<std::string, std::unordered_set<std::string>>
+    InventoryBackupHandler::m_skipInterfaceMap{
+        {std::filesystem::path(BMC0_INV_PATH).relative_path().string(),
+         {vpd::constants::readyToRemoveIface}},
+        {std::filesystem::path(BMC1_INV_PATH).relative_path().string(),
+         {vpd::constants::readyToRemoveIface}}};
+
+bool InventoryBackupHandler::shouldSkipInterfaces(
+    const std::filesystem::path& i_entryPath) const noexcept
+{
+    const auto l_inventoryPathKey =
+        i_entryPath.parent_path().relative_path().string();
+
+    const auto l_it = m_skipInterfaceMap.find(l_inventoryPathKey);
+    if (l_it == m_skipInterfaceMap.end())
+    {
+        return false;
+    }
+
+    const bool l_skip = l_it->second.count(i_entryPath.filename().string()) !=
+                        0;
+
+    if (l_skip)
+    {
+        m_logger->logMessage(
+            std::format("Skipping restoration of interface [{}] under "
+                        "inventory path [{}].",
+                        i_entryPath.filename().string(), l_inventoryPathKey));
+    }
+
+    return l_skip;
+}
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
@@ -81,6 +119,11 @@ void InventoryBackupHandler::moveDirectory(
         {
             moveDirectory(l_entry.path(), i_dstPath / l_entry.path().filename(),
                           o_failedPaths);
+            continue;
+        }
+
+        if (shouldSkipInterfaces(l_entry.path()))
+        {
             continue;
         }
 

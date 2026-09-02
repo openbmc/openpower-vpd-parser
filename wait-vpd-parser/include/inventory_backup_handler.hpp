@@ -4,6 +4,9 @@
 #include "logger.hpp"
 
 #include <filesystem>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
 
 /**
  * @brief Class to handle backup inventory data.
@@ -112,6 +115,24 @@ class InventoryBackupHandler
                        const std::filesystem::path& i_dstPath,
                        std::vector<std::filesystem::path>& o_failedPaths) const;
 
+    /**
+     * @brief API to check if an interface should be skipped for a given
+     * inventory path during restoration.
+     *
+     * Consults the static @ref m_skipInterfaceMap. The inventory path key is
+     * derived from the full relative path of the entry's parent directory, and
+     * the interface name is the entry's filename. A given inventory path may
+     * have multiple interfaces listed in the map, all of which will be skipped.
+     *
+     * @param[in] i_entryPath - Absolute filesystem path of the interface
+     *                          directory entry being considered for
+     *                          restoration.
+     *
+     * @return true if the interface should be skipped, false otherwise.
+     */
+    bool shouldSkipInterfaces(
+        const std::filesystem::path& i_entryPath) const noexcept;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;
@@ -124,4 +145,19 @@ class InventoryBackupHandler
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
+
+    /**
+     * @brief Static map of inventory path suffixes to sets of interface names
+     * that must not be restored from backup.
+     *
+     * Key   - Relative filesystem path suffix of the inventory object path
+     *         (no leading '/'), e.g.
+     *         "xyz/openbmc_project/inventory/system/chassis1/motherboard/ebmc_card"
+     * Value - Set of interface names (leaf directory names) to skip at that
+     *         inventory path, e.g.
+     *         { "xyz.openbmc_project.State.ReadyToRemove" }
+     */
+    static const std::unordered_map<std::string,
+                                    std::unordered_set<std::string>>
+        m_skipInterfaceMap;
 };
