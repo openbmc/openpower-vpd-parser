@@ -251,5 +251,15 @@ static constexpr auto positionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
 static constexpr auto positionPropertyName = "Position";
 
+// Regex patterns to identify BMC0 and BMC1 inventory paths.
+// BMC0: chassis1 (any bmc card) OR chassis with bmc_card0/ebmc_card.
+// BMC1: chassis2 (any bmc card) OR chassis with bmc_card1.
+static constexpr auto bmc0InventoryPathRegex =
+    "^/xyz/openbmc_project/inventory/system/chassis"
+    "(1/motherboard/.*bmc.*|/motherboard/.*(bmc_card0|ebmc_card).*)$";
+static constexpr auto bmc1InventoryPathRegex =
+    "^/xyz/openbmc_project/inventory/system/chassis"
+    "(2/motherboard/.*bmc.*|/motherboard/.*bmc_card1.*)$";
+
 } // namespace constants
 } // namespace vpd
