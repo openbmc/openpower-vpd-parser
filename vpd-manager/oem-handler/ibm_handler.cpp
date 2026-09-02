@@ -1127,6 +1127,19 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
     int l_retVal{constants::FAILURE};
     try
     {
+        // Get BMC inventory paths from config JSON.
+        const auto l_bmcInvPathsResult = jsonUtility::getBmcInventoryPaths();
+        if (!l_bmcInvPathsResult.has_value())
+        {
+            m_logger->logMessage(
+                "Failed to get BMC inventory paths. Cannot process "
+                "ReadyToRemove property. Error code: " +
+                std::to_string(static_cast<int>(l_bmcInvPathsResult.error())));
+            return l_retVal;
+        }
+
+        [[maybe_unused]] const auto& l_bmcInvPaths = l_bmcInvPathsResult->get();
+
         /*  @todo
             - read the BMC position published by IBM HE app on D-Bus
                 - use the BMC position to determine the sibling(Passive) BMC's
@@ -1135,6 +1148,7 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
            xyz.openbmc_project.State.ReadyToRemove under sibling(Passive) BMC's
            inventory path
         */
+
         l_retVal = constants::SUCCESS;
     }
     catch (const std::exception& l_ex)

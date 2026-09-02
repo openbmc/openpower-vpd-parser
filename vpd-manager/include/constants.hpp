@@ -239,5 +239,27 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+
+//@todo: use PDI generated header once ReadyToRemove interface gets merged
+// upstream
+static constexpr auto readyToRemoveIface =
+    "xyz.openbmc_project.State.ReadyToRemove";
+static constexpr auto readyToRemoveProperty = "ReadyToRemove";
+
+//@todo: use PDI generated header once Position interface gets merged upstream
+static constexpr auto positionInterface =
+    "xyz.openbmc_project.Inventory.Decorator.Position";
+static constexpr auto positionPropertyName = "Position";
+
+// Regex patterns to identify BMC0 and BMC1 inventory paths.
+// BMC0: chassis1 (any bmc card) OR chassis with bmc_card0/ebmc_card.
+// BMC1: chassis2 (any bmc card) OR chassis with bmc_card1.
+static constexpr auto bmc0InventoryPathRegex =
+    "^/xyz/openbmc_project/inventory/system/chassis"
+    "(1/motherboard/.*bmc.*|/motherboard/.*(bmc_card0|ebmc_card).*)$";
+static constexpr auto bmc1InventoryPathRegex =
+    "^/xyz/openbmc_project/inventory/system/chassis"
+    "(2/motherboard/.*bmc.*|/motherboard/.*bmc_card1.*)$";
+
 } // namespace constants
 } // namespace vpd

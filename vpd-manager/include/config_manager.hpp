@@ -15,6 +15,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <utility>
 
 namespace vpd
 {
@@ -149,6 +150,22 @@ class ConfigManager final
         const noexcept
     {
         return m_chassisIdToJsonMap;
+    }
+
+    /**
+     * @brief API to get BMC inventory paths.
+     *
+     * Returns a pair of inventory paths where 'first' holds the BMC0
+     * inventory path and 'second' holds the BMC1 inventory path. An empty
+     * string in either field means the corresponding BMC path has not yet
+     * been discovered in the system configuration JSON.
+     *
+     * @return Const reference to the BMC inventory paths pair.
+     */
+    const std::pair<std::string, std::string>& getBmcInventoryPaths()
+        const noexcept
+    {
+        return m_bmcInventoryPaths;
     }
 
   private:
@@ -404,6 +421,11 @@ class ConfigManager final
     // Chassis to corresponding chassis motherboard EEPROM path - O(logN)
     // lookup, optimized for small N
     std::map<std::string, std::string> m_chassisToMotherboardEepromMap;
+
+    // BMC inventory paths: first = BMC0, second = BMC1.
+    // Populated during buildConfigMapsForFru() when an inventory path matches
+    // the bmc0InventoryPathRegex or bmc1InventoryPathRegex pattern.
+    std::pair<std::string, std::string> m_bmcInventoryPaths{};
 };
 
 } // namespace vpd
