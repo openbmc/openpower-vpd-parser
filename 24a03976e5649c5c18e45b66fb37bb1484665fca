@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e259c5be_ad2fa2ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T04:41:47Z",
+      "side": 1,
+      "message": "rephrase the commit message, as telling why this change is required first gives us immediate understanding about the commit.",
+      "revId": "24a03976e5649c5c18e45b66fb37bb1484665fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3183318d_79691fa9",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T04:41:47Z",
+      "side": 1,
+      "message": "Nit: Cable is connected",
+      "revId": "24a03976e5649c5c18e45b66fb37bb1484665fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "256fb318_1cbac7a2",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-02T04:41:47Z",
+      "side": 1,
+      "message": "rephrase this line, ex: As path is not provided, verify is file is ready exists at the specified file mode location",
+      "revId": "24a03976e5649c5c18e45b66fb37bb1484665fca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
