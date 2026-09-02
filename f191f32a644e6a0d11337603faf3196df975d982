@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15650b71_7747b3af",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T06:48:27Z",
+      "side": 1,
+      "message": "There are two private methods that will be added to this class:\n- setUBootVar\n- getUBootVariableValue\n\nThese methods will be used for setting and validating the U-Boot variables as\npart of the enter and exit split mode flow.\n\nThey are not included in this commit because this commit only introduces the\nstub APIs, and the caller/implementation will be added in follow-up commits.\n\nFor reference, `setUBootVar` is implemented as part of commit - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/94165",
+      "parentUuid": "f2fc10d8_34bde904",
+      "revId": "f191f32a644e6a0d11337603faf3196df975d982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ef42964_9134dc90",
         "filename": "vpd-tool/src/tool_split_mode.cpp",
         "patchSetId": 9
@@ -48,6 +66,24 @@
       "writtenOn": "2026-09-02T05:45:09Z",
       "side": 1,
       "message": "Can you please elaborate what is \"reset U-Boot variables\"? What values will the variables be reset to?",
+      "revId": "f191f32a644e6a0d11337603faf3196df975d982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "450e0b0a_285be880",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-02T06:48:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ef42964_9134dc90",
       "revId": "f191f32a644e6a0d11337603faf3196df975d982",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
