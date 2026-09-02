@@ -239,5 +239,17 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+
+//@todo: use PDI generated header once ReadyToRemove interface gets merged
+// upstream
+static constexpr auto readyToRemoveIface =
+    "xyz.openbmc_project.State.ReadyToRemove";
+static constexpr auto readyToRemoveProperty = "ReadyToRemove";
+
+//@todo: use PDI generated header once Position interface gets merged upstream
+static constexpr auto positionInterface =
+    "xyz.openbmc_project.Inventory.Decorator.Position";
+static constexpr auto positionPropertyName = "Position";
+
 } // namespace constants
 } // namespace vpd
