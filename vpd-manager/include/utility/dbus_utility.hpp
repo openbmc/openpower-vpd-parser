@@ -819,5 +819,36 @@ inline std::expected<size_t, error_code> readBmcPositionFromDbus() noexcept
     }
 }
 
+/**
+ * @brief API to fetch BMC inventory paths from PIM.
+ *
+ * The API performs a two-step lookup to identify BMC inventory paths:
+ *   1. Calls GetSubTree on PIM to retrieve all object paths that implement
+ *      the "xyz.openbmc_project.Inventory.Item.Board" interface.
+ *   2. Filters the result to retain only those paths whose interface list
+ *      also contains "xyz.openbmc_project.Inventory.Decorator.Position".
+ *      The presence of both interfaces together is the guaranteed indicator
+ *      of a BMC inventory path.
+ *
+ * @return On success, returns a types::ListOfPaths of BMC inventory
+ *         object paths. Returns std::unexpected(error_code::DBUS_FAILURE) if
+ *         the mapper call throws, or
+ * std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS) if the subtree
+ * result is empty (no Item.Board objects found under PIM).
+ */
+inline std::expected<types::ListOfPaths, error_code>
+    getBMCInventoryPaths() noexcept
+{
+    /* @todo:
+    - do mapper call to get all the object paths along with with all its
+    interfaces which are implementing Item.Board, under PIM
+    - from that list filter paths which also implements Decorator.Position
+    interface.
+    - now we have only BMC paths.
+    - return the BMC inventory paths
+    */
+    return types::ListOfPaths{};
+}
+
 } // namespace dbusUtility
 } // namespace vpd
