@@ -238,6 +238,19 @@ class IbmHandler
      */
     void validateVpdCollectionMode() const;
 
+    /**
+     *  @brief API to handle BMC ReadyToRemove property
+     *
+     *  This API handles ReadyToRemove interface property for BMC. ReadyToRemove
+     * property is used by Concurrent Maintenance flow to identify whether a FRU
+     * is ready to be replaced. On redundant BMC systems, only Passive BMC is
+     * concurrently maintenable and hence only Passive BMC should have the
+     * ReadyToRemove property.
+     *
+     *  @return - On success returns 0, otherwise returns -1
+     */
+    int handleBmcReadyToRemove() const noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

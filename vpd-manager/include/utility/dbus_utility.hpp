@@ -778,6 +778,5 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
-
 } // namespace dbusUtility
 } // namespace vpd
