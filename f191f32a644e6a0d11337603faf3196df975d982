@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83b5c6ce_c387c6d9",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-02T07:19:42Z",
+      "side": 1,
+      "message": "Ok. That was not apparent as per this commit. Can we leave a `TODO:` describing private methods shall be added in subsequent commits?",
+      "parentUuid": "15650b71_7747b3af",
+      "revId": "f191f32a644e6a0d11337603faf3196df975d982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ef42964_9134dc90",
         "filename": "vpd-tool/src/tool_split_mode.cpp",
         "patchSetId": 9
