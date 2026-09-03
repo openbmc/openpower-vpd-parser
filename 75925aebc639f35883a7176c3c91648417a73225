@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb4f4a5c_102b01fb",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-03T07:04:41Z",
+      "side": 1,
+      "message": "No we don\u0027t need that check here. That will be taken care by system VPD parsing logic when it comes to play.",
+      "parentUuid": "b13faaed_300d16d3",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abee904f_513e0bfd",
         "filename": "vpd-tool/src/tool_split_mode.cpp",
         "patchSetId": 10
