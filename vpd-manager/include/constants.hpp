@@ -193,6 +193,9 @@ static constexpr auto CMD_BUFFER_LENGTH = 256;
 // To be explicitly used for string comparison.
 static constexpr auto STR_CMP_SUCCESS = 0;
 
+constexpr auto singleChassisLabModeFile =
+    "/run/openbmc/single_chassis_lab_mode";
+
 // Just a random value. Can be adjusted as required.
 static constexpr uint8_t MAX_THREADS = 10;
 
