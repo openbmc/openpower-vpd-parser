@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "443adf1e_895b8933",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T08:51:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a05f32a_58c68727",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e56b8a_e1ff56dc",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-03T07:01:04Z",
       "side": 1,
       "message": "stray `;`",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f0da0c_df866fe0",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T08:51:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62e56b8a_e1ff56dc",
       "revId": "75925aebc639f35883a7176c3c91648417a73225",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +119,24 @@
       "writtenOn": "2026-09-03T07:01:04Z",
       "side": 1,
       "message": "If `exists()` returns `false` and sets some `l_ec`, it implies there is an underlying system call failure. That is being silently skipped.",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031dd05b_73800ed9",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T08:51:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abee904f_513e0bfd",
       "revId": "75925aebc639f35883a7176c3c91648417a73225",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
