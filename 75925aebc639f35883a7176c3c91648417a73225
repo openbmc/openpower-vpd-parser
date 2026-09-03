@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a05f32a_58c68727",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-03T07:01:04Z",
+      "side": 1,
+      "message": "If `exists()` returns false and `l_ec` is set, the error is silently skipped.\n\n\n\n```suggestion\n        bool l_vpdExists \u003d std::filesystem::exists(SYSTEM_VPD_FILE_PATH, l_ec);\nif (l_ec)\n{\n    std::cerr \u003c\u003c std::format(\"Failed to check system VPD accessibility [{}]: {}\",\n                             SYSTEM_VPD_FILE_PATH, l_ec.message()) \u003c\u003c std::endl;\n    return constants::FAILURE;\n}\nif (l_vpdExists)\n{\n    std::cerr \u003c\u003c \"CDFP cable appears to be connected ...\" \u003c\u003c std::endl;\n    return constants::FAILURE;\n}\n```",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62e56b8a_e1ff56dc",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-03T07:01:04Z",
+      "side": 1,
+      "message": "stray `;`",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13faaed_300d16d3",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-03T07:01:04Z",
+      "side": 1,
+      "message": "`i_filePath` comes from user input. Should we do a sanity check on this parameter? For example whether the file has IPZ VPD.",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abee904f_513e0bfd",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-03T07:01:04Z",
+      "side": 1,
+      "message": "If `exists()` returns `false` and sets some `l_ec`, it implies there is an underlying system call failure. That is being silently skipped.",
+      "revId": "75925aebc639f35883a7176c3c91648417a73225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
