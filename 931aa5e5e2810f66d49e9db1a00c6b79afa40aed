@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36766c45_7a42a63e",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T11:06:23Z",
+      "side": 1,
+      "message": "This API returns the variable values. And the values of these U-boot variables are string.",
+      "parentUuid": "2bd1870d_fb6f065f",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a171936_0943b857",
         "filename": "vpd-tool/src/tool_split_mode.cpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-02T14:52:11Z",
       "side": 1,
       "message": "leaving comment, at 0 what value is fetched will be more descriptive for the reader",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f7fd59_974c8e1e",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T11:06:23Z",
+      "side": 1,
+      "message": "Updated to use descriptive variable names. so the tuple values are self-explanatory and the comment is no longer required.",
+      "parentUuid": "8a171936_0943b857",
       "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-09-02T14:52:11Z",
       "side": 1,
       "message": "should specify directly update SE keyword if required here ?",
+      "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e9e8bd5_620ae1f1",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-03T11:06:23Z",
+      "side": 1,
+      "message": "User can update any keyword. It is not restricted to SE keyword",
+      "parentUuid": "78f72168_2a495bd8",
       "revId": "931aa5e5e2810f66d49e9db1a00c6b79afa40aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
