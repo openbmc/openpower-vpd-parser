@@ -18,7 +18,10 @@
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
 
+#include <cerrno>
+#include <cstring>
 #include <format>
+#include <fstream>
 
 namespace vpd
 {
@@ -205,6 +208,28 @@ Manager::Manager(
 
 void Manager::readVpdCollectionMode() noexcept
 {
+    const auto l_removeLabModeFile = [this]() {
+        std::error_code l_ec;
+        if (std::filesystem::exists(constants::singleChassisLabModeFile, l_ec))
+        {
+            std::filesystem::remove(constants::singleChassisLabModeFile, l_ec);
+            if (l_ec)
+            {
+                m_logger->logMessage(
+                    "Failed to delete file: " +
+                    std::string(constants::singleChassisLabModeFile) +
+                    ", error: " + l_ec.message());
+            }
+        }
+        else if (l_ec)
+        {
+            m_logger->logMessage(
+                "Failed to check existence of file: " +
+                std::string(constants::singleChassisLabModeFile) +
+                ", error: " + l_ec.message());
+        }
+    };
+
     uint16_t l_errCode{0};
     // check VPD collection mode
     if (!commonUtility::isFieldModeEnabled(l_errCode))
@@ -215,6 +240,7 @@ void Manager::readVpdCollectionMode() noexcept
                 "Default mode set. Error while trying to check if field mode is enabled, error : " +
                 commonUtility::getErrCodeMsg(l_errCode));
 
+            l_removeLabModeFile();
             return;
         }
 
@@ -225,6 +251,41 @@ void Manager::readVpdCollectionMode() noexcept
             m_logger->logMessage(
                 "Default mode set. Error while trying to read VPD collection mode: " +
                 commonUtility::getErrCodeMsg(l_errCode));
+            l_removeLabModeFile();
+            return;
+        }
+
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+        {
+            std::error_code l_ec;
+            std::filesystem::create_directories(
+                std::filesystem::path(constants::singleChassisLabModeFile)
+                    .parent_path(),
+                l_ec);
+
+            if (l_ec)
+            {
+                m_logger->logMessage(
+                    "Failed to create parent directory for file: " +
+                    std::string(constants::singleChassisLabModeFile) +
+                    ", error: " + l_ec.message());
+            }
+            else
+            {
+                // We just want the file to exist.
+                std::ofstream l_file(constants::singleChassisLabModeFile);
+                if (!l_file)
+                {
+                    m_logger->logMessage(
+                        "Failed to create file: " +
+                        std::string(constants::singleChassisLabModeFile) +
+                        ", error: " + std::string(strerror(errno)));
+                }
+            }
+        }
+        else
+        {
+            l_removeLabModeFile();
         }
     }
 }
