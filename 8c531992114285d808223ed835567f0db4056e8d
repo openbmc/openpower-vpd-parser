@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35193c55_7aef7658",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-03T15:05:48Z",
+      "side": 1,
+      "message": "why we need uboot variables to read system VPD from file-mode location ?",
+      "revId": "8c531992114285d808223ed835567f0db4056e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e831864_13dbed5e",
         "filename": "vpd-tool/include/tool_split_mode.hpp",
         "patchSetId": 7
