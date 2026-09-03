@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e831864_13dbed5e",
+        "filename": "vpd-tool/include/tool_split_mode.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-03T15:01:35Z",
+      "side": 1,
+      "message": "Let\u0027s follow the format that we follow in rest of the classes and have private after public.",
+      "revId": "8c531992114285d808223ed835567f0db4056e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8289a8_cfa1285e",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-03T15:01:35Z",
+      "side": 1,
+      "message": "We will have to verify after writing that it has been written as expected.",
+      "revId": "8c531992114285d808223ed835567f0db4056e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
