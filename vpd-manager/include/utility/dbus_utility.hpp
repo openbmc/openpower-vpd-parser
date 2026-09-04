@@ -798,15 +798,54 @@ inline std::string getServiceNameFromConnectionId(
 inline std::expected<types::ListOfPaths, error_code>
     getBMCInventoryPaths() noexcept
 {
-    /* @todo:
-    - do mapper call to get all the object paths along with with all its
-    interfaces which are implementing Common.PhysicalContext, under PIM
-    - from that list filter paths which have "Type" property under
-    PhysicalContext interface is "Manager"
-    - now we have only BMC paths.
-    - return the BMC inventory paths
-    */
-    return types::ListOfPaths{};
+    try
+    {
+        const auto l_objectPaths = GetSubTreePaths(
+            constants::pimPath, 0,
+            std::vector<std::string>{constants::physicalContextInterface});
+
+        if (l_objectPaths.empty())
+        {
+            return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+        }
+
+        types::ListOfPaths l_bmcPaths;
+
+        for (const auto& l_objectPath : l_objectPaths)
+        {
+            const auto l_typeVariant =
+                readDbusProperty(constants::pimServiceName, l_objectPath,
+                                 constants::physicalContextInterface,
+                                 constants::physicalContextTypeProperty);
+
+            const auto* l_typeStr = std::get_if<std::string>(&l_typeVariant);
+
+            if (l_typeStr == nullptr)
+            {
+                Logger::getLoggerInstance()->logMessage(std::format(
+                    "Invalid data type read for {}:{}:{}", l_objectPath,
+                    constants::physicalContextInterface,
+                    constants::physicalContextTypeProperty));
+            }
+            else if (*l_typeStr == constants::physicalContextManagerValue)
+            {
+                l_bmcPaths.emplace_back(l_objectPath);
+            }
+            else
+            {
+                Logger::getLoggerInstance()->logMessage(std::format(
+                    " Type property value is {} for {}:{}:{}", *l_typeStr,
+                    l_objectPath, constants::physicalContextInterface,
+                    constants::physicalContextTypeProperty));
+            }
+        }
+
+        return l_bmcPaths;
+    }
+    catch (const std::exception&)
+    {
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
 }
 
 } // namespace dbusUtility
