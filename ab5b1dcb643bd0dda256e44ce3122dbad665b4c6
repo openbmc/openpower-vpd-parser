@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81abd1fd_30ba6b9e",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-04T10:13:19Z",
+      "side": 1,
+      "message": "Lets avoid writing wrapper around utility methods as far as possible?\nWe already have \"readDbusProperty\" if possible should be used to read a property from Dbus.",
+      "revId": "ab5b1dcb643bd0dda256e44ce3122dbad665b4c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
