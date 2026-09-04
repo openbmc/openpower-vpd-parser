@@ -253,5 +253,13 @@ static constexpr auto positionPropertyName = "Position";
 static constexpr auto readyToRemoveIface =
     "xyz.openbmc_project.State.ReadyToRemove";
 static constexpr auto readyToRemoveProperty = "ReadyToRemove";
+
+//@todo: use PDI generated header once PhysicalContext interface gets merged
+// upstream
+static constexpr auto physicalContextInterface =
+    "xyz.openbmc_project.Common.PhysicalContext";
+static constexpr auto physicalContextTypeProperty = "Type";
+static constexpr auto physicalContextManagerValue =
+    "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Manager";
 } // namespace constants
 } // namespace vpd
