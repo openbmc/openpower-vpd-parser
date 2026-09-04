@@ -839,15 +839,39 @@ inline std::expected<size_t, error_code> readBmcPositionFromDbus() noexcept
 inline std::expected<types::ListOfPaths, error_code>
     getBMCInventoryPaths() noexcept
 {
-    /* @todo:
-    - do mapper call to get all the object paths along with with all its
-    interfaces which are implementing Item.Board, under PIM
-    - from that list filter paths which also implements Decorator.Position
-    interface.
-    - now we have only BMC paths.
-    - return the BMC inventory paths
-    */
-    return types::ListOfPaths{};
+    try
+    {
+        const auto l_subTreeMap = getObjectSubTree(
+            constants::pimPath, 0,
+            std::vector<std::string>{constants::itemBoardInterface});
+
+        if (l_subTreeMap.empty())
+        {
+            return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+        }
+
+        types::ListOfPaths l_bmcPaths;
+
+        for (const auto& [l_objectPath, l_serviceInterfaceMap] : l_subTreeMap)
+        {
+            for (const auto& [l_service, l_interfaces] : l_serviceInterfaceMap)
+            {
+                if (std::find(l_interfaces.cbegin(), l_interfaces.cend(),
+                              constants::positionInterface) !=
+                    l_interfaces.cend())
+                {
+                    l_bmcPaths.emplace_back(l_objectPath);
+                    break;
+                }
+            }
+        }
+
+        return l_bmcPaths;
+    }
+    catch (const std::exception&)
+    {
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
 }
 
 } // namespace dbusUtility
