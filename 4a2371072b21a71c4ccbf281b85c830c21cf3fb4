@@ -16,6 +16,24 @@
       "message": "caller also have a similar log for failure scenario, will this be diplicate logs ?",
       "revId": "4a2371072b21a71c4ccbf281b85c830c21cf3fb4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd7fbafd_deccc149",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:25:23Z",
+      "side": 1,
+      "message": "This log will help us to know which u-boot variable validation failed.",
+      "parentUuid": "bfba075d_77851589",
+      "revId": "4a2371072b21a71c4ccbf281b85c830c21cf3fb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
