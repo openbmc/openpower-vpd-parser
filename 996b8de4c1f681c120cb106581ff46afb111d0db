@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44ab2b1_96be944b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-07T18:38:59Z",
+      "side": 1,
+      "message": "Needs update as per the latest change?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1306436f_9adaa18f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-07T18:38:59Z",
+      "side": 1,
+      "message": "Is there any need of having an extra variable to hold bmc position and it being defaulted as max int?\n\nHandling is only required based on position 0 and position 1. Any other value can be simply discarded with an error log?",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b20082_02c2e02d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-07T18:38:59Z",
+      "side": 1,
+      "message": "This pointer can have a larger scope and can be de-referenced at the place of use and implementation can be branched off based on comparison with value 0 or 1? This way we don\u0027t need to carry another variable for bmc position unless there is a specific handling based on default value other than logging.",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c443c00d_828709d0",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-07T18:38:59Z",
+      "side": 1,
+      "message": "Mismatch in alignment, Looks like an extra space before starting?",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
