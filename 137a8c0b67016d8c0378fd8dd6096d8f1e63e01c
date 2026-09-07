@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74f13dfc_56d58c28",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "In my opinion the caller should be aware what input he is providing.",
+      "parentUuid": "59e8eec3_27ffb40d",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bd7ae2b_5bc4acab",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 10
@@ -84,6 +102,24 @@
       "writtenOn": "2026-09-07T09:20:41Z",
       "side": 1,
       "message": "popen, pclose, fgets, and FILE come from header file \u003ccstdio\u003e. This is not explicitly included in `tool_utils.hpp` but are getting implicitly included through some other header. This is fragile.",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4cbf0d6_f1cdafe8",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bd7ae2b_5bc4acab",
       "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c74e3b_1b8f3b47",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8857c8c4_60c0e216",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39268fa5_9e1bc6e4",
@@ -118,6 +172,24 @@
       "writtenOn": "2026-09-07T09:20:41Z",
       "side": 1,
       "message": "fgets returns nullptr for both end-of-file and a read error. A read error on the pipe is silently treated as end-of-file, and partial/empty output is then passed to the caller.\n\n\n\n```suggestion\n      while (fgets(l_buffer, sizeof(l_buffer), l_pipe.get()) !\u003d nullptr)\n        // After the loop, call ferror(l_pipe.get()) and return an error code if it is set:\n\nif (ferror(l_pipe.get()))\n{\n    std::cerr \u003c\u003c std::format(\"Read error while capturing output of [{}].\", i_command) \u003c\u003c std::endl;\n    pclose(l_pipe.release());\n    return std::unexpected(ErrorCode::SYS_CMD_FAILED);\n}\n```",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca0c721_a7d4a000",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39268fa5_9e1bc6e4",
       "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "704f7dd8_de597b91",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c4b1907_276bf4d7",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93727310_a31f0c00",
@@ -152,6 +242,24 @@
       "writtenOn": "2026-09-07T09:20:41Z",
       "side": 1,
       "message": "`WIFEXITED(l_status)` only returns `false` here. There is no value to logging this. \n```suggestion\n                       i_command, WIFEXITED(l_status))\n                       \"Command [{}] did not exit normally. Signaled: [{}], signal: [{}].\",\ni_command, WIFSIGNALED(l_status), WIFSIGNALED(l_status) ? WTERMSIG(l_status) : 0\n```",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a542347_29084d82",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93727310_a31f0c00",
       "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

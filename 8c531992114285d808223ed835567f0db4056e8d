@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5545c018_e21ed4c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-07T10:23:54Z",
+      "side": 1,
+      "message": "This comment is addressed in this commmit - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/94193",
+      "parentUuid": "35193c55_7aef7658",
+      "revId": "8c531992114285d808223ed835567f0db4056e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e831864_13dbed5e",
