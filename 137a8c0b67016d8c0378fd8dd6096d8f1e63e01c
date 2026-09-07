@@ -34,6 +34,126 @@
       "parentUuid": "ca311682_73a26d64",
       "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d65dffe_04ed45dc",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ef655889_ccf21268",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e8eec3_27ffb40d",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "The input command is only checked for empty string. In my opinion, there should be additional checks to prevent commands such as `rm -rf /` from executing.\nSuggestions:\nValidate that i_ubootVariable contains only alphanumeric characters and underscores: `std::all_of(i_ubootVariable.begin(), i_ubootVariable.end(), [](char c){ return std::isalnum(c) || c \u003d\u003d \u0027_\u0027; })`",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bd7ae2b_5bc4acab",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "popen, pclose, fgets, and FILE come from header file \u003ccstdio\u003e. This is not explicitly included in `tool_utils.hpp` but are getting implicitly included through some other header. This is fragile.",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8857c8c4_60c0e216",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "`256` is a magic number. Should be declared in `tool_constants.hpp` and documented in the API.",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39268fa5_9e1bc6e4",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "fgets returns nullptr for both end-of-file and a read error. A read error on the pipe is silently treated as end-of-file, and partial/empty output is then passed to the caller.\n\n\n\n```suggestion\n      while (fgets(l_buffer, sizeof(l_buffer), l_pipe.get()) !\u003d nullptr)\n        // After the loop, call ferror(l_pipe.get()) and return an error code if it is set:\n\nif (ferror(l_pipe.get()))\n{\n    std::cerr \u003c\u003c std::format(\"Read error while capturing output of [{}].\", i_command) \u003c\u003c std::endl;\n    pclose(l_pipe.release());\n    return std::unexpected(ErrorCode::SYS_CMD_FAILED);\n}\n```",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4b1907_276bf4d7",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "WIFEXITED and WEXITSTATUS come from header file \u003csys/wait.h\u003e. This is not explicitly included in tool_utils.hpp but are getting implicitly included through some other header. This is fragile",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93727310_a31f0c00",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T09:20:41Z",
+      "side": 1,
+      "message": "`WIFEXITED(l_status)` only returns `false` here. There is no value to logging this. \n```suggestion\n                       i_command, WIFEXITED(l_status))\n                       \"Command [{}] did not exit normally. Signaled: [{}], signal: [{}].\",\ni_command, WIFSIGNALED(l_status), WIFSIGNALED(l_status) ? WTERMSIG(l_status) : 0\n```",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
