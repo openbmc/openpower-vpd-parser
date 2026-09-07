@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108c7b5c_47b33d28",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T15:13:40Z",
+      "side": 1,
+      "message": "I do not see this API being consumed in this patch.",
+      "revId": "50ec135b63e464da3f981e1328cf37640ee6d01a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

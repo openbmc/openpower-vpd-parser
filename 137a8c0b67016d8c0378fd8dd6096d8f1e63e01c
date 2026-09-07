@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2056c1b4_d8d7652c",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T15:13:40Z",
+      "side": 1,
+      "message": "I think each API should sanitize it\u0027s input. Since this API executes shell commands, it needs additional safeguards. This is especially important since `vpd-tool` is a user driven or script driven tool and user can execute malicious commands using such methods.",
+      "parentUuid": "74f13dfc_56d58c28",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bd7ae2b_5bc4acab",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 10
