@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca311682_73a26d64",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-07T05:49:37Z",
+      "side": 1,
+      "message": "Did we consider reusing the `executeCmd` utility API implementation at https://github.com/openbmc/openpower-vpd-parser/blob/2c7847513f76ef9042b5c4ef98711e5e41945994/vpd-manager/include/utility/common_utility.hpp#L114 ?\n\nDoes this new implementation have any benefits over the existing implementation?",
+      "revId": "137a8c0b67016d8c0378fd8dd6096d8f1e63e01c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
