@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c8311c_d822cadd",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T12:20:04Z",
+      "side": 1,
+      "message": "Error code are not being printed.\n\nIf an error code is set in \"readUbootVariableValue\" how will that get printed in this flow?",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ee1530_1a74b948",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T12:20:04Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2f957cc_a22964f8",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T12:20:04Z",
+      "side": 1,
+      "message": "What is the point returning error code from here? Actual API is not capturing it. Main API is just returning success/failure. So error code is lost in the flow as we are not printing them above or later on.",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
