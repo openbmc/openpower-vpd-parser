@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b72faea_6e85168a",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T13:08:05Z",
+      "side": 1,
+      "message": "The error codes are getting set in executeCmd api.",
+      "parentUuid": "42c8311c_d822cadd",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36ee1530_1a74b948",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5022a796_1a62ed79",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T13:08:05Z",
+      "side": 1,
+      "message": "The error codes are getting set in executeCmd api.",
+      "parentUuid": "36ee1530_1a74b948",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2f957cc_a22964f8",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-09-08T12:20:04Z",
       "side": 1,
       "message": "What is the point returning error code from here? Actual API is not capturing it. Main API is just returning success/failure. So error code is lost in the flow as we are not printing them above or later on.",
+      "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9752ceb8_5a10adc3",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T13:08:05Z",
+      "side": 1,
+      "message": "Error codes are returned to the main and the same will be returned to the caller to detect actual error.",
+      "parentUuid": "f2f957cc_a22964f8",
       "revId": "9115177d631487649dbfcd6e0df16b9ca60bde9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
