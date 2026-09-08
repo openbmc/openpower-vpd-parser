@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22001354_bb6ab8ba",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T10:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0f62a1c_3a36edd3",
+      "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9c5684f_67b672c2",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-07T14:41:36Z",
       "side": 1,
       "message": "Nit: to exit split mode ?",
+      "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b88b0d0_102496d1",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T10:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c5684f_67b672c2",
       "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "152195d4_ad7f7a0f",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T10:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8141ebf4_a7af88da",
+      "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c67d9a60_28c4c416",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-09-07T14:41:36Z",
       "side": 1,
       "message": "Nit: CDFP cable",
+      "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66d3abf_b109b6c3",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T10:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c67d9a60_28c4c416",
       "revId": "be2d9a5e3db276f1e6245215d8028bfb8b47d3ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
