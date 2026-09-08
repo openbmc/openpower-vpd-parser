@@ -16,6 +16,24 @@
       "message": "Leave a comment here stating why we are not printing the error code.",
       "revId": "e0fe8c10adcd6946e2b9d5e405af7c2444055c32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "838728ba_51724de2",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T07:54:22Z",
+      "side": 1,
+      "message": "Updated to return error code, if error code is set.",
+      "parentUuid": "e73aeeee_a0701ed7",
+      "revId": "e0fe8c10adcd6946e2b9d5e405af7c2444055c32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
