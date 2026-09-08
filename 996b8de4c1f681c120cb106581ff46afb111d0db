@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d607c9c6_9c5b0bc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T06:36:27Z",
+      "side": 1,
+      "message": "No. We still need BMC position in order to determine the sibling(passive) BMC\u0027s inventory path by checking `Position` property under each of the two BMC inventory paths.",
+      "parentUuid": "d44ab2b1_96be944b",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1306436f_9adaa18f",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -37,6 +61,24 @@
       "writtenOn": "2026-09-07T18:38:59Z",
       "side": 1,
       "message": "Is there any need of having an extra variable to hold bmc position and it being defaulted as max int?\n\nHandling is only required based on position 0 and position 1. Any other value can be simply discarded with an error log?",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4540181_67a98038",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T06:36:27Z",
+      "side": 1,
+      "message": "This variable is needed to reduce code indentation after reading the BMC position D-Bus property. Without this variable, the rest of the flow has to be nested inside \n\n`if(bmcPositon \u003d\u003d 0 || bmcPositon \u003d\u003d 1)`.",
+      "parentUuid": "1306436f_9adaa18f",
       "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e24b2594_9d55c27e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T06:36:27Z",
+      "side": 1,
+      "message": "\u003eThis pointer can have a larger scope and can be de-referenced at the place of use\n\nYes, but that will increase the indentation of code. For the good case flow, all code has to be inside the `if` block and \"bad case\" flow, all code(logging) has to be in the `else` block.",
+      "parentUuid": "b4b20082_02c2e02d",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c443c00d_828709d0",
         "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
         "patchSetId": 6
@@ -71,6 +131,24 @@
       "writtenOn": "2026-09-07T18:38:59Z",
       "side": 1,
       "message": "Mismatch in alignment, Looks like an extra space before starting?",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c5f079_ae19726b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T06:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c443c00d_828709d0",
       "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
