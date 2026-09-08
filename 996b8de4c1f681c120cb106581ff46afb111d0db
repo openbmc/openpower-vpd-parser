@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a969e698_645b2946",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T08:30:07Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "be11a596_bbd7ac32",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b20082_02c2e02d",
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "\u003eThis pointer can have a larger scope and can be de-referenced at the place of use\n\nYes, but that will increase the indentation of code. For the good case flow, all code has to be inside the `if` block and \"bad case\" flow, all code(logging) has to be in the `else` block.",
       "parentUuid": "b4b20082_02c2e02d",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f2ca11_763b2856",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T08:30:07Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "e24b2594_9d55c27e",
       "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
