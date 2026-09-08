@@ -33,6 +33,24 @@
       "message": "This can simply be:\n\n\n\n```suggestion\n        return i_ubootVariableValue \u003d\u003d l_readVarRes.value();\n```\n\nTernary operator is not needed.",
       "revId": "3322f59a8810877392ddc9779ba8d7f9af31c88a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa208e67_f9d93f56",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-08T09:45:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9b7c42d5_4bf09a97",
+      "revId": "3322f59a8810877392ddc9779ba8d7f9af31c88a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
