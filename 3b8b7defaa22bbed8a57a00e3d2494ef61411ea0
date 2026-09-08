@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "38a2a823_2949296d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T11:44:11Z",
+      "side": 1,
+      "message": "Please add purpose of adding these methods in the commit message as well.",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b9987201_828c463f",
@@ -14,6 +31,40 @@
       "writtenOn": "2026-09-08T10:22:19Z",
       "side": 1,
       "message": "looks good to me",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab57c9bf_5fc8912c",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T11:44:11Z",
+      "side": 1,
+      "message": "Without printing the standard error, how it will be known why the command failed?",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4bdd4b_f9b982d8",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T11:44:11Z",
+      "side": 1,
+      "message": "Same here.",
       "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
