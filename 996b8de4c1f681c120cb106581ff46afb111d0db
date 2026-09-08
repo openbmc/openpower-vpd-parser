@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be11a596_bbd7ac32",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T07:01:14Z",
+      "side": 1,
+      "message": "Indentation is for look and feel and variables occupies space.\nAlso why rest of the flow needs to be nested inside the or? \n\nif(bmcPositon \u003d\u003d 0) will have a flow and if(bmcPositon \u003d\u003d 1) will have another flow and for anything else the API can simply return? Something as below Or I am missing something here?\n\n```\nconst auto* l_bmcPosition \u003d std::get_if\u003csize_t\u003e(\u0026l_variantPosition);\n        if(!l_bmcPosition)\n        {\n            //return constants::FAILURE;\n        }\n        if(*l_bmcPosition \u003d\u003d constants::VALUE_0)\n        {\n            //handling related to bmc0;\n            return constants::SUCCESS;\n        }\n        if(*l_bmcPosition \u003d\u003d constants::VALUE_1)\n        {\n            //handling related to bmc1;\n            return constants::SUCCESS;\n        }\n        //else some invalid value read from dbus?\n```",
+      "parentUuid": "c4540181_67a98038",
+      "revId": "996b8de4c1f681c120cb106581ff46afb111d0db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4b20082_02c2e02d",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
