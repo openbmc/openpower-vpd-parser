@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "28bd6869_ed669773",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T13:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38a2a823_2949296d",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b9987201_828c463f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb8dd7cd_815672c7",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T13:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab57c9bf_5fc8912c",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e4bdd4b_f9b982d8",
@@ -65,6 +101,24 @@
       "writtenOn": "2026-09-08T11:44:11Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eff4a11_b8e05f2b",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-08T13:15:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e4bdd4b_f9b982d8",
       "revId": "3b8b7defaa22bbed8a57a00e3d2494ef61411ea0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
