@@ -34,6 +34,24 @@
       "parentUuid": "e73aeeee_a0701ed7",
       "revId": "e0fe8c10adcd6946e2b9d5e405af7c2444055c32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc7e8e9_67b02c25",
+        "filename": "vpd-tool/src/tool_split_mode.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-08T11:29:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "838728ba_51724de2",
+      "revId": "e0fe8c10adcd6946e2b9d5e405af7c2444055c32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
