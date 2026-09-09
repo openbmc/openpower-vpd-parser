@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd2ed9f_190b3e6b",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-09T09:26:28Z",
+      "side": 1,
+      "message": "These needs to be updated now?",
+      "revId": "a18c3f22fc450cb2f79b3453945f6da2a7d6ca5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec81bba_1dc845aa",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-09T09:26:28Z",
+      "side": 1,
+      "message": "Indentation of lines are different.",
+      "range": {
+        "startLine": 793,
+        "startChar": 1,
+        "endLine": 795,
+        "endChar": 7
+      },
+      "revId": "a18c3f22fc450cb2f79b3453945f6da2a7d6ca5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
