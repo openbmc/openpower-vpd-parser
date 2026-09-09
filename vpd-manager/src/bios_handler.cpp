@@ -21,36 +21,36 @@ void BiosHandler<T>::checkAndListenPldmService()
 {
     // Setup a call back match on NameOwnerChanged to determine when PLDM is
     // up.
-    static std::shared_ptr<sdbusplus::match> l_nameOwnerMatch =
+    static std::shared_ptr<sdbusplus::match> nameOwnerMatch =
         std::make_shared<sdbusplus::match>(
-            *m_asioConn,
+            *asioConn,
             sdbusplus::match_rules::nameOwnerChanged(
                 constants::pldmServiceName),
-            [this](sdbusplus::message_t& l_msg) {
-                if (l_msg.is_method_error())
+            [this](sdbusplus::message_t& msg) {
+                if (msg.is_method_error())
                 {
                     Logger::getLoggerInstance()->logMessage(
                         "Error in reading PLDM name owner changed signal.");
                     return;
                 }
 
-                std::string l_name;
-                std::string l_newOwner;
-                std::string l_oldOwner;
+                std::string name;
+                std::string newOwner;
+                std::string oldOwner;
 
-                l_msg.read(l_name, l_oldOwner, l_newOwner);
+                msg.read(name, oldOwner, newOwner);
 
-                if (!l_newOwner.empty() &&
-                    (l_name.compare(constants::pldmServiceName) ==
+                if (!newOwner.empty() &&
+                    (name.compare(constants::pldmServiceName) ==
                      constants::STR_CMP_SUCCESS))
                 {
-                    m_specificBiosHandler->backUpOrRestoreBiosAttributes();
+                    specificBiosHandler->backUpOrRestoreBiosAttributes();
 
                     // Start listener now that we have done the restore.
                     listenBiosAttributes();
 
                     //  We don't need the match anymore
-                    l_nameOwnerMatch.reset();
+                    nameOwnerMatch.reset();
                 }
             });
 
@@ -58,8 +58,8 @@ void BiosHandler<T>::checkAndListenPldmService()
     // trigger BIOS attribute sync.
     if (dbusUtility::isServiceRunning(constants::pldmServiceName))
     {
-        l_nameOwnerMatch.reset();
-        m_specificBiosHandler->backUpOrRestoreBiosAttributes();
+        nameOwnerMatch.reset();
+        specificBiosHandler->backUpOrRestoreBiosAttributes();
 
         // Start listener now that we have done the restore.
         listenBiosAttributes();
@@ -69,159 +69,159 @@ void BiosHandler<T>::checkAndListenPldmService()
 template <typename T>
 void BiosHandler<T>::listenBiosAttributes()
 {
-    static std::shared_ptr<sdbusplus::match> l_biosMatch =
+    static std::shared_ptr<sdbusplus::match> biosMatch =
         std::make_shared<sdbusplus::match>(
-            *m_asioConn,
+            *asioConn,
             sdbusplus::match_rules::propertiesChanged(
                 constants::biosConfigMgrObjPath,
                 constants::biosConfigMgrInterface),
-            [this](sdbusplus::message_t& l_msg) {
-                m_specificBiosHandler->biosAttributesCallback(l_msg);
+            [this](sdbusplus::message_t& msg) {
+                specificBiosHandler->biosAttributesCallback(msg);
             });
 }
 
-IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
-    m_manager(i_manager), m_logger(Logger::getLoggerInstance())
+IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& manager) :
+    manager(manager), logger(Logger::getLoggerInstance())
 {
-    const std::shared_ptr<ConfigManager>& l_configManager =
+    const std::shared_ptr<ConfigManager>& configManager =
         ConfigManager::getInstance();
-    if (!l_configManager)
+    if (!configManager)
     {
         throw std::runtime_error(
             "ConfigManager object is null in IbmBiosHandler");
     }
 
-    const auto l_chassisJsonResult = l_configManager->getJsonObj();
+    const auto chassisJsonResult = configManager->getJsonObj();
 
-    if (!l_chassisJsonResult.has_value())
+    if (!chassisJsonResult.has_value())
     {
         throw std::runtime_error(std::format(
             "Failed to get config JSON. Error: {}",
-            commonUtility::getErrCodeMsg(l_chassisJsonResult.error())));
+            commonUtility::getErrCodeMsg(chassisJsonResult.error())));
     }
-    nlohmann::json l_sysCfgJsonObj = l_chassisJsonResult.value().get();
+    nlohmann::json sysCfgJsonObj = chassisJsonResult.value().get();
 
-    if (l_sysCfgJsonObj.empty())
+    if (sysCfgJsonObj.empty())
     {
         throw std::runtime_error("System Configuration JSON is empty");
     }
 
-    std::string l_biosHandlerJsonCfgFilePath =
-        l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+    std::string biosHandlerJsonCfgFilePath =
+        sysCfgJsonObj.value("biosHandlerJsonPath", "");
 
-    if (l_biosHandlerJsonCfgFilePath.empty())
+    if (biosHandlerJsonCfgFilePath.empty())
     {
         throw std::runtime_error(
             "Critical: BiosHandlerJsonPath key is missing in config file.");
     }
 
-    uint16_t l_errCode = 0;
-    m_biosConfigJson =
-        jsonUtility::getParsedJson(l_biosHandlerJsonCfgFilePath, l_errCode);
-    if (l_errCode)
+    uint16_t errCode = 0;
+    biosConfigJson =
+        jsonUtility::getParsedJson(biosHandlerJsonCfgFilePath, errCode);
+    if (errCode)
     {
         throw JsonException("Failed to parse Bios Config JSON, error : " +
-                                commonUtility::getErrCodeMsg(l_errCode),
-                            l_biosHandlerJsonCfgFilePath);
+                                commonUtility::getErrCodeMsg(errCode),
+                            biosHandlerJsonCfgFilePath);
     }
 
-    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    if (!biosConfigJson.contains("biosRecordKwMap"))
     {
         throw JsonException("Bios JSON is not valid.",
-                            l_biosHandlerJsonCfgFilePath);
+                            biosHandlerJsonCfgFilePath);
     }
 }
 
-void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
+void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& msg)
 {
-    if (i_msg.is_method_error())
+    if (msg.is_method_error())
     {
-        m_logger->logMessage("Error in reading BIOS attribute signal. ");
+        logger->logMessage("Error in reading BIOS attribute signal. ");
         return;
     }
 
-    std::string l_objPath;
-    types::BiosBaseTableType l_propMap;
-    i_msg.read(l_objPath, l_propMap);
+    std::string objPath;
+    types::BiosBaseTableType propMap;
+    msg.read(objPath, propMap);
 
     // Build a lookup map once
-    std::unordered_map<std::string, nlohmann::json> l_attributeConfigMap;
-    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    std::unordered_map<std::string, nlohmann::json> attributeConfigMap;
+    for (const auto& entry : biosConfigJson["biosRecordKwMap"])
     {
         std::string attrName = entry.value("biosAttributeName", "");
         if (!attrName.empty())
         {
-            l_attributeConfigMap[attrName] = entry;
+            attributeConfigMap[attrName] = entry;
         }
     }
 
-    for (auto l_property : l_propMap)
+    for (auto property : propMap)
     {
-        if (l_property.first != "BaseBIOSTable")
+        if (property.first != "BaseBIOSTable")
         {
             // Looking for change in Base BIOS table only.
             continue;
         }
 
-        if (auto l_attributeList =
+        if (auto attributeList =
                 std::get_if<std::map<std::string, types::BiosProperty>>(
-                    &(l_property.second)))
+                    &(property.second)))
         {
-            for (const auto& l_attribute : *l_attributeList)
+            for (const auto& attribute : *attributeList)
             {
-                std::string l_attributeName = std::get<0>(l_attribute);
+                std::string attributeName = std::get<0>(attribute);
 
                 // Find config entry once
-                auto configIt = l_attributeConfigMap.find(l_attributeName);
-                if (configIt == l_attributeConfigMap.end())
+                auto configIt = attributeConfigMap.find(attributeName);
+                if (configIt == attributeConfigMap.end())
                 {
                     continue; // No config for this attribute
                 }
 
                 const auto& configEntry = configIt->second;
 
-                if (auto l_val = std::get_if<std::string>(
-                        &(std::get<5>(std::get<1>(l_attribute)))))
+                if (auto strVal = std::get_if<std::string>(
+                        &(std::get<5>(std::get<1>(attribute)))))
                 {
-                    if (l_attributeName == "hb_memory_mirror_mode")
+                    if (attributeName == "hb_memory_mirror_mode")
                     {
-                        saveAmmToVpd(*l_val, configEntry);
+                        saveAmmToVpd(*strVal, configEntry);
                     }
 
-                    if (l_attributeName == "pvm_keep_and_clear")
+                    if (attributeName == "pvm_keep_and_clear")
                     {
-                        saveKeepAndClearToVpd(*l_val, configEntry);
+                        saveKeepAndClearToVpd(*strVal, configEntry);
                     }
 
-                    if (l_attributeName == "pvm_create_default_lpar")
+                    if (attributeName == "pvm_create_default_lpar")
                     {
-                        saveCreateDefaultLparToVpd(*l_val, configEntry);
+                        saveCreateDefaultLparToVpd(*strVal, configEntry);
                     }
 
-                    if (l_attributeName == "pvm_clear_nvram")
+                    if (attributeName == "pvm_clear_nvram")
                     {
-                        saveClearNvramToVpd(*l_val, configEntry);
+                        saveClearNvramToVpd(*strVal, configEntry);
                     }
 
                     continue;
                 }
 
-                if (auto l_val = std::get_if<int64_t>(
-                        &(std::get<5>(std::get<1>(l_attribute)))))
+                if (auto val = std::get_if<int64_t>(
+                        &(std::get<5>(std::get<1>(attribute)))))
                 {
-                    std::string l_attributeName = std::get<0>(l_attribute);
-                    if (l_attributeName == "hb_field_core_override")
+                    std::string attributeName = std::get<0>(attribute);
+                    if (attributeName == "hb_field_core_override")
                     {
-                        saveFcoToVpd(*l_val, configEntry);
+                        saveFcoToVpd(*val, configEntry);
                     }
                 }
             }
         }
         else
         {
-            m_logger->logMessage("Invalid type received for BIOS table.");
+            logger->logMessage("Invalid type received for BIOS table.");
 
-            m_logger->logMessage(
+            logger->logMessage(
                 std::string("Invalid type received for BIOS table."),
                 PlaceHolder::PEL,
                 types::PelInfoTuple{types::ErrorType::FirmwareError,
@@ -250,7 +250,7 @@ void IbmBiosHandler::backUpOrRestoreBiosAttributes()
             {"pvm_keep_and_clear",
              [this](const auto& entry) { processKeepAndClear(entry); }}};
 
-    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    for (const auto& entry : biosConfigJson["biosRecordKwMap"])
     {
         std::string attrName = entry.value("biosAttributeName", "");
         auto it = handlers.find(attrName);
@@ -262,123 +262,122 @@ void IbmBiosHandler::backUpOrRestoreBiosAttributes()
 }
 
 types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
-    const std::string& i_attributeName)
+    const std::string& attributeName)
 {
-    types::BiosAttributeCurrentValue l_attrValueVariant =
-        dbusUtility::biosGetAttributeMethodCall(i_attributeName);
+    types::BiosAttributeCurrentValue attrValueVariant =
+        dbusUtility::biosGetAttributeMethodCall(attributeName);
 
-    return l_attrValueVariant;
+    return attrValueVariant;
 }
 
 void IbmBiosHandler::processFieldCoreOverride(
-    const nlohmann::json& i_attributeData)
+    const nlohmann::json& attributeData)
 {
     // TODO: Should we avoid doing this at runtime?
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for hb_field_core_override not found in JSON config."
             "Skipping BIOS and VPD sync for the same.");
         return;
     }
 
     // Read required keyword from Dbus.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto fcoInVpd = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
-        if (l_fcoInVpd->size() != constants::VALUE_4)
+        if (fcoInVpd->size() != constants::VALUE_4)
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
         }
 
         //  If FCO in VPD contains anything other that ASCII Space, restore to
         //  BIOS
-        if (std::any_of(l_fcoInVpd->cbegin(), l_fcoInVpd->cend(),
-                        [](uint8_t l_val) {
-                            return l_val != constants::ASCII_OF_SPACE;
-                        }))
+        if (std::any_of(fcoInVpd->cbegin(), fcoInVpd->cend(), [](uint8_t val) {
+                return val != constants::ASCII_OF_SPACE;
+            }))
         {
             // Restore the data to BIOS.
-            saveFcoToBios(*l_fcoInVpd);
+            saveFcoToBios(*fcoInVpd);
         }
         else
         {
-            types::BiosAttributeCurrentValue l_attrValueVariant =
+            types::BiosAttributeCurrentValue attrValueVariant =
                 readBiosAttribute("hb_field_core_override");
 
-            if (auto l_fcoInBios = std::get_if<int64_t>(&l_attrValueVariant))
+            if (auto fcoInBios = std::get_if<int64_t>(&attrValueVariant))
             {
                 // save the BIOS data to VPD
-                saveFcoToVpd(*l_fcoInBios, i_attributeData);
+                saveFcoToVpd(*fcoInBios, attributeData);
 
                 return;
             }
-            m_logger->logMessage("Invalid type received for FCO from BIOS.");
+            logger->logMessage("Invalid type received for FCO from BIOS.");
         }
         return;
     }
-    m_logger->logMessage("Invalid type received for FCO from VPD.");
+    logger->logMessage("Invalid type received for FCO from VPD.");
 }
 
-void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios,
-                                  const nlohmann::json& i_attributeData)
+void IbmBiosHandler::saveFcoToVpd(int64_t fcoInBios,
+                                  const nlohmann::json& attributeData)
 {
-    if (i_fcoInBios < 0)
+    if (fcoInBios < 0)
     {
-        m_logger->logMessage("Invalid FCO value in BIOS. Skip updating to VPD");
+        logger->logMessage("Invalid FCO value in BIOS. Skip updating to VPD");
         return;
     }
 
-    std::string l_recordName = i_attributeData.value("record", "");
-    std::string l_keywordName = i_attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for hb_field_core_override not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from Dbus.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto fcoInVpd = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
-        if (l_fcoInVpd->size() != constants::VALUE_4)
+        if (fcoInVpd->size() != constants::VALUE_4)
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
             return;
         }
 
         // convert to VPD value type
-        types::BinaryVector l_biosValInVpdFormat = {
-            0, 0, 0, static_cast<uint8_t>(i_fcoInBios)};
+        types::BinaryVector biosValInVpdFormat = {
+            0, 0, 0, static_cast<uint8_t>(fcoInBios)};
 
         // Update only when the data are different.
-        if (std::memcmp(l_biosValInVpdFormat.data(), l_fcoInVpd->data(),
+        if (std::memcmp(biosValInVpdFormat.data(), fcoInVpd->data(),
                         constants::VALUE_4) != constants::SUCCESS)
         {
             if (constants::FAILURE ==
-                m_manager->updateKeyword(
+                manager->updateKeyword(
                     SYSTEM_VPD_FILE_PATH,
                     types::IpzData(constants::recVSYS, constants::kwdRG,
-                                   l_biosValInVpdFormat)))
+                                   biosValInVpdFormat)))
             {
-                m_logger->logMessage(
+                logger->logMessage(
                     "Failed to update " + std::string(constants::kwdRG) +
                     " keyword to VPD.");
             }
@@ -386,34 +385,34 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios,
     }
     else
     {
-        m_logger->logMessage("Invalid type read for FCO from DBus.");
+        logger->logMessage("Invalid type read for FCO from DBus.");
     }
 }
 
-void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
+void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& fcoVal)
 {
-    if (i_fcoVal.size() != constants::VALUE_4)
+    if (fcoVal.size() != constants::VALUE_4)
     {
-        m_logger->logMessage("Bad size for FCO received. Skip writing to BIOS");
+        logger->logMessage("Bad size for FCO received. Skip writing to BIOS");
         return;
     }
 
-    types::PendingBIOSAttrs l_pendingBiosAttribute;
-    l_pendingBiosAttribute.push_back(std::make_pair(
+    types::PendingBIOSAttrs pendingBiosAttribute;
+    pendingBiosAttribute.push_back(std::make_pair(
         "hb_field_core_override",
         std::make_tuple(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Integer",
-            i_fcoVal.at(constants::VALUE_3))));
+            fcoVal.at(constants::VALUE_3))));
 
     if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute))
+            pendingBiosAttribute))
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "DBus call to update FCO value in pending attribute failed. ");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "DBus call to update FCO value in pending attribute failed"),
             PlaceHolder::PEL,
@@ -424,64 +423,64 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
     }
 }
 
-void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode,
-                                  const nlohmann::json& i_attributeData)
+void IbmBiosHandler::saveAmmToVpd(const std::string& memoryMirrorMode,
+                                  const nlohmann::json& attributeData)
 {
-    if (i_memoryMirrorMode.empty())
+    if (memoryMirrorMode.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Empty memory mirror mode value from BIOS. Skip writing to VPD");
         return;
     }
 
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for hb_memory_mirror_mode not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read existing value.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        auto l_ammValInVpd = *l_pVal;
+        auto ammValInVpd = *pVal;
 
-        types::BinaryVector l_valToUpdateInVpd{
-            (i_memoryMirrorMode == "Enabled" ? constants::AMM_ENABLED_IN_VPD
-                                             : constants::AMM_DISABLED_IN_VPD)};
+        types::BinaryVector valToUpdateInVpd{
+            (memoryMirrorMode == "Enabled" ? constants::AMM_ENABLED_IN_VPD
+                                           : constants::AMM_DISABLED_IN_VPD)};
 
         // Check if value is already updated on VPD.
-        if (l_ammValInVpd.at(0) == l_valToUpdateInVpd.at(0))
+        if (ammValInVpd.at(0) == valToUpdateInVpd.at(0))
         {
             return;
         }
 
         if (constants::FAILURE ==
-            m_manager->updateKeyword(
+            manager->updateKeyword(
                 SYSTEM_VPD_FILE_PATH,
                 types::IpzData(constants::recVSYS, constants::kwdAMM,
-                               l_valToUpdateInVpd)))
+                               valToUpdateInVpd)))
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Failed to update " + std::string(constants::kwdAMM) +
                 " keyword to VPD");
         }
     }
     else
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD."),
             PlaceHolder::PEL,
@@ -492,27 +491,27 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode,
     }
 }
 
-void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
+void IbmBiosHandler::saveAmmToBios(const uint8_t& ammVal)
 {
-    const std::string l_valtoUpdate =
-        (i_ammVal == constants::VALUE_2) ? "Enabled" : "Disabled";
+    const std::string valToUpdate =
+        (ammVal == constants::VALUE_2) ? "Enabled" : "Disabled";
 
-    types::PendingBIOSAttrs l_pendingBiosAttribute;
-    l_pendingBiosAttribute.push_back(std::make_pair(
+    types::PendingBIOSAttrs pendingBiosAttribute;
+    pendingBiosAttribute.push_back(std::make_pair(
         "hb_memory_mirror_mode",
         std::make_tuple(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
-            l_valtoUpdate)));
+            valToUpdate)));
 
     if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute))
+            pendingBiosAttribute))
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "DBus call to update AMM value in pending attribute failed.");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "DBus call to update AMM value in pending attribute failed."),
             PlaceHolder::PEL,
@@ -524,53 +523,53 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
 }
 
 void IbmBiosHandler::processActiveMemoryMirror(
-    const nlohmann::json& i_attributeData)
+    const nlohmann::json& attributeData)
 {
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for hb_memory_mirror_mode not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        auto l_ammValInVpd = *pVal;
+        auto ammValInVpd = *pVal;
 
         // Check if active memory mirror value is default in VPD.
-        if (l_ammValInVpd.at(0) == constants::VALUE_0)
+        if (ammValInVpd.at(0) == constants::VALUE_0)
         {
-            types::BiosAttributeCurrentValue l_attrValueVariant =
+            types::BiosAttributeCurrentValue attrValueVariant =
                 readBiosAttribute("hb_memory_mirror_mode");
 
-            if (auto pVal = std::get_if<std::string>(&l_attrValueVariant))
+            if (auto pVal = std::get_if<std::string>(&attrValueVariant))
             {
-                saveAmmToVpd(*pVal, i_attributeData);
+                saveAmmToVpd(*pVal, attributeData);
                 return;
             }
-            m_logger->logMessage(
+            logger->logMessage(
                 "Invalid type received for auto memory mirror mode from BIOS.");
             return;
         }
         else
         {
-            saveAmmToBios(l_ammValInVpd.at(0));
+            saveAmmToBios(ammValInVpd.at(0));
         }
         return;
     }
-    m_logger->logMessage(
+    logger->logMessage(
         "Invalid type received for auto memory mirror mode from VPD.");
 
-    m_logger->logMessage(
+    logger->logMessage(
         std::string(
             "Invalid type received for auto memory mirror mode from VPD."),
         PlaceHolder::PEL,
@@ -581,70 +580,69 @@ void IbmBiosHandler::processActiveMemoryMirror(
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToVpd(
-    const std::string& i_createDefaultLparVal,
-    const nlohmann::json& i_attributeData)
+    const std::string& createDefaultLparVal,
+    const nlohmann::json& attributeData)
 {
-    if (i_createDefaultLparVal.empty())
+    if (createDefaultLparVal.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Empty value received for Lpar from BIOS. Skip writing in VPD.");
         return;
     }
 
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_create_default_lpar not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from DBus as we need to set only a Bit.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        commonUtility::toLower(
-            const_cast<std::string&>(i_createDefaultLparVal));
+        commonUtility::toLower(const_cast<std::string&>(createDefaultLparVal));
 
         // Check for second bit. Bit set for enabled else disabled.
-        if (((((*l_pVal).at(0) & 0x02) == 0x02) &&
-             (i_createDefaultLparVal.compare("enabled") ==
+        if (((((*pVal).at(0) & 0x02) == 0x02) &&
+             (createDefaultLparVal.compare("enabled") ==
               constants::STR_CMP_SUCCESS)) ||
-            ((((*l_pVal).at(0) & 0x02) == 0x00) &&
-             (i_createDefaultLparVal.compare("disabled") ==
+            ((((*pVal).at(0) & 0x02) == 0x00) &&
+             (createDefaultLparVal.compare("disabled") ==
               constants::STR_CMP_SUCCESS)))
         {
             // Values are same, Don;t update.
             return;
         }
 
-        types::BinaryVector l_valToUpdateInVpd;
-        if (i_createDefaultLparVal.compare("enabled") ==
+        types::BinaryVector valToUpdateInVpd;
+        if (createDefaultLparVal.compare("enabled") ==
             constants::STR_CMP_SUCCESS)
         {
             // 2nd Bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back((*l_pVal).at(0) | 0x02);
+            valToUpdateInVpd.emplace_back((*pVal).at(0) | 0x02);
         }
         else
         {
             // 2nd Bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back((*l_pVal).at(0) & ~(0x02));
+            valToUpdateInVpd.emplace_back((*pVal).at(0) & ~(0x02));
         }
 
-        if (-1 == m_manager->updateKeyword(
+        if (-1 == manager->updateKeyword(
                       SYSTEM_VPD_FILE_PATH,
                       types::IpzData(constants::recVSYS,
                                      constants::kwdClearNVRAM_CreateLPAR,
-                                     l_valToUpdateInVpd)))
+                                     valToUpdateInVpd)))
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Failed to update " +
                 std::string(constants::kwdClearNVRAM_CreateLPAR) +
                 " keyword to VPD");
@@ -652,40 +650,40 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
 
         return;
     }
-    m_logger->logMessage(
+    logger->logMessage(
         "Invalid type received for create default Lpar from VPD.");
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToBios(
-    const std::string& i_createDefaultLparVal)
+    const std::string& createDefaultLparVal)
 {
     // checking for exact length as it is a string and can have garbage value.
-    if (i_createDefaultLparVal.size() != constants::VALUE_1)
+    if (createDefaultLparVal.size() != constants::VALUE_1)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Bad size for Create default LPAR in VPD. Skip writing to BIOS.");
         return;
     }
 
-    std::string l_valtoUpdate =
-        (i_createDefaultLparVal.at(0) & 0x02) ? "Enabled" : "Disabled";
+    std::string valToUpdate =
+        (createDefaultLparVal.at(0) & 0x02) ? "Enabled" : "Disabled";
 
-    types::PendingBIOSAttrs l_pendingBiosAttribute;
-    l_pendingBiosAttribute.push_back(std::make_pair(
+    types::PendingBIOSAttrs pendingBiosAttribute;
+    pendingBiosAttribute.push_back(std::make_pair(
         "pvm_create_default_lpar",
         std::make_tuple(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
-            l_valtoUpdate)));
+            valToUpdate)));
 
     if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute))
+            pendingBiosAttribute))
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "DBus call to update lpar value in pending attribute failed.");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "DBus call to update lpar value in pending attribute failed."),
             PlaceHolder::PEL,
@@ -699,98 +697,96 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
 }
 
 void IbmBiosHandler::processCreateDefaultLpar(
-    const nlohmann::json& i_attributeData)
+    const nlohmann::json& attributeData)
 {
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_create_default_lpar not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from DBus.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        saveCreateDefaultLparToBios(std::to_string(l_pVal->at(0)));
+        saveCreateDefaultLparToBios(std::to_string(pVal->at(0)));
         return;
     }
-    m_logger->logMessage(
+    logger->logMessage(
         "Invalid type received for create default Lpar from VPD.");
 }
 
-void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal,
-                                         const nlohmann::json& i_attributeData)
+void IbmBiosHandler::saveClearNvramToVpd(const std::string& clearNvramVal,
+                                         const nlohmann::json& attributeData)
 {
-    if (i_clearNvramVal.empty())
+    if (clearNvramVal.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Empty value received for clear NVRAM from BIOS. Skip updating to VPD.");
         return;
     }
 
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_clear_nvram not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from DBus as we need to set only a Bit.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        commonUtility::toLower(const_cast<std::string&>(i_clearNvramVal));
+        commonUtility::toLower(const_cast<std::string&>(clearNvramVal));
 
         // Check for third bit. Bit set for enabled else disabled.
-        if (((((*l_pVal).at(0) & 0x04) == 0x04) &&
-             (i_clearNvramVal.compare("enabled") ==
+        if (((((*pVal).at(0) & 0x04) == 0x04) &&
+             (clearNvramVal.compare("enabled") ==
               constants::STR_CMP_SUCCESS)) ||
-            ((((*l_pVal).at(0) & 0x04) == 0x00) &&
-             (i_clearNvramVal.compare("disabled") ==
-              constants::STR_CMP_SUCCESS)))
+            ((((*pVal).at(0) & 0x04) == 0x00) &&
+             (clearNvramVal.compare("disabled") == constants::STR_CMP_SUCCESS)))
         {
             // Don't update, values are same.
             return;
         }
 
-        types::BinaryVector l_valToUpdateInVpd;
-        if (i_clearNvramVal.compare("enabled") == constants::STR_CMP_SUCCESS)
+        types::BinaryVector valToUpdateInVpd;
+        if (clearNvramVal.compare("enabled") == constants::STR_CMP_SUCCESS)
         {
             // 3rd bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back(
-                (*l_pVal).at(0) | constants::VALUE_4);
+            valToUpdateInVpd.emplace_back((*pVal).at(0) | constants::VALUE_4);
         }
         else
         {
             // 3rd bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back(
-                (*l_pVal).at(0) & ~(constants::VALUE_4));
+            valToUpdateInVpd.emplace_back(
+                (*pVal).at(0) & ~(constants::VALUE_4));
         }
 
-        if (-1 == m_manager->updateKeyword(
+        if (-1 == manager->updateKeyword(
                       SYSTEM_VPD_FILE_PATH,
                       types::IpzData(constants::recVSYS,
                                      constants::kwdClearNVRAM_CreateLPAR,
-                                     l_valToUpdateInVpd)))
+                                     valToUpdateInVpd)))
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Failed to update " +
                 std::string(constants::kwdClearNVRAM_CreateLPAR) +
                 " keyword to VPD");
@@ -798,40 +794,40 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal,
 
         return;
     }
-    m_logger->logMessage("Invalid type received for clear NVRAM from VPD.");
+    logger->logMessage("Invalid type received for clear NVRAM from VPD.");
 }
 
-void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
+void IbmBiosHandler::saveClearNvramToBios(const std::string& clearNvramVal)
 {
     // Check for the exact length as it is a string and it can have a garbage
     // value.
-    if (i_clearNvramVal.size() != constants::VALUE_1)
+    if (clearNvramVal.size() != constants::VALUE_1)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Bad size for clear NVRAM in VPD. Skip writing to BIOS.");
         return;
     }
 
     // 3rd bit is used to store clear NVRAM value.
-    std::string l_valtoUpdate =
-        (i_clearNvramVal.at(0) & constants::VALUE_4) ? "Enabled" : "Disabled";
+    std::string valToUpdate =
+        (clearNvramVal.at(0) & constants::VALUE_4) ? "Enabled" : "Disabled";
 
-    types::PendingBIOSAttrs l_pendingBiosAttribute;
-    l_pendingBiosAttribute.push_back(std::make_pair(
+    types::PendingBIOSAttrs pendingBiosAttribute;
+    pendingBiosAttribute.push_back(std::make_pair(
         "pvm_clear_nvram",
         std::make_tuple(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
-            l_valtoUpdate)));
+            valToUpdate)));
 
     if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute))
+            pendingBiosAttribute))
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "DBus call to update NVRAM value in pending attribute failed.");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "DBus call to update NVRAM value in pending attribute failed."),
             PlaceHolder::PEL,
@@ -842,137 +838,135 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
     }
 }
 
-void IbmBiosHandler::processClearNvram(const nlohmann::json& i_attributeData)
+void IbmBiosHandler::processClearNvram(const nlohmann::json& attributeData)
 {
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_clear_nvram not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from VPD.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        saveClearNvramToBios(std::to_string(l_pVal->at(0)));
+        saveClearNvramToBios(std::to_string(pVal->at(0)));
         return;
     }
-    m_logger->logMessage("Invalid type received for clear NVRAM from VPD.");
+    logger->logMessage("Invalid type received for clear NVRAM from VPD.");
 }
 
-void IbmBiosHandler::saveKeepAndClearToVpd(
-    const std::string& i_KeepAndClearVal, const nlohmann::json& i_attributeData)
+void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& keepAndClearVal,
+                                           const nlohmann::json& attributeData)
 {
-    if (i_KeepAndClearVal.empty())
+    if (keepAndClearVal.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Empty value received for keep and clear from BIOS. Skip updating to VPD.");
         return;
     }
 
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_keep_and_clear not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from DBus as we need to set only a Bit.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        commonUtility::toLower(const_cast<std::string&>(i_KeepAndClearVal));
+        commonUtility::toLower(const_cast<std::string&>(keepAndClearVal));
 
         // Check for first bit. Bit set for enabled else disabled.
-        if (((((*l_pVal).at(0) & 0x01) == 0x01) &&
-             (i_KeepAndClearVal.compare("enabled") ==
+        if (((((*pVal).at(0) & 0x01) == 0x01) &&
+             (keepAndClearVal.compare("enabled") ==
               constants::STR_CMP_SUCCESS)) ||
-            ((((*l_pVal).at(0) & 0x01) == 0x00) &&
-             (i_KeepAndClearVal.compare("disabled") ==
+            ((((*pVal).at(0) & 0x01) == 0x00) &&
+             (keepAndClearVal.compare("disabled") ==
               constants::STR_CMP_SUCCESS)))
         {
             // Don't update, values are same.
             return;
         }
 
-        types::BinaryVector l_valToUpdateInVpd;
-        if (i_KeepAndClearVal.compare("enabled") == constants::STR_CMP_SUCCESS)
+        types::BinaryVector valToUpdateInVpd;
+        if (keepAndClearVal.compare("enabled") == constants::STR_CMP_SUCCESS)
         {
             // 1st bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back(
-                (*l_pVal).at(0) | constants::VALUE_1);
+            valToUpdateInVpd.emplace_back((*pVal).at(0) | constants::VALUE_1);
         }
         else
         {
             // 1st bit is used to store the value.
-            l_valToUpdateInVpd.emplace_back(
-                (*l_pVal).at(0) & ~(constants::VALUE_1));
+            valToUpdateInVpd.emplace_back(
+                (*pVal).at(0) & ~(constants::VALUE_1));
         }
 
         if (-1 ==
-            m_manager->updateKeyword(
+            manager->updateKeyword(
                 SYSTEM_VPD_FILE_PATH,
                 types::IpzData(constants::recVSYS, constants::kwdKeepAndClear,
-                               l_valToUpdateInVpd)))
+                               valToUpdateInVpd)))
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 "Failed to update " + std::string(constants::kwdKeepAndClear) +
                 " keyword to VPD");
         }
 
         return;
     }
-    m_logger->logMessage("Invalid type received for keep and clear from VPD.");
+    logger->logMessage("Invalid type received for keep and clear from VPD.");
 }
 
-void IbmBiosHandler::saveKeepAndClearToBios(
-    const std::string& i_KeepAndClearVal)
+void IbmBiosHandler::saveKeepAndClearToBios(const std::string& keepAndClearVal)
 {
     // checking for exact length as it is a string and can have garbage value.
-    if (i_KeepAndClearVal.size() != constants::VALUE_1)
+    if (keepAndClearVal.size() != constants::VALUE_1)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Bad size for keep and clear in VPD. Skip writing to BIOS.");
         return;
     }
 
     // 1st bit is used to store keep and clear value.
-    std::string l_valtoUpdate =
-        (i_KeepAndClearVal.at(0) & constants::VALUE_1) ? "Enabled" : "Disabled";
+    std::string valToUpdate =
+        (keepAndClearVal.at(0) & constants::VALUE_1) ? "Enabled" : "Disabled";
 
-    types::PendingBIOSAttrs l_pendingBiosAttribute;
-    l_pendingBiosAttribute.push_back(std::make_pair(
+    types::PendingBIOSAttrs pendingBiosAttribute;
+    pendingBiosAttribute.push_back(std::make_pair(
         "pvm_keep_and_clear",
         std::make_tuple(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
-            l_valtoUpdate)));
+            valToUpdate)));
 
     if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute))
+            pendingBiosAttribute))
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "DBus call to update keep and clear value in pending attribute failed.");
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::string(
                 "DBus call to update keep and clear value in pending attribute failed."),
             PlaceHolder::PEL,
@@ -983,30 +977,30 @@ void IbmBiosHandler::saveKeepAndClearToBios(
     }
 }
 
-void IbmBiosHandler::processKeepAndClear(const nlohmann::json& i_attributeData)
+void IbmBiosHandler::processKeepAndClear(const nlohmann::json& attributeData)
 {
-    std::string l_keywordName = i_attributeData.value("keyword", "");
-    std::string l_recordName = i_attributeData.value("record", "");
+    std::string keywordName = attributeData.value("keyword", "");
+    std::string recordName = attributeData.value("record", "");
 
     // The missing attribute check
-    if (l_recordName.empty() || l_keywordName.empty())
+    if (recordName.empty() || keywordName.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "VPD mapping for pvm_keep_and_clear not found in JSON config."
             "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from VPD.
-    auto l_kwdValueVariant = dbusUtility::readDbusProperty(
+    auto kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_recordName, l_keywordName);
+        constants::ipzVpdInf + recordName, keywordName);
 
-    if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
+    if (auto pVal = std::get_if<types::BinaryVector>(&kwdValueVariant))
     {
-        saveKeepAndClearToBios(std::to_string(l_pVal->at(0)));
+        saveKeepAndClearToBios(std::to_string(pVal->at(0)));
         return;
     }
-    m_logger->logMessage("Invalid type received for keep and clear from VPD.");
+    logger->logMessage("Invalid type received for keep and clear from VPD.");
 }
 } // namespace vpd

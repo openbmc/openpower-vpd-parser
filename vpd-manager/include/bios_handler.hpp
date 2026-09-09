@@ -36,9 +36,9 @@ class BiosHandlerInterface
      * The definition should be overridden in concrete class to deal with BIOS
      * attributes interested in.
      *
-     * @param[in] i_msg - The callback message.
+     * @param[in] msg - The callback message.
      */
-    virtual void biosAttributesCallback(sdbusplus::message_t& i_msg) = 0;
+    virtual void biosAttributesCallback(sdbusplus::message_t& msg) = 0;
 };
 
 /**
@@ -51,9 +51,9 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @brief Construct a new IBM BIOS Handler object
      *
      * This constructor constructs a new IBM BIOS Handler object
-     * @param[in] i_manager - Manager object.
+     * @param[in] manager - Manager object.
      */
-    explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager);
+    explicit IbmBiosHandler(const std::shared_ptr<Manager>& manager);
 
     /**
      * @brief API to back up or restore BIOS attributes.
@@ -69,9 +69,9 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API to extract the required attribute and its value from DBus message
      * broadcasted on BIOS attribute change.
      *
-     * @param[in] i_msg - The callback message.
+     * @param[in] msg - The callback message.
      */
-    virtual void biosAttributesCallback(sdbusplus::message_t& i_msg);
+    virtual void biosAttributesCallback(sdbusplus::message_t& msg);
 
   private:
     /**
@@ -90,46 +90,45 @@ class IbmBiosHandler : public BiosHandlerInterface
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
      *
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for FCO attribute.
      *
      */
-    void processFieldCoreOverride(const nlohmann::json& i_attributeData);
+    void processFieldCoreOverride(const nlohmann::json& attributeData);
 
     /**
      * @brief API to save FCO data into VPD.
      *
-     * @param[in] i_fcoInBios - FCO value.
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] fcoInBios - FCO value.
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for FCO attribute.
      */
-    void saveFcoToVpd(int64_t i_fcoInBios,
-                      const nlohmann::json& i_attributeData);
+    void saveFcoToVpd(int64_t fcoInBios, const nlohmann::json& attributeData);
 
     /**
      * @brief API to save given value to "hb_field_core_override" attribute.
      *
-     * @param[in] i_fcoVal - FCO value.
+     * @param[in] fcoVal - FCO value.
      */
-    void saveFcoToBios(const types::BinaryVector& i_fcoVal);
+    void saveFcoToBios(const types::BinaryVector& fcoVal);
 
     /**
      * @brief API to save AMM data into VPD.
      *
-     * @param[in] i_memoryMirrorMode - Memory mirror mode value.
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] memoryMirrorMode - Memory mirror mode value.
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for AMM attribute.
      *
      */
-    void saveAmmToVpd(const std::string& i_memoryMirrorMode,
-                      const nlohmann::json& i_attributeData);
+    void saveAmmToVpd(const std::string& memoryMirrorMode,
+                      const nlohmann::json& attributeData);
 
     /**
      * @brief API to save given value to "hb_memory_mirror_mode" attribute.
      *
-     * @param[in] i_ammVal - AMM value.
+     * @param[in] ammVal - AMM value.
      */
-    void saveAmmToBios(const uint8_t& i_ammVal);
+    void saveAmmToBios(const uint8_t& ammVal);
 
     /**
      * @brief API to process "hb_memory_mirror_mode" attribute.
@@ -138,11 +137,11 @@ class IbmBiosHandler : public BiosHandlerInterface
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
      *
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "hb_memory_mirror_mode" attribute.
      *
      */
-    void processActiveMemoryMirror(const nlohmann::json& i_attributeData);
+    void processActiveMemoryMirror(const nlohmann::json& attributeData);
 
     /**
      * @brief API to process "pvm_create_default_lpar" attribute.
@@ -150,28 +149,28 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restore it to the BIOS attribute
      * in BIOS pending attribute table.
      *
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_create_default_lpar" attribute.
      */
-    void processCreateDefaultLpar(const nlohmann::json& i_attributeData);
+    void processCreateDefaultLpar(const nlohmann::json& attributeData);
 
     /**
      * @brief API to save given value to "pvm_create_default_lpar" attribute.
      *
-     * @param[in] i_createDefaultLparVal - Value to be saved;
+     * @param[in] createDefaultLparVal - Value to be saved;
      */
-    void saveCreateDefaultLparToBios(const std::string& i_createDefaultLparVal);
+    void saveCreateDefaultLparToBios(const std::string& createDefaultLparVal);
 
     /**
      * @brief API to save given value to VPD.
      *
-     * @param[in] i_createDefaultLparVal - Value to be saved.
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] createDefaultLparVal - Value to be saved.
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_create_default_lpar" attribute.
      *
      */
-    void saveCreateDefaultLparToVpd(const std::string& i_createDefaultLparVal,
-                                    const nlohmann::json& i_attributeData);
+    void saveCreateDefaultLparToVpd(const std::string& createDefaultLparVal,
+                                    const nlohmann::json& attributeData);
 
     /**
      * @brief API to process "pvm_clear_nvram" attribute.
@@ -179,28 +178,28 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restores it to the BIOS pending
      * attribute table.
      *
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_clear_nvram" attribute.
      *
      */
-    void processClearNvram(const nlohmann::json& i_attributeData);
+    void processClearNvram(const nlohmann::json& attributeData);
 
     /**
      * @brief API to save given value to "pvm_clear_nvram" attribute.
      *
-     * @param[in] i_clearNvramVal - Value to be saved.
+     * @param[in] clearNvramVal - Value to be saved.
      */
-    void saveClearNvramToBios(const std::string& i_clearNvramVal);
+    void saveClearNvramToBios(const std::string& clearNvramVal);
 
     /**
      * @brief API to save given value to VPD.
      *
-     * @param[in] i_clearNvramVal - Value to be saved.
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] clearNvramVal - Value to be saved.
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_clear_nvram" attribute.
      */
-    void saveClearNvramToVpd(const std::string& i_clearNvramVal,
-                             const nlohmann::json& i_attributeData);
+    void saveClearNvramToVpd(const std::string& clearNvramVal,
+                             const nlohmann::json& attributeData);
 
     /**
      * @brief API to process "pvm_keep_and_clear" attribute.
@@ -208,37 +207,37 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restore it to the BIOS pending
      * attribute table.
      *
-     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_keep_and_clear" attribute.
      *
      */
-    void processKeepAndClear(const nlohmann::json& i_attributeData);
+    void processKeepAndClear(const nlohmann::json& attributeData);
 
     /**
      * @brief API to save given value to "pvm_keep_and_clear" attribute.
      *
-     * @param[in] i_KeepAndClearVal - Value to be saved.
+     * @param[in] keepAndClearVal - Value to be saved.
      */
-    void saveKeepAndClearToBios(const std::string& i_KeepAndClearVal);
+    void saveKeepAndClearToBios(const std::string& keepAndClearVal);
 
     /**
      * @brief API to save given value to VPD.
      *
-     * @param[in] i_KeepAndClearVal - Value to be saved.
-     *  @param[in] i_attributeData - JSON object containing the VPD record and
+     * @param[in] keepAndClearVal - Value to be saved.
+     * @param[in] attributeData - JSON object containing the VPD record and
      * keyword mapping for "pvm_keep_and_clear" attribute.
      */
-    void saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal,
-                               const nlohmann::json& i_attributeData);
+    void saveKeepAndClearToVpd(const std::string& keepAndClearVal,
+                               const nlohmann::json& attributeData);
 
     // const reference to shared pointer to Manager object.
-    const std::shared_ptr<Manager>& m_manager;
+    const std::shared_ptr<Manager>& manager;
 
     // Shared pointer to Logger object
-    std::shared_ptr<Logger> m_logger;
+    std::shared_ptr<Logger> logger;
 
     // Bios config json object
-    nlohmann::json m_biosConfigJson{};
+    nlohmann::json biosConfigJson{};
 };
 
 /**
@@ -273,29 +272,28 @@ class BiosHandler
     /**
      * @brief Constructor.
      *
-     * @param[in] i_connection - Asio connection object.
-     * @param[in] i_manager - Manager object.
+     * @param[in] connection - Asio connection object.
+     * @param[in] manager - Manager object.
      */
-    BiosHandler(
-        const std::shared_ptr<sdbusplus::asio::connection>& i_connection,
-        const std::shared_ptr<Manager>& i_manager) : m_asioConn(i_connection)
+    BiosHandler(const std::shared_ptr<sdbusplus::asio::connection>& connection,
+                const std::shared_ptr<Manager>& manager) : asioConn(connection)
     {
         try
         {
-            m_specificBiosHandler = std::make_shared<T>(i_manager);
+            specificBiosHandler = std::make_shared<T>(manager);
             checkAndListenPldmService();
         }
-        catch (std::exception& l_ex)
+        catch (std::exception& ex)
         {
             // catch any exception here itself and don't pass it to main as it
             // will mark the service failed. Since VPD-Manager is a critical
             // service, failing it can push BMC to quiesced state which is not
             // required in this case.
-            std::string l_errMsg = "Instantiation of BIOS Handler failed. { ";
-            l_errMsg += l_ex.what() + std::string(" }");
+            std::string errMsg = "Instantiation of BIOS Handler failed. { ";
+            errMsg += ex.what() + std::string(" }");
             EventLogger::createSyncPel(
                 types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, l_errMsg, std::nullopt, std::nullopt,
+                __FILE__, __FUNCTION__, 0, errMsg, std::nullopt, std::nullopt,
                 std::nullopt, std::nullopt);
         }
     }
@@ -321,9 +319,9 @@ class BiosHandler
     void listenBiosAttributes();
 
     // Reference to the connection.
-    const std::shared_ptr<sdbusplus::asio::connection>& m_asioConn;
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConn;
 
     // shared pointer to specific BIOS handler.
-    std::shared_ptr<T> m_specificBiosHandler;
+    std::shared_ptr<T> specificBiosHandler;
 };
 } // namespace vpd
