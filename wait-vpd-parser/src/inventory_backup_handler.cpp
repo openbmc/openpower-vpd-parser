@@ -43,14 +43,48 @@ nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
 std::unordered_set<std::string> InventoryBackupHandler::getBMCPathsFromBackup()
     const noexcept
 {
-    // TODO: implement
-    // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
-    // 2. Walk the tree with recursive_directory_iterator, filter for regular
-    //    files named physicalContextInterface.
-    // 3. For each file, call readPropertyFromBackupFile() with
-    //    physicalContextTypeProperty.
-    // 4. Collect parent paths where the returned integer value == 1 (Manager).
-    return {};
+    std::unordered_set<std::string> l_bmcPaths;
+    try
+    {
+        const std::filesystem::path l_backupRoot{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::pimPath).relative_path()};
+
+        if (!std::filesystem::is_directory(l_backupRoot))
+        {
+            return l_bmcPaths;
+        }
+
+        // Ordinal persisted by cereal for PhysicalContextType::Manager.
+        constexpr int l_managerOrdinal =
+            static_cast<int>(vpd::types::PhysicalContextType::Manager);
+
+        for (const auto& l_entry :
+             std::filesystem::recursive_directory_iterator(l_backupRoot))
+        {
+            if (!l_entry.is_regular_file() ||
+                l_entry.path().filename().string() !=
+                    vpd::constants::physicalContextInterface)
+            {
+                continue;
+            }
+
+            const auto l_typeVal = readPropertyFromBackupFile(
+                l_entry.path(), vpd::constants::physicalContextTypeProperty);
+
+            if (!l_typeVal.is_null() && l_typeVal.is_number_integer() &&
+                l_typeVal.get<int>() == l_managerOrdinal)
+            {
+                l_bmcPaths.emplace(l_entry.path().parent_path().string());
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get BMC paths from backup: {}", l_ex.what()));
+    }
+    return l_bmcPaths;
 }
 
 void InventoryBackupHandler::pruneSkippedInterfacesFromBackup() const noexcept
@@ -205,9 +239,43 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
 
-            // Identify BMC inventory paths in the backup tree so stale
-            // interfaces can be suppressed for those paths during restoration.
-            m_bmcPaths = getBMCPathsFromBackup();
+            // Identify BMC inventory paths in the backup tree. Only activate
+            // the skip logic on multi-BMC systems (>=2 paths found) and when
+            // the active BMC position is readable from D-Bus, confirming PIM
+            // is still live with its previous state.
+            const auto l_candidatePaths = getBMCPathsFromBackup();
+
+            // TODO: Remove this debug log before merging.
+            for (const auto& l_path : l_candidatePaths)
+            {
+                m_logger->logMessage(
+                    "_SR BMC inventory path from backup: " + l_path);
+            }
+
+            if (l_candidatePaths.size() >= vpd::constants::VALUE_2)
+            {
+                const auto l_posVariant = vpd::dbusUtility::readDbusProperty(
+                    vpd::constants::pimServiceName,
+                    vpd::constants::systemVpdInvPath,
+                    vpd::constants::positionInterface,
+                    vpd::constants::positionPropertyName);
+
+                if (const auto* l_pos = std::get_if<size_t>(&l_posVariant);
+                    l_pos != nullptr && (*l_pos == vpd::constants::VALUE_0 ||
+                                         *l_pos == vpd::constants::VALUE_1))
+                {
+                    // TODO: Remove this debug log before merging.
+                    m_logger->logMessage("_SR BMC position read from D-Bus: " +
+                                         std::to_string(*l_pos));
+                    m_bmcPaths = l_candidatePaths;
+                }
+                else
+                {
+                    m_logger->logMessage(
+                        "Could not read a valid BMC position from D-Bus; "
+                        "stale interface skip logic will not be applied.");
+                }
+            }
 
             // Delete stale interface directories from the backup tree before
             // the move, so they are never copied to the primary path.
