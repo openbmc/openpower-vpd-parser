@@ -18,19 +18,18 @@ namespace vpd
 {
 
 ThreadManager::ThreadManager(
-    const std::shared_ptr<ConfigManager>& i_configManager,
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>&
-        i_progressInterface) :
-    m_configManager(i_configManager), m_progressInterface(i_progressInterface),
-    m_logger(Logger::getLoggerInstance())
+    const std::shared_ptr<ConfigManager>& configManager,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface) :
+    configManager(configManager), progressInterface(progressInterface),
+    logger(Logger::getLoggerInstance())
 {
-    if (!m_configManager)
+    if (!configManager)
     {
         throw std::invalid_argument(
             "ConfigManager cannot be null - it is mandatory for ThreadManager instantiation");
     }
 
-    if (!m_progressInterface)
+    if (!progressInterface)
     {
         throw std::invalid_argument(
             "Progress interface can not be null, it is mandatory for ThreadManager instantiation");
@@ -38,125 +37,123 @@ ThreadManager::ThreadManager(
 }
 
 void ThreadManager::updateOverallCollectionStatus(
-    const types::VpdCollectionStatus i_status) const noexcept
+    const types::VpdCollectionStatus status) const noexcept
 {
-    m_progressInterface->set_property(
+    progressInterface->set_property(
         "Status",
-        types::CommonProgress::convertOperationStatusToString(i_status));
-    m_progressInterface->signal_property("Status");
+        types::CommonProgress::convertOperationStatusToString(status));
+    progressInterface->signal_property("Status");
 }
 
 void ThreadManager::collectAllChassisVpd()
 {
     // Get the chassis to motherboard EEPROM path map from ConfigManager
-    const auto& l_chassisToMotherboardEepromMap =
-        m_configManager->getChassisToMotherboardEepromMap();
+    const auto& chassisToMotherboardEepromMap =
+        configManager->getChassisToMotherboardEepromMap();
 
     // Get the chassisId to json map for chassis-specific configuration
-    const auto& l_chassisIdToJsonMap = m_configManager->getChassisIdToJsonMap();
+    const auto& chassisIdToJsonMap = configManager->getChassisIdToJsonMap();
 
-    if (l_chassisToMotherboardEepromMap.empty() || l_chassisIdToJsonMap.empty())
+    if (chassisToMotherboardEepromMap.empty() || chassisIdToJsonMap.empty())
     {
-        std::string l_errorMsg =
+        std::string errorMsg =
             "chassisToEeprom map or chassisIdToJson map is empty. "
             "VPD collection cannot proceed due to missing system configuration.";
-        throw JsonException(l_errorMsg);
+        throw JsonException(errorMsg);
     }
 
     // Update the chassis count
-    m_chassisCount = l_chassisToMotherboardEepromMap.size();
+    chassisCount = chassisToMotherboardEepromMap.size();
 
-    m_logger->logMessage(
+    logger->logMessage(
         std::format(
             "Starting multi-threaded motherboard VPD collection for {} chassis",
-            l_chassisToMotherboardEepromMap.size()),
+            chassisToMotherboardEepromMap.size()),
         PlaceHolder::COLLECTION);
 
-    for (const auto& [l_chassisId, l_eepromPath] :
-         l_chassisToMotherboardEepromMap)
+    for (const auto& [chassisId, eepromPath] : chassisToMotherboardEepromMap)
     {
-        auto l_chassisToJsonItr = l_chassisIdToJsonMap.find(l_chassisId);
-        if (l_chassisToJsonItr == l_chassisIdToJsonMap.end())
+        auto chassisToJsonItr = chassisIdToJsonMap.find(chassisId);
+        if (chassisToJsonItr == chassisIdToJsonMap.end())
         {
-            --m_chassisCount;
+            --chassisCount;
 
             // Update per-chassis collection status to Failed
-            uint16_t l_errCode = 0;
+            uint16_t errCode = 0;
             vpdSpecificUtility::setCollectionStatusProperty(
-                l_eepromPath, types::VpdCollectionStatus::Failed,
-                m_configManager->getJsonObj().value().get(), l_errCode);
+                eepromPath, types::VpdCollectionStatus::Failed,
+                configManager->getJsonObj().value().get(), errCode);
 
-            std::string l_msg =
+            std::string msg =
                 std::format("{} not found in chassis ID to JSON map. "
                             "Skipping motherboard VPD collection.",
-                            l_chassisId);
+                            chassisId);
 
-            if (l_errCode)
+            if (errCode)
             {
-                l_msg += std::format(
+                msg += std::format(
                     " Additionally, failed to update collection status for EEPROM [{}], error: {}.",
-                    l_eepromPath, commonUtility::getErrCodeMsg(l_errCode));
+                    eepromPath, commonUtility::getErrCodeMsg(errCode));
             }
 
-            m_logger->logMessage(std::move(l_msg));
+            logger->logMessage(std::move(msg));
             continue;
         }
 
 #ifdef IBM_SYSTEM
         // Skip collecting system VPD path again
-        if (l_eepromPath == SYSTEM_VPD_FILE_PATH)
+        if (eepromPath == SYSTEM_VPD_FILE_PATH)
         {
-            handleChassisHavingSystemVpd(l_chassisToJsonItr->second,
-                                         l_chassisId, l_eepromPath);
+            handleChassisHavingSystemVpd(chassisToJsonItr->second, chassisId,
+                                         eepromPath);
             continue;
         }
 #endif
 
-        m_logger->logMessage(
+        logger->logMessage(
             std::format(
                 "Spawning thread for chassis [{}] with EEPROM path [{}]",
-                l_chassisId, l_eepromPath),
+                chassisId, eepromPath),
             PlaceHolder::COLLECTION);
 
         try
         {
-            const nlohmann::json& l_chassisJson = l_chassisToJsonItr->second;
+            const nlohmann::json& chassisJson = chassisToJsonItr->second;
 
-            std::thread{[l_eepromPath, l_chassisJson, l_chassisId, this]() {
+            std::thread{[eepromPath, chassisJson, chassisId, this]() {
                 // Create a local Worker instance for this thread
-                Worker l_threadWorker;
+                Worker threadWorker;
 
-                uint16_t l_errCode = 0;
-                auto [l_isPresent, l_collectionStatus] =
-                    l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
-                                                 l_errCode);
+                uint16_t errCode = 0;
+                auto [isPresent, collectionStatus] = threadWorker.collectFruVpd(
+                    eepromPath, chassisJson, errCode);
 
-                updateSystemView(l_chassisId, l_eepromPath, l_isPresent);
+                updateSystemView(chassisId, eepromPath, isPresent);
 
                 {
-                    std::lock_guard<std::mutex> l_lock(m_mutex);
-                    m_chassisResultQueue.push(std::make_tuple(
-                        l_isPresent, l_eepromPath, l_chassisJson));
-                    m_completionCv.notify_one();
+                    std::lock_guard<std::mutex> lock(mutex);
+                    chassisResultQueue.push(
+                        std::make_tuple(isPresent, eepromPath, chassisJson));
+                    completionCv.notify_one();
                 }
 
-                m_logger->logMessage(
+                logger->logMessage(
                     std::format("Completed VPD collection for EEPROM [{}]. "
                                 "Present: {}, Status: {}, ErrorCode: {}",
-                                l_eepromPath, l_isPresent, l_collectionStatus,
-                                l_errCode),
+                                eepromPath, isPresent, collectionStatus,
+                                errCode),
                     PlaceHolder::COLLECTION);
             }}.detach();
             // ToDo:- this detach mode is for time being, we need to update the
             // system view post collection.
         }
-        catch (const std::exception& l_ex)
+        catch (const std::exception& ex)
         {
-            --m_chassisCount;
-            m_logger->logMessage(std::format(
+            --chassisCount;
+            logger->logMessage(std::format(
                 "Failed to spawn thread for chassis [{}], EEPROM [{}]. "
                 "Error: {}, Type: {}",
-                l_chassisId, l_eepromPath, l_ex.what(), typeid(l_ex).name()));
+                chassisId, eepromPath, ex.what(), typeid(ex).name()));
         }
     }
 }
@@ -170,41 +167,41 @@ void ThreadManager::collectAllFruVpd()
         std::thread{[this]() {
             try
             {
-                auto l_start = std::chrono::steady_clock::now();
+                auto start = std::chrono::steady_clock::now();
                 collectAllChassisVpd();
 
-                bool l_result = processChassisResults();
+                bool result = processChassisResults();
 
-                const auto l_completionStatus =
-                    (l_result ? types::VpdCollectionStatus::Completed
-                              : types::VpdCollectionStatus::Failed);
-                updateOverallCollectionStatus(l_completionStatus);
+                const auto completionStatus =
+                    (result ? types::VpdCollectionStatus::Completed
+                            : types::VpdCollectionStatus::Failed);
+                updateOverallCollectionStatus(completionStatus);
 
-                const auto l_elapsedSeconds =
+                const auto elapsedSeconds =
                     std::chrono::duration<double>(
-                        std::chrono::steady_clock::now() - l_start)
+                        std::chrono::steady_clock::now() - start)
                         .count();
-                m_logger->logMessage(std::format(
+                logger->logMessage(std::format(
                     "Total time taken for all FRU VPD collection = {} seconds",
-                    l_elapsedSeconds));
+                    elapsedSeconds));
             }
-            catch (const std::exception& l_ex)
+            catch (const std::exception& ex)
             {
                 updateOverallCollectionStatus(
                     types::VpdCollectionStatus::Failed);
-                m_logger->logMessage(std::format(
-                    "Collect all FRU VPD failed, reason: {}", l_ex.what()));
+                logger->logMessage(std::format(
+                    "Collect all FRU VPD failed, reason: {}", ex.what()));
             }
         }}.detach();
 
-        m_logger->logMessage("All FRUs VPD collection initiated.",
-                             PlaceHolder::COLLECTION);
+        logger->logMessage("All FRUs VPD collection initiated.",
+                           PlaceHolder::COLLECTION);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             std::format("VPD collection failed with exception: {}, Type: {}",
-                        l_ex.what(), typeid(l_ex).name()),
+                        ex.what(), typeid(ex).name()),
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::InternalFailure,
                                 types::SeverityType::Critical, 0, std::nullopt,
@@ -215,69 +212,68 @@ void ThreadManager::collectAllFruVpd()
     }
 }
 
-void ThreadManager::updateSystemView(const std::string& i_chassisId,
-                                     const std::string& i_eepromPath,
-                                     const bool i_isPresent) noexcept
+void ThreadManager::updateSystemView(const std::string& chassisId,
+                                     const std::string& eepromPath,
+                                     const bool isPresent) noexcept
 {
-    uint16_t l_errCode = 0;
-    const std::string& l_invPath =
-        jsonUtility::getInventoryObjPathFromJson(i_eepromPath, l_errCode);
+    uint16_t errCode = 0;
+    const std::string& invPath =
+        jsonUtility::getInventoryObjPathFromJson(eepromPath, errCode);
 
-    if (l_errCode || l_invPath.empty())
+    if (errCode || invPath.empty())
     {
-        m_logger->logMessage(
+        logger->logMessage(
             std::format("Failed to get inventory path for EEPROM {}, error: {}",
-                        i_eepromPath, commonUtility::getErrCodeMsg(l_errCode)));
+                        eepromPath, commonUtility::getErrCodeMsg(errCode)));
     }
 
     {
-        std::lock_guard<std::mutex> l_lock(m_mutex);
-        m_chassisStateMap.emplace(i_chassisId,
-                                  std::make_pair(l_invPath, i_isPresent));
+        std::lock_guard<std::mutex> lock(mutex);
+        chassisStateMap.emplace(chassisId, std::make_pair(invPath, isPresent));
     }
 }
 
 bool ThreadManager::processChassisResults() noexcept
 {
-    if (m_configManager->getChassisToMotherboardEepromMap().empty())
+    if (configManager->getChassisToMotherboardEepromMap().empty())
     {
-        m_logger->logMessage("Chassis to motherboard EEPROM map is empty.");
+        logger->logMessage("Chassis to motherboard EEPROM map is empty.");
         return false;
     }
 
-    // @todo: l_maxThreadsPerChassis should be calculated based on the number of
+    // @todo: maxThreadsPerChassis should be calculated based on the number of
     // chassis present in the system.
-    const size_t l_maxThreadsPerChassis = std::max<size_t>(
+    const size_t maxThreadsPerChassis = std::max<size_t>(
         1, constants::MAX_THREADS /
-               m_configManager->getChassisToMotherboardEepromMap().size());
+               configManager->getChassisToMotherboardEepromMap().size());
 
     while (true)
     {
-        bool l_decChassisCnt{false};
+        bool decChassisCnt{false};
         try
         {
-            types::ChassisCollectionResult l_chassisResult;
+            types::ChassisCollectionResult chassisResult;
 
             {
-                std::unique_lock<std::mutex> l_lock(m_mutex);
+                std::unique_lock<std::mutex> lock(mutex);
 
                 // Continue until all pending tasks are over, or timeout expires
-                const bool l_timedOut = !m_completionCv.wait_for(
-                    l_lock,
+                const bool timedOut = !completionCv.wait_for(
+                    lock,
                     std::chrono::seconds(constants::VPD_COLLECTION_TIMEOUT_SEC),
                     [this]() {
-                        return (!m_chassisResultQueue.empty() ||
-                                (!m_chassisCount && !m_frusCount));
+                        return (!chassisResultQueue.empty() ||
+                                (!chassisCount && !frusCount));
                     });
 
-                if (l_timedOut)
+                if (timedOut)
                 {
-                    m_logger->logMessage(
+                    logger->logMessage(
                         std::format(
                             "VPD collection timed out after {} seconds. "
                             "Pending chassis: {}, pending FRUs: {}. Exiting.",
                             constants::VPD_COLLECTION_TIMEOUT_SEC,
-                            m_chassisCount.load(), m_frusCount.load()),
+                            chassisCount.load(), frusCount.load()),
                         PlaceHolder::ASYNC_PEL,
                         types::PelInfoTuple{types::ErrorType::FirmwareError,
                                             types::SeverityType::Warning, 0,
@@ -288,118 +284,115 @@ bool ThreadManager::processChassisResults() noexcept
                 }
 
                 // Exit when all chassis and FRU VPD collection is complete
-                if (!m_chassisCount && !m_frusCount)
+                if (!chassisCount && !frusCount)
                 {
                     return true;
                 }
 
-                l_chassisResult = std::move(m_chassisResultQueue.front());
-                m_chassisResultQueue.pop();
-                l_decChassisCnt = true;
+                chassisResult = std::move(chassisResultQueue.front());
+                chassisResultQueue.pop();
+                decChassisCnt = true;
             }
 
-            const auto& l_chassisEepromPath = std::get<1>(l_chassisResult);
-            const auto& l_chassisJson = std::get<2>(l_chassisResult);
+            const auto& chassisEepromPath = std::get<1>(chassisResult);
+            const auto& chassisJson = std::get<2>(chassisResult);
 
-            if (l_chassisJson["frus"].size() <= constants::VALUE_1)
+            if (chassisJson["frus"].size() <= constants::VALUE_1)
             {
-                m_logger->logMessage(std::format(
+                logger->logMessage(std::format(
                     "There are no FRUs to collect VPD, for the chassis [{}].",
-                    l_chassisEepromPath));
+                    chassisEepromPath));
             }
 
             // Collect FRUs for present chassis
-            else if (std::get<0>(l_chassisResult))
+            else if (std::get<0>(chassisResult))
             {
                 // Increment the FRU counter before staring FRUs VPD collection.
                 // Exclude chassis/motherboard VPD, which was already collected
-                m_frusCount += l_chassisJson["frus"].size() -
-                               constants::VALUE_1;
+                frusCount += chassisJson["frus"].size() - constants::VALUE_1;
 
-                launchFruCollectionPool(l_chassisEepromPath, l_chassisJson,
-                                        l_maxThreadsPerChassis);
+                launchFruCollectionPool(chassisEepromPath, chassisJson,
+                                        maxThreadsPerChassis);
             }
             else
             {
-                m_logger->logMessage(
+                logger->logMessage(
                     std::format(
                         "Chassis [{}] is not present; skipping FRUs collection.",
-                        l_chassisEepromPath),
+                        chassisEepromPath),
                     PlaceHolder::COLLECTION);
             }
         }
-        catch (const std::exception& l_ex)
+        catch (const std::exception& ex)
         {
-            m_logger->logMessage(std::format(
+            logger->logMessage(std::format(
                 "Error occurred while processing chassis result: {}",
-                l_ex.what()));
+                ex.what()));
         }
 
         // Decrement chassis count after actions on the chassis result are
         // complete
-        if (l_decChassisCnt)
+        if (decChassisCnt)
         {
-            --m_chassisCount;
+            --chassisCount;
         }
     }
 }
 
 void ThreadManager::launchFruCollectionPool(
-    const std::string& i_chassisEeepromPath,
-    const nlohmann::json& i_chassisJson,
-    const size_t i_maxThreadsPerChassis) noexcept
+    const std::string& chassisEeepromPath, const nlohmann::json& chassisJson,
+    const size_t maxThreadsPerChassis) noexcept
 {
-    bool l_anyThreadLaunched{false};
+    bool anyThreadLaunched{false};
 
     try
     {
         // Create shared context for FRU collection thread pool
-        auto l_fruThreadContext = std::make_shared<FruThreadContext>(
-            i_chassisEeepromPath, i_chassisJson);
+        auto fruThreadContext =
+            std::make_shared<FruThreadContext>(chassisEeepromPath, chassisJson);
 
         // Launch thread pool for parallel FRU VPD collection
-        for (size_t l_index = 0; l_index < i_maxThreadsPerChassis; ++l_index)
+        for (size_t index = 0; index < maxThreadsPerChassis; ++index)
         {
             try
             {
-                std::thread([this, i_chassisEeepromPath, l_fruThreadContext]() {
-                    processFruCollection(l_fruThreadContext);
+                std::thread([this, chassisEeepromPath, fruThreadContext]() {
+                    processFruCollection(fruThreadContext);
                 }).detach();
 
-                l_anyThreadLaunched = true;
+                anyThreadLaunched = true;
             }
-            catch (const std::exception& l_ex)
+            catch (const std::exception& ex)
             {
-                m_logger->logMessage(std::format(
+                logger->logMessage(std::format(
                     "Failed to launch FRU collection thread #{} for chassis "
                     "[{}], error: {}",
-                    l_index + 1, i_chassisEeepromPath, l_ex.what()));
+                    index + 1, chassisEeepromPath, ex.what()));
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(std::format(
+        logger->logMessage(std::format(
             "Failed to create FRU collection thread pool for chassis "
             "[{}], error: {}",
-            i_chassisEeepromPath, l_ex.what()));
+            chassisEeepromPath, ex.what()));
     }
 
     // Decrement the FRU counter if no threads were launched
-    if (!l_anyThreadLaunched &&
-        i_chassisJson["frus"].size() > constants::VALUE_1)
+    if (!anyThreadLaunched && chassisJson["frus"].size() > constants::VALUE_1)
     {
-        m_frusCount -= i_chassisJson["frus"].size() - constants::VALUE_1;
-        m_completionCv.notify_one();
+        frusCount -= chassisJson["frus"].size() - constants::VALUE_1;
+        completionCv.notify_one();
     }
 }
 
 void ThreadManager::processFruCollection(
-    const std::shared_ptr<FruThreadContext>& i_fruThreadContext) noexcept
+    const std::shared_ptr<FruThreadContext>& fruThreadContext) noexcept
 {
-    if (!i_fruThreadContext)
+    if (!fruThreadContext)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             "Received null FRU thread context. Skipping FRU VPD collection.");
         return;
     }
@@ -409,117 +402,117 @@ void ThreadManager::processFruCollection(
         while (true)
         {
             // Get next FRU to process
-            std::string l_fruPath = getNextFruPath(i_fruThreadContext);
+            std::string fruPath = getNextFruPath(fruThreadContext);
 
-            if (l_fruPath.empty())
+            if (fruPath.empty())
             {
                 break;
             }
 
-            uint16_t l_errCode = 0;
-            auto [l_isPresent, l_collectionStatus] = Worker{}.collectFruVpd(
-                l_fruPath, i_fruThreadContext->m_chassisJson, l_errCode);
+            uint16_t errCode = 0;
+            auto [isPresent, collectionStatus] = Worker{}.collectFruVpd(
+                fruPath, fruThreadContext->chassisJson, errCode);
 
             // Update FRU count and notify waiting thread
-            if (m_frusCount > 0)
+            if (frusCount > 0)
             {
-                --m_frusCount;
+                --frusCount;
             }
-            m_completionCv.notify_one();
+            completionCv.notify_one();
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             std::format("Exception in FRU collection thread for chassis "
                         "[{}], error: {}",
-                        i_fruThreadContext->m_chassisEeepromPath, l_ex.what()));
+                        fruThreadContext->chassisEeepromPath, ex.what()));
     }
 }
 
 std::string ThreadManager::getNextFruPath(
-    const std::shared_ptr<FruThreadContext>& i_fruThreadContext) const noexcept
+    const std::shared_ptr<FruThreadContext>& fruThreadContext) const noexcept
 {
     try
     {
-        if (!i_fruThreadContext)
+        if (!fruThreadContext)
         {
-            m_logger->logMessage("Invalid input is given");
+            logger->logMessage("Invalid input is given");
             return std::string{};
         }
 
-        std::string l_fruPath;
+        std::string fruPath;
 
-        std::lock_guard<std::mutex> l_lock(i_fruThreadContext->m_fruItrMutex);
+        std::lock_guard<std::mutex> lock(fruThreadContext->fruItrMutex);
 
-        while (i_fruThreadContext->m_fruItr != i_fruThreadContext->m_frus.end())
+        while (fruThreadContext->fruItr != fruThreadContext->frus.end())
         {
-            l_fruPath = i_fruThreadContext->m_fruItr->first;
-            ++i_fruThreadContext->m_fruItr;
+            fruPath = fruThreadContext->fruItr->first;
+            ++fruThreadContext->fruItr;
 
             // Skip chassis EEPROM as it was already collected
-            if (l_fruPath == i_fruThreadContext->m_chassisEeepromPath)
+            if (fruPath == fruThreadContext->chassisEeepromPath)
             {
-                l_fruPath.clear();
+                fruPath.clear();
                 continue;
             }
 
             break;
         }
 
-        return l_fruPath;
+        return fruPath;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(std::format(
-            "Error while getting next FRU path, reason: {}", l_ex.what()));
+        logger->logMessage(std::format(
+            "Error while getting next FRU path, reason: {}", ex.what()));
         return std::string{};
     }
 }
 
 #ifdef IBM_SYSTEM
 void ThreadManager::handleChassisHavingSystemVpd(
-    const nlohmann::json& i_chassisJson, const std::string& i_chassisId,
-    const std::string& i_eepromPath) noexcept
+    const nlohmann::json& chassisJson, const std::string& chassisId,
+    const std::string& eepromPath) noexcept
 {
     try
     {
         // Read Present property value from Dbus.
-        auto l_kwdValueVariant = dbusUtility::readDbusProperty(
-            i_chassisJson["frus"][i_eepromPath][0]["serviceName"],
-            i_chassisJson["frus"][i_eepromPath][0]["inventoryPath"],
+        auto kwdValueVariant = dbusUtility::readDbusProperty(
+            chassisJson["frus"][eepromPath][0]["serviceName"],
+            chassisJson["frus"][eepromPath][0]["inventoryPath"],
             constants::inventoryItemInf, "Present");
 
-        bool l_isFruPresent = false;
-        if (const auto l_value = std::get_if<bool>(&l_kwdValueVariant))
+        bool isFruPresent = false;
+        if (const auto value = std::get_if<bool>(&kwdValueVariant))
         {
-            l_isFruPresent = *l_value;
+            isFruPresent = *value;
         }
         else
         {
-            m_logger->logMessage(std::format(
+            logger->logMessage(std::format(
                 "Invalid type received for Present property from D-Bus for inventory path: [{}], proceeding further by assuming chassis is absent.",
                 std::string(
-                    i_chassisJson["frus"][i_eepromPath][0]["inventoryPath"])));
+                    chassisJson["frus"][eepromPath][0]["inventoryPath"])));
         }
 
-        updateSystemView(i_chassisId, i_eepromPath, l_isFruPresent);
+        updateSystemView(chassisId, eepromPath, isFruPresent);
 
         {
-            std::lock_guard<std::mutex> l_lock(m_mutex);
-            m_chassisResultQueue.push(
-                std::make_tuple(l_isFruPresent, i_eepromPath, i_chassisJson));
-            m_completionCv.notify_one();
+            std::lock_guard<std::mutex> lock(mutex);
+            chassisResultQueue.push(
+                std::make_tuple(isFruPresent, eepromPath, chassisJson));
+            completionCv.notify_one();
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        --m_chassisCount;
-        m_completionCv.notify_one();
+        --chassisCount;
+        completionCv.notify_one();
 
-        m_logger->logMessage(std::format(
+        logger->logMessage(std::format(
             "Error while handling chassis with system VPD path, reason: {}",
-            l_ex.what()));
+            ex.what()));
     }
 }
 #endif
