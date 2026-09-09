@@ -15,14 +15,45 @@ const std::unordered_set<std::string>
 std::unordered_set<std::filesystem::path>
     InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
 {
-    // TODO: implement
-    // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
-    // 2. Walk the tree with recursive_directory_iterator, filter for regular
-    //    files named physicalContextInterface.
-    // 3. For each file, call readPropertyFromBackupFile() with
-    //    physicalContextTypeProperty.
-    // 4. Collect parent paths where the returned integer value == 1 (Manager).
-    return {};
+    std::unordered_set<std::filesystem::path> l_bmcPaths;
+    try
+    {
+        const std::filesystem::path l_backupRoot{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::pimPath).relative_path()};
+
+        if (!std::filesystem::is_directory(l_backupRoot))
+        {
+            return l_bmcPaths;
+        }
+
+        for (const auto& l_entry :
+             std::filesystem::recursive_directory_iterator(l_backupRoot))
+        {
+            if (!l_entry.is_regular_file() ||
+                l_entry.path().filename().string() !=
+                    vpd::constants::physicalContextInterface)
+            {
+                continue;
+            }
+
+            const auto l_typeVal = readPropertyFromBackupFile(
+                l_entry.path(), vpd::constants::physicalContextTypeProperty);
+
+            if (!l_typeVal.is_null() && l_typeVal.is_number_integer() &&
+                l_typeVal.get<int>() ==
+                    static_cast<int>(vpd::types::PhysicalContextType::Manager))
+            {
+                l_bmcPaths.emplace(l_entry.path().parent_path());
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get BMC paths from backup: {}", l_ex.what()));
+    }
+    return l_bmcPaths;
 }
 
 void InventoryBackupHandler::pruneSkippedInterfacesFromBackup(
@@ -386,4 +417,17 @@ bool InventoryBackupHandler::moveFiles(
     }
 
     return l_rc;
+}
+
+nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
+    [[maybe_unused]] const std::filesystem::path& i_filePath,
+    [[maybe_unused]] const std::string& i_propertyKey) const noexcept
+{
+    /*
+     @todo:
+     - open the backup file path
+     - parse using nlohmann json and find the given property key
+     - if found, return the json object, else return empty json object
+    */
+    return nlohmann::json{};
 }
