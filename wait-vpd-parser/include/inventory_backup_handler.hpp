@@ -163,4 +163,13 @@ class InventoryBackupHandler
      * Mutable so that const restore methods can populate it.
      */
     mutable std::unordered_set<std::string> m_bmcPaths;
+
+    /**
+     * @brief Compile-time set of interface names that must never be restored
+     *        for BMC inventory paths during failover.
+     *
+     * Add an entry here to suppress additional interfaces in the future
+     * without changing any other logic.
+     */
+    static const std::unordered_set<std::string> m_skipInterfaceSet;
 };

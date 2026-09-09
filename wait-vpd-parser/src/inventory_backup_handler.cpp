@@ -4,8 +4,11 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
-#include "format"
-#include "unordered_set"
+#include <format>
+#include <unordered_set>
+
+const std::unordered_set<std::string> InventoryBackupHandler::m_skipInterfaceSet{
+    vpd::constants::readyToRemoveIface};
 
 std::unordered_set<std::string>
     InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
@@ -21,13 +24,17 @@ std::unordered_set<std::string>
 }
 
 bool InventoryBackupHandler::shouldSkipInterfaceRestore(
-    [[maybe_unused]] const std::filesystem::path& i_entryPath) const noexcept
+    const std::filesystem::path& i_entryPath) const noexcept
 {
-    // TODO: implement
-    // 1. Return false immediately if m_skipInterfaceSet or m_bmcPaths is empty.
-    // 2. Return true when i_entryPath.filename() is in m_skipInterfaceSet AND
-    //    i_entryPath.parent_path() is in m_bmcPaths.
-    return false;
+    if (m_skipInterfaceSet.empty() || m_bmcPaths.empty())
+    {
+        return false;
+    }
+
+    return m_skipInterfaceSet.count(
+               i_entryPath.filename().string()) != 0 &&
+           m_bmcPaths.count(
+               i_entryPath.parent_path().string()) != 0;
 }
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
