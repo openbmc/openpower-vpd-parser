@@ -3,6 +3,8 @@
 #include "constants.hpp"
 #include "logger.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <filesystem>
 #include <string>
 #include <unordered_set>

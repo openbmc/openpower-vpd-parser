@@ -4,7 +4,10 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <format>
+#include <fstream>
 #include <unordered_set>
 
 const std::unordered_set<std::string>
@@ -418,13 +421,27 @@ bool InventoryBackupHandler::moveFiles(
 }
 
 nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
-    [[maybe_unused]] const std::filesystem::path& i_filePath,
-    [[maybe_unused]] const std::string& i_propertyKey) const noexcept
+    const std::filesystem::path& i_filePath,
+    const std::string& i_propertyKey) const noexcept
 {
-    /*
-     @todo:
-     - open the backup file path
-     - parse using nlohmann json and find the given property key
-     - if found, return the json object, else return empty json object
-    */
+    try
+    {
+        std::ifstream l_file(i_filePath);
+        if (!l_file)
+        {
+            m_logger->logMessage(
+                "Failed to open backup file: " + i_filePath.string());
+            return nlohmann::json{};
+        }
+
+        const auto l_json = nlohmann::json::parse(l_file);
+        return l_json.at("value0").at(i_propertyKey);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to read property \"{}\" from {}: {}",
+                        i_propertyKey, i_filePath.string(), l_ex.what()));
+    }
+    return nlohmann::json{};
 }
