@@ -43,13 +43,13 @@ class ThreadManager
     /**
      * @brief ThreadManager Constructor
      *
-     * @param[in] i_configManager - Shared pointer to the configmanager class
-     * @param[in] i_progressInterface - Shared pointer to the D-Bus progress
+     * @param[in] configManager - Shared pointer to the configmanager class
+     * @param[in] progressInterface - Shared pointer to the D-Bus progress
      * interface for updating VPD collection status
      */
-    ThreadManager(const std::shared_ptr<ConfigManager>& i_configManager,
+    ThreadManager(const std::shared_ptr<ConfigManager>& configManager,
                   const std::shared_ptr<sdbusplus::asio::dbus_interface>&
-                      i_progressInterface);
+                      progressInterface);
 
     // deleted methods
     ThreadManager(const ThreadManager&) = delete;
@@ -83,25 +83,24 @@ class ThreadManager
     {
         /**
          * @brief Constructor
-         * @param[in] i_chassisEeepromPath - Chassis EEPROM path
-         * @param[in] i_chassisJson - Chassis JSON containing FRU list
+         * @param[in] chassisEeepromPath - Chassis EEPROM path
+         * @param[in] chassisJson - Chassis JSON containing FRU list
          *
          * @throw nlohmann json exception
          */
-        explicit FruThreadContext(const std::string& i_chassisEeepromPath,
-                                  const nlohmann::json& i_chassisJson) :
-            m_chassisEeepromPath(i_chassisEeepromPath),
-            m_chassisJson(i_chassisJson),
-            m_frus(m_chassisJson["frus"]
-                       .get_ref<const nlohmann::json::object_t&>()),
-            m_fruItr(m_frus.begin())
+        explicit FruThreadContext(const std::string& chassisEeepromPath,
+                                  const nlohmann::json& chassisJson) :
+            chassisEeepromPath(chassisEeepromPath), chassisJson(chassisJson),
+            frus(
+                chassisJson["frus"].get_ref<const nlohmann::json::object_t&>()),
+            fruItr(frus.begin())
         {}
 
-        const std::string m_chassisEeepromPath; // Chassis EEPROM
-        const nlohmann::json m_chassisJson;     // Chassis configuration
-        const nlohmann::json::object_t& m_frus; // FRU list reference
-        nlohmann::json::object_t::const_iterator m_fruItr; // Shared iterator
-        std::mutex m_fruItrMutex; // Iterator protection
+        const std::string chassisEeepromPath; // Chassis EEPROM
+        const nlohmann::json chassisJson;     // Chassis configuration
+        const nlohmann::json::object_t& frus; // FRU list reference
+        nlohmann::json::object_t::const_iterator fruItr; // Shared iterator
+        std::mutex fruItrMutex;                          // Iterator protection
     };
 
 #ifdef IBM_SYSTEM
@@ -109,50 +108,50 @@ class ThreadManager
      * @brief Handle chassis having system VPD for FRUs collection.
      *
      * The API reads the Present property from D-Bus, calls updateSystemView,
-     * and pushes the result onto m_chassisResultQueue to notify the completion
+     * and pushes the result onto chassisResultQueue to notify the completion
      * handler, as VPD for the chassis having system VPD is collected already.
      *
      * In case of any error, chassis count will be decremented and the
      * waiting thread is notified.
      *
-     * @param[in] i_chassisJson - Chassis JSON containing FRU configuration.
-     * @param[in] i_chassisId   - Chassis ID.
-     * @param[in] i_eepromPath  - EEPROM file path for the chassis containing
+     * @param[in] chassisJson - Chassis JSON containing FRU configuration.
+     * @param[in] chassisId   - Chassis ID.
+     * @param[in] eepromPath  - EEPROM file path for the chassis containing
      * VPD.
      */
-    void handleChassisHavingSystemVpd(const nlohmann::json& i_chassisJson,
-                                      const std::string& i_chassisId,
-                                      const std::string& i_eepromPath) noexcept;
+    void handleChassisHavingSystemVpd(const nlohmann::json& chassisJson,
+                                      const std::string& chassisId,
+                                      const std::string& eepromPath) noexcept;
 #endif
 
     // Shared pointer to ConfigManager object
-    const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
+    const std::shared_ptr<ConfigManager>& configManager{nullptr};
 
     // Shared pointer to progress interface for D-Bus status updates
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_progressInterface{
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface{
         nullptr};
 
     // Shared pointer to Logger object
-    std::shared_ptr<Logger> m_logger{nullptr};
+    std::shared_ptr<Logger> logger{nullptr};
 
     // Map of ChassisID to {Inventory path, Chassis presence}
-    types::ChassisStateMap m_chassisStateMap;
+    types::ChassisStateMap chassisStateMap;
 
     // Mutex to guard critical resource
-    std::mutex m_mutex;
+    std::mutex mutex;
 
     // Tracks chassis VPD collection results awaiting processing
-    std::queue<types::ChassisCollectionResult> m_chassisResultQueue;
+    std::queue<types::ChassisCollectionResult> chassisResultQueue;
 
     // Chassis VPD collection result, whose action based on the result is
     // pending
-    std::atomic<size_t> m_chassisCount{0};
+    std::atomic<size_t> chassisCount{0};
 
     // Number of FRUs pending VPD collection
-    std::atomic<size_t> m_frusCount{0};
+    std::atomic<size_t> frusCount{0};
 
     // Condition variable to signal chassis and FRU VPD completion
-    std::condition_variable m_completionCv;
+    std::condition_variable completionCv;
 
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
@@ -179,13 +178,13 @@ class ThreadManager
      *
      * Thread-safe access to the chassis state map is ensured using a mutex.
      *
-     * @param[in] i_chassisId - Unique identifier of the chassis.
-     * @param[in] i_eepromPath - EEPROM path associated with the chassis.
-     * @param[in] i_isPresent - Indicates whether the chassis is present.
+     * @param[in] chassisId - Unique identifier of the chassis.
+     * @param[in] eepromPath - EEPROM path associated with the chassis.
+     * @param[in] isPresent - Indicates whether the chassis is present.
      */
-    void updateSystemView(const std::string& i_chassisId,
-                          const std::string& i_eepromPath,
-                          const bool i_isPresent) noexcept;
+    void updateSystemView(const std::string& chassisId,
+                          const std::string& eepromPath,
+                          const bool isPresent) noexcept;
 
     /**
      * @brief Updates overall VPD collection status on D-Bus progress interface
@@ -194,10 +193,10 @@ class ThreadManager
      * and signals the property change. It encapsulates the D-Bus property
      * update logic for overall VPD collection status.
      *
-     * @param[in] i_status - VPD collection status enum value
+     * @param[in] status - VPD collection status enum value
      */
     void updateOverallCollectionStatus(
-        const types::VpdCollectionStatus i_status) const noexcept;
+        const types::VpdCollectionStatus status) const noexcept;
 
     /**
      * @brief Process collected chassis VPD results asynchronously.
@@ -225,15 +224,15 @@ class ThreadManager
      * Creates a thread pool for the provided chassis and initiates
      * parallel VPD collection for all FRUs belonging to that chassis.
      *
-     * @param[in] i_chassisEeepromPath - EEPROM path of the chassis where its
+     * @param[in] chassisEeepromPath - EEPROM path of the chassis where its
      * VPD is present.
-     * @param[in] i_chassisJson - Chassis based JSON object.
-     * @param[in] i_maxThreadsPerChassis - Maximum threads allowed for
+     * @param[in] chassisJson - Chassis based JSON object.
+     * @param[in] maxThreadsPerChassis - Maximum threads allowed for
      * collecting FRUs VPD per chassis.
      */
-    void launchFruCollectionPool(const std::string& i_chassisEeepromPath,
-                                 const nlohmann::json& i_chassisJson,
-                                 const size_t i_maxThreadsPerChassis) noexcept;
+    void launchFruCollectionPool(const std::string& chassisEeepromPath,
+                                 const nlohmann::json& chassisJson,
+                                 const size_t maxThreadsPerChassis) noexcept;
 
     /**
      * @brief Process FRU VPD collection tasks from shared thread context
@@ -249,11 +248,11 @@ class ThreadManager
      *
      * @note The chassis EEPROM path is excluded from FRU VPD collection.
      *
-     * @param[in] i_fruThreadContext - Shared context containing FRU
+     * @param[in] fruThreadContext - Shared context containing FRU
      * configuration and work-distribution state.
      */
     void processFruCollection(
-        const std::shared_ptr<FruThreadContext>& i_fruThreadContext) noexcept;
+        const std::shared_ptr<FruThreadContext>& fruThreadContext) noexcept;
 
     /**
      * @brief Get next FRU path from shared context
@@ -263,13 +262,13 @@ class ThreadManager
      * not returned by this function. Multiple FRU collection threads use this
      * API to coordinate work distribution.
      *
-     * @param[in] i_fruThreadContext - Shared FRU thread context.
+     * @param[in] fruThreadContext - Shared FRU thread context.
      *
      * @return The next FRU path to process, or an empty string if no more
      *         FRU paths are available.
      */
     std::string getNextFruPath(const std::shared_ptr<FruThreadContext>&
-                                   i_fruThreadContext) const noexcept;
+                                   fruThreadContext) const noexcept;
 };
 
 } // namespace vpd
