@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60682278_b1fee991",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-09T09:56:05Z",
+      "side": 1,
+      "message": "No. ReadyToRemove is yet to be merged upstream : https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/83617/15",
+      "parentUuid": "cfd2ed9f_190b3e6b",
+      "revId": "a18c3f22fc450cb2f79b3453945f6da2a7d6ca5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ec81bba_1dc845aa",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 15
@@ -31,6 +49,30 @@
       "writtenOn": "2026-09-09T09:26:28Z",
       "side": 1,
       "message": "Indentation of lines are different.",
+      "range": {
+        "startLine": 793,
+        "startChar": 1,
+        "endLine": 795,
+        "endChar": 7
+      },
+      "revId": "a18c3f22fc450cb2f79b3453945f6da2a7d6ca5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c53d9b17_e85924f2",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-09T09:56:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec81bba_1dc845aa",
       "range": {
         "startLine": 793,
         "startChar": 1,
