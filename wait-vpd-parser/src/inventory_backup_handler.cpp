@@ -43,14 +43,48 @@ nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
 std::unordered_set<std::filesystem::path>
     InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
 {
-    // TODO: implement
-    // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
-    // 2. Walk the tree with recursive_directory_iterator, filter for regular
-    //    files named physicalContextInterface.
-    // 3. For each file, call readPropertyFromBackupFile() with
-    //    physicalContextTypeProperty.
-    // 4. Collect parent paths where the returned integer value == 1 (Manager).
-    return {};
+    std::unordered_set<std::filesystem::path> l_bmcPaths;
+    try
+    {
+        const std::filesystem::path l_backupRoot{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::pimPath).relative_path()};
+
+        if (!std::filesystem::is_directory(l_backupRoot))
+        {
+            return l_bmcPaths;
+        }
+
+        // Ordinal persisted by cereal for PhysicalContextType::Manager.
+        constexpr int l_managerOrdinal =
+            static_cast<int>(vpd::types::PhysicalContextType::Manager);
+
+        for (const auto& l_entry :
+             std::filesystem::recursive_directory_iterator(l_backupRoot))
+        {
+            if (!l_entry.is_regular_file() ||
+                l_entry.path().filename().string() !=
+                    vpd::constants::physicalContextInterface)
+            {
+                continue;
+            }
+
+            const auto l_typeVal = readPropertyFromBackupFile(
+                l_entry.path(), vpd::constants::physicalContextTypeProperty);
+
+            if (!l_typeVal.is_null() && l_typeVal.is_number_integer() &&
+                l_typeVal.get<int>() == l_managerOrdinal)
+            {
+                l_bmcPaths.emplace(l_entry.path().parent_path());
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get BMC paths from backup: {}", l_ex.what()));
+    }
+    return l_bmcPaths;
 }
 
 void InventoryBackupHandler::pruneSkippedInterfacesFromBackup() const noexcept
@@ -205,9 +239,26 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
 
-            // Identify BMC inventory paths in the backup tree so stale
-            // interfaces can be suppressed for those paths during restoration.
-            m_bmcPaths = getBMCPathsFromBackup();
+            // Identify BMC inventory paths in the backup tree. Only activate
+            // the skip logic on multi-BMC systems (>=2 paths found)
+            const auto l_bmcInvPaths = getBMCPathsFromBackup();
+
+            // TODO: Remove this debug log before merging.
+            for (const auto& l_path : l_bmcInvPaths)
+            {
+                m_logger->logMessage(
+                    "_SR BMC inventory path from backup: " + l_path.string());
+            }
+
+            if (l_bmcInvPaths.size() >= vpd::constants::VALUE_2)
+            {
+                m_bmcPaths = l_bmcInvPaths;
+            }
+            else
+            {
+                m_logger->logMessage(
+                    "Number of BMC inventory paths is less than 2, considering this system as a single BMC system, not processing ReadyToRemove property for BMC");
+            }
 
             // Delete stale interface directories from the backup tree before
             // the move, so they are never copied to the primary path.
