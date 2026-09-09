@@ -4,7 +4,10 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <format>
+#include <fstream>
 #include <unordered_set>
 
 const std::unordered_set<std::string>
@@ -26,8 +29,8 @@ std::unordered_set<std::filesystem::path>
             return l_bmcPaths;
         }
 
-        // Ordinal persisted by cereal for PhysicalContextType::Manager.
-        constexpr int l_managerOrdinal =
+        // Enum value persisted by cereal for PhysicalContextType::Manager.
+        constexpr int l_managerEnumValue =
             static_cast<int>(vpd::types::PhysicalContextType::Manager);
 
         for (const auto& l_entry :
@@ -44,7 +47,7 @@ std::unordered_set<std::filesystem::path>
                 l_entry.path(), vpd::constants::physicalContextTypeProperty);
 
             if (!l_typeVal.is_null() && l_typeVal.is_number_integer() &&
-                l_typeVal.get<int>() == l_managerOrdinal)
+                l_typeVal.get<int>() == l_managerEnumValue)
             {
                 l_bmcPaths.emplace(l_entry.path().parent_path());
             }
@@ -214,21 +217,15 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             // the skip logic on multi-BMC systems (>=2 paths found)
             const auto l_bmcInvPaths = getBMCPathsFromBackup();
 
-            // TODO: Remove this debug log before merging.
-            for (const auto& l_path : l_bmcInvPaths)
-            {
-                m_logger->logMessage(
-                    "_SR BMC inventory path from backup: " + l_path.string());
-            }
-
             if (l_bmcInvPaths.size() >= vpd::constants::VALUE_2)
             {
                 m_bmcPaths = l_bmcInvPaths;
             }
             else
             {
-                m_logger->logMessage(
-                    "Number of BMC inventory paths is less than 2, considering this system as a single BMC system, not processing ReadyToRemove property for BMC");
+                m_logger->logMessage(std::format(
+                    "Number of BMC inventory paths found {}. Not processing ReadyToRemove property for single BMC system",
+                    l_bmcInvPaths.size()));
             }
 
             // Delete stale interface directories from the backup tree before
@@ -418,13 +415,27 @@ bool InventoryBackupHandler::moveFiles(
 }
 
 nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
-    [[maybe_unused]] const std::filesystem::path& i_filePath,
-    [[maybe_unused]] const std::string& i_propertyKey) const noexcept
+    const std::filesystem::path& i_filePath,
+    const std::string& i_propertyKey) const noexcept
 {
-    /*
-     @todo:
-     - open the backup file path
-     - parse using nlohmann json and find the given property key
-     - if found, return the json object, else return empty json object
-    */
+    try
+    {
+        std::ifstream l_file(i_filePath);
+        if (!l_file)
+        {
+            m_logger->logMessage(
+                "Failed to open backup file: " + i_filePath.string());
+            return nlohmann::json{};
+        }
+
+        const auto l_json = nlohmann::json::parse(l_file);
+        return l_json.at("value0").at(i_propertyKey);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to read property \"{}\" from {}: {}",
+                        i_propertyKey, i_filePath.string(), l_ex.what()));
+    }
+    return nlohmann::json{};
 }
