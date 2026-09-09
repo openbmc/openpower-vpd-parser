@@ -5,14 +5,47 @@
 #include "utility/dbus_utility.hpp"
 
 #include <format>
+#include <fstream>
+#include <nlohmann/json.hpp>
 #include <unordered_set>
 
 const std::unordered_set<std::string>
     InventoryBackupHandler::m_skipInterfaceSet{
         vpd::constants::readyToRemoveIface};
 
+<<<<<<< HEAD
 std::unordered_set<std::string> InventoryBackupHandler::getBMCPathsFromBackup()
     const noexcept
+=======
+nlohmann::json InventoryBackupHandler::readPropertyFromBackupFile(
+    const std::filesystem::path& i_filePath,
+    const std::string& i_propertyKey) const noexcept
+{
+    try
+    {
+        std::ifstream l_file(i_filePath);
+        if (!l_file)
+        {
+            m_logger->logMessage("Failed to open backup file: " +
+                                 i_filePath.string());
+            return nlohmann::json{};
+        }
+
+        const auto l_json = nlohmann::json::parse(l_file);
+        return l_json.at("value0").at(i_propertyKey);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to read property \"{}\" from {}: {}",
+                        i_propertyKey, i_filePath.string(), l_ex.what()));
+    }
+    return nlohmann::json{};
+}
+
+std::unordered_set<std::string>
+    InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
+>>>>>>> 80262e7 (Implement reading a property value from a PIM serialised backup file)
 {
     // TODO: implement
     // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
