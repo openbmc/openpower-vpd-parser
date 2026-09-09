@@ -4,8 +4,35 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
-#include "format"
-#include "unordered_set"
+#include <format>
+#include <unordered_set>
+
+const std::unordered_set<std::string>
+    InventoryBackupHandler::m_skipInterfaceSet{
+        vpd::constants::readyToRemoveIface};
+
+std::unordered_set<std::filesystem::path>
+    InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
+{
+    // TODO: implement
+    // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
+    // 2. Walk the tree with recursive_directory_iterator, filter for regular
+    //    files named physicalContextInterface.
+    // 3. For each file, call readPropertyFromBackupFile() with
+    //    physicalContextTypeProperty.
+    // 4. Collect parent paths where the returned integer value == 1 (Manager).
+    return {};
+}
+
+void InventoryBackupHandler::pruneSkippedInterfacesFromBackup(
+    [[maybe_unused]] const std::unordered_set<std::filesystem::path>&
+        i_bmcPaths) const noexcept
+{
+    // TODO: implement
+    // 1. Return early if m_skipInterfaceSet or i_bmcPaths is empty.
+    // 2. For every bmcPath in i_bmcPaths and every iface in m_skipInterfaceSet,
+    //    remove_all(bmcPath / iface) if it exists, logging success and failure.
+}
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
@@ -123,6 +150,24 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             // which restoration failed
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
+
+            // Identify BMC inventory paths in the backup tree. Only activate
+            // the skip logic on multi-BMC systems (>=2 paths found)
+            const auto l_bmcInvPaths = getBMCPathsFromBackup();
+
+            if (l_bmcInvPaths.size() >= vpd::constants::VALUE_2)
+            {
+                // Delete stale interface directories from the backup tree
+                // before
+                // the move, so they are never copied to the primary path.
+                pruneSkippedInterfacesFromBackup(l_bmcInvPaths);
+            }
+            else
+            {
+                m_logger->logMessage(std::format(
+                    "Number of BMC inventory paths found {}. Not processing ReadyToRemove property for single BMC system",
+                    l_bmcInvPaths.size()));
+            }
 
             moveDirectory(l_inventoryBackupPath, l_inventoryPrimaryPath,
                           l_failedPaths);
