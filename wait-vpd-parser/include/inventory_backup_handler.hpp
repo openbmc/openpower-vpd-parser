@@ -4,6 +4,8 @@
 #include "logger.hpp"
 
 #include <filesystem>
+#include <string>
+#include <unordered_set>
 
 /**
  * @brief Class to handle backup inventory data.
@@ -76,6 +78,37 @@ class InventoryBackupHandler
 
   private:
     /**
+     * @brief Identifies BMC inventory paths in the backup tree.
+     *
+     * Walks the backup PIM root, locates every serialised
+     * PhysicalContext property file, and returns the set of parent directory
+     * paths whose Type property equals the Manager type(integer value 1).
+     *
+     * @return Set of absolute paths of BMC inventory directories found
+     *         in the backup tree. Empty if none are found or on error.
+     */
+    std::unordered_set<std::filesystem::path> getBMCPathsFromBackup()
+        const noexcept;
+
+    /**
+     * @brief Deletes stale interface directories from the backup tree.
+     *
+     * For every BMC inventory path in i_bmcPaths, removes each subdirectory
+     * whose name appears in m_skipInterfaceSet. This is called before
+     * moveDirectory() so the stale directories are never copied to the
+     * primary path.
+     *
+     * Errors are logged but do not abort the overall restore; a failed
+     * deletion simply means that interface will still be moved.
+     *
+     * @param[in] i_bmcPaths - Read only reference to set containing BMC
+     * inventory paths
+     */
+    void pruneSkippedInterfacesFromBackup(
+        const std::unordered_set<std::filesystem::path>& i_bmcPaths)
+        const noexcept;
+
+    /**
      * @brief API to check if inventory backup path has data
      *
      * @param[out] o_errCode - To set error code in case of error.
@@ -124,4 +157,13 @@ class InventoryBackupHandler
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
+
+    /**
+     * @brief Compile-time set of interface names that must never be restored
+     *        for BMC inventory paths during failover.
+     *
+     * Add an entry here to suppress additional interfaces in the future
+     * without changing any other logic.
+     */
+    static const std::unordered_set<std::string> m_skipInterfaceSet;
 };
