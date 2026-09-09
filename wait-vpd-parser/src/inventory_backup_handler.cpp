@@ -7,6 +7,29 @@
 #include "format"
 #include "unordered_set"
 
+std::unordered_set<std::string>
+    InventoryBackupHandler::getBMCPathsFromBackup() const noexcept
+{
+    // TODO: implement
+    // 1. Construct backup PIM root from m_inventoryBackupPath / pimPath.
+    // 2. Walk the tree with recursive_directory_iterator, filter for regular
+    //    files named physicalContextInterface.
+    // 3. For each file, call readPropertyFromBackupFile() with
+    //    physicalContextTypeProperty.
+    // 4. Collect parent paths where the returned integer value == 1 (Manager).
+    return {};
+}
+
+bool InventoryBackupHandler::shouldSkipInterfaceRestore(
+    [[maybe_unused]] const std::filesystem::path& i_entryPath) const noexcept
+{
+    // TODO: implement
+    // 1. Return false immediately if m_skipInterfaceSet or m_bmcPaths is empty.
+    // 2. Return true when i_entryPath.filename() is in m_skipInterfaceSet AND
+    //    i_entryPath.parent_path() is in m_bmcPaths.
+    return false;
+}
+
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
 {
@@ -84,6 +107,15 @@ void InventoryBackupHandler::moveDirectory(
             continue;
         }
 
+        if (shouldSkipInterfaceRestore(l_entry.path()))
+        {
+            m_logger->logMessage(std::format(
+                "Skipping restore of interface {} for BMC inventory path {}",
+                l_entry.path().filename().string(),
+                l_entry.path().parent_path().string()));
+            continue;
+        }
+
         if (!moveFiles(l_entry.path(), i_dstPath / l_entry.path().filename()))
         {
             o_failedPaths.emplace_back(l_entry.path().relative_path());
@@ -123,6 +155,10 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             // which restoration failed
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
+
+            // Identify BMC inventory paths in the backup tree so stale
+            // interfaces can be suppressed for those paths during restoration.
+            m_bmcPaths = getBMCPathsFromBackup();
 
             moveDirectory(l_inventoryBackupPath, l_inventoryPrimaryPath,
                           l_failedPaths);

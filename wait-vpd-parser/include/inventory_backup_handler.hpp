@@ -4,6 +4,8 @@
 #include "logger.hpp"
 
 #include <filesystem>
+#include <string>
+#include <unordered_set>
 
 /**
  * @brief Class to handle backup inventory data.
@@ -76,6 +78,34 @@ class InventoryBackupHandler
 
   private:
     /**
+     * @brief Identifies BMC inventory paths in the backup tree.
+     *
+     * Walks the backup PIM root, locates every serialised
+     * PhysicalContext property file, and returns the set of parent directory
+     * paths whose Type property equals the Manager ordinal (1).
+     *
+     * @return Set of absolute path strings of BMC inventory directories found
+     *         in the backup tree. Empty if none are found or on error.
+     */
+    std::unordered_set<std::string> getBMCPathsFromBackup() const noexcept;
+
+    /**
+     * @brief Decides whether an interface directory should be skipped during
+     *        backup restoration.
+     *
+     * Returns true when both conditions hold:
+     *   1. The entry's filename is found in the compile-time skip set.
+     *   2. The entry's parent path is found in the runtime BMC path set.
+     *
+     * @param[in] i_entryPath - Filesystem path of the candidate interface
+     *                          directory entry.
+     *
+     * @return true if the entry should be skipped, false otherwise.
+     */
+    bool shouldSkipInterfaceRestore(
+        const std::filesystem::path& i_entryPath) const noexcept;
+
+    /**
      * @brief API to check if inventory backup path has data
      *
      * @param[out] o_errCode - To set error code in case of error.
@@ -124,4 +154,13 @@ class InventoryBackupHandler
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
+
+    /**
+     * @brief BMC inventory paths identified in the backup tree.
+     *
+     * Populated by restoreInventoryBackupData() before moveDirectory() is
+     * called. Read by shouldSkipInterfaceRestore() inside the traversal loop.
+     * Mutable so that const restore methods can populate it.
+     */
+    mutable std::unordered_set<std::string> m_bmcPaths;
 };
