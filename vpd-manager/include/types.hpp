@@ -275,6 +275,19 @@ using ChassisStateMap =
     std::map<std::string, std::pair<std::string, bool>>;
 
 /**
+ * @brief Enum mirroring xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.
+ *
+ * The integer values must stay in sync with the ordinals assigned by cereal
+ * when serialising the generated sdbusplus binding (i.e. declaration order in
+ * the YAML enumeration).
+ */
+enum class PhysicalContextType : int
+{
+    Accelerator = 0, // An accelerator.
+    Manager     = 1, // A management controller, such as a BMC.
+};
+
+/**
  * @brief Enum representing the presence status of a device.
  */
 enum class PresenceStatus
