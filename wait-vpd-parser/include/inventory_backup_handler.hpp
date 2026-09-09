@@ -3,6 +3,8 @@
 #include "constants.hpp"
 #include "logger.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <filesystem>
 #include <string>
 #include <unordered_set>
@@ -77,6 +79,22 @@ class InventoryBackupHandler
     bool restartInventoryManagerService(uint16_t& o_errCode) const noexcept;
 
   private:
+    /**
+     * @brief Reads a property value from a PIM-serialised backup file.
+     *
+     * Opens the cereal JSON file at @p i_filePath, and returns the value
+     * of @p i_propertyKey found under the fixed "value0" wrapper object.
+     *
+     * @param[in] i_filePath    - Path to the serialised property file.
+     * @param[in] i_propertyKey - JSON key of the property to read.
+     *
+     * @return The property value as nlohmann::json, or nlohmann::json{} (null)
+     *         if the file cannot be opened, parsed, or the key is absent.
+     */
+    nlohmann::json readPropertyFromBackupFile(
+        const std::filesystem::path& i_filePath,
+        const std::string& i_propertyKey) const noexcept;
+
     /**
      * @brief Identifies BMC inventory paths in the backup tree.
      *
