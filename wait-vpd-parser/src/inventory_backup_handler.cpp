@@ -4,6 +4,7 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
+#include <algorithm>
 #include <format>
 #include <unordered_set>
 
@@ -25,13 +26,52 @@ std::unordered_set<std::filesystem::path>
 }
 
 void InventoryBackupHandler::pruneSkippedInterfacesFromBackup(
-    [[maybe_unused]] const std::unordered_set<std::filesystem::path>&
-        i_bmcPaths) const noexcept
+    const std::unordered_set<std::filesystem::path>& i_bmcPaths) const noexcept
 {
-    // TODO: implement
-    // 1. Return early if m_skipInterfaceSet or i_bmcPaths is empty.
-    // 2. For every bmcPath in i_bmcPaths and every iface in m_skipInterfaceSet,
-    //    remove_all(bmcPath / iface) if it exists, logging success and failure.
+    if (m_skipInterfaceSet.empty() || i_bmcPaths.empty())
+    {
+        return;
+    }
+
+    const auto l_pruneIface = [this](const std::filesystem::path& i_bmcPath,
+                                     const std::string& i_iface) {
+        const std::filesystem::path l_ifacePath{i_bmcPath / i_iface};
+
+        std::error_code l_ec;
+        if (!std::filesystem::exists(l_ifacePath, l_ec) || l_ec)
+        {
+            return;
+        }
+
+        std::filesystem::remove_all(l_ifacePath, l_ec);
+        if (l_ec)
+        {
+            m_logger->logMessage(std::format(
+                "Failed to remove stale interface file [{}]. Error: {}",
+                l_ifacePath.string(), l_ec.message()));
+            return;
+        }
+
+        m_logger->logMessage(
+            std::format("Removed stale interface {} from BMC inventory path {}",
+                        i_iface, i_bmcPath.string()));
+    };
+
+    for (const auto& l_bmcPath : i_bmcPaths)
+    {
+        try
+        {
+            std::for_each(m_skipInterfaceSet.cbegin(),
+                          m_skipInterfaceSet.cend(), [&](const auto& l_iface) {
+                              l_pruneIface(l_bmcPath, l_iface);
+                          });
+        }
+        catch (const std::exception& l_ex)
+        {
+            m_logger->logMessage(std::format(
+                "Failed to prune skipped interface. Error: {}", l_ex.what()));
+        }
+    }
 }
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
