@@ -287,6 +287,15 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             m_logger->logMessage(commonUtility::getErrCodeMsg(l_errCode));
         }
 
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE &&
+            m_vpdFilePath == SYSTEM_VPD_FILE_PATH)
+        {
+            // If vpdmode is set to file mode, it is assumed that the system is
+            // in split mode. In split mode, the redundant system VPD EEPROM is
+            // not present, so skip updating the keyword on the redundant path.
+            return l_bytesUpdatedOnHardware;
+        }
+
         // Update keyword's value on redundant hardware if present
         if (!l_redundantFruPath.empty())
         {
