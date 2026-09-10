@@ -287,6 +287,17 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             m_logger->logMessage(commonUtility::getErrCodeMsg(l_errCode));
         }
 
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE &&
+            m_vpdFilePath == SYSTEM_VPD_FILE_PATH)
+        {
+            // File mode is a special mode where the system VPD is read from a
+            // fixed file-system location instead of the path defined in the
+            // JSON configuration. Therefore, redundant EEPROMs marked in the
+            // JSON configuration are not applicable in file mode and are
+            // skipped while updating keyword.
+            return l_bytesUpdatedOnHardware;
+        }
+
         // Update keyword's value on redundant hardware if present
         if (!l_redundantFruPath.empty())
         {
