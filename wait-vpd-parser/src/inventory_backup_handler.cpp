@@ -26,10 +26,37 @@ std::unordered_set<std::string> InventoryBackupHandler::getBMCPathsFromBackup()
 
 void InventoryBackupHandler::pruneSkippedInterfacesFromBackup() const noexcept
 {
-    // TODO: implement
-    // 1. Return early if m_skipInterfaceSet or m_bmcPaths is empty.
-    // 2. For every bmcPath in m_bmcPaths and every iface in m_skipInterfaceSet,
-    //    remove_all(bmcPath / iface) if it exists, logging success and failure.
+    if (m_skipInterfaceSet.empty() || m_bmcPaths.empty())
+    {
+        return;
+    }
+
+    for (const auto& l_bmcPath : m_bmcPaths)
+    {
+        for (const auto& l_iface : m_skipInterfaceSet)
+        {
+            const std::filesystem::path l_ifacePath{l_bmcPath + "/" + l_iface};
+
+            std::error_code l_ec;
+            if (!std::filesystem::exists(l_ifacePath, l_ec) || l_ec)
+            {
+                continue;
+            }
+
+            std::filesystem::remove_all(l_ifacePath, l_ec);
+            if (l_ec)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to remove stale interface directory [{}]. Error: {}",
+                    l_ifacePath.string(), l_ec.message()));
+                continue;
+            }
+
+            m_logger->logMessage(std::format(
+                "Removed stale interface {} from BMC inventory path {}",
+                l_iface, l_bmcPath));
+        }
+    }
 }
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
