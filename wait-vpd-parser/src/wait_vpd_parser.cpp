@@ -40,6 +40,16 @@ bool checkAndHandleInventoryBackup()
     uint16_t l_errCode{0};
     auto l_logger = vpd::Logger::getLoggerInstance();
 
+    // Mark collection as not started before attempting restoration.
+    if (!vpd::dbusUtility::writeDbusProperty(
+            BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface, "Status",
+            vpd::constants::vpdCollectionNotStarted))
+    {
+        l_logger->logMessage(
+            "Failed to set VPD collection status to NotStarted before "
+            "inventory backup restoration.");
+    }
+
     InventoryBackupHandler l_inventoryBackupHandler{
         vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
         vpd::constants::pimBackupPath};
@@ -64,10 +74,31 @@ bool checkAndHandleInventoryBackup()
                 .count()) +
         "ms");
 
+    // Backup data found and restored — mark collection as in progress before
+    // restarting the inventory manager service.
+    if (!vpd::dbusUtility::writeDbusProperty(
+            BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface, "Status",
+            vpd::constants::vpdCollectionInProgress))
+    {
+        l_logger->logMessage(
+            "Failed to set VPD collection status to InProgress during "
+            "inventory backup restoration.");
+    }
+
     // restart the inventory manager service so that the new inventory
     // data is reflected on D-Bus
     if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
     {
+        // Mark collection as completed — inventory data is now live on D-Bus.
+        if (!vpd::dbusUtility::writeDbusProperty(
+                BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface,
+                "Status", vpd::constants::vpdCollectionCompleted))
+        {
+            l_logger->logMessage(
+                "Failed to set VPD collection status to Completed after "
+                "inventory backup restoration.");
+        }
+
         // clear the backup inventory data
         l_inventoryBackupHandler.clearInventoryBackupData(l_errCode);
 
@@ -85,6 +116,17 @@ bool checkAndHandleInventoryBackup()
         // indicate to caller to proceed for FRU VPD collection.
         if (l_errCode == vpd::error_code::SERVICE_NOT_RUNNING)
         {
+            // Mark collection as failed — as inventory manager is not running
+            // and inventory is not on D-Bus.
+            if (!vpd::dbusUtility::writeDbusProperty(
+                    BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface,
+                    "Status", vpd::constants::vpdCollectionFailed))
+            {
+                l_logger->logMessage(
+                    "Failed to set VPD collection status to Completed after "
+                    "inventory backup restoration.");
+            }
+
             throw std::runtime_error(
                 "Failed to restart inventory manager service after restoring backup inventory data. Failing this service");
         }
