@@ -32,52 +32,52 @@ namespace vpdSpecificUtility
  * i2c-<bus-number>-<eeprom-address>.
  * For spi eeproms - the pattern of the vpd-name will be spi-<spi-number>.
  *
- * @param[in] i_vpdFilePath - file path of the vpd.
- * @param[out] o_errCode - to set error code in case of error.
+ * @param[in] vpdFilePath - file path of the vpd.
+ * @param[out] errCode - to set error code in case of error.
  *
  * @return On success, returns generated file name, otherwise returns empty
  * string.
  */
-inline std::string generateBadVPDFileName(const std::string& i_vpdFilePath,
-                                          uint16_t& o_errCode) noexcept
+inline std::string generateBadVPDFileName(const std::string& vpdFilePath,
+                                          uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    std::string l_badVpdFileName{constants::badVpdDir};
+    errCode = 0;
+    std::string badVpdFileName{constants::badVpdDir};
 
-    if (i_vpdFilePath.empty())
+    if (vpdFilePath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return l_badVpdFileName;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
+        return badVpdFileName;
     }
 
     try
     {
-        if (i_vpdFilePath.find("i2c") != std::string::npos)
+        if (vpdFilePath.find("i2c") != std::string::npos)
         {
-            l_badVpdFileName += "i2c-";
-            std::regex l_i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
-            std::smatch l_match;
-            if (std::regex_search(i_vpdFilePath, l_match, l_i2cPattern))
+            badVpdFileName += "i2c-";
+            std::regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
+            std::smatch match;
+            if (std::regex_search(vpdFilePath, match, i2cPattern))
             {
-                l_badVpdFileName += l_match.str(2);
+                badVpdFileName += match.str(2);
             }
         }
-        else if (i_vpdFilePath.find("spi") != std::string::npos)
+        else if (vpdFilePath.find("spi") != std::string::npos)
         {
-            std::regex l_spiPattern("((spi)[0-9]+)(.0)");
-            std::smatch l_match;
-            if (std::regex_search(i_vpdFilePath, l_match, l_spiPattern))
+            std::regex spiPattern("((spi)[0-9]+)(.0)");
+            std::smatch match;
+            if (std::regex_search(vpdFilePath, match, spiPattern))
             {
-                l_badVpdFileName += l_match.str(1);
+                badVpdFileName += match.str(1);
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        l_badVpdFileName.clear();
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        badVpdFileName.clear();
+        errCode = error_code::STANDARD_EXCEPTION;
     }
-    return l_badVpdFileName;
+    return badVpdFileName;
 }
 
 /**
@@ -87,213 +87,211 @@ inline std::string generateBadVPDFileName(const std::string& i_vpdFilePath,
  * user initiated BMC dump.
  *
  *
- * @param[in] i_vpdFilePath - vpd file path
- * @param[in] i_vpdVector - vpd vector
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdFilePath - vpd file path
+ * @param[in] vpdVector - vpd vector
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns 0, otherwise returns -1.
  */
-inline int dumpBadVpd(const std::string& i_vpdFilePath,
-                      const types::BinaryVector& i_vpdVector,
-                      uint16_t& o_errCode) noexcept
+inline int dumpBadVpd(const std::string& vpdFilePath,
+                      const types::BinaryVector& vpdVector,
+                      uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    if (i_vpdFilePath.empty() || i_vpdVector.empty())
+    errCode = 0;
+    if (vpdFilePath.empty() || vpdVector.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return constants::FAILURE;
     }
 
-    int l_rc{constants::FAILURE};
+    int rc{constants::FAILURE};
     try
     {
         std::filesystem::create_directory(constants::badVpdDir);
-        auto l_badVpdPath = generateBadVPDFileName(i_vpdFilePath, o_errCode);
+        auto badVpdPath = generateBadVPDFileName(vpdFilePath, errCode);
 
-        if (l_badVpdPath.empty())
+        if (badVpdPath.empty())
         {
-            if (o_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
                     "Failed to create bad VPD file name : " +
-                    commonUtility::getErrCodeMsg(o_errCode));
+                    commonUtility::getErrCodeMsg(errCode));
             }
 
             return constants::FAILURE;
         }
 
-        if (std::filesystem::exists(l_badVpdPath))
+        if (std::filesystem::exists(badVpdPath))
         {
-            std::error_code l_ec;
-            std::filesystem::remove(l_badVpdPath, l_ec);
-            if (l_ec) // error code
+            std::error_code ec;
+            std::filesystem::remove(badVpdPath, ec);
+            if (ec) // error code
             {
-                o_errCode = error_code::FILE_SYSTEM_ERROR;
+                errCode = error_code::FILE_SYSTEM_ERROR;
                 return constants::FAILURE;
             }
         }
 
-        std::ofstream l_badVpdFileStream(l_badVpdPath, std::ofstream::binary);
-        if (!l_badVpdFileStream.is_open())
+        std::ofstream badVpdFileStream(badVpdPath, std::ofstream::binary);
+        if (!badVpdFileStream.is_open())
         {
-            o_errCode = error_code::FILE_ACCESS_ERROR;
+            errCode = error_code::FILE_ACCESS_ERROR;
             return constants::FAILURE;
         }
 
-        l_badVpdFileStream.write(
-            reinterpret_cast<const char*>(i_vpdVector.data()),
-            i_vpdVector.size());
+        badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
+                               vpdVector.size());
 
-        l_rc = constants::SUCCESS;
+        rc = constants::SUCCESS;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
-    return l_rc;
+    return rc;
 }
 
 /**
  * @brief An API to read value of a keyword.
  *
  *
- * @param[in] i_kwdValueMap - A map having Kwd value pair.
- * @param[in] i_kwd - keyword name.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] kwdValueMap - A map having Kwd value pair.
+ * @param[in] kwd - keyword name.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns value of the keyword read from map, otherwise
  * returns empty string.
  */
-inline std::string getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
-                            const std::string& i_kwd,
-                            uint16_t& o_errCode) noexcept
+inline std::string getKwVal(const types::IPZKwdValueMap& kwdValueMap,
+                            const std::string& kwd, uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    std::string l_kwdValue;
-    if (i_kwd.empty() || i_kwdValueMap.empty())
+    errCode = 0;
+    std::string kwdValue;
+    if (kwd.empty() || kwdValueMap.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return l_kwdValue;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
+        return kwdValue;
     }
 
-    auto l_itrToKwd = i_kwdValueMap.find(i_kwd);
-    if (l_itrToKwd != i_kwdValueMap.end())
+    auto itrToKwd = kwdValueMap.find(kwd);
+    if (itrToKwd != kwdValueMap.end())
     {
-        l_kwdValue = l_itrToKwd->second;
+        kwdValue = itrToKwd->second;
     }
     else
     {
-        o_errCode = error_code::KEYWORD_NOT_FOUND;
+        errCode = error_code::KEYWORD_NOT_FOUND;
     }
 
-    return l_kwdValue;
+    return kwdValue;
 }
 
 /**
  * @brief An API to process encoding of a keyword.
  *
- * @param[in] i_keyword - Keyword to be processed.
- * @param[in] i_encoding - Type of encoding.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] keyword - Keyword to be processed.
+ * @param[in] encoding - Type of encoding.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return Value after being processed for encoded type.
  */
-inline std::string encodeKeyword(const std::string& i_keyword,
-                                 const std::string& i_encoding,
-                                 uint16_t& o_errCode) noexcept
+inline std::string encodeKeyword(const std::string& keyword,
+                                 const std::string& encoding,
+                                 uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    if (i_keyword.empty())
+    errCode = 0;
+    if (keyword.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
     // Default value is keyword value
-    std::string l_result(i_keyword.begin(), i_keyword.end());
+    std::string result(keyword.begin(), keyword.end());
 
-    if (i_encoding.empty())
+    if (encoding.empty())
     {
-        return l_result;
+        return result;
     }
 
     try
     {
-        if (i_encoding == "MAC")
+        if (encoding == "MAC")
         {
-            l_result.clear();
-            size_t l_firstByte = i_keyword[0];
+            result.clear();
+            size_t firstByte = keyword[0];
 
-            auto l_hexValue = commonUtility::toHex(l_firstByte >> 4);
+            auto hexValue = commonUtility::toHex(firstByte >> 4);
 
-            if (!l_hexValue)
+            if (!hexValue)
             {
-                o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                errCode = error_code::OUT_OF_BOUND_EXCEPTION;
                 return std::string{};
             }
 
-            l_result += l_hexValue;
+            result += hexValue;
 
-            l_hexValue = commonUtility::toHex(l_firstByte & 0x0f);
+            hexValue = commonUtility::toHex(firstByte & 0x0f);
 
-            if (!l_hexValue)
+            if (!hexValue)
             {
-                o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                errCode = error_code::OUT_OF_BOUND_EXCEPTION;
                 return std::string{};
             }
 
-            l_result += l_hexValue;
+            result += hexValue;
 
-            for (size_t i = 1; i < i_keyword.size(); ++i)
+            for (size_t i = 1; i < keyword.size(); ++i)
             {
-                l_result += ":";
+                result += ":";
 
-                l_hexValue = commonUtility::toHex(i_keyword[i] >> 4);
+                hexValue = commonUtility::toHex(keyword[i] >> 4);
 
-                if (!l_hexValue)
+                if (!hexValue)
                 {
-                    o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                    errCode = error_code::OUT_OF_BOUND_EXCEPTION;
                     return std::string{};
                 }
 
-                l_result += l_hexValue;
+                result += hexValue;
 
-                l_hexValue = commonUtility::toHex(i_keyword[i] & 0x0f);
+                hexValue = commonUtility::toHex(keyword[i] & 0x0f);
 
-                if (!l_hexValue)
+                if (!hexValue)
                 {
-                    o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                    errCode = error_code::OUT_OF_BOUND_EXCEPTION;
                     return std::string{};
                 }
 
-                l_result += l_hexValue;
+                result += hexValue;
             }
         }
-        else if (i_encoding == "DATE")
+        else if (encoding == "DATE")
         {
             // Date, represent as
             // <year>-<month>-<day> <hour>:<min>
-            l_result.clear();
+            result.clear();
             static constexpr uint8_t skipPrefix = 3;
 
-            auto strItr = i_keyword.begin();
+            auto strItr = keyword.begin();
             advance(strItr, skipPrefix);
-            for_each(strItr, i_keyword.end(),
-                     [&l_result](size_t c) { l_result += c; });
+            for_each(strItr, keyword.end(),
+                     [&result](size_t c) { result += c; });
 
-            l_result.insert(constants::BD_YEAR_END, 1, '-');
-            l_result.insert(constants::BD_MONTH_END, 1, '-');
-            l_result.insert(constants::BD_DAY_END, 1, ' ');
-            l_result.insert(constants::BD_HOUR_END, 1, ':');
+            result.insert(constants::BD_YEAR_END, 1, '-');
+            result.insert(constants::BD_MONTH_END, 1, '-');
+            result.insert(constants::BD_DAY_END, 1, ' ');
+            result.insert(constants::BD_HOUR_END, 1, ':');
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        l_result.clear();
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        result.clear();
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 
-    return l_result;
+    return result;
 }
 
 /**
@@ -305,43 +303,42 @@ inline std::string encodeKeyword(const std::string& i_keyword,
  * created. If the property present in propertymap already exist in the
  * InterfaceMap, then the new property value is ignored.
  *
- * @param[in,out] io_map - Interface map.
- * @param[in] i_interface - Interface to be processed.
- * @param[in] i_propertyMap - new property map that needs to be emplaced.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in,out] map - Interface map.
+ * @param[in] interface - Interface to be processed.
+ * @param[in] propertyMap - new property map that needs to be emplaced.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns 0, otherwise returns -1.
  */
-inline int insertOrMerge(types::InterfaceMap& io_map,
-                         const std::string& i_interface,
-                         types::PropertyMap&& i_propertyMap,
-                         uint16_t& o_errCode) noexcept
+inline int insertOrMerge(types::InterfaceMap& map, const std::string& interface,
+                         types::PropertyMap&& propertyMap,
+                         uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    int l_rc{constants::FAILURE};
+    errCode = 0;
+    int rc{constants::FAILURE};
 
     try
     {
-        if (io_map.find(i_interface) != io_map.end())
+        if (map.find(interface) != map.end())
         {
-            auto& l_prop = io_map.at(i_interface);
-            std::for_each(i_propertyMap.begin(), i_propertyMap.end(),
-                          [&l_prop](auto l_keyValue) {
-                              l_prop[l_keyValue.first] = l_keyValue.second;
+            auto& prop = map.at(interface);
+            std::for_each(propertyMap.begin(), propertyMap.end(),
+                          [&prop](auto keyValue) {
+                              prop[keyValue.first] = keyValue.second;
                           });
         }
         else
         {
-            io_map.emplace(i_interface, i_propertyMap);
+            map.emplace(interface, propertyMap);
         }
 
-        l_rc = constants::SUCCESS;
+        rc = constants::SUCCESS;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
-    return l_rc;
+    return rc;
 }
 
 /**
@@ -353,16 +350,16 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
  * @param[in] vpdFilePath - EEPROM path of the FRU.
  * @param[out] vpdVector - VPD in vector form.
  * @param[in] vpdStartOffset - Offset of VPD data in EEPROM.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  */
 inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
-                               size_t& vpdStartOffset, uint16_t& o_errCode)
+                               size_t& vpdStartOffset, uint16_t& errCode)
 {
-    o_errCode = 0;
+    errCode = 0;
     if (vpdFilePath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
     }
 
@@ -385,7 +382,7 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
     }
     catch (const std::ifstream::failure& fail)
     {
-        o_errCode = error_code::FILE_SYSTEM_ERROR;
+        errCode = error_code::FILE_SYSTEM_ERROR;
         return;
     }
 }
@@ -393,33 +390,33 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
 /**
  * @brief An API to get D-bus representation of given VPD keyword.
  *
- * @param[in] i_keywordName - VPD keyword name.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] keywordName - VPD keyword name.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return D-bus representation of given keyword.
  */
-inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName,
-                                             uint16_t& o_errCode)
+inline std::string getDbusPropNameForGivenKw(const std::string& keywordName,
+                                             uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_keywordName.empty())
+    errCode = 0;
+    if (keywordName.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
     // Check for "#" prefixed VPD keyword.
-    if ((i_keywordName.size() == vpd::constants::TWO_BYTES) &&
-        (i_keywordName.at(0) == constants::POUND_KW))
+    if ((keywordName.size() == vpd::constants::TWO_BYTES) &&
+        (keywordName.at(0) == constants::POUND_KW))
     {
         // D-bus doesn't support "#". Replace "#" with "PD_" for those "#"
         // prefixed keywords.
         return (std::string(constants::POUND_KW_PREFIX) +
-                i_keywordName.substr(1));
+                keywordName.substr(1));
     }
 
     // Return the keyword name back, if D-bus representation is same as the VPD
     // keyword name.
-    return i_keywordName;
+    return keywordName;
 }
 
 /**
@@ -429,61 +426,61 @@ inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName,
  * The API will check from parsed VPD map if the FRU is the one with desired
  * CCIN.
  *
- * @param[in] i_JsonObject - Any JSON which contains CCIN tag to match.
- * @param[in] i_parsedVpdMap - Parsed VPD map.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] jsonObject - Any JSON which contains CCIN tag to match.
+ * @param[in] parsedVpdMap - Parsed VPD map.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return True if found, false otherwise.
  */
-inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
-                          const types::VPDMapVariant& i_parsedVpdMap,
-                          uint16_t& o_errCode) noexcept
+inline bool findCcinInVpd(const nlohmann::json& jsonObject,
+                          const types::VPDMapVariant& parsedVpdMap,
+                          uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    bool l_rc{false};
+    errCode = 0;
+    bool rc{false};
     try
     {
-        if (i_JsonObject.empty() ||
-            std::holds_alternative<std::monostate>(i_parsedVpdMap))
+        if (jsonObject.empty() ||
+            std::holds_alternative<std::monostate>(parsedVpdMap))
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
-            return l_rc;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
+            return rc;
         }
 
-        if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+        if (auto ipzVPDMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
         {
-            auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
-            if (l_itrToRec == (*l_ipzVPDMap).end())
+            auto itrToRec = (*ipzVPDMap).find("VINI");
+            if (itrToRec == (*ipzVPDMap).end())
             {
-                o_errCode = error_code::RECORD_NOT_FOUND;
-                return l_rc;
+                errCode = error_code::RECORD_NOT_FOUND;
+                return rc;
             }
 
-            std::string l_ccinFromVpd{vpdSpecificUtility::getKwVal(
-                l_itrToRec->second, "CC", o_errCode)};
-            if (l_ccinFromVpd.empty())
+            std::string ccinFromVpd{
+                vpdSpecificUtility::getKwVal(itrToRec->second, "CC", errCode)};
+            if (ccinFromVpd.empty())
             {
-                o_errCode = error_code::KEYWORD_NOT_FOUND;
-                return l_rc;
+                errCode = error_code::KEYWORD_NOT_FOUND;
+                return rc;
             }
 
-            transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
-                      l_ccinFromVpd.begin(), ::toupper);
+            transform(ccinFromVpd.begin(), ccinFromVpd.end(),
+                      ccinFromVpd.begin(), ::toupper);
 
-            for (std::string l_ccinValue : i_JsonObject["ccin"])
+            for (std::string ccinValue : jsonObject["ccin"])
             {
-                transform(l_ccinValue.begin(), l_ccinValue.end(),
-                          l_ccinValue.begin(), ::toupper);
+                transform(ccinValue.begin(), ccinValue.end(), ccinValue.begin(),
+                          ::toupper);
 
-                if (l_ccinValue.compare(l_ccinFromVpd) ==
+                if (ccinValue.compare(ccinFromVpd) ==
                     constants::STR_CMP_SUCCESS)
                 {
                     // CCIN found
-                    l_rc = true;
+                    rc = true;
                 }
             }
 
-            if (!l_rc)
+            if (!rc)
             {
                 Logger::getLoggerInstance()->logMessage(
                     "No match found for CCIN");
@@ -491,14 +488,14 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
         }
         else
         {
-            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            errCode = error_code::UNSUPPORTED_VPD_TYPE;
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
-    return l_rc;
+    return rc;
 }
 
 /**
@@ -506,80 +503,80 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
  *
  * This API resets the data for particular interfaces of a FRU under PIM.
  *
- * @param[in] i_objectPath - DBus object path of the FRU.
- * @param[in] io_interfaceMap - Interface and its properties map.
- * @param[in] i_clearPresence - Indicates whether to clear present property or
+ * @param[in] objectPath - DBus object path of the FRU.
+ * @param[in] interfaceMap - Interface and its properties map.
+ * @param[in] clearPresence - Indicates whether to clear present property or
  * not.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  */
-inline void resetDataUnderPIM(const std::string& i_objectPath,
-                              types::InterfaceMap& io_interfaceMap,
-                              bool i_clearPresence, uint16_t& o_errCode)
+inline void resetDataUnderPIM(const std::string& objectPath,
+                              types::InterfaceMap& interfaceMap,
+                              bool clearPresence, uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_objectPath.empty())
+    errCode = 0;
+    if (objectPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
     }
 
     try
     {
-        std::vector<std::string> l_interfaces;
-        const types::MapperGetObject& l_getObjectMap =
-            dbusUtility::getObjectMap(i_objectPath, l_interfaces);
+        std::vector<std::string> interfaces;
+        const types::MapperGetObject& getObjectMap =
+            dbusUtility::getObjectMap(objectPath, interfaces);
 
-        static const std::vector<std::string> l_vpdRelatedInterfaces{
+        static const std::vector<std::string> vpdRelatedInterfaces{
             constants::operationalStatusInf, constants::inventoryItemInf,
             constants::assetInf, constants::vpdCollectionInterface};
 
-        for (const auto& [l_service, l_interfaceList] : l_getObjectMap)
+        for (const auto& [service, interfaceList] : getObjectMap)
         {
-            if (l_service.compare(constants::pimServiceName) !=
+            if (service.compare(constants::pimServiceName) !=
                 constants::STR_CMP_SUCCESS)
             {
                 continue;
             }
 
-            for (const auto& l_interface : l_interfaceList)
+            for (const auto& interface : interfaceList)
             {
-                if ((l_interface.find(constants::ipzVpdInf) !=
+                if ((interface.find(constants::ipzVpdInf) !=
                          std::string::npos &&
-                     l_interface != constants::locationCodeInf) ||
-                    ((std::find(l_vpdRelatedInterfaces.begin(),
-                                l_vpdRelatedInterfaces.end(), l_interface)) !=
-                     l_vpdRelatedInterfaces.end()))
+                     interface != constants::locationCodeInf) ||
+                    ((std::find(vpdRelatedInterfaces.begin(),
+                                vpdRelatedInterfaces.end(), interface)) !=
+                     vpdRelatedInterfaces.end()))
                 {
-                    const types::PropertyMap& l_propertyValueMap =
-                        dbusUtility::getPropertyMap(l_service, i_objectPath,
-                                                    l_interface);
+                    const types::PropertyMap& propertyValueMap =
+                        dbusUtility::getPropertyMap(service, objectPath,
+                                                    interface);
 
-                    types::PropertyMap l_propertyMap;
+                    types::PropertyMap propMap;
 
-                    for (const auto& l_aProperty : l_propertyValueMap)
+                    for (const auto& aProperty : propertyValueMap)
                     {
-                        const std::string& l_propertyName = l_aProperty.first;
-                        const auto& l_propertyValue = l_aProperty.second;
+                        const std::string& propertyName = aProperty.first;
+                        const auto& propertyValue = aProperty.second;
 
                         if (std::holds_alternative<types::BinaryVector>(
-                                l_propertyValue))
+                                propertyValue))
                         {
-                            l_propertyMap.emplace(l_propertyName,
-                                                  types::BinaryVector{});
+                            propMap.emplace(propertyName,
+                                            types::BinaryVector{});
                         }
                         else if (std::holds_alternative<std::string>(
-                                     l_propertyValue))
+                                     propertyValue))
                         {
-                            if (l_propertyName.compare("Status") ==
+                            if (propertyName.compare("Status") ==
                                 constants::STR_CMP_SUCCESS)
                             {
-                                l_propertyMap.emplace(
-                                    l_propertyName,
+                                propMap.emplace(
+                                    propertyName,
                                     constants::vpdCollectionNotStarted);
-                                l_propertyMap.emplace("StartTime", 0);
-                                l_propertyMap.emplace("CompletedTime", 0);
+                                propMap.emplace("StartTime", 0);
+                                propMap.emplace("CompletedTime", 0);
                             }
-                            else if (l_propertyName.compare("PrettyName") ==
+                            else if (propertyName.compare("PrettyName") ==
                                      constants::STR_CMP_SUCCESS)
                             {
                                 // The FRU name is constant and independent of
@@ -589,39 +586,36 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                             }
                             else
                             {
-                                l_propertyMap.emplace(l_propertyName,
-                                                      std::string{});
+                                propMap.emplace(propertyName, std::string{});
                             }
                         }
-                        else if (std::holds_alternative<bool>(l_propertyValue))
+                        else if (std::holds_alternative<bool>(propertyValue))
                         {
-                            if (l_propertyName.compare("Present") ==
+                            if (propertyName.compare("Present") ==
                                 constants::STR_CMP_SUCCESS)
                             {
-                                if (i_clearPresence)
+                                if (clearPresence)
                                 {
-                                    l_propertyMap.emplace(l_propertyName,
-                                                          false);
+                                    propMap.emplace(propertyName, false);
                                 }
                             }
-                            else if (l_propertyName.compare("Functional") ==
+                            else if (propertyName.compare("Functional") ==
                                      constants::STR_CMP_SUCCESS)
                             {
                                 // Since FRU is not present functional property
                                 // is considered as true.
-                                l_propertyMap.emplace(l_propertyName, true);
+                                propMap.emplace(propertyName, true);
                             }
                         }
                     }
-                    io_interfaceMap.emplace(l_interface,
-                                            std::move(l_propertyMap));
+                    interfaceMap.emplace(interface, std::move(propMap));
                 }
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 }
 
@@ -630,64 +624,64 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
  *
  * Based on HW version and IM keyword, This API detects is it is a pass1 planar
  * or not.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return True if pass 1 planar, false otherwise.
  */
-inline bool isPass1Planar(uint16_t& o_errCode) noexcept
+inline bool isPass1Planar(uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    bool l_rc{false};
-    const auto l_hwVar = dbusUtility::readDbusProperty(
+    errCode = 0;
+    bool rc{false};
+    const auto hwVar = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
         constants::viniInf, constants::kwdHW);
 
-    auto l_hwVer = std::get_if<types::BinaryVector>(&l_hwVar);
-    if (l_hwVer == nullptr)
+    auto hwVer = std::get_if<types::BinaryVector>(&hwVar);
+    if (hwVer == nullptr)
     {
-        o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
-        return l_rc;
+        errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+        return rc;
     }
 
-    const auto l_imVar = dbusUtility::readDbusProperty(
+    const auto imVar = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
         constants::vsbpInf, constants::kwdIM);
 
-    auto l_imValue = std::get_if<types::BinaryVector>(&l_imVar);
-    if (l_imValue == nullptr)
+    auto imValue = std::get_if<types::BinaryVector>(&imVar);
+    if (imValue == nullptr)
     {
-        o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
-        return l_rc;
+        errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+        return rc;
     }
 
-    if (l_hwVer->size() != constants::VALUE_2)
+    if (hwVer->size() != constants::VALUE_2)
     {
-        o_errCode = error_code::INVALID_KEYWORD_LENGTH;
-        return l_rc;
+        errCode = error_code::INVALID_KEYWORD_LENGTH;
+        return rc;
     }
 
-    if (l_imValue->size() != constants::VALUE_4)
+    if (imValue->size() != constants::VALUE_4)
     {
-        o_errCode = error_code::INVALID_KEYWORD_LENGTH;
-        return l_rc;
+        errCode = error_code::INVALID_KEYWORD_LENGTH;
+        return rc;
     }
 
-    const types::BinaryVector l_everest{80, 00, 48, 00};
-    const types::BinaryVector l_fuji{96, 00, 32, 00};
+    const types::BinaryVector everest{80, 00, 48, 00};
+    const types::BinaryVector fuji{96, 00, 32, 00};
 
-    if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
+    if (((*imValue) == everest) || ((*imValue) == fuji))
     {
-        if ((*l_hwVer).at(1) < constants::VALUE_21)
+        if ((*hwVer).at(1) < constants::VALUE_21)
         {
-            l_rc = true;
+            rc = true;
         }
     }
-    else if ((*l_hwVer).at(1) < constants::VALUE_2)
+    else if ((*hwVer).at(1) < constants::VALUE_2)
     {
-        l_rc = true;
+        rc = true;
     }
 
-    return l_rc;
+    return rc;
 }
 
 /**
@@ -698,94 +692,93 @@ inline bool isPass1Planar(uint16_t& o_errCode) noexcept
  * interfaces(s) properties from the system config JSON and populates an
  * interface map with the respective properties and values.
  *
- * @param[in] i_paramsToWriteData - Input details.
- * @param[in] i_interfaceJson - Interface JSON object.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] paramsToWriteData - Input details.
+ * @param[in] interfaceJson - Interface JSON object.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return Returns a map of interface(s) and properties corresponding to
  * the record and keyword. An empty map is returned if no such
  * interface(s) and properties are found.
  */
 inline types::InterfaceMap getInterfaceProperties(
-    const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_interfaceJson, uint16_t& o_errCode) noexcept
+    const types::WriteVpdParams& paramsToWriteData,
+    const nlohmann::json& interfaceJson, uint16_t& errCode) noexcept
 {
-    types::InterfaceMap l_interfaceMap;
-    o_errCode = 0;
+    types::InterfaceMap interfaceMap;
+    errCode = 0;
     try
     {
-        if (i_interfaceJson.empty())
+        if (interfaceJson.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
-            return l_interfaceMap;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
+            return interfaceMap;
         }
 
-        const types::IpzData* l_ipzData =
-            std::get_if<types::IpzData>(&i_paramsToWriteData);
+        const types::IpzData* ipzData =
+            std::get_if<types::IpzData>(&paramsToWriteData);
 
-        if (!l_ipzData)
+        if (!ipzData)
         {
-            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
-            return l_interfaceMap;
+            errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            return interfaceMap;
         }
 
-        auto l_populateInterfaceMap = [&l_ipzData = std::as_const(l_ipzData),
-                                       &l_interfaceMap, &o_errCode](
-                                          const auto& l_interfacesPropPair) {
-            if (l_interfacesPropPair.value().empty())
+        auto populateInterfaceMap = [&ipzData = std::as_const(ipzData),
+                                     &interfaceMap,
+                                     &errCode](const auto& interfacesPropPair) {
+            if (interfacesPropPair.value().empty())
             {
                 return;
             }
 
             // find matching property value pair
-            const auto l_matchPropValuePairIt = std::find_if(
-                l_interfacesPropPair.value().items().begin(),
-                l_interfacesPropPair.value().items().end(),
-                [&l_ipzData](const auto& l_propValuePair) {
-                    return (l_propValuePair.value().value("recordName", "") ==
-                                std::get<0>(*l_ipzData) &&
-                            l_propValuePair.value().value("keywordName", "") ==
-                                std::get<1>(*l_ipzData));
+            const auto matchPropValuePairIt = std::find_if(
+                interfacesPropPair.value().items().begin(),
+                interfacesPropPair.value().items().end(),
+                [&ipzData](const auto& propValuePair) {
+                    return (propValuePair.value().value("recordName", "") ==
+                                std::get<0>(*ipzData) &&
+                            propValuePair.value().value("keywordName", "") ==
+                                std::get<1>(*ipzData));
                 });
 
-            if (l_matchPropValuePairIt !=
-                l_interfacesPropPair.value().items().end())
+            if (matchPropValuePairIt !=
+                interfacesPropPair.value().items().end())
             {
-                std::string l_kwd = std::string(std::get<2>(*l_ipzData).begin(),
-                                                std::get<2>(*l_ipzData).end());
+                std::string kwd = std::string(std::get<2>(*ipzData).begin(),
+                                              std::get<2>(*ipzData).end());
 
-                std::string l_encodedValue = vpdSpecificUtility::encodeKeyword(
-                    l_kwd, l_matchPropValuePairIt.value().value("encoding", ""),
-                    o_errCode);
+                std::string encodedValue = vpdSpecificUtility::encodeKeyword(
+                    kwd, matchPropValuePairIt.value().value("encoding", ""),
+                    errCode);
 
-                if (l_encodedValue.empty() && o_errCode)
+                if (encodedValue.empty() && errCode)
                 {
                     Logger::getLoggerInstance()->logMessage(
-                        "Failed to get encoded value for keyword : " + l_kwd +
-                        ", error : " + commonUtility::getErrCodeMsg(o_errCode));
+                        "Failed to get encoded value for keyword : " + kwd +
+                        ", error : " + commonUtility::getErrCodeMsg(errCode));
                 }
 
                 // add property map to interface map
-                l_interfaceMap.emplace(
-                    l_interfacesPropPair.key(),
+                interfaceMap.emplace(
+                    interfacesPropPair.key(),
                     types::PropertyMap{
-                        {l_matchPropValuePairIt.key(), l_encodedValue}});
+                        {matchPropValuePairIt.key(), encodedValue}});
             }
         };
 
-        if (!i_interfaceJson.empty())
+        if (!interfaceJson.empty())
         {
             // iterate through all interfaces and populate interface map
-            std::for_each(i_interfaceJson.items().begin(),
-                          i_interfaceJson.items().end(),
-                          l_populateInterfaceMap);
+            std::for_each(interfaceJson.items().begin(),
+                          interfaceJson.items().end(), populateInterfaceMap);
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
-    return l_interfaceMap;
+    return interfaceMap;
 }
 
 /**
@@ -795,46 +788,45 @@ inline types::InterfaceMap getInterfaceProperties(
  * update to respective common interface(s) properties of the base FRU and all
  * inherited FRUs.
  *
- * @param[in] i_fruPath - EEPROM path of FRU.
- * @param[in] i_paramsToWriteData - Input details.
- * @param[in] i_sysCfgJsonObj - System config JSON.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] fruPath - EEPROM path of FRU.
+ * @param[in] paramsToWriteData - Input details.
+ * @param[in] sysCfgJsonObj - System config JSON.
+ * @param[out] errCode - To set error code in case of error.
  */
 inline void updateCiPropertyOfInheritedFrus(
-    const std::string& i_fruPath,
-    const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
+    const std::string& fruPath, const types::WriteVpdParams& paramsToWriteData,
+    const nlohmann::json& sysCfgJsonObj, uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
+    errCode = 0;
     try
     {
-        if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
+        if (fruPath.empty() || sysCfgJsonObj.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return;
         }
 
-        if (!i_sysCfgJsonObj.contains("commonInterfaces"))
+        if (!sysCfgJsonObj.contains("commonInterfaces"))
         {
             // no common interfaces in JSON, nothing to do
             return;
         }
 
-        if (!i_sysCfgJsonObj.contains("frus"))
+        if (!sysCfgJsonObj.contains("frus"))
         {
-            o_errCode = error_code::INVALID_JSON;
+            errCode = error_code::INVALID_JSON;
             return;
         }
 
-        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        if (!sysCfgJsonObj["frus"].contains(fruPath))
         {
-            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            errCode = error_code::FRU_PATH_NOT_FOUND;
             return;
         }
 
-        if (!std::get_if<types::IpzData>(&i_paramsToWriteData))
+        if (!std::get_if<types::IpzData>(&paramsToWriteData))
         {
-            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            errCode = error_code::UNSUPPORTED_VPD_TYPE;
             return;
         }
 
@@ -850,19 +842,18 @@ inline void updateCiPropertyOfInheritedFrus(
          * case, the common interface properties must also be updated.
          */
 
-        types::ObjectMap l_objectInterfaceMap;
+        types::ObjectMap objectInterfaceMap;
 
-        const types::InterfaceMap l_interfaceMap = getInterfaceProperties(
-            i_paramsToWriteData, i_sysCfgJsonObj["commonInterfaces"],
-            o_errCode);
+        const types::InterfaceMap ifaceMap = getInterfaceProperties(
+            paramsToWriteData, sysCfgJsonObj["commonInterfaces"], errCode);
 
-        if (l_interfaceMap.empty())
+        if (ifaceMap.empty())
         {
-            if (o_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
                     "Failed to get common interface property list, error : " +
-                    commonUtility::getErrCodeMsg(o_errCode));
+                    commonUtility::getErrCodeMsg(errCode));
             }
             // nothing to do
             return;
@@ -870,80 +861,76 @@ inline void updateCiPropertyOfInheritedFrus(
 
         // update common interfaces if either inherit or inheritCI value is
         // true.
-        auto l_populateObjectInterfaceMap =
-            [&l_objectInterfaceMap, &l_interfaceMap = std::as_const(
-                                        l_interfaceMap)](const auto& l_Fru) {
-                if ((l_Fru.value("inherit", true) ||
-                     l_Fru.value("inheritCI", false)) &&
-                    l_Fru.contains("inventoryPath"))
-                {
-                    l_objectInterfaceMap.emplace(
-                        sdbusplus::object_path{l_Fru["inventoryPath"]},
-                        l_interfaceMap);
-                }
-            };
+        auto populateObjectInterfaceMap = [&objectInterfaceMap,
+                                           &ifaceMap = std::as_const(ifaceMap)](
+                                              const auto& fru) {
+            if ((fru.value("inherit", true) || fru.value("inheritCI", false)) &&
+                fru.contains("inventoryPath"))
+            {
+                objectInterfaceMap.emplace(
+                    sdbusplus::object_path{fru["inventoryPath"]}, ifaceMap);
+            }
+        };
 
-        std::for_each(i_sysCfgJsonObj["frus"][i_fruPath].begin(),
-                      i_sysCfgJsonObj["frus"][i_fruPath].end(),
-                      l_populateObjectInterfaceMap);
+        std::for_each(sysCfgJsonObj["frus"][fruPath].begin(),
+                      sysCfgJsonObj["frus"][fruPath].end(),
+                      populateObjectInterfaceMap);
 
-        if (!l_objectInterfaceMap.empty())
+        if (!objectInterfaceMap.empty())
         {
             // Call method to update the dbus
-            if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
+            if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
             {
-                o_errCode = error_code::DBUS_FAILURE;
+                errCode = error_code::DBUS_FAILURE;
                 return;
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 }
 
 /**
  * @brief API to convert write VPD parameters to a string.
  *
- * @param[in] i_paramsToWriteData - write VPD parameters.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] paramsToWriteData - write VPD parameters.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns string representation of write VPD parameters,
  * otherwise returns an empty string.
  */
 inline const std::string convertWriteVpdParamsToString(
-    const types::WriteVpdParams& i_paramsToWriteData,
-    uint16_t& o_errCode) noexcept
+    const types::WriteVpdParams& paramsToWriteData, uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
+    errCode = 0;
     try
     {
-        if (const types::IpzData* l_ipzDataPtr =
-                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        if (const types::IpzData* ipzDataPtr =
+                std::get_if<types::IpzData>(&paramsToWriteData))
         {
             return std::string{
-                "Record: " + std::get<0>(*l_ipzDataPtr) +
-                " Keyword: " + std::get<1>(*l_ipzDataPtr) + " Value: " +
+                "Record: " + std::get<0>(*ipzDataPtr) +
+                " Keyword: " + std::get<1>(*ipzDataPtr) + " Value: " +
                 commonUtility::convertByteVectorToHex(
-                    std::get<2>(*l_ipzDataPtr))};
+                    std::get<2>(*ipzDataPtr))};
         }
-        else if (const types::KwData* l_kwDataPtr =
-                     std::get_if<types::KwData>(&i_paramsToWriteData))
+        else if (const types::KwData* kwDataPtr =
+                     std::get_if<types::KwData>(&paramsToWriteData))
         {
             return std::string{
-                "Keyword: " + std::get<0>(*l_kwDataPtr) + " Value: " +
-                commonUtility::convertByteVectorToHex(
-                    std::get<1>(*l_kwDataPtr))};
+                "Keyword: " + std::get<0>(*kwDataPtr) + " Value: " +
+                commonUtility::convertByteVectorToHex(std::get<1>(*kwDataPtr))};
         }
         else
         {
-            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            errCode = error_code::UNSUPPORTED_VPD_TYPE;
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
     return std::string{};
 }
@@ -951,114 +938,113 @@ inline const std::string convertWriteVpdParamsToString(
 /**
  * @brief An API to read IM value from VPD.
  *
- * @param[in] i_parsedVpd - Parsed VPD.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] parsedVpd - Parsed VPD.
+ * @param[out] errCode - To set error code in case of error.
  */
-inline std::string getIMValue(const types::IPZVpdMap& i_parsedVpd,
-                              uint16_t& o_errCode) noexcept
+inline std::string getIMValue(const types::IPZVpdMap& parsedVpd,
+                              uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    std::ostringstream l_imData;
+    errCode = 0;
+    std::ostringstream imData;
     try
     {
-        if (i_parsedVpd.empty())
+        if (parsedVpd.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return {};
         }
 
-        const auto& l_itrToVSBP = i_parsedVpd.find("VSBP");
-        if (l_itrToVSBP == i_parsedVpd.end())
+        const auto& itrToVSBP = parsedVpd.find("VSBP");
+        if (itrToVSBP == parsedVpd.end())
         {
-            o_errCode = error_code::RECORD_NOT_FOUND;
+            errCode = error_code::RECORD_NOT_FOUND;
             return {};
         }
 
-        const auto& l_itrToIM = (l_itrToVSBP->second).find("IM");
-        if (l_itrToIM == (l_itrToVSBP->second).end())
+        const auto& itrToIM = (itrToVSBP->second).find("IM");
+        if (itrToIM == (itrToVSBP->second).end())
         {
-            o_errCode = error_code::KEYWORD_NOT_FOUND;
+            errCode = error_code::KEYWORD_NOT_FOUND;
             return {};
         }
 
-        types::BinaryVector l_imVal;
-        std::copy(l_itrToIM->second.begin(), l_itrToIM->second.end(),
-                  back_inserter(l_imVal));
+        types::BinaryVector imVal;
+        std::copy(itrToIM->second.begin(), itrToIM->second.end(),
+                  back_inserter(imVal));
 
-        for (auto& l_aByte : l_imVal)
+        for (auto& aByte : imVal)
         {
-            l_imData << std::setw(2) << std::setfill('0') << std::hex
-                     << static_cast<int>(l_aByte);
+            imData << std::setw(2) << std::setfill('0') << std::hex
+                   << static_cast<int>(aByte);
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to get IM value with exception:" +
-            std::string(l_ex.what()));
-        o_errCode = error_code::STANDARD_EXCEPTION;
+            "Failed to get IM value with exception:" + std::string(ex.what()));
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 
-    return l_imData.str();
+    return imData.str();
 }
 
 /**
  * @brief An API to read HW version from VPD.
  *
- * @param[in] i_parsedVpd - Parsed VPD.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] parsedVpd - Parsed VPD.
+ * @param[out] errCode - To set error code in case of error.
  */
-inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
-                                uint16_t& o_errCode) noexcept
+inline std::string getHWVersion(const types::IPZVpdMap& parsedVpd,
+                                uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    std::ostringstream l_hwString;
+    errCode = 0;
+    std::ostringstream hwString;
     try
     {
-        if (i_parsedVpd.empty())
+        if (parsedVpd.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return {};
         }
 
-        const auto& l_itrToVINI = i_parsedVpd.find("VINI");
-        if (l_itrToVINI == i_parsedVpd.end())
+        const auto& itrToVINI = parsedVpd.find("VINI");
+        if (itrToVINI == parsedVpd.end())
         {
-            o_errCode = error_code::RECORD_NOT_FOUND;
+            errCode = error_code::RECORD_NOT_FOUND;
             return {};
         }
 
-        const auto& l_itrToHW = (l_itrToVINI->second).find("HW");
-        if (l_itrToHW == (l_itrToVINI->second).end())
+        const auto& itrToHW = (itrToVINI->second).find("HW");
+        if (itrToHW == (itrToVINI->second).end())
         {
-            o_errCode = error_code::KEYWORD_NOT_FOUND;
+            errCode = error_code::KEYWORD_NOT_FOUND;
             return {};
         }
 
-        types::BinaryVector l_hwVal;
-        std::copy(l_itrToHW->second.begin(), l_itrToHW->second.end(),
-                  back_inserter(l_hwVal));
+        types::BinaryVector hwVal;
+        std::copy(itrToHW->second.begin(), itrToHW->second.end(),
+                  back_inserter(hwVal));
 
         // The planar pass only comes from the LSB of the HW keyword,
         // where as the MSB is used for other purposes such as signifying clock
         // termination.
-        l_hwVal[0] = 0x00;
+        hwVal[0] = 0x00;
 
-        for (auto& l_aByte : l_hwVal)
+        for (auto& aByte : hwVal)
         {
-            l_hwString << std::setw(2) << std::setfill('0') << std::hex
-                       << static_cast<int>(l_aByte);
+            hwString << std::setw(2) << std::setfill('0') << std::hex
+                     << static_cast<int>(aByte);
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
             "Failed to get HW version with exception:" +
-            std::string(l_ex.what()));
-        o_errCode = error_code::STANDARD_EXCEPTION;
+            std::string(ex.what()));
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 
-    return l_hwString.str();
+    return hwString.str();
 }
 
 /**
@@ -1067,89 +1053,88 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
  * This API updates the CollectionStatus property of the given FRU with the
  * given value.
  *
- * @param[in] i_vpdPath - Fru path (EEPROM or Inventory path)
- * @param[in] i_value - State to set.
- * @param[in] i_sysCfgJsonObj - System config json object.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdPath - Fru path (EEPROM or Inventory path)
+ * @param[in] value - State to set.
+ * @param[in] sysCfgJsonObj - System config json object.
+ * @param[out] errCode - To set error code in case of error.
  */
 inline void setCollectionStatusProperty(
-    const std::string& i_vpdPath, const types::VpdCollectionStatus& i_value,
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
+    const std::string& vpdPath, const types::VpdCollectionStatus& value,
+    const nlohmann::json& sysCfgJsonObj, uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    if (i_vpdPath.empty())
+    errCode = 0;
+    if (vpdPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
     }
 
-    if (i_sysCfgJsonObj.empty() || !i_sysCfgJsonObj.contains("frus"))
+    if (sysCfgJsonObj.empty() || !sysCfgJsonObj.contains("frus"))
     {
-        o_errCode = error_code::INVALID_JSON;
+        errCode = error_code::INVALID_JSON;
         return;
     }
 
-    types::PropertyMap l_timeStampMap;
-    if (i_value == types::VpdCollectionStatus::Completed ||
-        i_value == types::VpdCollectionStatus::Failed)
+    types::PropertyMap timeStampMap;
+    if (value == types::VpdCollectionStatus::Completed ||
+        value == types::VpdCollectionStatus::Failed)
     {
-        l_timeStampMap.emplace(
+        timeStampMap.emplace(
             "CompletedTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == types::VpdCollectionStatus::InProgress)
+    else if (value == types::VpdCollectionStatus::InProgress)
     {
-        l_timeStampMap.emplace(
+        timeStampMap.emplace(
             "StartTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == types::VpdCollectionStatus::NotStarted)
+    else if (value == types::VpdCollectionStatus::NotStarted)
     {
-        l_timeStampMap.emplace("StartTime", 0);
-        l_timeStampMap.emplace("CompletedTime", 0);
+        timeStampMap.emplace("StartTime", 0);
+        timeStampMap.emplace("CompletedTime", 0);
     }
 
-    types::ObjectMap l_objectInterfaceMap;
+    types::ObjectMap objectInterfaceMap;
 
-    const auto& l_eepromPath =
-        jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
+    const auto& eepromPath = jsonUtility::getFruPathFromJson(vpdPath, errCode);
 
-    if (l_eepromPath.empty() || o_errCode)
+    if (eepromPath.empty() || errCode)
     {
         return;
     }
 
-    for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
+    for (const auto& fru : sysCfgJsonObj["frus"][eepromPath])
     {
-        sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
+        sdbusplus::object_path fruObjectPath(fru["inventoryPath"]);
 
-        types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace(
+        types::PropertyMap propertyValueMap;
+        propertyValueMap.emplace(
             "Status",
-            types::CommonProgress::convertOperationStatusToString(i_value));
-        l_propertyValueMap.insert(l_timeStampMap.begin(), l_timeStampMap.end());
+            types::CommonProgress::convertOperationStatusToString(value));
+        propertyValueMap.insert(timeStampMap.begin(), timeStampMap.end());
 
-        types::InterfaceMap l_interfaces;
-        vpdSpecificUtility::insertOrMerge(l_interfaces,
+        types::InterfaceMap interfaces;
+        vpdSpecificUtility::insertOrMerge(interfaces,
                                           types::CommonProgress::interface,
-                                          move(l_propertyValueMap), o_errCode);
+                                          move(propertyValueMap), errCode);
 
-        if (o_errCode)
+        if (errCode)
         {
             Logger::getLoggerInstance()->logMessage(
                 "Failed to insert value into map, error : " +
-                commonUtility::getErrCodeMsg(o_errCode));
+                commonUtility::getErrCodeMsg(errCode));
             return;
         }
 
-        l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
-                                     std::move(l_interfaces));
+        objectInterfaceMap.emplace(std::move(fruObjectPath),
+                                   std::move(interfaces));
     }
 
     // Call dbus method to update on dbus
-    if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
+    if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
     {
-        o_errCode = error_code::DBUS_FAILURE;
+        errCode = error_code::DBUS_FAILURE;
         return;
     }
 }
@@ -1160,77 +1145,76 @@ inline void setCollectionStatusProperty(
  * The API resets the data for specific interfaces of a FRU and its sub-FRUs
  * under PIM.
  *
- * Note: i_vpdPath should be either the base inventory path or the EEPROM path.
+ * Note: vpdPath should be either the base inventory path or the EEPROM path.
  *
- * @param[in] i_vpdPath - EEPROM/root inventory path of the FRU.
- * @param[in] i_sysCfgJsonObj - system config JSON.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdPath - EEPROM/root inventory path of the FRU.
+ * @param[in] sysCfgJsonObj - system config JSON.
+ * @param[out] errCode - To set error code in case of error.
  */
-inline void resetObjTreeVpd(const std::string& i_vpdPath,
-                            const nlohmann::json& i_sysCfgJsonObj,
-                            uint16_t& o_errCode) noexcept
+inline void resetObjTreeVpd(const std::string& vpdPath,
+                            const nlohmann::json& sysCfgJsonObj,
+                            uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    if (i_vpdPath.empty() || i_sysCfgJsonObj.empty())
+    errCode = 0;
+    if (vpdPath.empty() || sysCfgJsonObj.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
     }
 
     try
     {
-        const std::string& l_fruPath =
-            jsonUtility::getFruPathFromJson(i_vpdPath, o_errCode);
+        const std::string& fruPath =
+            jsonUtility::getFruPathFromJson(vpdPath, errCode);
 
-        if (o_errCode)
+        if (errCode)
         {
             return;
         }
 
-        types::ObjectMap l_objectMap;
+        types::ObjectMap objectMap;
 
-        const auto& l_fruItems = i_sysCfgJsonObj["frus"][l_fruPath];
+        const auto& fruItems = sysCfgJsonObj["frus"][fruPath];
 
-        for (const auto& l_inventoryItem : l_fruItems)
+        for (const auto& inventoryItem : fruItems)
         {
-            const std::string& l_objectPath =
-                l_inventoryItem.value("inventoryPath", "");
+            const std::string& objPath =
+                inventoryItem.value("inventoryPath", "");
 
-            if (l_inventoryItem.value("synthesized", false))
+            if (inventoryItem.value("synthesized", false))
             {
                 continue;
             }
 
-            types::InterfaceMap l_interfaceMap;
-            resetDataUnderPIM(l_objectPath, l_interfaceMap,
-                              l_inventoryItem.value("handlePresence", true),
-                              o_errCode);
+            types::InterfaceMap ifaceMap;
+            resetDataUnderPIM(objPath, ifaceMap,
+                              inventoryItem.value("handlePresence", true),
+                              errCode);
 
-            if (o_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
-                    "Failed to get data to clear on DBus for path [" +
-                    l_objectPath +
-                    "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+                    "Failed to get data to clear on DBus for path [" + objPath +
+                    "], error : " + commonUtility::getErrCodeMsg(errCode));
 
                 continue;
             }
 
-            l_objectMap.emplace(l_objectPath, l_interfaceMap);
+            objectMap.emplace(objPath, ifaceMap);
         }
 
-        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
+        if (!dbusUtility::publishVpdOnDBus(std::move(objectMap)))
         {
-            o_errCode = error_code::DBUS_FAILURE;
+            errCode = error_code::DBUS_FAILURE;
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to reset FRU data on DBus for FRU [" + i_vpdPath +
-            "], error : " + std::string(l_ex.what()));
+            "Failed to reset FRU data on DBus for FRU [" + vpdPath +
+            "], error : " + std::string(ex.what()));
 
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
     }
 }
 
@@ -1241,7 +1225,7 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
  * into a printable string representation. Each record and its associated
  * keywords are appended in a structured format.
  *
- * @param[in] i_recordKeywordMap  Map of record names to their keyword list.
+ * @param[in] recordKeywordMap  Map of record names to their keyword list.
  *
  * @return A formatted string containing the map contents, or an empty
  *         string if the input map is empty.
@@ -1251,69 +1235,68 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
  *       Example:  [{VSYS:[BR, J0]}]
  */
 inline std::string getInStringFormat(
-    const types::RecordKeywordsMap& i_recordKeywordMap) noexcept
+    const types::RecordKeywordsMap& recordKeywordMap) noexcept
 {
-    if (i_recordKeywordMap.empty())
+    if (recordKeywordMap.empty())
     {
         return std::string{};
     }
 
-    std::ostringstream l_message;
-    l_message << "[";
-    bool l_firstHandled = false;
+    std::ostringstream message;
+    message << "[";
+    bool firstHandled = false;
 
-    for (const auto& l_recordKws : i_recordKeywordMap)
+    for (const auto& recordKws : recordKeywordMap)
     {
-        if (l_firstHandled)
+        if (firstHandled)
         {
-            l_message << ", ";
+            message << ", ";
         }
 
-        const auto l_keywords =
-            l_recordKws.second | std::views::join_with(std::string(", "));
+        const auto keywords = recordKws.second |
+                              std::views::join_with(std::string(", "));
 
-        l_message << "{" + l_recordKws.first + ":[" +
-                         std::string(l_keywords.begin(), l_keywords.end()) +
-                         "]}";
-        l_firstHandled = true;
+        message << "{" + recordKws.first + ":[" +
+                       std::string(keywords.begin(), keywords.end()) + "]}";
+        firstHandled = true;
     }
 
-    l_message << "]. ";
-    return l_message.str();
+    message << "]. ";
+    return message.str();
 }
 
 /**
  * @brief Extract chassis ID from given inventory object path.
  *
- * @param[in] i_inventoryObjPath - Inventory object path.
- * @param[out] o_errCode - Error code, 0 on success.
+ * @param[in] inventoryObjPath - Inventory object path.
+ * @param[out] errCode - Error code, 0 on success.
  *
  * @return Chassis ID on successful extraction, empty string otherwise.
  */
-inline std::string getChassisId(const std::string& i_inventoryObjPath,
-                                uint16_t& o_errCode) noexcept
+inline std::string getChassisId(const std::string& inventoryObjPath,
+                                uint16_t& errCode) noexcept
 {
     try
     {
-        auto l_startPos = i_inventoryObjPath.find("/chassis");
-        if (std::string::npos == l_startPos)
+        auto startPos = inventoryObjPath.find("/chassis");
+        if (std::string::npos == startPos)
         {
             return std::string{};
         }
 
-        ++l_startPos;
-        const auto l_endPos = i_inventoryObjPath.find('/', l_startPos);
-        const auto l_chassisId =
-            i_inventoryObjPath.substr(l_startPos, l_endPos - l_startPos);
+        ++startPos;
+        const auto endPos = inventoryObjPath.find('/', startPos);
+        const auto chassisId =
+            inventoryObjPath.substr(startPos, endPos - startPos);
 
-        return l_chassisId;
+        return chassisId;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to extract chassis ID from given path {}, error: {}",
-            i_inventoryObjPath, l_ex.what()));
-        o_errCode = error_code::STANDARD_EXCEPTION;
+            inventoryObjPath, ex.what()));
+        errCode = error_code::STANDARD_EXCEPTION;
         return std::string{};
     }
 }
@@ -1321,12 +1304,12 @@ inline std::string getChassisId(const std::string& i_inventoryObjPath,
 /**
  * @brief Builds expanded location code from unexpanded location code.
  *
- * @param[in] i_unexpandedLocationCode - Unexpanded location code.
- * @param[in] i_isFcs - True if FCS location code, false if MTS.
- * @param[in] i_pos - Position where "fcs" or "mts" prefix was found.
- * @param[in] i_firstKwdValue - First keyword value (FC for FCS, TM for MTS).
- * @param[in] i_secondKwdValue - Second keyword value (SE).
- * @param[in] i_nodeIdentifier - Node identifier to embed in the expanded LC.
+ * @param[in] unexpandedLocationCode - Unexpanded location code.
+ * @param[in] isFcs - True if FCS location code, false if MTS.
+ * @param[in] pos - Position where "fcs" or "mts" prefix was found.
+ * @param[in] firstKwdValue - First keyword value (FC for FCS, TM for MTS).
+ * @param[in] secondKwdValue - Second keyword value (SE).
+ * @param[in] nodeIdentifier - Node identifier to embed in the expanded LC.
  *                               For FCS: "N00", "N01", etc. (derived from
  *                               chassis ID). Empty for MTS.
  *
@@ -1334,55 +1317,55 @@ inline std::string getChassisId(const std::string& i_inventoryObjPath,
  *         returned.
  */
 inline std::string buildExpandedLc(
-    const std::string& i_unexpandedLocationCode, bool i_isFcs, size_t i_pos,
-    const std::string& i_firstKwdValue, const std::string& i_secondKwdValue,
-    const std::string& i_nodeIdentifier) noexcept
+    const std::string& unexpandedLocationCode, bool isFcs, size_t pos,
+    const std::string& firstKwdValue, const std::string& secondKwdValue,
+    const std::string& nodeIdentifier) noexcept
 {
     try
     {
-        std::string l_expandedLC = i_unexpandedLocationCode;
-        if (i_isFcs)
+        std::string expandedLC = unexpandedLocationCode;
+        if (isFcs)
         {
-            const std::string l_suffix = i_unexpandedLocationCode.substr(
-                i_pos + constants::LOCATION_CODE_PREFIX_LENGTH);
+            const std::string suffix = unexpandedLocationCode.substr(
+                pos + constants::LOCATION_CODE_PREFIX_LENGTH);
 
-            if (l_suffix.empty())
+            if (suffix.empty())
             {
                 //"fcs"/"mts" is replaced with 4 bytes of VCEN:FC value.
-                l_expandedLC.replace(
-                    i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
-                    i_firstKwdValue.substr(constants::FIRST_POSITION,
-                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
-                        "." + i_nodeIdentifier + "." + i_secondKwdValue);
+                expandedLC.replace(
+                    pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                    firstKwdValue.substr(constants::FIRST_POSITION,
+                                         constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + nodeIdentifier + "." + secondKwdValue);
             }
-            else if (l_suffix[constants::FIRST_POSITION] == '-')
+            else if (suffix[constants::FIRST_POSITION] == '-')
             {
-                l_expandedLC.replace(
-                    i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
-                    i_firstKwdValue.substr(constants::FIRST_POSITION,
-                                           constants::FC_KEYWORD_FIRST_4_BYTE) +
-                        "." + i_nodeIdentifier + "." + i_secondKwdValue);
+                expandedLC.replace(
+                    pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                    firstKwdValue.substr(constants::FIRST_POSITION,
+                                         constants::FC_KEYWORD_FIRST_4_BYTE) +
+                        "." + nodeIdentifier + "." + secondKwdValue);
             }
         }
         else
         {
             // MTS: replace dashes in TM value with dots.
-            std::string l_firstKwdValueCopy = i_firstKwdValue;
-            std::replace(l_firstKwdValueCopy.begin(), l_firstKwdValueCopy.end(),
+            std::string firstKwdValueCopy = firstKwdValue;
+            std::replace(firstKwdValueCopy.begin(), firstKwdValueCopy.end(),
                          '-', '.');
-            l_expandedLC.replace(i_pos, constants::LOCATION_CODE_PREFIX_LENGTH,
-                                 l_firstKwdValueCopy + "." + i_secondKwdValue);
+            expandedLC.replace(pos, constants::LOCATION_CODE_PREFIX_LENGTH,
+                               firstKwdValueCopy + "." + secondKwdValue);
         }
 
-        return l_expandedLC;
+        return expandedLC;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "buildExpandedLc failed for unexpandedLocationCode: {}. Reason: {}",
-            i_unexpandedLocationCode, l_ex.what()));
+            unexpandedLocationCode, ex.what()));
 
-        return i_unexpandedLocationCode;
+        return unexpandedLocationCode;
     }
 }
 
@@ -1398,51 +1381,51 @@ inline std::string buildExpandedLc(
  *   "chassisN"                             -> "N{N-1}" (zero-padded to 2
  * digits)
  *
- * @param[in] i_chassisId - Chassis ID string (e.g. "chassis", "chassis0",
+ * @param[in] chassisId - Chassis ID string (e.g. "chassis", "chassis0",
  *                          "chassis2").
  *
  * @return On success, returns the node identifier string. On failure, returns
  *         an error code
  */
 inline std::expected<std::string, error_code> getNodeIdentifierFromChassisId(
-    const std::string& i_chassisId) noexcept
+    const std::string& chassisId) noexcept
 {
     try
     {
-        constexpr std::string_view l_prefix{"chassis"};
+        constexpr std::string_view prefix{"chassis"};
 
-        if (!i_chassisId.starts_with(l_prefix))
+        if (!chassisId.starts_with(prefix))
         {
             return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
         }
 
-        const std::string l_nodeNumber = i_chassisId.substr(l_prefix.size());
+        const std::string nodeNumber = chassisId.substr(prefix.size());
 
-        if (l_nodeNumber.empty())
+        if (nodeNumber.empty())
         {
             // Legacy path with no numeric suffix (e.g. ".../chassis/...").
             return "N00";
         }
 
         // Reject malformed suffixes like "chassis_bad" or "chassis1abc".
-        if (!std::all_of(l_nodeNumber.begin(), l_nodeNumber.end(), ::isdigit))
+        if (!std::all_of(nodeNumber.begin(), nodeNumber.end(), ::isdigit))
         {
             return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
         }
 
-        if (l_nodeNumber == "0")
+        if (nodeNumber == "0")
         {
             return "SC0";
         }
 
-        const size_t l_num = std::stoul(l_nodeNumber);
-        return std::format("N{:02}", l_num - 1);
+        const size_t num = std::stoul(nodeNumber);
+        return std::format("N{:02}", num - 1);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to get node identifier from chassis ID: {}. Error: {}",
-            i_chassisId, l_ex.what()));
+            chassisId, ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
@@ -1451,14 +1434,14 @@ inline std::expected<std::string, error_code> getNodeIdentifierFromChassisId(
  * @brief Builds a node-qualified unexpanded location code from an unexpanded
  * location code and a node number.
  *
- * Derives the node identifier string from @p i_nodeNumber. Node number 0
+ * Derives the node identifier string from @p nodeNumber. Node number 0
  * maps to "SC0", 1 maps to "N00", 2 maps to "N01", and so on. Inserts the
- * node identifier into @p i_unexpandedLocationCode right after the first '-'
+ * node identifier into @p unexpandedLocationCode right after the first '-'
  * (e.g. "Ufcs-P0" -> "Ufcs-N00-P0"). If no '-' is present (bare prefix like
  * "Ufcs"), the node identifier is appended (e.g. "Ufcs" -> "Ufcs-N00").
  *
- * @param[in] i_unexpandedLocationCode - Unexpanded location code.
- * @param[in] i_nodeNumber - Node number as received from the D-Bus caller.
+ * @param[in] unexpandedLocationCode - Unexpanded location code.
+ * @param[in] nodeNumber - Node number as received from the D-Bus caller.
  *
  * @return on Success, returns node-qualified unexpanded location code string
  * On failure, returns an error code
@@ -1469,31 +1452,30 @@ inline std::expected<std::string, error_code> getNodeIdentifierFromChassisId(
  * beforehand.
  */
 inline std::expected<std::string, error_code> buildNodeQualifiedLocCode(
-    const std::string& i_unexpandedLocationCode,
-    const uint16_t i_nodeNumber) noexcept
+    const std::string& unexpandedLocationCode,
+    const uint16_t nodeNumber) noexcept
 {
     try
     {
-        const std::string l_nodeId =
-            (i_nodeNumber == constants::VALUE_0)
+        const std::string nodeId =
+            (nodeNumber == constants::VALUE_0)
                 ? "SC0"
-                : std::format("N{:02}", static_cast<size_t>(i_nodeNumber - 1));
+                : std::format("N{:02}", static_cast<size_t>(nodeNumber - 1));
 
-        const auto l_dashPos = i_unexpandedLocationCode.find('-');
-        if (l_dashPos != std::string::npos)
+        const auto dashPos = unexpandedLocationCode.find('-');
+        if (dashPos != std::string::npos)
         {
-            return i_unexpandedLocationCode.substr(0, l_dashPos + 1) +
-                   l_nodeId + "-" +
-                   i_unexpandedLocationCode.substr(l_dashPos + 1);
+            return unexpandedLocationCode.substr(0, dashPos + 1) + nodeId +
+                   "-" + unexpandedLocationCode.substr(dashPos + 1);
         }
 
-        return i_unexpandedLocationCode + "-" + l_nodeId;
+        return unexpandedLocationCode + "-" + nodeId;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to build node qualified location code for {} with node number {}. Error: {}",
-            i_unexpandedLocationCode, i_nodeNumber, l_ex.what()));
+            unexpandedLocationCode, nodeNumber, ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
@@ -1508,93 +1490,92 @@ inline std::expected<std::string, error_code> buildNodeQualifiedLocCode(
  *   VPD map (VCEN record). Any keyword read failure returns an error
  *   immediately.
  *
- * @param[in] i_inventoryPath - Inventory Path.
- * @param[in] i_unexpandedLocationCode - Unexpanded location code.
- * @param[in] i_parsedVpdMap - Parsed VPD map.
- * @param[in] i_pos - Position of "fcs" in the unexpanded location code.
+ * @param[in] inventoryPath - Inventory Path.
+ * @param[in] unexpandedLocationCode - Unexpanded location code.
+ * @param[in] parsedVpdMap - Parsed VPD map.
+ * @param[in] pos - Position of "fcs" in the unexpanded location code.
  *
  * @return std::expected with expanded location code on success, or error code
  *         on failure.
  * @throw Any exception is propagated to the caller.
  */
 inline std::expected<std::string, uint16_t> getFcsExpandedLc(
-    const std::string& i_inventoryPath,
-    const std::string& i_unexpandedLocationCode,
-    const types::VPDMapVariant& i_parsedVpdMap, size_t i_pos)
+    const std::string& inventoryPath, const std::string& unexpandedLocationCode,
+    const types::VPDMapVariant& parsedVpdMap, size_t pos)
 {
-    if (i_inventoryPath.empty())
+    if (inventoryPath.empty())
     {
         return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
     }
 
-    uint16_t l_errCode{0};
+    uint16_t errCode{0};
 
-    const auto l_chassisId = getChassisId(i_inventoryPath, l_errCode);
-    if (l_errCode)
+    const auto chassisId = getChassisId(inventoryPath, errCode);
+    if (errCode)
     {
-        return std::unexpected(l_errCode);
+        return std::unexpected(errCode);
     }
 
-    if (l_chassisId.empty())
+    if (chassisId.empty())
     {
         // Implies "/chassis" not found in inventory path.
         return std::unexpected(INVALID_INVENTORY_PATH);
     }
 
-    const std::string l_chassisInvPath =
-        std::format("{}/{}", constants::systemVpdInvPath, l_chassisId);
+    const std::string chassisInvPath =
+        std::format("{}/{}", constants::systemVpdInvPath, chassisId);
 
-    const auto l_mapperRetValue =
-        dbusUtility::getObjectMap(l_chassisInvPath, {constants::vcenInf});
+    const auto mapperRetValue =
+        dbusUtility::getObjectMap(chassisInvPath, {constants::vcenInf});
 
-    std::string l_fcKwdValue;
-    std::string l_seKwdValue;
+    std::string fcKwdValue;
+    std::string seKwdValue;
 
-    if (!l_mapperRetValue.empty())
+    if (!mapperRetValue.empty())
     {
         // Object mapper returned a result — read FC and SE from D-Bus.
-        const std::string& l_service = l_mapperRetValue.begin()->first;
+        const std::string& service = mapperRetValue.begin()->first;
 
-        const auto readKwd = [&](const std::string& i_kwd) -> std::string {
-            const auto l_retVal = dbusUtility::readDbusProperty(
-                l_service, l_chassisInvPath, constants::vcenInf, i_kwd);
+        const auto readKwd = [&](const std::string& kwd) -> std::string {
+            const auto retVal = dbusUtility::readDbusProperty(
+                service, chassisInvPath, constants::vcenInf, kwd);
 
-            if (const auto l_val = std::get_if<types::BinaryVector>(&l_retVal))
+            if (const auto val = std::get_if<types::BinaryVector>(&retVal))
             {
-                return std::string(reinterpret_cast<const char*>(l_val->data()),
-                                   l_val->size());
+                return std::string(reinterpret_cast<const char*>(val->data()),
+                                   val->size());
             }
 
-            l_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+            errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
             Logger::getLoggerInstance()->logMessage(
-                std::format("Failed to read kwd {} from Dbus", i_kwd));
+                std::format("Failed to read kwd {} from Dbus", kwd));
 
             return {};
         };
 
-        l_fcKwdValue = readKwd(constants::kwdFC);
-        if (l_errCode)
+        fcKwdValue = readKwd(constants::kwdFC);
+        if (errCode)
         {
-            return std::unexpected(l_errCode);
+            return std::unexpected(errCode);
         }
 
-        l_seKwdValue = readKwd(constants::kwdSE);
-        if (l_errCode)
+        seKwdValue = readKwd(constants::kwdSE);
+        if (errCode)
         {
-            return std::unexpected(l_errCode);
+            return std::unexpected(errCode);
         }
 
-        if (l_fcKwdValue.empty() || l_seKwdValue.empty())
+        if (fcKwdValue.empty() || seKwdValue.empty())
         {
             return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
         }
 
         // FC keyword must be at least 4 characters for a valid substr.
-        if (l_fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
+        if (fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
         {
             Logger::getLoggerInstance()->logMessage(std::format(
                 "FC keyword value '{}' read from Dbus, is too short (expected at least 4 characters)",
-                l_fcKwdValue));
+                fcKwdValue));
 
             return std::unexpected(error_code::INVALID_KEYWORD_LENGTH);
         }
@@ -1602,60 +1583,60 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
     else
     {
         // Object mapper returned empty — fall back to VPD map (VCEN record).
-        const auto l_ipzMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap);
-        if (!l_ipzMap)
+        const auto ipzMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap);
+        if (!ipzMap)
         {
             return std::unexpected(error_code::UNSUPPORTED_VPD_TYPE);
         }
 
-        const auto l_vcenItr = l_ipzMap->find(constants::recVCEN);
-        if (l_vcenItr == l_ipzMap->end())
+        const auto vcenItr = ipzMap->find(constants::recVCEN);
+        if (vcenItr == ipzMap->end())
         {
             return std::unexpected(error_code::RECORD_NOT_FOUND);
         }
 
-        l_fcKwdValue = getKwVal(l_vcenItr->second, constants::kwdFC, l_errCode);
-        if (l_errCode)
+        fcKwdValue = getKwVal(vcenItr->second, constants::kwdFC, errCode);
+        if (errCode)
         {
-            return std::unexpected(l_errCode);
+            return std::unexpected(errCode);
         }
 
-        l_seKwdValue = getKwVal(l_vcenItr->second, constants::kwdSE, l_errCode);
-        if (l_errCode)
+        seKwdValue = getKwVal(vcenItr->second, constants::kwdSE, errCode);
+        if (errCode)
         {
-            return std::unexpected(l_errCode);
+            return std::unexpected(errCode);
         }
 
-        if (l_fcKwdValue.empty() || l_seKwdValue.empty())
+        if (fcKwdValue.empty() || seKwdValue.empty())
         {
             return std::unexpected(error_code::INVALID_VALUE_READ_FROM_EEPROM);
         }
 
         // FC keyword must be at least 4 characters for a valid substr.
-        if (l_fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
+        if (fcKwdValue.size() < constants::FC_KEYWORD_FIRST_4_BYTE)
         {
             Logger::getLoggerInstance()->logMessage(std::format(
                 "FC keyword value '{}' read from EEPROM, is too short (expected at least 4 characters)",
-                l_fcKwdValue));
+                fcKwdValue));
 
             return std::unexpected(error_code::INVALID_KEYWORD_LENGTH);
         }
     }
-    const auto l_nodeIdentifierResult =
-        vpdSpecificUtility::getNodeIdentifierFromChassisId(l_chassisId);
+    const auto nodeIdentifierResult =
+        vpdSpecificUtility::getNodeIdentifierFromChassisId(chassisId);
 
-    if (!l_nodeIdentifierResult.has_value())
+    if (!nodeIdentifierResult.has_value())
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "Invalid node value read from inventory path: {}. "
             "Error: {}",
-            i_inventoryPath,
-            commonUtility::getErrCodeMsg(l_nodeIdentifierResult.error())));
-        return std::unexpected(l_nodeIdentifierResult.error());
+            inventoryPath,
+            commonUtility::getErrCodeMsg(nodeIdentifierResult.error())));
+        return std::unexpected(nodeIdentifierResult.error());
     }
 
-    return buildExpandedLc(i_unexpandedLocationCode, true, i_pos, l_fcKwdValue,
-                           l_seKwdValue, l_nodeIdentifierResult.value());
+    return buildExpandedLc(unexpandedLocationCode, true, pos, fcKwdValue,
+                           seKwdValue, nodeIdentifierResult.value());
 }
 
 /**
@@ -1664,9 +1645,9 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
  * Reads VSYS-TM and VSYS-SE value from the parsed IPZ VPD map and calls
  * buildExpandedLc. Any exception is propagated to the caller.
  *
- * @param[in] i_unexpandedLocationCode - Unexpanded location code.
- * @param[in] i_parsedVpdMap - Parsed VPD map.
- * @param[in] i_pos - Position of "mts" in the unexpanded location code.
+ * @param[in] unexpandedLocationCode - Unexpanded location code.
+ * @param[in] parsedVpdMap - Parsed VPD map.
+ * @param[in] pos - Position of "mts" in the unexpanded location code.
  *
  * @return std::expected with expanded location code on success, or error code
  *         on failure.
@@ -1674,44 +1655,44 @@ inline std::expected<std::string, uint16_t> getFcsExpandedLc(
  * @throw exception in case of failure. Caller needs to handle.
  */
 inline std::expected<std::string, uint16_t> getMtsExpandedLc(
-    const std::string& i_unexpandedLocationCode,
-    const types::VPDMapVariant& i_parsedVpdMap, size_t i_pos)
+    const std::string& unexpandedLocationCode,
+    const types::VPDMapVariant& parsedVpdMap, size_t pos)
 {
-    uint16_t l_errCode{0};
+    uint16_t errCode{0};
 
-    const auto l_ipzMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap);
-    if (!l_ipzMap)
+    const auto ipzMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap);
+    if (!ipzMap)
     {
         return std::unexpected(error_code::UNSUPPORTED_VPD_TYPE);
     }
 
-    const auto l_recItr = l_ipzMap->find(constants::recVSYS);
-    if (l_recItr == l_ipzMap->end())
+    const auto recItr = ipzMap->find(constants::recVSYS);
+    if (recItr == ipzMap->end())
     {
         return std::unexpected(error_code::RECORD_NOT_FOUND);
     }
 
-    const std::string l_tmKwdValue =
-        getKwVal(l_recItr->second, constants::kwdTM, l_errCode);
-    if (l_errCode)
+    const std::string tmKwdValue =
+        getKwVal(recItr->second, constants::kwdTM, errCode);
+    if (errCode)
     {
-        return std::unexpected(l_errCode);
+        return std::unexpected(errCode);
     }
 
-    const std::string l_seKwdValue =
-        getKwVal(l_recItr->second, constants::kwdSE, l_errCode);
-    if (l_errCode)
+    const std::string seKwdValue =
+        getKwVal(recItr->second, constants::kwdSE, errCode);
+    if (errCode)
     {
-        return std::unexpected(l_errCode);
+        return std::unexpected(errCode);
     }
 
-    if (l_tmKwdValue.empty() || l_seKwdValue.empty())
+    if (tmKwdValue.empty() || seKwdValue.empty())
     {
         return std::unexpected(error_code::INVALID_VALUE_READ_FROM_EEPROM);
     }
 
-    return buildExpandedLc(i_unexpandedLocationCode, false, i_pos, l_tmKwdValue,
-                           l_seKwdValue, {});
+    return buildExpandedLc(unexpandedLocationCode, false, pos, tmKwdValue,
+                           seKwdValue, {});
 }
 
 /**
@@ -1720,46 +1701,44 @@ inline std::expected<std::string, uint16_t> getMtsExpandedLc(
  * Detects whether the location code is FCS or MTS type and delegates
  * expansion to getFcsExpandedLc or getMtsExpandedLc respectively.
  *
- * @param[in] i_inventoryPath - Inventory Path.
- * @param[in] i_unexpandedLocationCode - Unexpanded location code.
- * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[in] inventoryPath - Inventory Path.
+ * @param[in] unexpandedLocationCode - Unexpanded location code.
+ * @param[in] parsedVpdMap - Parsed VPD map.
  *
  * @return std::expected with expanded location code on success, or error code
  *         on failure.
  */
 inline std::expected<std::string, uint16_t> getExpandedLocationCode(
-    const std::string& i_inventoryPath,
-    const std::string& i_unexpandedLocationCode,
-    const types::VPDMapVariant& i_parsedVpdMap) noexcept
+    const std::string& inventoryPath, const std::string& unexpandedLocationCode,
+    const types::VPDMapVariant& parsedVpdMap) noexcept
 {
-    if (i_unexpandedLocationCode.empty())
+    if (unexpandedLocationCode.empty())
     {
         return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
     }
 
     try
     {
-        size_t l_pos = i_unexpandedLocationCode.find(constants::fcsTypeLc);
-        if (l_pos != std::string::npos)
+        size_t pos = unexpandedLocationCode.find(constants::fcsTypeLc);
+        if (pos != std::string::npos)
         {
-            return getFcsExpandedLc(i_inventoryPath, i_unexpandedLocationCode,
-                                    i_parsedVpdMap, l_pos);
+            return getFcsExpandedLc(inventoryPath, unexpandedLocationCode,
+                                    parsedVpdMap, pos);
         }
 
-        l_pos = i_unexpandedLocationCode.find(constants::mtsTypeLc);
-        if (l_pos != std::string::npos)
+        pos = unexpandedLocationCode.find(constants::mtsTypeLc);
+        if (pos != std::string::npos)
         {
-            return getMtsExpandedLc(i_unexpandedLocationCode, i_parsedVpdMap,
-                                    l_pos);
+            return getMtsExpandedLc(unexpandedLocationCode, parsedVpdMap, pos);
         }
 
         return std::unexpected(error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "getExpandedLocationCode failed for FRU: {}, unexpandedLocationCode: {}. Reason: {}",
-            i_inventoryPath, i_unexpandedLocationCode, l_ex.what()));
+            inventoryPath, unexpandedLocationCode, ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
@@ -1774,44 +1753,43 @@ inline std::expected<std::string, uint16_t> getExpandedLocationCode(
  * - The "inherit" tag is true for the inventory path, OR
  * - The record is part of the "copyRecords" tag and not in "skipRecords" list
  *
- * @param[in] i_fruPath - EEPROM path of the FRU.
- * @param[in] i_paramsToWriteData - Write VPD parameters
- * @param[in] i_sysCfgJsonObj - Config JSON object.
- * @param[out] o_errCode - To set error code incase of failure.
+ * @param[in] fruPath - EEPROM path of the FRU.
+ * @param[in] paramsToWriteData - Write VPD parameters
+ * @param[in] sysCfgJsonObj - Config JSON object.
+ * @param[out] errCode - To set error code incase of failure.
  */
 inline void updateKeywordOnDBus(
-    const std::string& i_fruPath,
-    const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
+    const std::string& fruPath, const types::WriteVpdParams& paramsToWriteData,
+    const nlohmann::json& sysCfgJsonObj, uint16_t& errCode)
 {
-    o_errCode = 0;
+    errCode = 0;
     try
     {
-        if (i_fruPath.empty())
+        if (fruPath.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return;
         }
 
-        if (!i_sysCfgJsonObj.contains("frus"))
+        if (!sysCfgJsonObj.contains("frus"))
         {
-            o_errCode = error_code::INVALID_JSON;
+            errCode = error_code::INVALID_JSON;
             return;
         }
 
-        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        if (!sysCfgJsonObj["frus"].contains(fruPath))
         {
-            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            errCode = error_code::FRU_PATH_NOT_FOUND;
             return;
         }
 
-        const types::IpzData* l_ipzData =
-            std::get_if<types::IpzData>(&i_paramsToWriteData);
+        const types::IpzData* ipzData =
+            std::get_if<types::IpzData>(&paramsToWriteData);
 
         // @todo Add support for other VPD types.
-        if (!l_ipzData)
+        if (!ipzData)
         {
-            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            errCode = error_code::UNSUPPORTED_VPD_TYPE;
             return;
         }
 
@@ -1820,31 +1798,31 @@ inline void updateKeywordOnDBus(
         //  is part of "copyRecords" tag, update the inventory path's
         //  com.ibm.ipzvpd.<record>, property
 
-        types::ObjectMap l_objectInterfaceMap;
+        types::ObjectMap objectInterfaceMap;
 
-        auto l_populateInterfaceMap = [&l_objectInterfaceMap,
-                                       &l_ipzData = std::as_const(l_ipzData)](
-                                          const auto& l_inventoryItem) {
-            if (!l_ipzData)
+        auto populateInterfaceMap = [&objectInterfaceMap,
+                                     &ipzData = std::as_const(ipzData)](
+                                        const auto& inventoryItem) {
+            if (!ipzData)
             {
                 return;
             }
 
             // check if record is part of copyRecords list.
-            const bool l_isPartOfCopyRecord =
-                l_inventoryItem.contains("copyRecords") &&
-                std::find(l_inventoryItem["copyRecords"].begin(),
-                          l_inventoryItem["copyRecords"].end(),
-                          std::get<0>(*l_ipzData)) !=
-                    l_inventoryItem["copyRecords"].end();
+            const bool isPartOfCopyRecord =
+                inventoryItem.contains("copyRecords") &&
+                std::find(inventoryItem["copyRecords"].begin(),
+                          inventoryItem["copyRecords"].end(),
+                          std::get<0>(*ipzData)) !=
+                    inventoryItem["copyRecords"].end();
 
             // check if record is part of skipRecords list
-            const bool l_isPartOfSkipRecord =
-                l_inventoryItem.contains("skipRecords") &&
-                std::find(l_inventoryItem["skipRecords"].begin(),
-                          l_inventoryItem["skipRecords"].end(),
-                          std::get<0>(*l_ipzData)) !=
-                    l_inventoryItem["skipRecords"].end();
+            const bool isPartOfSkipRecord =
+                inventoryItem.contains("skipRecords") &&
+                std::find(inventoryItem["skipRecords"].begin(),
+                          inventoryItem["skipRecords"].end(),
+                          std::get<0>(*ipzData)) !=
+                    inventoryItem["skipRecords"].end();
 
             /** Update the keyword if any of the following conditions is met:
              *
@@ -1858,52 +1836,50 @@ inline void updateKeywordOnDBus(
              * records except those in the skip list are inherited from the
              * base FRU.
              */
-            if (l_inventoryItem.value("inherit", true) ||
-                (l_isPartOfCopyRecord ||
-                 (l_inventoryItem.contains("skipRecords") &&
-                  !l_isPartOfSkipRecord)))
+            if (inventoryItem.value("inherit", true) ||
+                (isPartOfCopyRecord || (inventoryItem.contains("skipRecords") &&
+                                        !isPartOfSkipRecord)))
             {
-                l_objectInterfaceMap.emplace(
-                    sdbusplus::object_path{l_inventoryItem["inventoryPath"]},
+                objectInterfaceMap.emplace(
+                    sdbusplus::object_path{inventoryItem["inventoryPath"]},
                     types::InterfaceMap{
-                        {constants::ipzVpdInf + std::get<0>(*l_ipzData),
-                         types::PropertyMap{{std::get<1>(*l_ipzData),
-                                             std::get<2>(*l_ipzData)}}}});
+                        {constants::ipzVpdInf + std::get<0>(*ipzData),
+                         types::PropertyMap{
+                             {std::get<1>(*ipzData), std::get<2>(*ipzData)}}}});
             }
         };
 
         // iterate through all inventory paths of the FRU.
-        std::for_each(i_sysCfgJsonObj["frus"][i_fruPath].begin(),
-                      i_sysCfgJsonObj["frus"][i_fruPath].end(),
-                      l_populateInterfaceMap);
+        std::for_each(sysCfgJsonObj["frus"][fruPath].begin(),
+                      sysCfgJsonObj["frus"][fruPath].end(),
+                      populateInterfaceMap);
 
-        if (!l_objectInterfaceMap.empty())
+        if (!objectInterfaceMap.empty())
         {
-            if (!dbusUtility::publishVpdOnDBus(std::move(l_objectInterfaceMap)))
+            if (!dbusUtility::publishVpdOnDBus(std::move(objectInterfaceMap)))
             {
-                o_errCode = error_code::DBUS_FAILURE;
+                errCode = error_code::DBUS_FAILURE;
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::STANDARD_EXCEPTION;
+        errCode = error_code::STANDARD_EXCEPTION;
 
-        std::string l_recordKeywordInfo;
-        const types::IpzData* l_ipzData =
-            std::get_if<types::IpzData>(&i_paramsToWriteData);
+        std::string recordKeywordInfo;
+        const types::IpzData* ipzData =
+            std::get_if<types::IpzData>(&paramsToWriteData);
 
         // @todo Add support for other VPD types.
-        if (l_ipzData)
+        if (ipzData)
         {
-            l_recordKeywordInfo =
-                std::format("[{}] : [{}]", std::get<0>(*l_ipzData),
-                            std::get<1>(*l_ipzData));
+            recordKeywordInfo = std::format(
+                "[{}] : [{}]", std::get<0>(*ipzData), std::get<1>(*ipzData));
         }
 
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to update keyword [{}] on DBus for path [{}], error : {}.",
-            l_recordKeywordInfo, i_fruPath, l_ex.what()));
+            recordKeywordInfo, fruPath, ex.what()));
     }
 }
 
@@ -1914,126 +1890,125 @@ inline void updateKeywordOnDBus(
  * update to respective extra interface(s) properties of the base FRU and all
  * sub FRUs.
  *
- * @param[in] i_fruPath - EEPROM path of FRU.
- * @param[in] i_paramsToWriteData - Input details.
- * @param[in] i_sysCfgJsonObj - Config JSON.
+ * @param[in] fruPath - EEPROM path of FRU.
+ * @param[in] paramsToWriteData - Input details.
+ * @param[in] sysCfgJsonObj - Config JSON.
  *
  * @return Returns an empty expected object on success, otherwise
  * returns the corresponding error code
  */
 inline std::expected<void, error_code> updateExtraInterfaceProperties(
-    const std::string& i_fruPath,
-    const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const std::string& fruPath, const types::WriteVpdParams& paramsToWriteData,
+    const nlohmann::json& sysCfgJsonObj) noexcept
 {
-    const std::vector<std::string> l_listofInterfacesToUpdate{
+    const std::vector<std::string> listofInterfacesToUpdate{
         constants::assetInf};
     try
     {
-        if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
+        if (fruPath.empty() || sysCfgJsonObj.empty())
         {
             return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
         }
 
-        if (!i_sysCfgJsonObj.contains("frus"))
+        if (!sysCfgJsonObj.contains("frus"))
         {
             return std::unexpected(error_code::INVALID_JSON);
         }
 
-        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        if (!sysCfgJsonObj["frus"].contains(fruPath))
         {
             return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
         }
 
-        if (!std::get_if<types::IpzData>(&i_paramsToWriteData))
+        if (!std::get_if<types::IpzData>(&paramsToWriteData))
         {
             return std::unexpected(error_code::UNSUPPORTED_VPD_TYPE);
         }
 
         // Checks whether the inventory item defines any of the interfaces
-        // listed in l_listofInterfacesToUpdate. If so, derives the
+        // listed in listofInterfacesToUpdate. If so, derives the
         // corresponding property values for the updated keyword and adds them
         // to the object map for publishing the updates on D-Bus.
-        types::ObjectMap l_objectInterfaceMap;
-        auto l_populateObjectInterfaceMap = [&l_listofInterfacesToUpdate,
-                                             &l_objectInterfaceMap,
-                                             &i_paramsToWriteData](
-                                                const auto& l_inventoryItem) {
-            if (!l_inventoryItem.contains("extraInterfaces"))
+        types::ObjectMap objectInterfaceMap;
+        auto populateObjectInterfaceMap = [&listofInterfacesToUpdate,
+                                           &objectInterfaceMap,
+                                           &paramsToWriteData](
+                                              const auto& inventoryItem) {
+            if (!inventoryItem.contains("extraInterfaces"))
             {
                 return;
             }
 
-            const auto& l_extraInterfaces = l_inventoryItem["extraInterfaces"];
-            nlohmann::json l_interfaceJson{};
+            const auto& extraInterfaces = inventoryItem["extraInterfaces"];
+            nlohmann::json interfaceJson{};
 
             // Get the list of interfaces to be updated
-            for (const auto& l_interface : l_listofInterfacesToUpdate)
+            for (const auto& interface : listofInterfacesToUpdate)
             {
-                if (auto l_iterator = l_extraInterfaces.find(l_interface);
-                    l_iterator != l_extraInterfaces.end())
+                if (auto iterator = extraInterfaces.find(interface);
+                    iterator != extraInterfaces.end())
                 {
-                    l_interfaceJson[l_interface] = l_iterator.value();
+                    interfaceJson[interface] = iterator.value();
                 }
             }
 
-            if (l_interfaceJson.empty())
+            if (interfaceJson.empty())
             {
                 return;
             }
 
-            uint16_t l_errCode = 0;
-            const types::InterfaceMap l_interfaceMap = getInterfaceProperties(
-                i_paramsToWriteData, l_interfaceJson, l_errCode);
+            uint16_t errCode = 0;
+            const types::InterfaceMap ifaceMap = getInterfaceProperties(
+                paramsToWriteData, interfaceJson, errCode);
 
-            if (l_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(std::format(
                     "Failed to get extra properties interface list for path [{}], error : {}",
-                    std::string(l_inventoryItem["inventoryPath"]),
-                    commonUtility::getErrCodeMsg(l_errCode)));
+                    std::string(inventoryItem["inventoryPath"]),
+                    commonUtility::getErrCodeMsg(errCode)));
             }
 
-            if (!l_interfaceMap.empty())
+            if (!ifaceMap.empty())
             {
-                l_objectInterfaceMap.emplace(
-                    sdbusplus::object_path{l_inventoryItem["inventoryPath"]},
-                    l_interfaceMap);
+                objectInterfaceMap.emplace(
+                    sdbusplus::object_path{inventoryItem["inventoryPath"]},
+                    ifaceMap);
             }
         };
 
         //  iterate through all inventory paths for given EEPROM path
         //  update the inventory path's corresponding extra interface(s)
         //  property
-        std::for_each(i_sysCfgJsonObj["frus"][i_fruPath].begin(),
-                      i_sysCfgJsonObj["frus"][i_fruPath].end(),
-                      l_populateObjectInterfaceMap);
+        std::for_each(sysCfgJsonObj["frus"][fruPath].begin(),
+                      sysCfgJsonObj["frus"][fruPath].end(),
+                      populateObjectInterfaceMap);
 
-        if (!l_objectInterfaceMap.empty())
+        if (!objectInterfaceMap.empty())
         {
-            if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
+            if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
             {
                 return std::unexpected(error_code::DBUS_FAILURE);
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        uint16_t l_errCode = 0;
-        const std::string l_recordKeywordInfo =
-            convertWriteVpdParamsToString(i_paramsToWriteData, l_errCode);
+        uint16_t errCode = 0;
+        const std::string recordKeywordInfo =
+            convertWriteVpdParamsToString(paramsToWriteData, errCode);
 
-        std::string l_errMsg = l_ex.what();
-        if (l_errCode)
+        std::string errMsg = ex.what();
+        if (errCode)
         {
-            l_errMsg += std::format(
+            errMsg += std::format(
                 ". Failed to convert write VPD parameters to string, error {}",
-                commonUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(errCode));
         }
 
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to update the extra interface property corresponding to keyword [{}] on DBus for path [{}], error : {}.",
-            l_recordKeywordInfo, i_fruPath, l_errMsg));
+            recordKeywordInfo, fruPath, errMsg));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
