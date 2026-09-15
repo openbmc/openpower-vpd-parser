@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312228a5_80565f05",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-15T11:25:25Z",
+      "side": 0,
+      "message": "is config not required ?",
+      "revId": "defc8793178fd254f565d895380a9bec4ebc72c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

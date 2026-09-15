@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "990fcb0c_ceaba773",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-15T11:25:25Z",
+      "side": 1,
+      "message": "do we need this log, should we just silently return for non-redundant BMC system ?",
+      "revId": "a16858bd8c0df219f4e55c03044c40615cb7fc46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
