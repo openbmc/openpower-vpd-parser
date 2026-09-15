@@ -12,6 +12,7 @@ sources = [
     'src/vpd_tool_main.cpp',
     'src/vpd_tool.cpp',
     'src/tool_split_mode.cpp',
+    'src/tool_help.cpp',
 ]
 
 vpd_tool_exe = executable(
