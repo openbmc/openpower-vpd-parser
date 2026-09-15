@@ -224,7 +224,7 @@ int SplitMode::exitSplitMode() const noexcept
 
         std::cout
             << "Environment is set to exit split mode.\n"
-               "Do factory reset and boot the BMC with CDFP cables connected."
+               "Connect CDFP cables and perform factory reset."
             << std::endl;
     }
     catch (const std::exception& l_ex)

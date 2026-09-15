@@ -1,5 +1,6 @@
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_help.hpp"
 #include "tool_split_mode.hpp"
 #include "tool_utils.hpp"
 #include "vpd_tool.hpp"
@@ -250,105 +251,6 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
     return vpd::constants::SUCCESS;
 }
 
-/**
- * @brief API to create app footer.
- *
- * @param[in] i_app - CLI::App object.
- */
-void updateFooter(CLI::App& i_app)
-{
-    i_app.footer(
-        "Read:\n"
-        "    IPZ Format:\n"
-        "        From DBus to console: "
-        "vpd-tool -r -O <DBus Object Path> -R <Record Name> -K <Keyword Name>\n"
-        "        From DBus to file: "
-        "vpd-tool -r -O <DBus Object Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
-        "        From hardware to console: "
-        "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name>\n"
-        "        From hardware to file: "
-        "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
-        "    Keyword Format:\n"
-        "        From hardware to console: "
-        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name>\n"
-        "        From hardware to file: "
-        "vpd-tool -r -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
-        "    Note: If record option is not provided, it will be considered as keyword format.\n"
-        "Write:\n"
-        "    IPZ Format:\n"
-        "        On DBus: "
-        "vpd-tool -w/-u -O <DBus Object Path> -R <Record Name> -K <Keyword Name> -V <Keyword Value>\n"
-        "        On DBus, take keyword value from file:\n"
-        "              vpd-tool -w/-u -O <DBus Object Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
-        "        On hardware: "
-        "vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> -V <Keyword Value>\n"
-        "        On hardware, take keyword value from file:\n"
-        "              vpd-tool -w/-u -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File Path>\n"
-        "    Keyword Format:\n"
-        "        On hardware: "
-        "vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> -V <Keyword Value>\n"
-        "        On hardware, take keyword value from file:\n"
-        "              vpd-tool -w/-u -H -O <EEPROM Path> -K <Keyword Name> --file <File Path>\n"
-        "    Note: If record option is not provided, it will be considered as keyword format.\n"
-        "Dump Inventory:\n"
-        "   From DBus to console in JSON format: "
-        "vpd-tool -i\n"
-        "   From DBus to console in Table format: "
-        "vpd-tool -i -t\n"
-        "   Chassis based dump inventory: \n"
-        "       In JSON format: vpd-tool -i -c -N <chassis_id>\n"
-        "       In table format: vpd-tool -i -t -c -N <chassis_id>\n"
-        "Validate EEPROM:\n"
-        "   Validate given EEPROM against its redundant copy:\n"
-        "   vpd-tool --validateRedundantEeprom/-e -O <EEPROM Path>\n"
-        "Enter Split mode:\n"
-        "   Configure the system to enter split mode. If path is provided, copies path to file mode location. Else, considers the system VPD file is available at file mode location.\n"
-        "   With file option: vpd-tool --enterSplitMode --file <File Path>\n"
-        "   Without file option: vpd-tool --enterSplitMode\n"
-        "Exit Split mode:\n"
-        "   Exit split mode and restore the system to normal operation.\n"
-        "   vpd-tool --exitSplitMode\n"
-        "Return Values:\n"
-        "   Success:\n"
-        "       Non-negative number.\n"
-        "       For read and write operations return value indicates the number of bytes read/write.\n"
-        "   Failure:\n"
-        "       Negative values indicates the following errors.\n"
-        "       -2,     Either one of the input parameter provided are invalid.\n"
-        "       -3,     Record name is not provided.\n"
-        "       -4,     Keyword value is not provided.\n"
-        "       -5,     DBus call failed.\n"
-        "       -6,     File system error.\n"
-        "       -7,     File not found.\n"
-        "       -8,     Standard exception occurred.\n"
-        "       -9,     JSON exception.\n"
-        "       -10,    EEPROM path not found.\n"
-        "       -11,    Empty file.\n"
-        "       -12,    Keyword name is not provided.\n"
-        "       -13,    DBus returned a value of an unexpected type.\n"
-        "       -14,    Requested operation is not allowed.\n"
-        "       -15     Chassis id not provided.\n"
-        "       -16     System command execution failed.\n"
-        "       -17     Required data not found in command output.\n"
-        "\n Note: vpd-tool operations are blocked while the VPD collection is in progress.\n"
-#if 0
-        " // Disabling these options for now, as they require additional refactoring to enable."
-        "Dump Object:\n"
-        "    From DBus to console: "
-        "vpd-tool -o -O <DBus Object Path>\n"
-        "Fix System VPD:\n"
-        "    vpd-tool --fixSystemVPD\n"
-        "MfgClean:\n"
-        "        Flag to clean and reset specific keywords on system VPD to its default value.\n"
-        "        vpd-tool --mfgClean\n"
-        "        To sync BIOS attribute related keywords with BIOS Config Manager:\n"
-        "        vpd-tool --mfgClean --syncBiosAttributes\n" 
-        "Force Reset:\n"
-        "   vpd-tool --forceReset\n"
-#endif
-    );
-}
-
 int main(int argc, char** argv)
 {
     CLI::App l_app{"VPD Command Line Tool"};
@@ -360,7 +262,12 @@ int main(int argc, char** argv)
     std::string l_keywordValue{};
     std::optional<int> l_chassisId;
 
-    updateFooter(l_app);
+    // For operation-specific help (e.g. vpd-tool -w --help), print detailed
+    // usage for that operation and exit before CLI11 processes arguments.
+    if (vpd::VpdToolHelp{}.printHelp(argc, argv))
+    {
+        return vpd::constants::SUCCESS;
+    }
 
     auto l_objectOption =
         l_app.add_option("--object, -O", l_vpdPath, "File path");
@@ -371,7 +278,7 @@ int main(int argc, char** argv)
 
     auto l_fileOption = l_app.add_option(
         "--file", l_filePath,
-        "Absolute file path,\nNote: For write operation, file should contain keyword’s value in either ascii or in hex format.");
+        "Absolute file path,\nNote: For write operation, file should contain keyword's value in either ascii or in hex format.");
 
     auto l_keywordValueOption =
         l_app.add_option("--value, -V", l_keywordValue,
@@ -384,9 +291,10 @@ int main(int argc, char** argv)
     auto l_hardwareFlag =
         l_app.add_flag("--Hardware, -H", "CAUTION: Developer only option.");
 
-    auto l_readFlag = l_app.add_flag("--readKeyword, -r", "Read keyword")
-                          ->needs(l_objectOption)
-                          ->needs(l_keywordOption);
+    auto l_readFlag =
+        l_app.add_flag("--readKeyword, -r", "Read keyword")
+            ->needs(l_objectOption)
+            ->needs(l_keywordOption);
 
     auto l_writeFlag =
         l_app
