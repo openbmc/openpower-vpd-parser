@@ -104,6 +104,24 @@
       "parentUuid": "2ab63a89_23606199",
       "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9163fae6_0c890e2c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-09-16T07:17:49Z",
+      "side": 1,
+      "message": "l_siblingPosition is caluctalted first, and then l_siblingPosition is compared against l_position.\n\nAm not seeing advantage of creating an extra l_siblingPosition varibale.",
+      "parentUuid": "eb27bcac_09b98211",
+      "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
