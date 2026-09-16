@@ -16,6 +16,24 @@
       "message": "Nit: space required after `.`",
       "revId": "4543c10b920b2632ed3da1293f350be667221c82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d26ca93_0f54f5fb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T08:13:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbeb67ac_e2bacbae",
+      "revId": "4543c10b920b2632ed3da1293f350be667221c82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

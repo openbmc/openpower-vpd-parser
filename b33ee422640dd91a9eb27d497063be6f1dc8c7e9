@@ -122,6 +122,24 @@
       "parentUuid": "eb27bcac_09b98211",
       "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad7647c_91824f69",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T08:13:22Z",
+      "side": 1,
+      "message": "I have used this approach makes the code more readable. Are you concerned about space or time complexity of the line 1183? This code will run only once in Active BMC boot up path, once FRUs VPD collection is completed. Unless you see a drastic affect on performance because of this variable, I don\u0027t see a point in refactoring this block.",
+      "parentUuid": "9163fae6_0c890e2c",
+      "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
