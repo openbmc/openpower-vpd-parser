@@ -77,39 +77,39 @@ class ConfigManager final
      * @brief Initialize the singleton with the given JSON path.
      *
      * On the first call, creates the singleton instance, parses and validates
-     * the JSON at i_sysConfigJsonPath, and builds all configuration maps.
+     * the JSON at sysConfigJsonPath, and builds all configuration maps.
      * On subsequent calls, builds a fresh ConfigManager object entirely on
-     * the side and then atomically swaps it into m_instance, so there is
+     * the side and then atomically swaps it into instance, so there is
      * never a window in which the singleton holds an empty or partially-built
      * JSON. Can only be called by Manager (enforced via ManagerPassKey).
      *
-     * @param[in] i_key - Lifecycle key, only constructible by Manager.
-     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     * @param[in] key - Lifecycle key, only constructible by Manager.
+     * @param[in] sysConfigJsonPath - Absolute path to system config JSON.
      *
      * @throw JsonException on parse or validation failure.
      *
      * @return Shared pointer to the (newly installed) singleton instance.
      */
     static std::shared_ptr<ConfigManager> initialize(
-        [[maybe_unused]] const ManagerPassKey& i_key,
-        const std::string& i_sysConfigJsonPath);
+        [[maybe_unused]] const ManagerPassKey& key,
+        const std::string& sysConfigJsonPath);
 
     /**
      * @brief API to get chassis based config JSON.
      *
-     * This method returns JSON object depends on the i_vpdPath:
+     * This method returns JSON object depends on the vpdPath:
      * - If `std::nullopt`, the complete system configuration JSON is returned.
      * - If an EEPROM or inventory object path is provided, the corresponding
      *   chassis-specific configuration JSON is returned.
      *
-     * i_vpdPath[in] i_vpdPath - Optional EEPROM or inventory object path.
+     * @param[in] vpdPath - Optional EEPROM or inventory object path.
      *
      * @return On success, reference to the chassis-specific JSON object.
      *         error_code::PATH_NOT_FOUND_IN_JSON if the path does not map to
      *         any known chassis.
      */
     std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
-        getJsonObj(const std::optional<std::string>& i_vpdPath = std::nullopt)
+        getJsonObj(const std::optional<std::string>& vpdPath = std::nullopt)
             const noexcept;
 
     /**
@@ -119,12 +119,12 @@ class ConfigManager final
      * With node-qualified keys, each unexpanded location code maps to exactly
      * one inventory path.
      *
-     * @param[in] i_unexpandedLocationCode - Unexpanded location code
+     * @param[in] unexpandedLocationCode - Unexpanded location code
      *
      * @return Matching inventory path on success, error code otherwise.
      */
     std::expected<sdbusplus::object_path, error_code> getInventoryPath(
-        const std::string& i_unexpandedLocationCode) const noexcept;
+        const std::string& unexpandedLocationCode) const noexcept;
 
     /**
      * @brief API to get map of Chassis to its associated motherboard EEPROM
@@ -136,7 +136,7 @@ class ConfigManager final
     const std::map<std::string, std::string>& getChassisToMotherboardEepromMap()
         const noexcept
     {
-        return m_chassisToMotherboardEepromMap;
+        return chassisToMotherboardEepromMap;
     }
 
     /**
@@ -148,7 +148,7 @@ class ConfigManager final
     const std::map<std::string, nlohmann::json>& getChassisIdToJsonMap()
         const noexcept
     {
-        return m_chassisIdToJsonMap;
+        return chassisIdToJsonMap;
     }
 
   private:
@@ -168,11 +168,11 @@ class ConfigManager final
          * object to ensure it contains required sections and has proper
          * structure.
          *
-         * @param[in] i_jsonObj - Configuration JSON object to validate
+         * @param[in] jsonObj - Configuration JSON object to validate
          *
          * @throw JsonException if validation fails
          */
-        static void validateConfigJson(const nlohmann::json& i_jsonObj);
+        static void validateConfigJson(const nlohmann::json& jsonObj);
 
       private:
         /**
@@ -181,15 +181,15 @@ class ConfigManager final
          * This method validates a sub-FRU JSON object by calling both
          * validateMandatoryTags and validateOptionalTags methods.
          *
-         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
-         * @param[in] i_eepromPath - EEPROM path for error reporting
-         * @param[in] i_index - Sub-FRU index for error reporting
+         * @param[in] subFruJson - Sub-FRU JSON object to validate
+         * @param[in] eepromPath - EEPROM path for error reporting
+         * @param[in] index - Sub-FRU index for error reporting
          *
          * @throw JsonException if validation fails
          */
-        static void validateSubFruJson(const nlohmann::json& i_subFruJson,
-                                       const std::string& i_eepromPath,
-                                       const size_t i_index);
+        static void validateSubFruJson(const nlohmann::json& subFruJson,
+                                       const std::string& eepromPath,
+                                       const size_t index);
 
         /**
          * @brief Validate mandatory tags in sub-FRU JSON object
@@ -197,15 +197,15 @@ class ConfigManager final
          * This method validates that all mandatory fields are present and
          * have correct types.
          *
-         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
-         * @param[in] i_eepromPath - EEPROM path for error reporting
-         * @param[in] i_index - Sub-FRU index for error reporting
+         * @param[in] subFruJson - Sub-FRU JSON object to validate
+         * @param[in] eepromPath - EEPROM path for error reporting
+         * @param[in] index - Sub-FRU index for error reporting
          *
          * @throw JsonException if validation fails
          */
-        static void validateMandatoryTags(const nlohmann::json& i_subFruJson,
-                                          const std::string& i_eepromPath,
-                                          const size_t i_index);
+        static void validateMandatoryTags(const nlohmann::json& subFruJson,
+                                          const std::string& eepromPath,
+                                          const size_t index);
 
         /**
          * @brief Validate optional tags in sub-FRU JSON object
@@ -213,15 +213,15 @@ class ConfigManager final
          * This method validates optional fields only if they are present
          * in the JSON object.
          *
-         * @param[in] i_subFruJson - Sub-FRU JSON object to validate
-         * @param[in] i_eepromPath - EEPROM path for error reporting
-         * @param[in] i_index - Sub-FRU index for error reporting
+         * @param[in] subFruJson - Sub-FRU JSON object to validate
+         * @param[in] eepromPath - EEPROM path for error reporting
+         * @param[in] index - Sub-FRU index for error reporting
          *
          * @throw JsonException if validation fails
          */
-        static void validateOptionalTags(const nlohmann::json& i_subFruJson,
-                                         const std::string& i_eepromPath,
-                                         const size_t i_index);
+        static void validateOptionalTags(const nlohmann::json& subFruJson,
+                                         const std::string& eepromPath,
+                                         const size_t index);
 
         /**
          * @brief Validate 'pollingRequired' tag in sub-FRU JSON object
@@ -229,16 +229,16 @@ class ConfigManager final
          * This method validates the 'pollingRequired' field and its nested
          * 'hotPlugging' and 'gpioPresence' objects, if present.
          *
-         * @param[in] i_pollingRequiredJson - 'pollingRequired' JSON object to
+         * @param[in] pollingRequiredJson - 'pollingRequired' JSON object to
          * validate
-         * @param[in] i_eepromPath - EEPROM path for error reporting
-         * @param[in] i_index - Sub-FRU index for error reporting
+         * @param[in] eepromPath - EEPROM path for error reporting
+         * @param[in] index - Sub-FRU index for error reporting
          *
          * @throw JsonException if validation fails
          */
         static void validatePollingRequiredTag(
-            const nlohmann::json& i_pollingRequiredJson,
-            const std::string& i_eepromPath, const size_t i_index);
+            const nlohmann::json& pollingRequiredJson,
+            const std::string& eepromPath, const size_t index);
     };
 
     /**
@@ -272,14 +272,14 @@ class ConfigManager final
      * This API builds maps for a single FRU in the system
      * config JSON.
      *
-     * @param[in] i_fruJsonObj - FRU JSON object
-     * @param[in] i_commonJsonObj - JSON object which is common to all chassis
+     * @param[in] fruJsonObj - FRU JSON object
+     * @param[in] commonJsonObj - JSON object which is common to all chassis
      *
      * @return On success, returns true, otherwise sets error code
      */
     std::expected<bool, error_code> buildConfigMapsForFru(
-        const auto& i_fruJsonObj,
-        const std::optional<nlohmann::json>& i_commonJsonObj =
+        const auto& fruJsonObj,
+        const std::optional<nlohmann::json>& commonJsonObj =
             std::nullopt) noexcept;
 
     /**
@@ -293,43 +293,43 @@ class ConfigManager final
      *   "chassis1"                     -> inserts "N00"
      *   "chassis2"                     -> inserts "N01"  etc.
      *
-     * @param[in] i_subFruJsonArray - Sub FRU JSON array
-     * @param[in] i_chassisId - Chassis ID for the FRU
+     * @param[in] subFruJsonArray - Sub FRU JSON array
+     * @param[in] chassisId - Chassis ID for the FRU
      *
      * @return On success, returns true, otherwise sets error code
      */
     std::expected<bool, error_code> buildLocCodeToInvPathsMap(
-        const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept;
+        const auto& subFruJsonArray, const std::string& chassisId) noexcept;
 
     /**
      * @brief Extract chassis ID from given inventory object path.
      *
-     * @param[in] i_inventoryObjPath - Inventory object path.
+     * @param[in] inventoryObjPath - Inventory object path.
      *
      * @return Chassis ID on successful extraction, empty string otherwise.
      */
     std::string getChassisId(
-        const std::string& i_inventoryObjPath) const noexcept;
+        const std::string& inventoryObjPath) const noexcept;
 
     /**
      * @brief Parse a JSON file from the given path.
      *
      * Checks for file existence, non-emptiness and read access before
-     * parsing. Sets o_errCode on any failure and returns an empty JSON
+     * parsing. Sets errCode on any failure and returns an empty JSON
      * object in that case.
      *
-     * @param[in] i_jsonPath - Absolute path to the JSON file.
-     * @param[out] o_errCode - Error code set on failure, 0 on success.
+     * @param[in] jsonPath - Absolute path to the JSON file.
+     * @param[out] errCode - Error code set on failure, 0 on success.
      *
      * @return Parsed JSON object on success, empty JSON on failure.
      */
-    static nlohmann::json getParsedJson(const std::string& i_jsonPath,
-                                        uint16_t& o_errCode) noexcept;
+    static nlohmann::json getParsedJson(const std::string& jsonPath,
+                                        uint16_t& errCode) noexcept;
 
     /**
      * @brief API to get unexpanded location code for given FRU JSON object
      *
-     * @param[in] i_fruJsonObj - sub JSON object which represents a single FRU
+     * @param[in] fruJsonObj - sub JSON object which represents a single FRU
      * in the system config JSON
      *
      * @return On success, returns unexpanded location code, otherwise returns
@@ -337,7 +337,7 @@ class ConfigManager final
      */
     static std::expected<std::string, error_code>
         getUnexpandedLocationCodeForFru(
-            const nlohmann::json& i_fruJsonObj) noexcept;
+            const nlohmann::json& fruJsonObj) noexcept;
 
     /**
      * @brief API to validate chassis specific JSONs
@@ -355,55 +355,55 @@ class ConfigManager final
      * @brief Load, validate and build maps from the given JSON path.
      *
      * Called by initialize() on the freshly-constructed instance.
-     * Parses the JSON at i_sysConfigJsonPath, validates it, and builds all
+     * Parses the JSON at sysConfigJsonPath, validates it, and builds all
      * configuration maps from scratch.
      *
-     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON.
+     * @param[in] sysConfigJsonPath - Absolute path to system config JSON.
      *
      * @throw JsonException on parse or validation failure.
      */
-    void loadJson(const std::string& i_sysConfigJsonPath);
+    void loadJson(const std::string& sysConfigJsonPath);
 
     // Private default constructor — instances are created only via initialize()
-    ConfigManager() : m_logger{Logger::getLoggerInstance()} {}
+    ConfigManager() : logger{Logger::getLoggerInstance()} {}
 
     /**
      * @brief API to check if given object path is present in the system config
      * JSON
      *
-     * @param[in] i_invPath - Inventory object path
+     * @param[in] invPath - Inventory object path
      *
      * @return true if the inventory object path is present in the system config
      * JSON, false otherwise
      */
-    bool isInventoryPathInJson(const std::string& i_invPath) const noexcept;
+    bool isInventoryPathInJson(const std::string& invPath) const noexcept;
 
     // Singleton instance — atomically replaced by initialize() on each call.
-    static std::atomic<std::shared_ptr<ConfigManager>> m_instance;
+    static std::atomic<std::shared_ptr<ConfigManager>> instance;
 
     // System config JSON
-    nlohmann::json m_systemConfigJson;
+    nlohmann::json systemConfigJson;
 
     // Chassis ID to chassis specific JSON map - O(logN) lookup, optimized for
     // small N
-    std::map<std::string, nlohmann::json> m_chassisIdToJsonMap;
+    std::map<std::string, nlohmann::json> chassisIdToJsonMap;
 
     // EEPROM path to chassis ID - O(1) lookup
-    std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+    std::unordered_map<std::string, std::string> eepromToChassisIdMap;
 
     // Node-qualified unexpanded location code to inventory path map - O(1)
     // lookup. The key is the unexpanded location code with the node identifier
     // inserted after prefix "Ufcs/Umts". With node-qualified keys each key
     // maps to exactly one inventory path.
     std::unordered_map<std::string, sdbusplus::object_path>
-        m_unexpandedLocCodeToInvPathsMap;
+        unexpandedLocCodeToInvPathsMap;
 
     // Shared pointer to Logger object
-    std::shared_ptr<Logger> m_logger;
+    std::shared_ptr<Logger> logger;
 
     // Chassis to corresponding chassis motherboard EEPROM path - O(logN)
     // lookup, optimized for small N
-    std::map<std::string, std::string> m_chassisToMotherboardEepromMap;
+    std::map<std::string, std::string> chassisToMotherboardEepromMap;
 };
 
 } // namespace vpd

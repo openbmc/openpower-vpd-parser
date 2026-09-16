@@ -14,31 +14,31 @@ namespace vpd
 {
 
 // Static singleton instance — null until initialize() is called
-std::atomic<std::shared_ptr<ConfigManager>> ConfigManager::m_instance{nullptr};
+std::atomic<std::shared_ptr<ConfigManager>> ConfigManager::instance{nullptr};
 
 std::shared_ptr<ConfigManager> ConfigManager::getInstance() noexcept
 {
-    return m_instance.load();
+    return instance.load();
 }
 
 std::shared_ptr<ConfigManager> ConfigManager::initialize(
-    [[maybe_unused]] const ManagerPassKey& i_key,
-    const std::string& i_sysConfigJsonPath)
+    [[maybe_unused]] const ManagerPassKey& key,
+    const std::string& sysConfigJsonPath)
 {
-    std::shared_ptr<ConfigManager> l_newInstance{nullptr};
+    std::shared_ptr<ConfigManager> newInstance{nullptr};
     try
     {
         // Build the new instance entirely on the side so that any concurrent
-        // reader holding a snapshot of m_instance continues to see the old,
+        // reader holding a snapshot of instance continues to see the old,
         // fully-populated data right up until the atomic pointer swap below.
-        l_newInstance = std::shared_ptr<ConfigManager>(new ConfigManager());
-        l_newInstance->loadJson(i_sysConfigJsonPath);
+        newInstance = std::shared_ptr<ConfigManager>(new ConfigManager());
+        newInstance->loadJson(sysConfigJsonPath);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         // if ConfigManager is not yet initialized, re-throw the exception so
         // that Manager initialization also fails
-        if (m_instance.load() == nullptr)
+        if (instance.load() == nullptr)
         {
             throw;
         }
@@ -50,7 +50,7 @@ std::shared_ptr<ConfigManager> ConfigManager::initialize(
             Logger::getLoggerInstance()->logMessage(
                 std::format(
                     "Failed to load JSON from path {}. Error: {}. Continuing with previously loaded JSON",
-                    i_sysConfigJsonPath, l_ex.what()),
+                    sysConfigJsonPath, ex.what()),
                 PlaceHolder::ASYNC_PEL,
                 types::PelInfoTuple{types::ErrorType::FirmwareError,
                                     types::SeverityType::Warning, 0,
@@ -58,31 +58,31 @@ std::shared_ptr<ConfigManager> ConfigManager::initialize(
                                     std::nullopt, std::nullopt});
 
             // return the existing ConfigManager instance
-            return m_instance.load();
+            return instance.load();
         }
     }
 
     // Single atomic pointer swap — readers see either the old complete
     // state or the new complete state, never an intermediate state.
-    m_instance.store(l_newInstance);
-    return m_instance.load();
+    instance.store(newInstance);
+    return instance.load();
 }
 
-void ConfigManager::loadJson(const std::string& i_sysConfigJsonPath)
+void ConfigManager::loadJson(const std::string& sysConfigJsonPath)
 {
-    uint16_t l_errCode{constants::VALUE_0};
+    uint16_t errCode{constants::VALUE_0};
 
-    m_systemConfigJson = getParsedJson(i_sysConfigJsonPath, l_errCode);
+    systemConfigJson = getParsedJson(sysConfigJsonPath, errCode);
 
-    if (l_errCode != constants::VALUE_0)
+    if (errCode != constants::VALUE_0)
     {
         throw JsonException{std::format(
             "ConfigManager failed to load JSON from path {}. Error: {}",
-            i_sysConfigJsonPath, commonUtility::getErrCodeMsg(l_errCode))};
+            sysConfigJsonPath, commonUtility::getErrCodeMsg(errCode))};
     }
 
     // Validate the system configuration JSON
-    JsonValidator::validateConfigJson(m_systemConfigJson);
+    JsonValidator::validateConfigJson(systemConfigJson);
 
     buildConfigMaps();
 
@@ -92,254 +92,253 @@ void ConfigManager::loadJson(const std::string& i_sysConfigJsonPath)
 
 std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
     ConfigManager::getJsonObj(
-        const std::optional<std::string>& i_vpdPath) const noexcept
+        const std::optional<std::string>& vpdPath) const noexcept
 {
-    if (!i_vpdPath)
+    if (!vpdPath)
     {
-        return std::cref(m_systemConfigJson);
+        return std::cref(systemConfigJson);
     }
 
-    std::string l_chassisId{};
+    std::string chassisId{};
 
-    if ((*i_vpdPath).starts_with(std::string_view(constants::pimPath)))
+    if ((*vpdPath).starts_with(std::string_view(constants::pimPath)))
     {
-        l_chassisId = getChassisId(*i_vpdPath);
+        chassisId = getChassisId(*vpdPath);
 
-        if (l_chassisId.empty())
+        if (chassisId.empty())
         {
             // see if the given object path is in the system configuration JSON
             // if yes, return the system configuration JSON
-            if (isInventoryPathInJson(*i_vpdPath))
+            if (isInventoryPathInJson(*vpdPath))
             {
-                return std::cref(m_systemConfigJson);
+                return std::cref(systemConfigJson);
             }
         }
     }
-    else if (const auto l_itr = m_eepromToChassisIdMap.find(*i_vpdPath);
-             l_itr != m_eepromToChassisIdMap.end())
+    else if (const auto itr = eepromToChassisIdMap.find(*vpdPath);
+             itr != eepromToChassisIdMap.end())
     {
-        l_chassisId = l_itr->second;
+        chassisId = itr->second;
     }
     else
     {
         // see if the given EEPROM path is in the system configuration JSON
         // if yes, return the system configuration JSON
-        if (m_systemConfigJson["frus"].contains(*i_vpdPath))
+        if (systemConfigJson["frus"].contains(*vpdPath))
         {
-            return std::cref(m_systemConfigJson);
+            return std::cref(systemConfigJson);
         }
 
         return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
     }
 
-    if (const auto l_itr = m_chassisIdToJsonMap.find(l_chassisId);
-        l_itr != m_chassisIdToJsonMap.end())
+    if (const auto itr = chassisIdToJsonMap.find(chassisId);
+        itr != chassisIdToJsonMap.end())
     {
-        return std::cref(l_itr->second);
+        return std::cref(itr->second);
     }
 
     return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
 }
 
 std::string ConfigManager::getChassisId(
-    const std::string& i_inventoryObjPath) const noexcept
+    const std::string& inventoryObjPath) const noexcept
 {
     try
     {
-        auto l_startPos = i_inventoryObjPath.find("/chassis");
-        if (std::string::npos == l_startPos)
+        auto startPos = inventoryObjPath.find("/chassis");
+        if (std::string::npos == startPos)
         {
             return std::string{};
         }
 
-        ++l_startPos;
-        const auto l_endPos = i_inventoryObjPath.find('/', l_startPos);
-        const auto l_chassisId =
-            i_inventoryObjPath.substr(l_startPos, l_endPos - l_startPos);
+        ++startPos;
+        const auto endPos = inventoryObjPath.find('/', startPos);
+        const auto chassisId =
+            inventoryObjPath.substr(startPos, endPos - startPos);
 
-        return l_chassisId;
+        return chassisId;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(std::format(
+        logger->logMessage(std::format(
             "Failed to extract chassis ID from given path {}, error: {}",
-            i_inventoryObjPath, l_ex.what()));
+            inventoryObjPath, ex.what()));
         return std::string{};
     }
 }
 
 void ConfigManager::buildConfigMaps()
 {
-    if (!m_systemConfigJson.contains("frus"))
+    if (!systemConfigJson.contains("frus"))
     {
         throw JsonException{"System config JSON is invalid"};
     }
 
     // Iterate through "frus" under system config JSON
-    const nlohmann::json& l_listOfFrus =
-        m_systemConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& listOfFrus =
+        systemConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
 
     // build JSON object which is common across all chassis JSONs
     //  Check if commonInterfaces exists in system config JSON and add to the
     //  entry if yes
-    std::optional<nlohmann::json> l_commonJsonObj{std::nullopt};
-    if (m_systemConfigJson.contains("commonInterfaces"))
+    std::optional<nlohmann::json> commonJsonObj{std::nullopt};
+    if (systemConfigJson.contains("commonInterfaces"))
     {
         // system config JSON has "commonInterfaces" so add it to the common
         // JSON object
-        l_commonJsonObj.emplace(nlohmann::json::object(
-            {{"commonInterfaces", m_systemConfigJson["commonInterfaces"]}}));
+        commonJsonObj.emplace(nlohmann::json::object(
+            {{"commonInterfaces", systemConfigJson["commonInterfaces"]}}));
     }
 
     // Build maps for each FRU sequentially
-    for (const auto& l_fruJsonObj : l_listOfFrus.items())
+    for (const auto& fruJsonObj : listOfFrus.items())
     {
-        const auto l_mapBuildResult =
-            buildConfigMapsForFru(l_fruJsonObj, l_commonJsonObj);
+        const auto mapBuildResult =
+            buildConfigMapsForFru(fruJsonObj, commonJsonObj);
 
-        if (!l_mapBuildResult.has_value())
+        if (!mapBuildResult.has_value())
         {
             // Log the error but continue processing other FRUs
-            m_logger->logMessage(std::format(
+            logger->logMessage(std::format(
                 "Failed to build map for FRU {}. Error code: {}",
-                l_fruJsonObj.key(),
-                commonUtility::getErrCodeMsg(l_mapBuildResult.error())));
+                fruJsonObj.key(),
+                commonUtility::getErrCodeMsg(mapBuildResult.error())));
         }
     }
 }
 
 std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
-    const auto& i_fruJsonObj,
-    const std::optional<nlohmann::json>& i_commonJsonObj) noexcept
+    const auto& fruJsonObj,
+    const std::optional<nlohmann::json>& commonJsonObj) noexcept
 {
     try
     {
-        const auto& l_eepromPath = i_fruJsonObj.key();
-        const auto& l_subFruJsonArray = i_fruJsonObj.value();
+        const auto& eepromPath = fruJsonObj.key();
+        const auto& subFruJsonArray = fruJsonObj.value();
 
         // Validate FRU JSON is an array with at least one element
-        if (!l_subFruJsonArray.is_array() || l_subFruJsonArray.empty())
+        if (!subFruJsonArray.is_array() || subFruJsonArray.empty())
         {
             return std::unexpected(error_code::INVALID_JSON);
         }
 
         // Extract chassis ID from inventory path of base FRU at index 0
-        const auto l_baseInvObjPath =
-            l_subFruJsonArray.at(0).value("inventoryPath", "");
-        if (l_baseInvObjPath.empty())
+        const auto baseInvObjPath =
+            subFruJsonArray.at(0).value("inventoryPath", "");
+        if (baseInvObjPath.empty())
         {
             return std::unexpected(error_code::INVALID_JSON);
         }
 
-        const auto& l_chassisId = getChassisId(l_baseInvObjPath);
-        if (l_chassisId.empty())
+        const auto& chassisId = getChassisId(baseInvObjPath);
+        if (chassisId.empty())
         {
             return std::unexpected(error_code::INVALID_INVENTORY_PATH);
         }
 
         // Create entry in EEPROM to chassis ID map
-        m_eepromToChassisIdMap.emplace(l_eepromPath, l_chassisId);
+        eepromToChassisIdMap.emplace(eepromPath, chassisId);
 
         // Create entry in chassis to motherboard EEPROM map
-        if (l_baseInvObjPath.ends_with("motherboard"))
+        if (baseInvObjPath.ends_with("motherboard"))
         {
-            m_chassisToMotherboardEepromMap.emplace(l_chassisId, l_eepromPath);
+            chassisToMotherboardEepromMap.emplace(chassisId, eepromPath);
         }
 
         // Get or create chassis JSON object
-        auto& l_chassisJson = m_chassisIdToJsonMap[l_chassisId];
+        auto& chassisJson = chassisIdToJsonMap[chassisId];
 
         // check if chassis JSON has a "frus" section, if not create
-        if (!l_chassisJson.contains("frus"))
+        if (!chassisJson.contains("frus"))
         {
-            l_chassisJson["frus"] = nlohmann::json::object();
+            chassisJson["frus"] = nlohmann::json::object();
 
             // check if there is any common JSON object to be appended to the
             // chassis JSON
-            if (i_commonJsonObj)
+            if (commonJsonObj)
             {
-                l_chassisJson.update(i_commonJsonObj.value());
+                chassisJson.update(commonJsonObj.value());
             }
         }
 
         // append the sub FRUs
-        l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
+        chassisJson["frus"][eepromPath] = subFruJsonArray;
 
         // build unexpanded location code to inventory path map
-        return buildLocCodeToInvPathsMap(l_subFruJsonArray, l_chassisId);
+        return buildLocCodeToInvPathsMap(subFruJsonArray, chassisId);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             std::format("Failed to build maps for FRU {}. Error: {}",
-                        i_fruJsonObj.key(), l_ex.what()));
+                        fruJsonObj.key(), ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
 
 std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
-    const auto& i_subFruJsonArray, const std::string& i_chassisId) noexcept
+    const auto& subFruJsonArray, const std::string& chassisId) noexcept
 {
     try
     {
-        const auto l_nodeIdResult =
-            vpdSpecificUtility::getNodeIdentifierFromChassisId(i_chassisId);
+        const auto nodeIdResult =
+            vpdSpecificUtility::getNodeIdentifierFromChassisId(chassisId);
 
-        if (!l_nodeIdResult.has_value())
+        if (!nodeIdResult.has_value())
         {
-            return std::unexpected(l_nodeIdResult.error());
+            return std::unexpected(nodeIdResult.error());
         }
 
-        const std::string& l_nodeId = l_nodeIdResult.value();
+        const std::string& nodeId = nodeIdResult.value();
 
-        for (const auto& l_subFruJson : i_subFruJsonArray)
+        for (const auto& subFruJson : subFruJsonArray)
         {
             // get the inventory path
-            if (l_subFruJson.contains("inventoryPath"))
+            if (subFruJson.contains("inventoryPath"))
             {
-                const auto& l_inventoryPath = l_subFruJson["inventoryPath"];
+                const auto& inventoryPath = subFruJson["inventoryPath"];
 
                 // get the unexpanded location code
-                const auto l_locationCode =
-                    getUnexpandedLocationCodeForFru(l_subFruJson);
-                if (l_locationCode.has_value())
+                const auto locationCode =
+                    getUnexpandedLocationCodeForFru(subFruJson);
+                if (locationCode.has_value())
                 {
                     // Only insert the node identifier if the location code is
                     // long enough to contain a valid prefix (e.g. "Ufcs").
-                    if (l_locationCode.value().length() >=
+                    if (locationCode.value().length() >=
                         constants::UNEXP_LOCATION_CODE_MIN_LENGTH)
                     {
-                        std::string l_mapKey = l_locationCode.value();
-                        const auto l_dashPos = l_mapKey.find('-');
-                        if (l_dashPos != std::string::npos)
+                        std::string mapKey = locationCode.value();
+                        const auto dashPos = mapKey.find('-');
+                        if (dashPos != std::string::npos)
                         {
-                            l_mapKey.insert(l_dashPos + 1, l_nodeId + "-");
+                            mapKey.insert(dashPos + 1, nodeId + "-");
                         }
                         else
                         {
-                            l_mapKey.append("-" + l_nodeId);
+                            mapKey.append("-" + nodeId);
                         }
-                        m_unexpandedLocCodeToInvPathsMap[l_mapKey] =
-                            sdbusplus::object_path{
-                                std::string{l_inventoryPath}};
+                        unexpandedLocCodeToInvPathsMap[mapKey] =
+                            sdbusplus::object_path{std::string{inventoryPath}};
                     }
                 }
                 else
                 {
-                    m_logger->logMessage(std::format(
+                    logger->logMessage(std::format(
                         "Failed to get unexpanded location code for {}. Error: {}",
-                        std::string{l_inventoryPath},
-                        commonUtility::getErrCodeMsg(l_locationCode.error())));
+                        std::string{inventoryPath},
+                        commonUtility::getErrCodeMsg(locationCode.error())));
                 }
             }
         }
         return true;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(std::format(
+        logger->logMessage(std::format(
             "Failed to build location code to inventory path(s) map for FRU {}. Error: {}",
-            i_subFruJsonArray[0].value("inventoryPath", ""), l_ex.what()));
+            subFruJsonArray[0].value("inventoryPath", ""), ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
@@ -347,106 +346,105 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
 
 std::expected<sdbusplus::object_path, error_code>
     ConfigManager::getInventoryPath(
-        const std::string& i_unexpandedLocationCode) const noexcept
+        const std::string& unexpandedLocationCode) const noexcept
 {
     try
     {
-        if (auto l_it =
-                m_unexpandedLocCodeToInvPathsMap.find(i_unexpandedLocationCode);
-            l_it != m_unexpandedLocCodeToInvPathsMap.end())
+        if (auto it =
+                unexpandedLocCodeToInvPathsMap.find(unexpandedLocationCode);
+            it != unexpandedLocCodeToInvPathsMap.end())
         {
-            return l_it->second;
+            return it->second;
         }
         return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(std::format(
+        logger->logMessage(std::format(
             "Failed to get inventory path for unexpanded location code {}. Error: {}",
-            i_unexpandedLocationCode, l_ex.what()));
+            unexpandedLocationCode, ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
 
-nlohmann::json ConfigManager::getParsedJson(const std::string& i_jsonPath,
-                                            uint16_t& o_errCode) noexcept
+nlohmann::json ConfigManager::getParsedJson(const std::string& jsonPath,
+                                            uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
+    errCode = 0;
 
-    if (i_jsonPath.empty())
+    if (jsonPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return nlohmann::json{};
     }
 
-    if (!std::filesystem::exists(i_jsonPath))
+    if (!std::filesystem::exists(jsonPath))
     {
-        o_errCode = error_code::FILE_NOT_FOUND;
+        errCode = error_code::FILE_NOT_FOUND;
         return nlohmann::json{};
     }
 
-    if (std::filesystem::is_empty(i_jsonPath))
+    if (std::filesystem::is_empty(jsonPath))
     {
-        o_errCode = error_code::EMPTY_FILE;
+        errCode = error_code::EMPTY_FILE;
         return nlohmann::json{};
     }
 
-    std::ifstream l_jsonFile(i_jsonPath);
-    if (!l_jsonFile)
+    std::ifstream jsonFile(jsonPath);
+    if (!jsonFile)
     {
-        o_errCode = error_code::FILE_ACCESS_ERROR;
+        errCode = error_code::FILE_ACCESS_ERROR;
         return nlohmann::json{};
     }
 
     try
     {
-        return nlohmann::json::parse(l_jsonFile);
+        return nlohmann::json::parse(jsonFile);
     }
     catch (const std::exception&)
     {
-        o_errCode = error_code::JSON_PARSE_ERROR;
+        errCode = error_code::JSON_PARSE_ERROR;
         return nlohmann::json{};
     }
 }
 
 std::expected<std::string, error_code>
     ConfigManager::getUnexpandedLocationCodeForFru(
-        const nlohmann::json& i_fruJsonObj) noexcept
+        const nlohmann::json& fruJsonObj) noexcept
 {
     try
     {
-        if (!i_fruJsonObj.contains("extraInterfaces"))
+        if (!fruJsonObj.contains("extraInterfaces"))
         {
             return std::unexpected(error_code::MISSING_FLAG);
         }
 
         // look for extraInterfaces object
-        const auto& l_extraInterfacesObj = i_fruJsonObj["extraInterfaces"];
+        const auto& extraInterfacesObj = fruJsonObj["extraInterfaces"];
 
-        if (!l_extraInterfacesObj.contains(constants::locationCodeInf))
+        if (!extraInterfacesObj.contains(constants::locationCodeInf))
         {
             return std::unexpected(error_code::MISSING_FLAG);
         }
 
-        const auto& l_locationCodeInfEntry =
-            l_extraInterfacesObj[constants::locationCodeInf];
+        const auto& locationCodeInfEntry =
+            extraInterfacesObj[constants::locationCodeInf];
 
-        if (!l_locationCodeInfEntry.contains("LocationCode"))
+        if (!locationCodeInfEntry.contains("LocationCode"))
         {
             return std::unexpected(error_code::MISSING_FLAG);
         }
 
-        return l_locationCodeInfEntry["LocationCode"];
+        return locationCodeInfEntry["LocationCode"];
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        const std::string l_inventoryPath{
-            i_fruJsonObj.value("inventoryPath", "")};
+        const std::string inventoryPath{fruJsonObj.value("inventoryPath", "")};
 
         Logger::getLoggerInstance()->logMessage(std::format(
             "Failed to get unexpanded location code for FRU: {}. Error: {}",
-            l_inventoryPath, l_ex.what()));
+            inventoryPath, ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
@@ -457,17 +455,17 @@ void ConfigManager::validateChassisSpecificJsons() noexcept
     // Validate all chassis-specific JSONs. if
     // any invalid JSON is found, remove the corresponding entry from the
     // chassis ID to chassis-specific JSON map
-    std::erase_if(m_chassisIdToJsonMap, [this](const auto& l_mapEntry) {
+    std::erase_if(chassisIdToJsonMap, [this](const auto& mapEntry) {
         try
         {
-            ConfigManager::JsonValidator::validateConfigJson(l_mapEntry.second);
+            ConfigManager::JsonValidator::validateConfigJson(mapEntry.second);
         }
-        catch (const std::exception& l_ex)
+        catch (const std::exception& ex)
         {
-            m_logger->logMessage(
+            logger->logMessage(
                 std::format(
                     "Failed to validate chassis config JSON for {}. Error: {}",
-                    l_mapEntry.first, l_ex.what()),
+                    mapEntry.first, ex.what()),
                 PlaceHolder::ASYNC_PEL,
                 types::PelInfoTuple{types::ErrorType::FirmwareError,
                                     types::SeverityType::Warning, 0,
@@ -481,182 +479,182 @@ void ConfigManager::validateChassisSpecificJsons() noexcept
 }
 
 void ConfigManager::JsonValidator::validateConfigJson(
-    const nlohmann::json& i_jsonObj)
+    const nlohmann::json& jsonObj)
 {
     // Check if "frus" section exists (mandatory)
-    if (!i_jsonObj.contains("frus"))
+    if (!jsonObj.contains("frus"))
     {
         throw JsonException{
             "JSON validation failed: Missing required 'frus' section"};
     }
 
     // Check if "frus" is an object
-    if (!i_jsonObj["frus"].is_object())
+    if (!jsonObj["frus"].is_object())
     {
         throw JsonException{
             "JSON validation failed: 'frus' section must be an object"};
     }
 
     // Check if "frus" is not empty
-    if (i_jsonObj["frus"].empty())
+    if (jsonObj["frus"].empty())
     {
         throw JsonException{
             "JSON validation failed: 'frus' section cannot be empty"};
     }
 
     // Validate each FRU entry in "frus"
-    const auto& l_frus = i_jsonObj["frus"];
-    for (const auto& [l_eepromPath, l_fruArray] : l_frus.items())
+    const auto& frus = jsonObj["frus"];
+    for (const auto& [eepromPath, fruArray] : frus.items())
     {
         // Check if FRU value is an array
-        if (!l_fruArray.is_array())
+        if (!fruArray.is_array())
         {
             throw JsonException{
                 std::format("JSON validation failed: FRU '{}' must be an array",
-                            l_eepromPath)};
+                            eepromPath)};
         }
 
         // Check if FRU array is not empty
-        if (l_fruArray.empty())
+        if (fruArray.empty())
         {
             throw JsonException{std::format(
                 "JSON validation failed: FRU '{}' array cannot be empty",
-                l_eepromPath)};
+                eepromPath)};
         }
 
         // Validate each sub-FRU in the array
-        for (size_t i = 0; i < l_fruArray.size(); ++i)
+        for (size_t i = 0; i < fruArray.size(); ++i)
         {
-            const auto& l_subFru = l_fruArray[i];
+            const auto& subFru = fruArray[i];
 
             // Check if sub-FRU is an object
-            if (!l_subFru.is_object())
+            if (!subFru.is_object())
             {
                 throw JsonException{std::format(
                     "JSON validation failed: Sub-FRU at index {} in '{}' must be an object",
-                    i, l_eepromPath)};
+                    i, eepromPath)};
             }
 
             // Validate sub-FRU structure
-            validateSubFruJson(l_subFru, l_eepromPath, i);
+            validateSubFruJson(subFru, eepromPath, i);
         }
     }
 }
 
 void ConfigManager::JsonValidator::validateSubFruJson(
-    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
-    const size_t i_index)
+    const nlohmann::json& subFruJson, const std::string& eepromPath,
+    const size_t index)
 {
     // Validate mandatory tags
-    validateMandatoryTags(i_subFruJson, i_eepromPath, i_index);
+    validateMandatoryTags(subFruJson, eepromPath, index);
 
     // Validate optional tags
-    validateOptionalTags(i_subFruJson, i_eepromPath, i_index);
+    validateOptionalTags(subFruJson, eepromPath, index);
 }
 
 void ConfigManager::JsonValidator::validateMandatoryTags(
-    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
-    const size_t i_index)
+    const nlohmann::json& subFruJson, const std::string& eepromPath,
+    const size_t index)
 {
     // Check for mandatory field: inventoryPath
-    if (!i_subFruJson.contains("inventoryPath"))
+    if (!subFruJson.contains("inventoryPath"))
     {
         throw JsonException{std::format(
             "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'inventoryPath' field",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // Validate inventoryPath is a string
-    if (!i_subFruJson["inventoryPath"].is_string())
+    if (!subFruJson["inventoryPath"].is_string())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'inventoryPath' in sub-FRU at index {} in '{}' must be a string",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // Check for mandatory field: serviceName
-    if (!i_subFruJson.contains("serviceName"))
+    if (!subFruJson.contains("serviceName"))
     {
         throw JsonException{std::format(
             "JSON validation failed: Sub-FRU at index {} in '{}' missing required 'serviceName' field",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // Validate serviceName is a string
-    if (!i_subFruJson["serviceName"].is_string())
+    if (!subFruJson["serviceName"].is_string())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'serviceName' in sub-FRU at index {} in '{}' must be a string",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 }
 
 void ConfigManager::JsonValidator::validateOptionalTags(
-    const nlohmann::json& i_subFruJson, const std::string& i_eepromPath,
-    const size_t i_index)
+    const nlohmann::json& subFruJson, const std::string& eepromPath,
+    const size_t index)
 {
     // Validate optional field: extraInterfaces (if present, must be an object)
-    if (i_subFruJson.contains("extraInterfaces") &&
-        !i_subFruJson["extraInterfaces"].is_object())
+    if (subFruJson.contains("extraInterfaces") &&
+        !subFruJson["extraInterfaces"].is_object())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'extraInterfaces' in sub-FRU at index {} in '{}' must be an object",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // If "preAction" exists, validate it's an object
-    if (i_subFruJson.contains("preAction") &&
-        !i_subFruJson["preAction"].is_object())
+    if (subFruJson.contains("preAction") &&
+        !subFruJson["preAction"].is_object())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'preAction' in sub-FRU at index {} in '{}' must be an object",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // If "postAction" exists, validate it's an object
-    if (i_subFruJson.contains("postAction") &&
-        !i_subFruJson["postAction"].is_object())
+    if (subFruJson.contains("postAction") &&
+        !subFruJson["postAction"].is_object())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'postAction' in sub-FRU at index {} in '{}' must be an object",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // If "postFailAction" exists, validate it's an object
-    if (i_subFruJson.contains("postFailAction") &&
-        !i_subFruJson["postFailAction"].is_object())
+    if (subFruJson.contains("postFailAction") &&
+        !subFruJson["postFailAction"].is_object())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'postFailAction' in sub-FRU at index {} in '{}' must be an object",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // If "pollingRequired" exists, validate it's an object and validate
     // "hotPlugging" nested within it
-    if (i_subFruJson.contains("pollingRequired"))
+    if (subFruJson.contains("pollingRequired"))
     {
-        if (!i_subFruJson["pollingRequired"].is_object())
+        if (!subFruJson["pollingRequired"].is_object())
         {
             throw JsonException{std::format(
                 "JSON validation failed: 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
-                i_index, i_eepromPath)};
+                index, eepromPath)};
         }
 
-        validatePollingRequiredTag(i_subFruJson["pollingRequired"],
-                                   i_eepromPath, i_index);
+        validatePollingRequiredTag(subFruJson["pollingRequired"], eepromPath,
+                                   index);
     }
 
     // If "copyRecords" exists, validate it's an array
-    if (i_subFruJson.contains("copyRecords") &&
-        !i_subFruJson["copyRecords"].is_array())
+    if (subFruJson.contains("copyRecords") &&
+        !subFruJson["copyRecords"].is_array())
     {
         throw JsonException{std::format(
             "JSON validation failed: 'copyRecords' in sub-FRU at index {} in '{}' must be an array",
-            i_index, i_eepromPath)};
+            index, eepromPath)};
     }
 
     // If boolean fields exist, validate they are boolean type
-    const std::vector<std::string> l_boolFields = {
+    const std::vector<std::string> boolFields = {
         "isSystemVpd",
         "replaceableAtStandby",
         "replaceableAtRuntime",
@@ -671,140 +669,137 @@ void ConfigManager::JsonValidator::validateOptionalTags(
         "readOnly",
         "inherit"};
 
-    for (const auto& l_field : l_boolFields)
+    for (const auto& field : boolFields)
     {
-        if (i_subFruJson.contains(l_field) &&
-            !i_subFruJson[l_field].is_boolean())
+        if (subFruJson.contains(field) && !subFruJson[field].is_boolean())
         {
             throw JsonException{std::format(
                 "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a boolean",
-                l_field, i_index, i_eepromPath)};
+                field, index, eepromPath)};
         }
     }
 
     // If string fields exist, validate they are string type
-    const std::vector<std::string> l_stringFields = {
+    const std::vector<std::string> stringFields = {
         "redundantEeprom", "cpuType", "busType", "driverType", "devAddress"};
 
-    for (const auto& l_field : l_stringFields)
+    for (const auto& field : stringFields)
     {
-        if (i_subFruJson.contains(l_field) &&
-            !i_subFruJson[l_field].is_string())
+        if (subFruJson.contains(field) && !subFruJson[field].is_string())
         {
             throw JsonException{std::format(
                 "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be a string",
-                l_field, i_index, i_eepromPath)};
+                field, index, eepromPath)};
         }
     }
 
     // If integer fields exist, validate they are number type
-    const std::vector<std::string> l_intFields = {"offset", "size"};
+    const std::vector<std::string> intFields = {"offset", "size"};
 
-    for (const auto& l_field : l_intFields)
+    for (const auto& field : intFields)
     {
-        if (i_subFruJson.contains(l_field) &&
-            !i_subFruJson[l_field].is_number_integer())
+        if (subFruJson.contains(field) &&
+            !subFruJson[field].is_number_integer())
         {
             throw JsonException{std::format(
                 "JSON validation failed: '{}' in sub-FRU at index {} in '{}' must be an integer",
-                l_field, i_index, i_eepromPath)};
+                field, index, eepromPath)};
         }
     }
 }
 
 void ConfigManager::JsonValidator::validatePollingRequiredTag(
-    const nlohmann::json& i_pollingRequiredJson,
-    const std::string& i_eepromPath, const size_t i_index)
+    const nlohmann::json& pollingRequiredJson, const std::string& eepromPath,
+    const size_t index)
 {
-    if (i_pollingRequiredJson.contains("hotPlugging"))
+    if (pollingRequiredJson.contains("hotPlugging"))
     {
-        const auto& l_hotPlugging = i_pollingRequiredJson["hotPlugging"];
+        const auto& hotPlugging = pollingRequiredJson["hotPlugging"];
 
-        if (!l_hotPlugging.is_object())
+        if (!hotPlugging.is_object())
         {
             throw JsonException{std::format(
                 "JSON validation failed: 'hotPlugging' in 'pollingRequired' in sub-FRU at index {} in '{}' must be an object",
-                i_index, i_eepromPath)};
+                index, eepromPath)};
         }
 
-        if (l_hotPlugging.contains("gpioPresence"))
+        if (hotPlugging.contains("gpioPresence"))
         {
-            const auto& l_gpioPresence = l_hotPlugging["gpioPresence"];
+            const auto& gpioPresence = hotPlugging["gpioPresence"];
 
-            if (!l_gpioPresence.is_object())
+            if (!gpioPresence.is_object())
             {
                 throw JsonException{std::format(
                     "JSON validation failed: 'gpioPresence' in 'hotPlugging' in sub-FRU at index {} in '{}' must be an object",
-                    i_index, i_eepromPath)};
+                    index, eepromPath)};
             }
 
             // check for "pin" tag
-            if (!l_gpioPresence.contains("pin"))
+            if (!gpioPresence.contains("pin"))
             {
                 throw JsonException{std::format(
                     "JSON validation failed: 'pin' tag missing in 'gpioPresence' in sub-FRU at index {} in '{}'",
-                    i_index, i_eepromPath)};
+                    index, eepromPath)};
             }
 
-            if (!l_gpioPresence["pin"].is_string())
+            if (!gpioPresence["pin"].is_string())
             {
                 throw JsonException{std::format(
                     "JSON validation failed: 'pin' in 'gpioPresence' in sub-FRU at index {} in '{}' must be a string",
-                    i_index, i_eepromPath)};
+                    index, eepromPath)};
             }
 
             // check for "value" tag
-            if (!l_gpioPresence.contains("value"))
+            if (!gpioPresence.contains("value"))
             {
                 throw JsonException{std::format(
                     "JSON validation failed: 'value' tag missing in 'gpioPresence' in sub-FRU at index {} in '{}'",
-                    i_index, i_eepromPath)};
+                    index, eepromPath)};
             }
 
-            if (!l_gpioPresence["value"].is_number_integer())
+            if (!gpioPresence["value"].is_number_integer())
             {
                 throw JsonException{std::format(
                     "JSON validation failed: 'value' in 'gpioPresence' in sub-FRU at index {} in '{}' must be an integer",
-                    i_index, i_eepromPath)};
+                    index, eepromPath)};
             }
         }
     }
 }
 
 bool ConfigManager::isInventoryPathInJson(
-    const std::string& i_invPath) const noexcept
+    const std::string& invPath) const noexcept
 {
     // Validate: must be a non-empty D-Bus inventory object path.
     // EEPROM paths (filesystem paths) do not start with pimPath, so this
     // check also naturally rejects them.
-    if (i_invPath.empty() || !i_invPath.starts_with(constants::pimPath))
+    if (invPath.empty() || !invPath.starts_with(constants::pimPath))
     {
         return false;
     }
 
     try
     {
-        for (const auto& l_fruEntry : m_systemConfigJson["frus"].items())
+        for (const auto& fruEntry : systemConfigJson["frus"].items())
         {
-            const auto& l_subFruJsonArray = l_fruEntry.value();
+            const auto& subFruJsonArray = fruEntry.value();
 
-            const auto l_findResult = std::ranges::find_if(
-                l_subFruJsonArray,
-                [&i_invPath](const nlohmann::json& i_subFruJson) {
-                    return i_subFruJson.value("inventoryPath", "") == i_invPath;
+            const auto findResult = std::ranges::find_if(
+                subFruJsonArray, [&invPath](const nlohmann::json& subFruJson) {
+                    return subFruJson.value("inventoryPath", "") == invPath;
                 });
 
-            if (l_findResult != l_subFruJsonArray.end())
+            if (findResult != subFruJsonArray.end())
             {
                 return true;
             }
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        m_logger->logMessage(
+        logger->logMessage(
             std::format("Failed to check if path {} is in JSON, error: {}",
-                        i_invPath, l_ex.what()));
+                        invPath, ex.what()));
     }
 
     return false;
