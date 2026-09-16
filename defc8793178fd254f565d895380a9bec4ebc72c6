@@ -16,6 +16,24 @@
       "message": "is config not required ?",
       "revId": "defc8793178fd254f565d895380a9bec4ebc72c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baed3021_4b133604",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T06:47:51Z",
+      "side": 0,
+      "message": "Addressed.",
+      "parentUuid": "312228a5_80565f05",
+      "revId": "defc8793178fd254f565d895380a9bec4ebc72c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

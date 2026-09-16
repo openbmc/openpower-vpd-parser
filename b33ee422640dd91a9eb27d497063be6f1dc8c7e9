@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "027ae7c2_61befa7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T06:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d99b0abd_5173a17b",
+      "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b14bf314_0cb60c9f",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4870dd4f_4a402a37",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T06:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b14bf314_0cb60c9f",
+      "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ab63a89_23606199",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-09-15T11:25:25Z",
       "side": 1,
       "message": "instead calculating twice one at line 1180 and here, we can check directly is l_bmcPosition is not same as l_position and take the action?",
+      "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb27bcac_09b98211",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T06:47:51Z",
+      "side": 1,
+      "message": "Can you please explain what is \"calculating twice\"? What is the advantage of doing this change you suggested?",
+      "parentUuid": "2ab63a89_23606199",
       "revId": "b33ee422640dd91a9eb27d497063be6f1dc8c7e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
