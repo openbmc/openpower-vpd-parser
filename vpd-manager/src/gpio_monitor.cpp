@@ -14,145 +14,143 @@
 
 namespace vpd
 {
-void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
+void GpioEventHandler::handleChangeInGpioPin(const bool& isFruPresent)
 {
     try
     {
-        uint16_t l_errCode = 0;
+        uint16_t errCode = 0;
 
-        if (i_isFruPresent)
+        if (isFruPresent)
         {
-            auto [l_isPresent, l_collectionStatus] =
-                Worker{}.collectFruVpd(m_fruPath, m_configJson, l_errCode);
+            auto [isPresent, collectionStatus] =
+                Worker{}.collectFruVpd(fruPath, configJson, errCode);
 
-            if (l_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(std::format(
                     "Failed to collect FRU VPD for EEPROM [{}]. Present: {}, Status: {}, Error : {}",
-                    m_fruPath, l_isPresent, l_collectionStatus,
-                    commonUtility::getErrCodeMsg(l_errCode)));
+                    fruPath, isPresent, collectionStatus,
+                    commonUtility::getErrCodeMsg(errCode)));
             }
         }
         else
         {
-            const std::string l_invPath =
-                jsonUtility::getInventoryObjPathFromJson(m_fruPath, l_errCode);
+            const std::string invPath =
+                jsonUtility::getInventoryObjPathFromJson(fruPath, errCode);
 
-            if (l_errCode)
+            if (errCode)
             {
                 throw std::runtime_error(
                     "Failed to get inventory path from JSON, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(errCode));
             }
 
-            Worker{}.deleteFruVpd(m_configJson, l_invPath);
+            Worker{}.deleteFruVpd(configJson, invPath);
         }
     }
-    catch (std::exception& l_ex)
+    catch (std::exception& exception)
     {
-        Logger::getLoggerInstance()->logMessage(std::string(l_ex.what()));
+        Logger::getLoggerInstance()->logMessage(std::string(exception.what()));
     }
 }
 
 void GpioEventHandler::handleTimerExpiry(
-    const boost::system::error_code& i_errorCode,
-    const std::shared_ptr<boost::asio::steady_timer>& i_timerObj)
+    const boost::system::error_code& errorCode,
+    const std::shared_ptr<boost::asio::steady_timer>& timerObj)
 {
-    if (i_errorCode == boost::asio::error::operation_aborted)
+    if (errorCode == boost::asio::error::operation_aborted)
     {
         Logger::getLoggerInstance()->logMessage("Timer aborted for GPIO pin");
         return;
     }
 
-    if (i_errorCode)
+    if (errorCode)
     {
         Logger::getLoggerInstance()->logMessage(
             "Timer wait failed for gpio pin" +
-            std::string(i_errorCode.message()));
+            std::string(errorCode.message()));
         return;
     }
 
-    uint16_t l_errCode = 0;
-    bool l_currentPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
+    uint16_t errCode = 0;
+    bool currentPresencePinValue = jsonUtility::processGpioPresenceTag(
+        fruPath, "pollingRequired", "hotPlugging", errCode);
 
-    if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
+    if (errCode && errCode != error_code::DEVICE_NOT_PRESENT)
     {
         Logger::getLoggerInstance()->logMessage(
-            "processGpioPresenceTag returned false for FRU [" + m_fruPath +
-            "] Due to error. Reason: " +
-            commonUtility::getErrCodeMsg(l_errCode));
+            "processGpioPresenceTag returned false for FRU [" + fruPath +
+            "] Due to error. Reason: " + commonUtility::getErrCodeMsg(errCode));
     }
 
-    if (m_prevPresencePinValue != l_currentPresencePinValue)
+    if (prevPresencePinValue != currentPresencePinValue)
     {
-        m_prevPresencePinValue = l_currentPresencePinValue;
-        handleChangeInGpioPin(l_currentPresencePinValue);
+        prevPresencePinValue = currentPresencePinValue;
+        handleChangeInGpioPin(currentPresencePinValue);
     }
 
-    i_timerObj->expires_at(std::chrono::steady_clock::now() +
-                           std::chrono::seconds(constants::VALUE_5));
-    i_timerObj->async_wait(
+    timerObj->expires_at(std::chrono::steady_clock::now() +
+                         std::chrono::seconds(constants::VALUE_5));
+    timerObj->async_wait(
         boost::bind(&GpioEventHandler::handleTimerExpiry, this,
-                    boost::asio::placeholders::error, i_timerObj));
+                    boost::asio::placeholders::error, timerObj));
 }
 
 void GpioEventHandler::setEventHandlerForGpioPresence(
-    const std::shared_ptr<boost::asio::io_context>& i_ioContext)
+    const std::shared_ptr<boost::asio::io_context>& ioContext)
 {
-    uint16_t l_errCode = 0;
-    m_prevPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_fruPath, "pollingRequired", "hotPlugging", l_errCode);
+    uint16_t errCode = 0;
+    prevPresencePinValue = jsonUtility::processGpioPresenceTag(
+        fruPath, "pollingRequired", "hotPlugging", errCode);
 
-    if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
+    if (errCode && errCode != error_code::DEVICE_NOT_PRESENT)
     {
         Logger::getLoggerInstance()->logMessage(
-            "processGpioPresenceTag returned false for FRU [" + m_fruPath +
-            "] Due to error. Reason: " +
-            commonUtility::getErrCodeMsg(l_errCode));
+            "processGpioPresenceTag returned false for FRU [" + fruPath +
+            "] Due to error. Reason: " + commonUtility::getErrCodeMsg(errCode));
     }
 
-    static std::vector<std::shared_ptr<boost::asio::steady_timer>> l_timers;
+    static std::vector<std::shared_ptr<boost::asio::steady_timer>> timers;
 
-    auto l_timerObj = make_shared<boost::asio::steady_timer>(
-        *i_ioContext, std::chrono::seconds(constants::VALUE_5));
+    auto timerObj = make_shared<boost::asio::steady_timer>(
+        *ioContext, std::chrono::seconds(constants::VALUE_5));
 
-    l_timerObj->async_wait(
+    timerObj->async_wait(
         boost::bind(&GpioEventHandler::handleTimerExpiry, this,
-                    boost::asio::placeholders::error, l_timerObj));
+                    boost::asio::placeholders::error, timerObj));
 
-    l_timers.push_back(l_timerObj);
+    timers.push_back(timerObj);
 }
 
 void GpioMonitor::initHandlerForGpio(
-    const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-    const std::shared_ptr<ConfigManager>& i_configManager)
+    const std::shared_ptr<boost::asio::io_context>& ioContext,
+    const std::shared_ptr<ConfigManager>& configManager)
 {
-    if (!i_configManager)
+    if (!configManager)
     {
         throw std::invalid_argument(
             "Error: Config manager is null, can't process initHandlerForGpio.");
     }
 
-    uint16_t l_errCode = 0;
-    std::vector<std::string> l_gpioPollingRequiredFrusList =
-        jsonUtility::getListOfGpioPollingFrus(l_errCode);
+    uint16_t errCode = 0;
+    std::vector<std::string> gpioPollingRequiredFrusList =
+        jsonUtility::getListOfGpioPollingFrus(errCode);
 
-    if (l_errCode)
+    if (errCode)
     {
         Logger::getLoggerInstance()->logMessage(
             "Failed to get list of frus required for gpio polling. Error : " +
-            commonUtility::getErrCodeMsg(l_errCode));
+            commonUtility::getErrCodeMsg(errCode));
         return;
     }
 
-    for (const auto& l_fruPath : l_gpioPollingRequiredFrusList)
+    for (const auto& fruPath : gpioPollingRequiredFrusList)
     {
-        std::shared_ptr<GpioEventHandler> l_gpioEventHandlerObj =
-            std::make_shared<GpioEventHandler>(l_fruPath, i_configManager,
-                                               i_ioContext);
+        std::shared_ptr<GpioEventHandler> gpioEventHandlerObj =
+            std::make_shared<GpioEventHandler>(fruPath, configManager,
+                                               ioContext);
 
-        m_gpioEventHandlerObjects.push_back(l_gpioEventHandlerObj);
+        gpioEventHandlerObjects.push_back(gpioEventHandlerObj);
     }
 }
 } // namespace vpd
