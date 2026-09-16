@@ -16,6 +16,24 @@
       "message": "We need to log the failure here else the actual failure will get lost behind the error code returned.",
       "revId": "ed3dc05e42d7dc5118d254fbadca603999914109",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b3411e_d9d61273",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-16T12:15:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b92c86_6fd9dea5",
+      "revId": "ed3dc05e42d7dc5118d254fbadca603999914109",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
