@@ -34,48 +34,49 @@ class GpioEventHandler
     /**
      * @brief Constructor
      *
-     * @param[in] i_fruPath - EEPROM path of the FRU.
-     * @param[in] i_configManager - Pointer to Config manager object.
-     * @param[in] i_ioContext - pointer to the io context object.
+     * @param[in] fruPath - EEPROM path of the FRU.
+     * @param[in] configManager - Pointer to Config manager object.
+     * @param[in] ioContext - pointer to the io context object.
      *
      * @throw std::runtime_error
      */
     GpioEventHandler(
-        const std::string i_fruPath,
-        const std::shared_ptr<ConfigManager>& i_configManager,
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext) :
-        m_fruPath(i_fruPath), m_configManager(i_configManager)
+        const std::string fruPath,
+        const std::shared_ptr<ConfigManager>& configManager,
+        const std::shared_ptr<boost::asio::io_context>& ioContext) :
+        fruPath(fruPath), configManager(configManager)
     {
-        if (m_fruPath.empty())
+        if (this->fruPath.empty())
         {
             throw std::invalid_argument(
                 "FRU Path can't be empty for GpioEventHandler instantiation");
         }
 
-        if (!m_configManager)
+        if (!this->configManager)
         {
             throw std::invalid_argument(
                 "ConfigManager cannot be null. It is mandatory for GpioEventHandler instantiation");
         }
 
-        if (!i_ioContext)
+        if (!ioContext)
         {
             throw std::invalid_argument(
                 "ASIO ioContext can not be null. It is mandatory for GpioEventHandle instantiation");
         }
 
-        const auto l_configJsonResult = m_configManager->getJsonObj(m_fruPath);
+        const auto configJsonResult =
+            this->configManager->getJsonObj(this->fruPath);
 
-        if (!l_configJsonResult.has_value())
+        if (!configJsonResult.has_value())
         {
             throw std::runtime_error(std::format(
                 "Path {} not found in JSON, can't instantiate GpioEventHandler. Error: {}",
-                m_fruPath,
-                commonUtility::getErrCodeMsg(l_configJsonResult.error())));
+                this->fruPath,
+                commonUtility::getErrCodeMsg(configJsonResult.error())));
         }
 
-        m_configJson = l_configJsonResult.value().get();
-        setEventHandlerForGpioPresence(i_ioContext);
+        configJson = configJsonResult.value().get();
+        setEventHandlerForGpioPresence(ioContext);
     }
 
   private:
@@ -86,9 +87,9 @@ class GpioEventHandler
      * It performs deletion of FRU VPD if FRU is not present, otherwise performs
      * VPD collection if FRU gets added.
      *
-     * @param[in] i_isFruPresent - Holds the present status of the FRU.
+     * @param[in] isFruPresent - Holds the present status of the FRU.
      */
-    void handleChangeInGpioPin(const bool& i_isFruPresent);
+    void handleChangeInGpioPin(const bool& isFruPresent);
 
     /**
      * @brief An API to set event handler for FRUs GPIO presence.
@@ -96,10 +97,10 @@ class GpioEventHandler
      * An API to set timer to call event handler to detect GPIO presence
      * of the FRU.
      *
-     * @param[in] i_ioContext - pointer to io context object
+     * @param[in] ioContext - pointer to io context object
      */
     void setEventHandlerForGpioPresence(
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext);
+        const std::shared_ptr<boost::asio::io_context>& ioContext);
 
     /**
      * @brief API to handle timer expiry.
@@ -107,21 +108,21 @@ class GpioEventHandler
      * This API handles timer expiry and checks on the GPIO presence state,
      * takes action if there is any change in the GPIO presence value.
      *
-     * @param[in] i_errorCode - Error Code
-     * @param[in] i_timerObj - Pointer to timer Object.
+     * @param[in] errorCode - Error Code
+     * @param[in] timerObj - Pointer to timer Object.
      */
     void handleTimerExpiry(
-        const boost::system::error_code& i_errorCode,
-        const std::shared_ptr<boost::asio::steady_timer>& i_timerObj);
+        const boost::system::error_code& errorCode,
+        const std::shared_ptr<boost::asio::steady_timer>& timerObj);
 
-    const std::string m_fruPath;
-    const std::shared_ptr<ConfigManager>& m_configManager;
+    const std::string fruPath;
+    const std::shared_ptr<ConfigManager>& configManager;
 
     // Preserves the GPIO pin value to compare. Default value is false.
-    bool m_prevPresencePinValue = false;
+    bool prevPresencePinValue = false;
 
     // Chassis based JSON
-    nlohmann::json m_configJson;
+    nlohmann::json configJson;
 };
 
 class GpioMonitor
@@ -137,37 +138,37 @@ class GpioMonitor
     /**
      * @brief constructor
      *
-     * @param[in] i_configManager - pointer to Config manager Object.
-     * @param[in] i_ioContext - pointer to IO context object.
+     * @param[in] configManager - pointer to Config manager Object.
+     * @param[in] ioContext - pointer to IO context object.
      *
      */
     GpioMonitor(
-        const std::shared_ptr<ConfigManager>& i_configManager,
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept
+        const std::shared_ptr<ConfigManager>& configManager,
+        const std::shared_ptr<boost::asio::io_context>& ioContext) noexcept
     {
         try
         {
-            if (!i_configManager)
+            if (!configManager)
             {
                 throw std::invalid_argument(
                     "ConfigManager cannot be null. It is mandatory for GpioMonitor instantiation");
             }
 
-            if (!i_ioContext)
+            if (!ioContext)
             {
                 throw std::invalid_argument(
                     "ASIO ioContext can not be null. It is mandatory for GpioMonitor instantiation");
             }
 
-            initHandlerForGpio(i_ioContext, i_configManager);
+            initHandlerForGpio(ioContext, configManager);
         }
-        catch (const std::exception& l_ex)
+        catch (const std::exception& exception)
         {
             EventLogger::createSyncPel(
                 types::ErrorType::InternalFailure, types::SeverityType::Warning,
                 __FILE__, __FUNCTION__, 0,
                 "Gpio Monitoring can't be instantiated. Error: " +
-                    std::string(l_ex.what()),
+                    std::string(exception.what()),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
     }
@@ -179,16 +180,16 @@ class GpioMonitor
      * This API will extract the GPIO information from system config JSON
      * and instantiate event handler for GPIO pins.
      *
-     * @param[in] i_ioContext - Pointer to IO context object.
-     * @param[in] i_configManager - Pointer to Config manager object.
+     * @param[in] ioContext - Pointer to IO context object.
+     * @param[in] configManager - Pointer to Config manager object.
      *
      * @throw std::runtime_error
      */
     void initHandlerForGpio(
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-        const std::shared_ptr<ConfigManager>& i_configManager);
+        const std::shared_ptr<boost::asio::io_context>& ioContext,
+        const std::shared_ptr<ConfigManager>& configManager);
 
     // Array of event handlers for all the attachable FRUs.
-    std::vector<std::shared_ptr<GpioEventHandler>> m_gpioEventHandlerObjects;
+    std::vector<std::shared_ptr<GpioEventHandler>> gpioEventHandlerObjects;
 };
 } // namespace vpd
