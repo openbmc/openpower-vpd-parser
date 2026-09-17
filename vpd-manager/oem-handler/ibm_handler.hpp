@@ -205,18 +205,6 @@ class IbmHandler
         sdbusplus::message_t& i_msg) const noexcept;
 
     /**
-     * @brief API to update VPD collection status property
-     *
-     * This API updates the VPD collection status property on D-Bus and then
-     * triggers a signal emission to indicate change in the VPD collection
-     * status property
-     *
-     * @param[in] i_status - VPD collection status value
-     */
-    void updateVpdCollectionStatus(
-        const types::VpdCollectionStatus i_status) const noexcept;
-
-    /**
      * @brief API to add or restore the availability property for inventory
      * objects.
      *

@@ -994,14 +994,6 @@ void IbmHandler::collectionStatusChangeCallback(
     }
 }
 
-void IbmHandler::updateVpdCollectionStatus(
-    const types::VpdCollectionStatus i_status) const noexcept
-{
-    m_progressInterface->set_property(
-        "Status",
-        types::CommonProgress::convertOperationStatusToString(i_status));
-}
-
 void IbmHandler::addOrRestoreAvailableProperty(
     types::ObjectMap& io_objectInterfaceMap)
 {
