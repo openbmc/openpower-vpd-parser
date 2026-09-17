@@ -39,10 +39,15 @@ ThreadManager::ThreadManager(
 void ThreadManager::updateOverallCollectionStatus(
     const types::VpdCollectionStatus status) const noexcept
 {
+    if (!progressInterface)
+    {
+        m_logger->logMessage("Progress interface is null!");
+        return;
+    }
+
     progressInterface->set_property(
         "Status",
         types::CommonProgress::convertOperationStatusToString(status));
-    progressInterface->signal_property("Status");
 }
 
 void ThreadManager::collectAllChassisVpd()
