@@ -4,6 +4,8 @@
 #include "types.hpp"
 #include "worker.hpp"
 
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/post.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <atomic>
@@ -46,10 +48,14 @@ class ThreadManager
      * @param[in] configManager - Shared pointer to the configmanager class
      * @param[in] progressInterface - Shared pointer to the D-Bus progress
      * interface for updating VPD collection status
+     * @param[in] ioContext - Shared pointer to the asio io_context; required
+     * to dispatch D-Bus property updates back onto the event-loop thread from
+     * detached worker threads.
      */
     ThreadManager(const std::shared_ptr<ConfigManager>& configManager,
                   const std::shared_ptr<sdbusplus::asio::dbus_interface>&
-                      progressInterface);
+                      progressInterface,
+                  const std::shared_ptr<boost::asio::io_context>& ioContext);
 
     // deleted methods
     ThreadManager(const ThreadManager&) = delete;
@@ -127,9 +133,18 @@ class ThreadManager
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& configManager{nullptr};
 
-    // Shared pointer to progress interface for D-Bus status updates
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface{
-        nullptr};
+    // Shared pointer to progress interface for D-Bus status updates.
+    // Must be a value (not a reference): updateOverallCollectionStatus is
+    // called from a detached background thread, so the interface must be
+    // kept alive by ownership, not by borrowing a reference to someone
+    // else's shared_ptr.
+    std::shared_ptr<sdbusplus::asio::dbus_interface> progressInterface{nullptr};
+
+    // Shared pointer to the asio io_context. Used to post D-Bus property
+    // updates from detached worker threads back onto the event-loop thread,
+    // since sd_bus (and therefore set_property / signal_property) is not
+    // thread-safe.
+    std::shared_ptr<boost::asio::io_context> ioContext{nullptr};
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> logger{nullptr};

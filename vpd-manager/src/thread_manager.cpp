@@ -19,9 +19,10 @@ namespace vpd
 
 ThreadManager::ThreadManager(
     const std::shared_ptr<ConfigManager>& configManager,
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface) :
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface,
+    const std::shared_ptr<boost::asio::io_context>& ioContext) :
     configManager(configManager), progressInterface(progressInterface),
-    logger(Logger::getLoggerInstance())
+    ioContext(ioContext), logger(Logger::getLoggerInstance())
 {
     if (!configManager)
     {
@@ -34,15 +35,27 @@ ThreadManager::ThreadManager(
         throw std::invalid_argument(
             "Progress interface can not be null, it is mandatory for ThreadManager instantiation");
     }
+
+    if (!ioContext)
+    {
+        throw std::invalid_argument(
+            "io_context cannot be null - it is mandatory for ThreadManager instantiation");
+    }
 }
 
 void ThreadManager::updateOverallCollectionStatus(
     const types::VpdCollectionStatus status) const noexcept
 {
-    progressInterface->set_property(
-        "Status",
-        types::CommonProgress::convertOperationStatusToString(status));
-    progressInterface->signal_property("Status");
+    // set_property internally calls signal_property ->
+    // sd_bus_emit_properties_changed, which is not thread-safe. Post the update
+    // onto the asio event-loop thread so it runs on the same thread as all
+    // other sd_bus operations.
+    const std::string statusStr =
+        types::CommonProgress::convertOperationStatusToString(status);
+
+    boost::asio::post(*ioContext, [this, statusStr]() {
+        progressInterface->set_property("Status", statusStr);
+    });
 }
 
 void ThreadManager::collectAllChassisVpd()
