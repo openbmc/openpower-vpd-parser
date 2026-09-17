@@ -139,9 +139,16 @@ Manager::Manager(
 
         // Indicates FRU VPD collection for the system has not started.
         progressiFace->register_property_rw<std::string>(
-            "Status", sdbusplus::vtable::property_::emits_change,
-            [this](const std::string& l_currStatus, const auto&) {
-                m_vpdCollectionStatus = l_currStatus;
+            "Status", std::string(constants::vpdCollectionNotStarted),
+            sdbusplus::vtable::property_::emits_change,
+            [this](const std::string& l_reqStatus,
+                   std::string& l_actualStatus) {
+                // Update the sdbusplus-internal store so that
+                // callback_set_value_instance's change-detection
+                // (oldValue == *value_) works correctly and emits
+                // PropertiesChanged only when the value truly changes.
+                l_actualStatus = l_reqStatus;
+                m_vpdCollectionStatus = l_reqStatus;
                 return true;
             },
             [this](const auto&) { return m_vpdCollectionStatus; });

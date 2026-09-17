@@ -330,7 +330,11 @@ class Manager
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_interface;
 
     // Shared pointer to collection progress interface class.
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_progressInterface;
+    // Must be a value (not a reference) so it extends the lifetime of the
+    // dbus_interface object independent of any caller's stack frame,
+    // particularly for calls made from detached background threads in
+    // ThreadManager.
+    std::shared_ptr<sdbusplus::asio::dbus_interface> m_progressInterface;
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;

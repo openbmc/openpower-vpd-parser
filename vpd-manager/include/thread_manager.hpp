@@ -127,9 +127,12 @@ class ThreadManager
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& configManager{nullptr};
 
-    // Shared pointer to progress interface for D-Bus status updates
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface{
-        nullptr};
+    // Shared pointer to progress interface for D-Bus status updates.
+    // Must be a value (not a reference): updateOverallCollectionStatus is
+    // called from a detached background thread, so the interface must be
+    // kept alive by ownership, not by borrowing a reference to someone
+    // else's shared_ptr.
+    std::shared_ptr<sdbusplus::asio::dbus_interface> progressInterface{nullptr};
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> logger{nullptr};

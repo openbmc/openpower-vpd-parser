@@ -42,7 +42,6 @@ void ThreadManager::updateOverallCollectionStatus(
     progressInterface->set_property(
         "Status",
         types::CommonProgress::convertOperationStatusToString(status));
-    progressInterface->signal_property("Status");
 }
 
 void ThreadManager::collectAllChassisVpd()
