@@ -853,7 +853,6 @@ inline types::BaseActionResult executeBaseAction(
             // Execute gpioPresence if defined and not yet processed
             if (l_tagsJson.contains("gpioPresence") && !l_gpioPresenceProcessed)
             {
-                l_gpioPresenceProcessed = true;
                 uint16_t l_gpioErrorCode = 0;
 
                 // Process GPIO presence pin explicitly.
