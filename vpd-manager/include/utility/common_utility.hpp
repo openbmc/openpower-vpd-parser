@@ -116,15 +116,27 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
 {
     o_errCode = 0;
     std::vector<std::string> l_cmdOutput;
-    std::lock_guard<std::mutex> lock(popen_mutex);
     try
     {
         std::array<char, constants::CMD_BUFFER_LENGTH> l_buffer;
 
         std::string l_cmd = i_path + getCommand(i_args...);
 
-        std::unique_ptr<FILE, decltype(&pclose)> l_cmdPipe(
-            popen(l_cmd.c_str(), "r"), pclose);
+        // Lock only for popen — a non-reentrant call.
+        FILE* l_rawPipe = nullptr;
+        {
+            std::lock_guard<std::mutex> lock(popen_mutex);
+            l_rawPipe = popen(l_cmd.c_str(), "r");
+        }
+
+        // Deleter re-acquires the mutex for pclose — also non-reentrant.
+        auto l_pcloseDeleter = [](FILE* f) {
+            std::lock_guard<std::mutex> lock(popen_mutex);
+            pclose(f);
+        };
+
+        std::unique_ptr<FILE, decltype(l_pcloseDeleter)> l_cmdPipe(
+            l_rawPipe, l_pcloseDeleter);
 
         if (!l_cmdPipe)
         {
@@ -135,6 +147,8 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
             return l_cmdOutput;
         }
 
+        // fgets runs outside the critical section — it blocks on subprocess
+        // I/O and must not hold the mutex while doing so.
         while (fgets(l_buffer.data(), l_buffer.size(), l_cmdPipe.get()) !=
                nullptr)
         {
