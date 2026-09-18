@@ -91,8 +91,8 @@ class ThreadManager
         explicit FruThreadContext(const std::string& chassisEeepromPath,
                                   const nlohmann::json& chassisJson) :
             chassisEeepromPath(chassisEeepromPath), chassisJson(chassisJson),
-            frus(
-                chassisJson["frus"].get_ref<const nlohmann::json::object_t&>()),
+            frus(this->chassisJson["frus"]
+                     .get_ref<const nlohmann::json::object_t&>()),
             fruItr(frus.begin())
         {}
 
