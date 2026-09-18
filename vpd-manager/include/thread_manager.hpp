@@ -91,14 +91,13 @@ class ThreadManager
         explicit FruThreadContext(const std::string& chassisEeepromPath,
                                   const nlohmann::json& chassisJson) :
             chassisEeepromPath(chassisEeepromPath), chassisJson(chassisJson),
-            frus(
-                chassisJson["frus"].get_ref<const nlohmann::json::object_t&>()),
+            frus(this->chassisJson["frus"].get<nlohmann::json::object_t>()),
             fruItr(frus.begin())
         {}
 
         const std::string chassisEeepromPath; // Chassis EEPROM
         const nlohmann::json chassisJson;     // Chassis configuration
-        const nlohmann::json::object_t& frus; // FRU list reference
+        const nlohmann::json::object_t frus;  // FRU list (owned copy)
         nlohmann::json::object_t::const_iterator fruItr; // Shared iterator
         std::mutex fruItrMutex;                          // Iterator protection
     };
