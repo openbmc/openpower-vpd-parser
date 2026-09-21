@@ -254,6 +254,7 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
 int main(int argc, char** argv)
 {
     CLI::App l_app{"VPD Command Line Tool"};
+    l_app.get_formatter()->column_width(50);
 
     std::string l_vpdPath{};
     std::string l_recordName{};
@@ -293,7 +294,8 @@ int main(int argc, char** argv)
 
     auto l_readFlag = l_app.add_flag("--readKeyword, -r", "Read keyword")
                           ->needs(l_objectOption)
-                          ->needs(l_keywordOption);
+                          ->needs(l_keywordOption)
+                          ->group("Operations");
 
     auto l_writeFlag =
         l_app
@@ -301,31 +303,37 @@ int main(int argc, char** argv)
                 "--writeKeyword, -w,--updateKeyword, -u",
                 "Write keyword,\nNote: In case DBus path is provided, both EEPROM and DBus are updated with the given keyword's value.\nIn case EEPROM path is provided, only the given EEPROM is updated with the given keyword's value.")
             ->needs(l_objectOption)
-            ->needs(l_keywordOption);
+            ->needs(l_keywordOption)
+            ->group("Operations");
 
     // ToDo: Take offset value from user for hardware path.
 
     auto l_dumpInventoryFlag =
-        l_app.add_flag("--dumpInventory, -i", "Dump all the inventory objects");
+        l_app.add_flag("--dumpInventory, -i", "Dump all the inventory objects")
+            ->group("Operations");
 
     auto l_dumpInventoryTableFlag =
         l_app.add_flag("--table, -t", "Dump inventory in table format");
 
     auto l_dumpChassisInventoryFlag =
         l_app.add_flag("--chassis, -c", "Dump chassis based inventory")
-            ->needs(l_chassisIdOption);
+            ->needs(l_chassisIdOption)
+            ->group("Operations");
 
     auto l_validateRedundantEepromFlag =
         l_app
             .add_flag("--validateRedundantEeprom, -e",
                       "Validate given EEPROM against its redundant EEPROM")
-            ->needs(l_objectOption);
+            ->needs(l_objectOption)
+            ->group("Operations");
 
     auto l_enterSplitModeFlag =
-        l_app.add_flag("--enterSplitMode", "Sets the system in split mode.");
+        l_app.add_flag("--enterSplitMode", "Sets the system in split mode.")
+            ->group("Operations");
 
     auto l_exitSplitModeFlag =
-        l_app.add_flag("--exitSplitMode", "Exit split mode");
+        l_app.add_flag("--exitSplitMode", "Exit split mode")
+            ->group("Operations");
 
 #if 0
     auto l_dumpObjFlag =
