@@ -1000,7 +1000,6 @@ void IbmHandler::updateVpdCollectionStatus(
     m_progressInterface->set_property(
         "Status",
         types::CommonProgress::convertOperationStatusToString(i_status));
-    m_progressInterface->signal_property("Status");
 }
 
 void IbmHandler::addOrRestoreAvailableProperty(
