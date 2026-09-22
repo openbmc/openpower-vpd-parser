@@ -68,14 +68,11 @@ services = ['service_files/vpd-manager.service']
 if get_option('ibm_system').allowed()
     subdir('vpd-tool')
     subdir('wait-vpd-parser')
-    subdir('pgood-chassis-check')
-
 
     services += [
         'service_files/system-vpd.service',
         'service_files/wait-vpd-parsers.service',
         'service_files/active-to-passive.service',
-        'service_files/pgood-chassis-check.service',
     ]
 
     package_datadir = join_paths('share', 'vpd')
@@ -85,6 +82,11 @@ if get_option('ibm_system').allowed()
         install_dir: package_datadir,
         strip_directory: true,
     )
+endif
+
+if get_option('pgood-chassis-check').allowed()
+    subdir('pgood-chassis-check')
+    services += ['service_files/pgood-chassis-check.service']
 endif
 
 libgpiodcxx = dependency(

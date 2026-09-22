@@ -66,6 +66,12 @@ option(
     description: 'Enable code specific to IBM systems.',
 )
 option(
+    'pgood-chassis-check',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Build and install pgood-chassis-check (pstbmc only).',
+)
+option(
     'skip_reboot_on_fitconfig_change',
     type: 'feature',
     value: 'disabled',
