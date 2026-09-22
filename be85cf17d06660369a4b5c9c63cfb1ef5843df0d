@@ -39,6 +39,48 @@
       },
       "revId": "be85cf17d06660369a4b5c9c63cfb1ef5843df0d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdec3fdc_897c11d9",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-22T09:42:20Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "6321343d_251accd1",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 22
+      },
+      "revId": "be85cf17d06660369a4b5c9c63cfb1ef5843df0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c96d855_b4c854cb",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-22T09:42:20Z",
+      "side": 1,
+      "message": "Addressed. Changed to a local variable.",
+      "parentUuid": "c0bd8fc5_3c9851c1",
+      "revId": "be85cf17d06660369a4b5c9c63cfb1ef5843df0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
