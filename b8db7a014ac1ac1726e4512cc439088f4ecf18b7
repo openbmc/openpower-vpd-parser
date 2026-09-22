@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84faedc_ed4d4051",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-22T06:53:55Z",
+      "side": 1,
+      "message": "Merging the commit as an emergency patch as upstream CI is failing for the service check.",
+      "revId": "b8db7a014ac1ac1726e4512cc439088f4ecf18b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
