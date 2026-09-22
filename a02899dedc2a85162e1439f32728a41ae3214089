@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e388beff_cf3e4109",
+        "filename": "vpd-tool/include/tool_help.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-22T08:42:23Z",
+      "side": 1,
+      "message": "Instead of all the change pushed as stub. Push with one which will be implemented first and rest of the implementation can be added as required in future.",
+      "revId": "a02899dedc2a85162e1439f32728a41ae3214089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
