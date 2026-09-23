@@ -16,6 +16,24 @@
       "message": "Instead of all the change pushed as stub. Push with one which will be implemented first and rest of the implementation can be added as required in future.",
       "revId": "a02899dedc2a85162e1439f32728a41ae3214089",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd6ba1b_6ac5c0d9",
+        "filename": "vpd-tool/include/tool_help.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-23T15:44:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e388beff_cf3e4109",
+      "revId": "a02899dedc2a85162e1439f32728a41ae3214089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
