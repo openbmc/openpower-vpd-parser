@@ -16,6 +16,24 @@
       "message": "is interface a file path .",
       "revId": "1bfb2894d709a3f1bdc2d9544edf1089ff0de477",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aab6973_94c90a6a",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-23T08:37:41Z",
+      "side": 1,
+      "message": "Yes. Addressed.",
+      "parentUuid": "6d0275cd_c18e122a",
+      "revId": "1bfb2894d709a3f1bdc2d9544edf1089ff0de477",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
