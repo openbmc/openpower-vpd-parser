@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53bee16e_b2ee0bfc",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-24T09:48:10Z",
+      "side": 1,
+      "message": "Communicate user to give an option before exiting.",
+      "revId": "025638c41854ec5a54d32fca4969d569111fa2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
