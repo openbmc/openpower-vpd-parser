@@ -30,33 +30,33 @@ class IbmHandler
     /**
      * @brief Constructor.
      *
-     * @param[in] o_backupAndRestoreObj - Ref to back up and restore class
+     * @param[in] backupAndRestoreObj - Ref to back up and restore class
      * object.
-     * @param[in] i_iFace - interface to implement.
-     * @param[in] i_progressiFace - Interface to track collection progress.
-     * @param[in] i_ioCon - IO context.
-     * @param[in] i_asioConnection - Dbus Connection.
-     * @param[in] i_vpdCollectionMode - VPD collection mode.
+     * @param[in] iFace - interface to implement.
+     * @param[in] progressIFace - Interface to track collection progress.
+     * @param[in] ioCon - IO context.
+     * @param[in] asioConnection - Dbus Connection.
+     * @param[in] vpdCollectionMode - VPD collection mode.
      */
     IbmHandler(
-        std::shared_ptr<BackupAndRestore>& o_backupAndRestoreObj,
-        const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
-        const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
-        const std::shared_ptr<boost::asio::io_context>& i_ioCon,
-        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-        const types::VpdCollectionMode& i_vpdCollectionMode);
+        std::shared_ptr<BackupAndRestore>& backupAndRestoreObj,
+        const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+        const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressIFace,
+        const std::shared_ptr<boost::asio::io_context>& ioCon,
+        const std::shared_ptr<sdbusplus::asio::connection>& asioConnection,
+        const types::VpdCollectionMode& vpdCollectionMode);
 
     /**
      * @brief API to register listener objects.
      *
-     * @param[in] i_eventListener - shared pointer to Listener object
+     * @param[in] eventListener - shared pointer to Listener object
      */
     void initIbmListenerObject(
-        std::shared_ptr<Listener>& i_eventListener) noexcept;
+        std::shared_ptr<Listener>& eventListener) noexcept;
 
   private:
     /**
-     * @brief API tocollect system VPD and set appropriate device tree and JSON.
+     * @brief API to collect system VPD and set appropriate device tree and JSON.
      *
      * This API based on system chooses corresponding device tree and JSON.
      * If device tree change is required, it updates the "fitconfig" and reboots
@@ -64,11 +64,11 @@ class IbmHandler
      *
      * @throw std::exception
      *
-     * @param[in] i_fruPath - System VPD EEPROM path.
-     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
+     * @param[in] fruPath - System VPD EEPROM path.
+     * @param[out] parsedSystemVpdMap - Parsed system VPD map.
      */
-    void setDeviceTreeAndJson(const std::string& i_fruPath,
-                              types::VPDMapVariant& o_parsedSystemVpdMap);
+    void setDeviceTreeAndJson(const std::string& fruPath,
+                              types::VPDMapVariant& parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
@@ -76,7 +76,7 @@ class IbmHandler
      * System vpd can be cached either in cache or some other location. The
      * information is extracted from system config json.
      *
-     * @return True if the location is cache, fale otherwise.
+     * @return True if the location is cache, false otherwise.
      */
     bool isBackupOnCache();
 
@@ -89,18 +89,18 @@ class IbmHandler
      *
      * @throw DataException, std::exception
      *
-     * @param[out] o_systemJson - System JSON name.
-     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     * @param[out] systemJson - System JSON name.
+     * @param[in] parsedVpdMap - Parsed VPD map.
      */
-    void getSystemJson(std::string& o_systemJson,
-                       const types::VPDMapVariant& i_parsedVpdMap);
+    void getSystemJson(std::string& systemJson,
+                       const types::VPDMapVariant& parsedVpdMap);
 
     /**
      * @brief An API to perform backup or restore of VPD.
      *
-     * @param[in,out] io_srcVpdMap - Source VPD map.
+     * @param[in,out] srcVpdMap - Source VPD map.
      */
-    void performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap);
+    void performBackupAndRestore(types::VPDMapVariant& srcVpdMap);
 
     /**
      *  @brief An API to parse and publish system VPD on D-Bus.
@@ -109,19 +109,19 @@ class IbmHandler
      *
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      */
-    void publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap);
+    void publishSystemVPD(const types::VPDMapVariant& parsedVpdMap);
 
     /**
      * @brief API to form asset tag string for the system.
      *
-     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     * @param[in] parsedVpdMap - Parsed VPD map.
      *
      * @throw std::runtime_error
      *
      * @return - Formed asset tag string.
      */
     std::string createAssetTagString(
-        const types::VPDMapVariant& i_parsedVpdMap);
+        const types::VPDMapVariant& parsedVpdMap);
 
     /**
      * @brief Reset data under non system inventory paths
@@ -129,11 +129,11 @@ class IbmHandler
      * This method updates the object map containing system inventory to reset
      * data under all inventory paths other than system inventory path.
      *
-     * @param[in,out] io_objectMap - Object map to be filtered. On success, it
+     * @param[in,out] objectMap - Object map to be filtered. On success, it
      * contains the updated map with data under all inventory paths other than
      * system inventory path reset to default values.
      */
-    void resetNonSystemInvPaths(types::ObjectMap& io_objectMap) const noexcept;
+    void resetNonSystemInvPaths(types::ObjectMap& objectMap) const noexcept;
 
     /**
      * @brief API to perform initial setup before manager claims Bus name.
@@ -161,24 +161,24 @@ class IbmHandler
 
     /** @brief API to set symbolic link for system config JSON.
      *
-     * Once correct device tree is set, symbolic link to the correct sytsem
+     * Once correct device tree is set, symbolic link to the correct system
      * config JSON is set to be used in subsequent BMC boot.
      *
      * @throws std::runtime_error
      *
-     * @param[in] i_systemJson - system config JSON.
+     * @param[in] systemJson - system config JSON.
      */
-    void setJsonSymbolicLink(const std::string& i_systemJson);
+    void setJsonSymbolicLink(const std::string& systemJson);
 
     /**
      * @brief API to set environment variable and reboot the BMC
      *
-     * @param[in] i_key - Name of the environment variable
-     * @param[in] i_value - Value of the environment variable
+     * @param[in] key - Name of the environment variable
+     * @param[in] value - Value of the environment variable
      *
      * @throw std::runtime_error
      */
-    void setEnvAndReboot(const std::string& i_key, const std::string& i_value);
+    void setEnvAndReboot(const std::string& key, const std::string& value);
 
     /**
      * @brief API to read the fitconfig environment variable
@@ -199,10 +199,10 @@ class IbmHandler
      * This listener is registered by IBM handler to watch collection status
      * updates.
      *
-     * @param[in] i_msg - Callback message.
+     * @param[in] msg - Callback message.
      */
     void collectionStatusChangeCallback(
-        sdbusplus::message_t& i_msg) const noexcept;
+        sdbusplus::message_t& msg) const noexcept;
 
     /**
      * @brief API to update VPD collection status property
@@ -211,10 +211,10 @@ class IbmHandler
      * triggers a signal emission to indicate change in the VPD collection
      * status property
      *
-     * @param[in] i_status - VPD collection status value
+     * @param[in] status - VPD collection status value
      */
     void updateVpdCollectionStatus(
-        const types::VpdCollectionStatus i_status) const noexcept;
+        const types::VpdCollectionStatus status) const noexcept;
 
     /**
      * @brief API to add or restore the availability property for inventory
@@ -224,9 +224,9 @@ class IbmHandler
      * checks if the availability property already exists under PIM. If not,
      * it populates the property with default value "false".
      *
-     * @param[in,out] io_objectInterfaceMap - Object interface map to update.
+     * @param[in,out] objectInterfaceMap - Object interface map to update.
      */
-    void addOrRestoreAvailableProperty(types::ObjectMap& io_objectInterfaceMap);
+    void addOrRestoreAvailableProperty(types::ObjectMap& objectInterfaceMap);
 
     /**
      * @brief API to validate the VPD collection mode.
@@ -244,7 +244,7 @@ class IbmHandler
      * This API handles ReadyToRemove interface property for BMC. ReadyToRemove
      * property is used by Concurrent Maintenance flow to identify whether a FRU
      * is ready to be replaced. On redundant BMC systems, only Passive BMC is
-     * concurrently maintenable and hence only Passive BMC should have the
+     * concurrently maintainable and hence only Passive BMC should have the
      * ReadyToRemove property.
      *
      * @return - On success returns 0, otherwise returns -1
@@ -252,39 +252,39 @@ class IbmHandler
     int handleBmcReadyToRemove() const noexcept;
 
     // Parsed system config json object.
-    nlohmann::json m_sysCfgJsonObj{};
+    nlohmann::json sysCfgJsonObj{};
 
     // Shared pointer to backup and restore object.
-    std::shared_ptr<BackupAndRestore>& m_backupAndRestoreObj;
+    std::shared_ptr<BackupAndRestore>& backupAndRestoreObj;
 
     // Shared pointer to Dbus interface class.
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_interface;
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& interface;
 
     // Shared pointer to Dbus collection progress interface class.
-    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_progressInterface;
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressInterface;
 
     // Shared pointer to asio context object.
-    const std::shared_ptr<boost::asio::io_context>& m_ioContext;
+    const std::shared_ptr<boost::asio::io_context>& ioContext;
 
     // Shared pointer to bus connection.
-    const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConnection;
 
     // Shared pointer to Listener object.
-    std::shared_ptr<Listener> m_eventListener;
+    std::shared_ptr<Listener> eventListener;
 
     // Shared pointer to Logger object.
-    std::shared_ptr<Logger> m_logger;
+    std::shared_ptr<Logger> logger;
 
     // vpd collection mode
-    const types::VpdCollectionMode m_vpdCollectionMode;
+    const types::VpdCollectionMode vpdCollectionMode;
 
-    // Holds if sysmlink to config JSON is present or not.
-    bool m_isSymlinkPresent = false;
+    // Holds if symlink to config JSON is present or not.
+    bool symlinkPresent = false;
 
     // Holds path to the config JSON being used.
-    std::string m_configJsonPath{INVENTORY_JSON_DEFAULT};
+    std::string configJsonPath{INVENTORY_JSON_DEFAULT};
 
     // To distinguish the factory reset path.
-    bool m_isFactoryResetDone = false;
+    bool isFactoryResetDone = false;
 };
 } // namespace vpd
