@@ -256,8 +256,8 @@ void IbmHandler::getSystemJson(std::string& systemJson,
         const types::HWVerList hwVersionList = itrToIm->second.second;
         if (!hwVersionList.empty())
         {
-            transform(hwKwdValue.begin(), hwKwdValue.end(),
-                      hwKwdValue.begin(), ::toupper);
+            transform(hwKwdValue.begin(), hwKwdValue.end(), hwKwdValue.begin(),
+                      ::toupper);
 
             auto itrToHw =
                 std::find_if(hwVersionList.begin(), hwVersionList.end(),
@@ -269,8 +269,8 @@ void IbmHandler::getSystemJson(std::string& systemJson,
             {
                 if (!(*itrToHw).second.empty())
                 {
-                    systemJson += (*itrToIm).first + "_" +
-                                  (*itrToHw).second + ".json";
+                    systemJson += (*itrToIm).first + "_" + (*itrToHw).second +
+                                  ".json";
                 }
                 else
                 {
@@ -297,8 +297,8 @@ void IbmHandler::setEnvAndReboot(const std::string& key,
     if (errCode)
     {
         throw std::runtime_error(
-            "Failed to execute command [/sbin/fw_setenv " + key + " " +
-            value + "], error : " + commonUtility::getErrCodeMsg(errCode));
+            "Failed to execute command [/sbin/fw_setenv " + key + " " + value +
+            "], error : " + commonUtility::getErrCodeMsg(errCode));
     }
 
 #ifdef SKIP_REBOOT_ON_FITCONFIG_CHANGE
@@ -365,8 +365,7 @@ bool IbmHandler::isBackupOnCache()
         }
 
         nlohmann::json backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(backupAndRestoreCfgFilePath,
-                                       errCode);
+            jsonUtility::getParsedJson(backupAndRestoreCfgFilePath, errCode);
         if (backupAndRestoreCfgJsonObj.empty() || errCode)
         {
             logger->logMessage(
@@ -381,8 +380,7 @@ bool IbmHandler::isBackupOnCache()
         // and other copy on D-Bus (BMC cache).
         if (!backupAndRestoreCfgJsonObj.empty() &&
             ((backupAndRestoreCfgJsonObj.contains("source") &&
-              backupAndRestoreCfgJsonObj["source"].contains(
-                  "inventoryPath")) ||
+              backupAndRestoreCfgJsonObj["source"].contains("inventoryPath")) ||
              (backupAndRestoreCfgJsonObj.contains("destination") &&
               backupAndRestoreCfgJsonObj["destination"].contains(
                   "inventoryPath"))))
@@ -405,8 +403,7 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& srcVpdMap)
 {
     try
     {
-        backupAndRestoreObj =
-            std::make_shared<BackupAndRestore>(sysCfgJsonObj);
+        backupAndRestoreObj = std::make_shared<BackupAndRestore>(sysCfgJsonObj);
         auto [srcVpdVariant,
               dstVpdVariant] = backupAndRestoreObj->backupAndRestore();
 
@@ -462,8 +459,8 @@ std::string IbmHandler::createAssetTagString(
                     std::string("] while creating Asset tag. Error : " +
                                 commonUtility::getErrCodeMsg(errCode)));
             }
-            assetTag = std::string{"Server-"} + tmKwdValue +
-                       std::string{"-"} + seKwdValue;
+            assetTag = std::string{"Server-"} + tmKwdValue + std::string{"-"} +
+                       seKwdValue;
         }
         else
         {
@@ -484,8 +481,8 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
     types::ObjectMap objectInterfaceMap;
     if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
-        Worker{}.populateDbus(sysCfgJsonObj, parsedVpdMap,
-                              objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
+        Worker{}.populateDbus(sysCfgJsonObj, parsedVpdMap, objectInterfaceMap,
+                              SYSTEM_VPD_FILE_PATH);
 
         // In split mode system, file mode system VPD has to be enabled.
         // Update system inventory for split mode
@@ -602,8 +599,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
     }
 
     // create a new symlink based on the system
-    std::filesystem::create_symlink(systemJson, INVENTORY_JSON_SYM_LINK,
-                                    ec);
+    std::filesystem::create_symlink(systemJson, INVENTORY_JSON_SYM_LINK, ec);
     if (ec)
     {
         throw std::runtime_error(
@@ -619,8 +615,8 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
     isFactoryResetDone = true;
 }
 
-void IbmHandler::setDeviceTreeAndJson(
-    const std::string& fruPath, types::VPDMapVariant& parsedSystemVpdMap)
+void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
+                                      types::VPDMapVariant& parsedSystemVpdMap)
 {
     // JSON is mandatory for processing of this API.
     if (sysCfgJsonObj.empty())
@@ -669,8 +665,7 @@ void IbmHandler::setDeviceTreeAndJson(
             throw EepromException(error);
         }
 
-        const std::string& redundantEepromPath{
-            REDUNDANT_SYSTEM_VPD_FILE_PATH};
+        const std::string& redundantEepromPath{REDUNDANT_SYSTEM_VPD_FILE_PATH};
 
         if (redundantEepromPath.empty() || redundantEepromPath == fruPath)
         {
@@ -696,10 +691,9 @@ void IbmHandler::setDeviceTreeAndJson(
         // TODO: Replace with a device callout once the corresponding API
         // is implemented.
         logger->logMessage(
-            error +
-                std::format(
-                    " Successfully collected VPD from redundant path [{}].",
-                    fruPath),
+            error + std::format(
+                        " Successfully collected VPD from redundant path [{}].",
+                        fruPath),
             PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
             types::PelInfoTuple{
                 types::ErrorType::FirmwareError, types::SeverityType::Warning,
@@ -738,8 +732,8 @@ void IbmHandler::setDeviceTreeAndJson(
     if (errCode)
     {
         logger->logMessage("Failed to set collection status for path " +
-                           std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " +
-                           commonUtility::getErrCodeMsg(errCode));
+                           std::string(SYSTEM_VPD_FILE_PATH) +
+                           "Reason: " + commonUtility::getErrCodeMsg(errCode));
     }
 
     std::vector<std::string> devTreesFromJson;
@@ -772,11 +766,11 @@ void IbmHandler::setDeviceTreeAndJson(
     auto fitConfigVal = readFitConfigValue();
 
     // Check if any of the device trees from JSON is already set in fitconfig.
-    const bool devTreeAlreadySet = std::any_of(
-        devTreesFromJson.begin(), devTreesFromJson.end(),
-        [&fitConfigVal](const std::string& devTree) {
-            return fitConfigVal.find(devTree) != std::string::npos;
-        });
+    const bool devTreeAlreadySet =
+        std::any_of(devTreesFromJson.begin(), devTreesFromJson.end(),
+                    [&fitConfigVal](const std::string& devTree) {
+                        return fitConfigVal.find(devTree) != std::string::npos;
+                    });
 
     if (devTreesFromJson.empty() || devTreeAlreadySet)
     {
@@ -804,8 +798,7 @@ void IbmHandler::setDeviceTreeAndJson(
 
         // TODO: for backward compatibility this should also support motherboard
         // interface.
-        std::vector<std::string> interfaceList{
-            constants::motherboardInterface};
+        std::vector<std::string> interfaceList{constants::motherboardInterface};
         const types::MapperGetObject& sysVpdObjMap =
             dbusUtility::getObjectMap(sysVpdInvPath, interfaceList);
 
@@ -843,8 +836,7 @@ void IbmHandler::performInitialSetup()
     uint16_t errCode = 0;
     try
     {
-        sysCfgJsonObj =
-            jsonUtility::getParsedJson(configJsonPath, errCode);
+        sysCfgJsonObj = jsonUtility::getParsedJson(configJsonPath, errCode);
 
         if (errCode)
         {
@@ -866,10 +858,9 @@ void IbmHandler::performInitialSetup()
 
         if (errCode)
         {
-            logger->logMessage(
-                "Failed to set collection status for path " +
-                std::string(SYSTEM_VPD_FILE_PATH) +
-                "Reason: " + commonUtility::getErrCodeMsg(errCode));
+            logger->logMessage("Failed to set collection status for path " +
+                               std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " +
+                               commonUtility::getErrCodeMsg(errCode));
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -890,10 +881,9 @@ void IbmHandler::performInitialSetup()
 
         if (errCode)
         {
-            logger->logMessage(
-                "Failed to set collection status for path " +
-                std::string(SYSTEM_VPD_FILE_PATH) +
-                "Reason: " + commonUtility::getErrCodeMsg(errCode));
+            logger->logMessage("Failed to set collection status for path " +
+                               std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " +
+                               commonUtility::getErrCodeMsg(errCode));
         }
 
         // Any issue in system's initial set up is handled in this catch. Error
@@ -1014,11 +1004,11 @@ void IbmHandler::addOrRestoreAvailableProperty(
                 inventoryPath.str, {constants::availabilityInf});
 
             // If property exists under PIM, skip this inventory path
-            auto it =
-                std::find_if(mapperObjectMap.begin(), mapperObjectMap.end(),
-                             [](const auto& pair) {
-                                 return pair.first == constants::pimServiceName;
-                             });
+            auto it = std::find_if(mapperObjectMap.begin(),
+                                   mapperObjectMap.end(), [](const auto& pair) {
+                                       return pair.first ==
+                                              constants::pimServiceName;
+                                   });
             if (it != mapperObjectMap.end())
             {
                 // The object is already under PIM. No need to process
@@ -1063,8 +1053,8 @@ void IbmHandler::resetNonSystemInvPaths(
             uint16_t errCode = 0;
             types::InterfaceMap resetInterfaceMap;
 
-            vpdSpecificUtility::resetDataUnderPIM(
-                path.str, resetInterfaceMap, true, errCode);
+            vpdSpecificUtility::resetDataUnderPIM(path.str, resetInterfaceMap,
+                                                  true, errCode);
 
             if (errCode)
             {
@@ -1191,8 +1181,7 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
                 constants::pimServiceName, bmcInvPath.str,
                 constants::positionInterface, constants::positionPropertyName);
 
-            if (const auto* position =
-                    std::get_if<size_t>(&positionVariant))
+            if (const auto* position = std::get_if<size_t>(&positionVariant))
             {
                 if (*position == siblingPosition)
                 {
@@ -1232,8 +1221,9 @@ int IbmHandler::handleBmcReadyToRemove() const noexcept
     }
     catch (const std::exception& exception)
     {
-        logger->logMessage(std::format(
-            "Failed to handle ReadyToRemove property. Error: {}", exception.what()));
+        logger->logMessage(
+            std::format("Failed to handle ReadyToRemove property. Error: {}",
+                        exception.what()));
     }
     return retVal;
 }
