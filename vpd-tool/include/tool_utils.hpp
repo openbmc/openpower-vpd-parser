@@ -733,6 +733,9 @@ class Table
     // Separator character to be used between columns
     char m_separator;
 
+    // Flag to control left alignment (true) or centre alignment (false)
+    bool m_leftAlign;
+
     // Array of columns
     std::vector<Column> m_columns;
 
@@ -756,20 +759,79 @@ class Table
     /**
      * @brief API to Print Horizontal Line
      *
-     * A horizontal line is a sequence of '*'s.
+     * A horizontal line is a sequence of '-'s.
      *
      * @throw std::out_of_range, std::length_error, std::bad_alloc
      */
     void PrintHorizontalLine() const
     {
-        std::cout << std::string(m_currentWidth, '*') << std::endl;
+        std::cout << std::string(m_currentWidth, '-') << std::endl;
+    }
+
+    /**
+     * @brief API to wrap text into lines that fit within a column width.
+     *
+     * Splits i_text into lines of at most (i_columnWidth - 2) characters,
+     * breaking on word boundaries where possible.
+     *
+     * @param[in] i_text        - Text to wrap.
+     * @param[in] i_columnWidth - Available column width (including padding).
+     *
+     * @return Vector of wrapped lines.
+     *
+     * @throw std::out_of_range, std::length_error, std::bad_alloc
+     */
+    std::vector<std::string> WrapText(const std::string& i_text,
+                                      std::size_t i_columnWidth) const
+    {
+        // Reserve space for the leading and trailing column separators.
+        const std::size_t l_maxChars = i_columnWidth > constants::VALUE_2
+                                           ? i_columnWidth - constants::VALUE_2
+                                           : constants::VALUE_1;
+
+        if (i_text.empty() || i_text.size() <= l_maxChars)
+        {
+            return {i_text};
+        }
+
+        std::vector<std::string> l_lines;
+        std::size_t l_pos{0};
+
+        while (l_pos < i_text.size())
+        {
+            const std::size_t l_remaining = i_text.size() - l_pos;
+            std::string_view l_chunk{i_text.data() + l_pos,
+                                     std::min(l_maxChars, l_remaining)};
+
+            // Prefer breaking at a word boundary when the text exceeds
+            // the available column width.
+            if (l_chunk.size() == l_maxChars &&
+                l_pos + l_chunk.size() < i_text.size())
+            {
+                if (const auto l_lastSpace = l_chunk.rfind(' ');
+                    l_lastSpace != std::string_view::npos && l_lastSpace > 0)
+                {
+                    l_chunk = l_chunk.substr(0, l_lastSpace);
+                }
+                // For paths or other slash-separated values, break after '/'.
+                else if (const auto l_lastSlash = l_chunk.rfind('/');
+                         l_lastSlash != std::string_view::npos)
+                {
+                    l_chunk = l_chunk.substr(0, l_lastSlash + 1);
+                }
+            }
+
+            l_lines.emplace_back(l_chunk);
+            l_pos += l_chunk.size();
+        }
+        return l_lines;
     }
 
     /**
      * @brief API to print an entry in the table
      *
      * An entry is a separator character followed by the text to print.
-     * The text is centre-aligned.
+     * Alignment (centre or left) is controlled by m_leftAlign.
      *
      * @param[in] i_text - text to print
      * @param[in] i_columnWidth - width of the column
@@ -780,18 +842,32 @@ class Table
     {
         const std::size_t l_textLength{i_text.length()};
 
-        constexpr std::size_t l_minFillChars{3};
-        const std::size_t l_numFillChars =
-            ((l_textLength >= i_columnWidth ? l_minFillChars
-                                            : i_columnWidth - l_textLength)) -
-            1; // -1 for the separator character
+        // total fill = column width - text length, minimum 2 (1 lead + 1 trail)
+        // subtract 1 for the separator character printed before the cell
+        constexpr std::size_t l_minFillChars{2};
+        const std::size_t l_totalFill =
+            (l_textLength >= i_columnWidth ? l_minFillChars
+                                           : i_columnWidth - l_textLength) -
+            constants::VALUE_1; // -1 for the separator character
 
-        const unsigned l_oddFill = l_numFillChars % 2;
-
-        std::cout << m_separator
-                  << std::string((l_numFillChars / 2) + l_oddFill,
-                                 m_fillCharacter)
-                  << i_text << std::string(l_numFillChars / 2, m_fillCharacter);
+        if (m_leftAlign)
+        {
+            // 1 leading space already printed; remaining fill goes on the right
+            // guard against underflow: if l_totalFill is 0, right pad is 0
+            const std::size_t l_rightPad =
+                l_totalFill > constants::VALUE_1
+                    ? l_totalFill - constants::VALUE_1
+                    : constants::VALUE_0;
+            std::cout << m_separator << m_fillCharacter << i_text
+                      << std::string(l_rightPad, m_fillCharacter);
+        }
+        else
+        {
+            const std::size_t l_half = l_totalFill / 2;
+            std::cout << m_separator
+                      << std::string(l_totalFill - l_half, m_fillCharacter)
+                      << i_text << std::string(l_half, m_fillCharacter);
+        }
     }
 
   public:
@@ -800,11 +876,18 @@ class Table
      *
      * Parameterized constructor for a Table object
      *
+     * @param[in] i_fillCharacter - Character used to pad columns (default: '
+     * ').
+     * @param[in] i_separator     - Character used to separate columns (default:
+     * '|').
+     * @param[in] i_leftAlign     - If true, text is left-aligned; otherwise
+     *                              centre-aligned (default: false).
      */
     constexpr explicit Table(const char i_fillCharacter = ' ',
-                             const char i_separator = '|') noexcept :
+                             const char i_separator = '|',
+                             const bool i_leftAlign = false) noexcept :
         m_currentWidth{0}, m_fillCharacter{i_fillCharacter},
-        m_separator{i_separator}
+        m_separator{i_separator}, m_leftAlign{i_leftAlign}
     {}
 
     // deleted methods
@@ -836,41 +919,74 @@ class Table
     /**
      * @brief API to print the Table to console.
      *
-     * This API prints the table data to console.
+     * This API prints the table data to console. Text that exceeds a column's
+     * width is automatically wrapped onto continuation lines, keeping all
+     * columns aligned.
      *
-     * @param[in] i_tableData - The data to be printed.
+     * @param[in] i_tableData    - The data to be printed.
+     * @param[in] i_rowSeparator - If true, a dashed separator line is printed
+     *                             after each row (default: false).
      *
      * @return On success returns 0, otherwise returns -1.
      *
      * @throw std::out_of_range, std::length_error, std::bad_alloc
      */
-    int Print(const types::TableInputData& i_tableData) const
+    int Print(const types::TableInputData& i_tableData,
+              const bool i_rowSeparator = false) const
     {
         PrintHorizontalLine();
         PrintHeader();
         PrintHorizontalLine();
 
-        // print the table data
         for (const auto& l_row : i_tableData)
         {
-            unsigned l_columnNumber{0};
-
-            // number of columns in input data is greater than the number of
-            // columns specified in Table
             if (l_row.size() > m_columns.size())
             {
                 return constants::FAILURE;
             }
 
-            for (const auto& l_entry : l_row)
-            {
-                PrintEntry(l_entry, m_columns[l_columnNumber].Width());
+            // wrap each cell's text into lines that fit the column width
+            std::vector<std::vector<std::string>> l_wrappedCells;
+            l_wrappedCells.reserve(m_columns.size());
 
-                ++l_columnNumber;
+            std::size_t l_maxLines{1};
+            for (std::size_t l_col = 0; l_col < m_columns.size(); ++l_col)
+            {
+                const std::string& l_text =
+                    l_col < l_row.size() ? l_row[l_col] : "";
+                auto l_lines = WrapText(l_text, m_columns[l_col].Width());
+                l_maxLines = std::max(l_maxLines, l_lines.size());
+                l_wrappedCells.push_back(std::move(l_lines));
             }
-            std::cout << m_separator << std::endl;
+
+            // print one screen-line per wrapped line, padding shorter cells
+            for (std::size_t l_line = 0; l_line < l_maxLines; ++l_line)
+            {
+                for (std::size_t l_col = 0; l_col < m_columns.size(); ++l_col)
+                {
+                    const std::string& l_text =
+                        l_line < l_wrappedCells[l_col].size()
+                            ? l_wrappedCells[l_col][l_line]
+                            : "";
+                    PrintEntry(l_text, m_columns[l_col].Width());
+                }
+                std::cout << m_separator << std::endl;
+            }
+
+            if (i_rowSeparator)
+            {
+                PrintHorizontalLine();
+            }
         }
-        PrintHorizontalLine();
+
+        // when i_rowSeparator is true every row already received its own
+        // horizontal line above, so the table is already closed; when false,
+        // print the single closing border now.
+        if (!i_rowSeparator)
+        {
+            PrintHorizontalLine();
+        }
+
         return constants::SUCCESS;
     }
 };
