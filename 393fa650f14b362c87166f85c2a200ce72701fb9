@@ -16,6 +16,24 @@
       "message": "\u0027if help is executed\u0027 would be enough ? as just help or operation-specific help can be called ?",
       "revId": "393fa650f14b362c87166f85c2a200ce72701fb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd08e1d3_4e90dff1",
+        "filename": "vpd-tool/include/tool_help.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-09-28T07:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea04c18_14a2b26f",
+      "revId": "393fa650f14b362c87166f85c2a200ce72701fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
