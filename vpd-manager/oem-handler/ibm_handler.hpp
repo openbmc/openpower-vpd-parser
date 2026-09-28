@@ -56,7 +56,8 @@ class IbmHandler
 
   private:
     /**
-     * @brief API to collect system VPD and set appropriate device tree and JSON.
+     * @brief API to collect system VPD and set appropriate device tree and
+     * JSON.
      *
      * This API based on system chooses corresponding device tree and JSON.
      * If device tree change is required, it updates the "fitconfig" and reboots
@@ -120,8 +121,7 @@ class IbmHandler
      *
      * @return - Formed asset tag string.
      */
-    std::string createAssetTagString(
-        const types::VPDMapVariant& parsedVpdMap);
+    std::string createAssetTagString(const types::VPDMapVariant& parsedVpdMap);
 
     /**
      * @brief Reset data under non system inventory paths
