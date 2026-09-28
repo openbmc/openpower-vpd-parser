@@ -1,5 +1,7 @@
 #include "tool_help.hpp"
 
+#include "tool_utils.hpp"
+
 #include <algorithm>
 #include <functional>
 #include <iostream>
@@ -69,8 +71,9 @@ void VpdToolHelp::printGenericHelp() const noexcept
         << "Use 'vpd-tool <operation> --help' for more information on a specific operation.\n";
 }
 
-void VpdToolHelp::printWriteKeywordHelp() const noexcept
+void VpdToolHelp::printWriteKeywordHelp() const
 {
-    // TODO - print write keyword help
+    // TODO - Print write keyword help in tabular format using utils::Table
+    // class
 }
 } // namespace vpd
