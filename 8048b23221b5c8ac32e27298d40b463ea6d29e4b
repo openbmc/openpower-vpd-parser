@@ -34,6 +34,24 @@
       "parentUuid": "df5009d6_6e5a7062",
       "revId": "8048b23221b5c8ac32e27298d40b463ea6d29e4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c80901_0d244a03",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-09-29T06:19:00Z",
+      "side": 1,
+      "message": "This API is meant for reading property from PIM backup file. I don\u0027t see any other scenario where we would want to read a D-Bus property from file. In all other scenarios, we should be reading property from D-Bus.",
+      "parentUuid": "b16a2ad9_72409293",
+      "revId": "8048b23221b5c8ac32e27298d40b463ea6d29e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
