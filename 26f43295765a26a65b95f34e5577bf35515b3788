@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d99bd9_9981e853",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-29T06:52:31Z",
+      "side": 1,
+      "message": "Ideally it should not fail, as failure will be a rare scenario, we need to get the exact reason for the failure.\nPlease print the errno as well.",
+      "revId": "26f43295765a26a65b95f34e5577bf35515b3788",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
