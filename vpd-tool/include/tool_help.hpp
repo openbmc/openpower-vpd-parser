@@ -31,7 +31,7 @@ class VpdToolHelp
     bool printHelp(int argc, char** argv) const;
 
   private:
-    /** @brief Print help for the writeKeyword operation. */
+    /** @brief Print help text for the writeKeyword operation. */
     void printWriteKeywordHelp() const noexcept;
 
     /** @brief Print general help for supported vpd-tool operations. */

@@ -298,7 +298,7 @@ int main(int argc, char** argv)
     auto l_writeFlag =
         l_app
             .add_flag(
-                "--writeKeyword, -w,--updateKeyword, -u",
+                "--writeKeyword, -w",
                 "Write keyword,\nNote: In case DBus path is provided, both EEPROM and DBus are updated with the given keyword's value.\nIn case EEPROM path is provided, only the given EEPROM is updated with the given keyword's value.")
             ->needs(l_objectOption)
             ->needs(l_keywordOption);
