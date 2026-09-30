@@ -16,6 +16,24 @@
       "message": "Instead of repeating the same code at 4 places why not have a an API to take as parameter the status needed to be set and log it locally?\n\nAnyway the caller code need not do anything based on the execution of this \"writeDbusProperty\" so no need to get any error or status from the newly created API.",
       "revId": "f9e8d7886109ca0d177320e4f25a228b6d440c9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25aece8_93cdd454",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-09-30T06:19:16Z",
+      "side": 1,
+      "message": "Wrapping an utility will be an overkill. Ignore the comment.",
+      "parentUuid": "4004f4fe_49958af6",
+      "revId": "f9e8d7886109ca0d177320e4f25a228b6d440c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
