@@ -1,5 +1,8 @@
 #include "tool_help.hpp"
 
+#include "tool_constants.hpp"
+#include "tool_utils.hpp"
+
 #include <algorithm>
 #include <functional>
 #include <iostream>
@@ -36,9 +39,8 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
     // Map every recognised operation flag to its print method.
     const std::unordered_map<std::string,
                              std::function<void(const VpdToolHelp*)>>
-        flagToHelp{
-            {"writeKeyword", &VpdToolHelp::printWriteKeywordHelp},
-        };
+        flagToHelp{{"writeKeyword", &VpdToolHelp::printWriteKeywordHelp},
+                   {"readKeyword", &VpdToolHelp::printReadKeywordHelp}};
 
     for (const auto& arg : args)
     {
@@ -73,5 +75,67 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
 {
     // TODO - Print write keyword help in tabular format using utils::Table
     // class
+}
+
+void VpdToolHelp::printReadKeywordHelp() const noexcept
+{
+    try
+    {
+        std::cout
+            << "Note:\n"
+            << "  1. Options in [] are optional.\n"
+            << "     If -R is omitted, keyword VPD format is assumed.\n"
+            << "  2. If --file is provided, keyword value is saved to the given "
+               "file path.\n"
+            << "\n";
+
+        utils::Table usageTable(' ', '|', true);
+        usageTable.AddColumn("usage", 28);
+        usageTable.AddColumn("Description", 46);
+        usageTable.AddColumn("Requires", 24);
+        usageTable.AddColumn("Example", 50);
+        usageTable.AddColumn("Return", 28);
+
+        const types::TableInputData usageData = {
+            {"Read keyword",
+             "Reads keyword value from DBus for the given record.",
+             "-r -O -K -R", "vpd-tool -r -O <obj> -R <rec> -K <kw>",
+             "Success: Number of bytes read"},
+            {"Read keyword from hardware using -H",
+             "Reads data directly from the hardware path provided.",
+             "-r -H -O -K [-R]", "vpd-tool -r -H -O <eeprom> -K <kw>",
+             "Failure : Error code"},
+            {"Save keyword value to file using --file",
+             "Reads keyword value and saves it to the file path provided.",
+             "-r -O -K [-R] [--file]",
+             "vpd-tool -r -O <obj> -K <kw> --file <path>", ""}};
+
+        usageTable.Print(usageData, true);
+
+        std::cout << "\nError codes for the read keyword operation\n";
+
+        utils::Table errTable(' ', '|', true);
+        errTable.AddColumn("Code", 8);
+        errTable.AddColumn("Description", 38);
+
+        const types::TableInputData errData = {
+            {"-2", "Input parameter(s) are invalid"},
+            {"-3", "Record name is not provided"},
+            {"-5", "DBus call failed"},
+            {"-6", "File system error"},
+            {"-7", "File not found"},
+            {"-8", "Standard exception occurred"},
+            {"-9", "JSON parse error"},
+            {"-10", "EEPROM path not found"},
+            {"-11", "Empty file"},
+            {"-12", "Keyword name is not provided"}};
+
+        errTable.Print(errData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Failed to print read keyword help: " << ex.what()
+                  << std::endl;
+    }
 }
 } // namespace vpd
