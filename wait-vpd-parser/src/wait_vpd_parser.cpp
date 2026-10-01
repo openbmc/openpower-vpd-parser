@@ -89,6 +89,14 @@ bool checkAndHandleInventoryBackup()
     // data is reflected on D-Bus
     if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
     {
+        /* Inventory manager service takes some time to publish all inventory
+        data on D-Bus. Add a delay here to allow publish to complete so that
+        mapper call on IbmHandler side works properly.
+        @todo: revisit once this path gets tested on hardware. */
+
+        constexpr std::chrono::seconds l_sleepTimeSecs{2};
+        std::this_thread::sleep_for(l_sleepTimeSecs);
+
         // Mark collection as completed — inventory data is now live on D-Bus.
         if (!vpd::dbusUtility::writeDbusProperty(
                 BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface,
