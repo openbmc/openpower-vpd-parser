@@ -36,5 +36,8 @@ class VpdToolHelp
 
     /** @brief Print general help for supported vpd-tool operations. */
     void printGenericHelp() const noexcept;
+
+    /** @brief Print help for the readKeyword operation. */
+    void printReadKeywordHelp() const noexcept;
 };
 } // namespace vpd
