@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12aeb3ee_0e923ad5",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-05T15:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7693754a_a4a35f30",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4985a12_b0620941",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "The comment does not have sufficient information to address.\nWhat does \"Object path?\" means? \n\nYou are looking for an object path here? Or what should be the object path to be used with this command or something else?",
       "parentUuid": "e4985a12_b0620941",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "926b67a8_aabcb456",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-05T15:31:39Z",
+      "side": 1,
+      "message": "Done, updated \"Object name\" to Object Path",
+      "parentUuid": "9c582aa5_4359ef02",
       "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -90,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8312c1d_f36d8e63",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-05T15:31:39Z",
+      "side": 1,
+      "message": "Why redundant will be BMC cache?\nBoth will be EEPROMs only.",
+      "parentUuid": "77b700b1_9f934c75",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bfdd384_eeb4d423",
         "filename": "vpd-tool/src/tool_help.cpp",
         "patchSetId": 5
@@ -101,6 +155,24 @@
       "writtenOn": "2026-10-05T14:41:27Z",
       "side": 1,
       "message": "Nit: Path",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6456cb13_954c11bc",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-05T15:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bfdd384_eeb4d423",
       "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +190,24 @@
       "writtenOn": "2026-10-05T14:41:27Z",
       "side": 1,
       "message": "same as above, redundant paths.",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef27f50_742d5c47",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-05T15:31:39Z",
+      "side": 1,
+      "message": "Both will be EEPROMs only",
+      "parentUuid": "d0e5d776_4749fc75",
       "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
