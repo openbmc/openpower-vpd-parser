@@ -39,5 +39,7 @@ class VpdToolHelp
 
     /** @brief Print help for the readKeyword operation. */
     void printReadKeywordHelp() const noexcept;
+
+    void printDumpInventoryHelp() const noexcept;
 };
 } // namespace vpd
