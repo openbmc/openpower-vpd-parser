@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e18007_4bd5ed0f",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-05T10:21:26Z",
+      "side": 1,
+      "message": "Nit: Usage",
+      "revId": "afd7aa7a4effd5ffdbcfa62d2964940094e3703c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb5dca9_e2790483",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-05T10:21:26Z",
+      "side": 1,
+      "message": "should we say \"Object path\" and Record and keyword instead of using short version ?",
+      "revId": "afd7aa7a4effd5ffdbcfa62d2964940094e3703c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea19091_f4152abb",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-05T10:21:26Z",
+      "side": 1,
+      "message": "should we say: Failure: Error code and displays error message on the console ?",
+      "revId": "afd7aa7a4effd5ffdbcfa62d2964940094e3703c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
