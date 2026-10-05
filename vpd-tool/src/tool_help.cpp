@@ -40,7 +40,8 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
     const std::unordered_map<std::string,
                              std::function<void(const VpdToolHelp*)>>
         flagToHelp{{"writeKeyword", &VpdToolHelp::printWriteKeywordHelp},
-                   {"readKeyword", &VpdToolHelp::printReadKeywordHelp}};
+                   {"readKeyword", &VpdToolHelp::printReadKeywordHelp},
+                   {"dumpInventory", &VpdToolHelp::printDumpInventoryHelp}};
 
     for (const auto& arg : args)
     {
@@ -205,6 +206,61 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
     catch (const std::exception& ex)
     {
         std::cerr << "Failed to print read keyword help. Please try again"
+                  << std::endl;
+    }
+}
+
+void VpdToolHelp::printDumpInventoryHelp() const noexcept
+{
+    try
+    {
+        Table usageTable(' ', '|', true);
+        usageTable.addColumn("Usage", 25);
+        usageTable.addColumn("Description", 60);
+        usageTable.addColumn("Requires", 20);
+        usageTable.addColumn("Example", 25);
+        usageTable.addColumn("Return", 53);
+
+        const types::TableInputData usageData = {
+            {"Dump inventory using -i",
+             "Dumps inventory data for the FRUs present on the system to the console in JSON format.",
+             "-i", "vpd-tool -i",
+             "Success: Dumps inventory data to the console. "
+             "Failure: Error code is returned and the error message is displayed on the console."},
+            {"Dump inventory using -t",
+             "Dumps inventory data for the FRUs present on the system to the console in tabular format.",
+             "-i -t", "vpd-tool -i -t", "Same as above"},
+            {"Dump chassis inventory using -c",
+             "Dumps inventory data for the FRUs present on the specified chassis to the console in JSON format.",
+             "-i -c", "vpd-tool -i -c <chassis_id>",
+             "Success: Dumps chassis-specific inventory data. "
+             "Failure: Error code is returned and the error message is displayed on the console."},
+            {"Dump chassis inventory using -c, -t",
+             "Dumps inventory data for the FRUs present on the specified chassis to the console in tabular format.",
+             "-i -c -t", "vpd-tool -i -t -c <chassis_id>", "Same as above"},
+        };
+
+        usageTable.print(usageData, true);
+
+        std::cout << "\nError codes for the dump inventory operation\n";
+
+        Table errorTable(' ', '|', true);
+        errorTable.addColumn("Code", 8);
+        errorTable.addColumn("Description", 40);
+
+        const types::TableInputData errorData = {
+            {"-2", "Input parameter(s) are invalid"},
+            {"-5", "DBus call failed"},
+            {"-8", "Standard exception occurred"},
+            {"-9", "JSON parse error"},
+            {"-15", "Chassis Id is not provided"},
+        };
+
+        errorTable.print(errorData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Failed to print dump inventory help. Please try again."
                   << std::endl;
     }
 }
