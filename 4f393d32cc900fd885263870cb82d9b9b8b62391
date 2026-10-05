@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e6dd601_cd532be4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-05T05:25:39Z",
+      "side": 1,
+      "message": "Other than the fact that we need to move the Table class out of utils, rest looks ok.",
+      "revId": "4f393d32cc900fd885263870cb82d9b9b8b62391",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
