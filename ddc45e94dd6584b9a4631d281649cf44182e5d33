@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90975a4_24f8ff9c",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-06T04:26:21Z",
+      "side": 1,
+      "message": "Okay, I meant not taking care updating any other bakcup paths.",
+      "parentUuid": "b8312c1d_f36d8e63",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bfdd384_eeb4d423",
@@ -208,6 +226,24 @@
       "side": 1,
       "message": "Both will be EEPROMs only",
       "parentUuid": "d0e5d776_4749fc75",
+      "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e1c237_79d736ec",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-06T04:26:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3ef27f50_742d5c47",
       "revId": "ddc45e94dd6584b9a4631d281649cf44182e5d33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
