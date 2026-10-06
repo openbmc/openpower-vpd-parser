@@ -1,5 +1,6 @@
 #include "tool_help.hpp"
 
+#include "tool_table.hpp"
 #include "tool_utils.hpp"
 
 #include <algorithm>
@@ -81,12 +82,12 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
             << "  2. Keyword value should be in ASCII or hexadecimal format.\n"
             << "     ASCII example: 01234; hexadecimal example: 0x30313233\n\n";
 
-        utils::Table helpTable(' ', '|', true);
-        helpTable.AddColumn("Usage", 25);
-        helpTable.AddColumn("Description", 60);
-        helpTable.AddColumn("Requires", 25);
-        helpTable.AddColumn("Example", 60);
-        helpTable.AddColumn("Return", 50);
+        Table helpTable(' ', '|', true);
+        helpTable.addColumn("Usage", 25);
+        helpTable.addColumn("Description", 60);
+        helpTable.addColumn("Requires", 25);
+        helpTable.addColumn("Example", 60);
+        helpTable.addColumn("Return", 50);
 
         const types::TableInputData helpData{
             {"Write keyword using -V",
@@ -110,13 +111,13 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
              "Same as above"},
         };
 
-        helpTable.Print(helpData, true);
+        helpTable.print(helpData, true);
 
         std::cout << "\nError codes for the write keyword operation\n";
 
-        utils::Table errTable(' ', '|', true);
-        errTable.AddColumn("Code", 8);
-        errTable.AddColumn("Description", 36);
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 36);
 
         const types::TableInputData errData{
             {"-2", "Input parameter(s) are invalid"},
@@ -132,7 +133,7 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
             {"-12", "Keyword name is not provided"},
         };
 
-        errTable.Print(errData);
+        errTable.print(errData);
     }
     catch (const std::exception& ex)
     {
@@ -149,12 +150,12 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
                   << "  Options in [] are optional.\n"
                   << "  If -R is omitted, keyword VPD format is assumed.\n";
 
-        utils::Table usageTable(' ', '|', true);
-        usageTable.AddColumn("Usage", 28);
-        usageTable.AddColumn("Description", 46);
-        usageTable.AddColumn("Requires", 24);
-        usageTable.AddColumn("Example", 50);
-        usageTable.AddColumn("Return", 50);
+        Table usageTable(' ', '|', true);
+        usageTable.addColumn("Usage", 28);
+        usageTable.addColumn("Description", 46);
+        usageTable.addColumn("Requires", 24);
+        usageTable.addColumn("Example", 50);
+        usageTable.addColumn("Return", 50);
 
         const types::TableInputData usageData = {
             {"Read keyword",
@@ -179,13 +180,13 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
              "vpd-tool -r -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File path>",
              "Same as above"}};
 
-        usageTable.Print(usageData, true);
+        usageTable.print(usageData, true);
 
         std::cout << "\nError codes for the read keyword operation\n";
 
-        utils::Table errTable(' ', '|', true);
-        errTable.AddColumn("Code", 8);
-        errTable.AddColumn("Description", 38);
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 38);
 
         const types::TableInputData errData = {
             {"-2", "Input parameter(s) are invalid"},
@@ -199,7 +200,7 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
             {"-11", "Empty file"},
             {"-12", "Keyword name is not provided"}};
 
-        errTable.Print(errData);
+        errTable.print(errData);
     }
     catch (const std::exception& ex)
     {
