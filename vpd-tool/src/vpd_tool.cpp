@@ -4,6 +4,7 @@
 
 #include "tool_constants.hpp"
 #include "tool_error_codes.hpp"
+#include "tool_table.hpp"
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
@@ -1100,7 +1101,7 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
         if (i_dumpTable)
         {
             // create Table object
-            utils::Table l_inventoryTable{};
+            Table l_inventoryTable{};
 
             // columns to be populated in the Inventory table
             const std::vector<types::TableColumnNameSizePair> l_tableColumns = {
@@ -1114,7 +1115,7 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
             for (const auto& l_column : l_tableColumns)
             {
                 if (constants::FAILURE ==
-                    l_inventoryTable.AddColumn(l_column.first, l_column.second))
+                    l_inventoryTable.addColumn(l_column.first, l_column.second))
                 {
                     // TODO: Enable logging when verbose is enabled.
                     std::cerr << "Failed to add column " << l_column.first
@@ -1158,7 +1159,7 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
                 l_tableData.push_back(l_row);
             }
 
-            l_rc = l_inventoryTable.Print(l_tableData);
+            l_rc = l_inventoryTable.print(l_tableData);
         }
         else
         {
