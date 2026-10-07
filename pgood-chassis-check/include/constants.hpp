@@ -22,6 +22,13 @@ constexpr auto consumerName = "pgood-chassis-check";
 // D-Bus constants for the PIM Notify call
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimInterface = "xyz.openbmc_project.Inventory.Manager";
+
+static constexpr auto systemdService = "org.freedesktop.systemd1";
+static constexpr auto systemdObjectPath = "/org/freedesktop/systemd1";
+static constexpr auto systemdManagerInterface =
+    "org.freedesktop.systemd1.Manager";
+
+static constexpr auto setSpiMuxServiceName = "set-spi-mux.service";
 } // namespace constants
 
 } // namespace pgood_chassis_check
