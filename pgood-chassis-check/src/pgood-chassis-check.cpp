@@ -291,6 +291,34 @@ std::expected<types::PowerStateIface::State, int>
     }
 }
 
+/**
+ * @brief An API to start set-spi-mux service
+ *
+ * This API does a D-Bus method call to start set-spi-mux service.
+ *
+ * @return On success, returns 0, otherwise returns 1.
+ */
+inline int startSetSpiMuxService() noexcept
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            constants::systemdService, constants::systemdObjectPath,
+            constants::systemdManagerInterface, "StartUnit");
+        method.append("set-spi-mux.service", "replace");
+        bus.call_noreply(method);
+        return constants::success;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while making D-bus call to start set-spi-mux service: {ERR}.",
+            "ERR", ex.what());
+        return constants::failure;
+    }
+}
+
 } // namespace pgood_chassis_check
 
 int main()
@@ -306,6 +334,18 @@ int main()
             chassisPowerState.has_value()
                 ? chassisPowerState.value()
                 : pgood_chassis_check::types::PowerStateIface::State::Off;
+
+        if (chassisPowerStateValue ==
+            pgood_chassis_check::types::PowerStateIface::State::Off)
+        {
+            // start set-spi-mux service
+            if (pgood_chassis_check::constants::failure ==
+                pgood_chassis_check::startSetSpiMuxService())
+            {
+                lg2::error(
+                    "pgood-chassis-check: failed to start set-spi-mux service");
+            }
+        }
 
         // publish the chassis power state
         return pgood_chassis_check::publishChassisPowerState(
