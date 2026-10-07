@@ -286,6 +286,76 @@ std::expected<types::PowerStateIface::State, int>
     }
 }
 
+/**
+ * @brief Request systemd to start a service unit.
+ *
+ * Issues a D-Bus StartUnit call to org.freedesktop.systemd1.Manager. Uses
+ * call() so that any D-Bus-level error surfaces immediately as an exception.
+ *
+ * @param[in] serviceName - Systemd unit name (e.g. "set-spi-mux.service").
+ * @return On success, returns 0, otherwise returns 1.
+ */
+inline int startService(const std::string& serviceName) noexcept
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            constants::systemdService, constants::systemdObjectPath,
+            constants::systemdManagerInterface, "StartUnit");
+        method.append(serviceName, "replace");
+        bus.call(method);
+        return constants::success;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while requesting start of '{SERVICE}': {ERR}.",
+            "SERVICE", serviceName, "ERR", ex.what());
+        return constants::failure;
+    }
+}
+
+/**
+ * @brief Trigger the set-spi-mux service based on the chassis power state.
+ *
+ * Starts set-spi-mux.service only when the chassis is powered off. Logs an
+ * informational message and skips the start when the chassis is on or when
+ * the power state could not be determined.
+ *
+ * @param[in] chassisPowerState - Result of readChassisPowerState(). An
+ *            unexpected value means the state could not be read.
+ */
+void triggerSetSpiMux(const std::expected<types::PowerStateIface::State, int>&
+                          chassisPowerState) noexcept
+{
+    if (chassisPowerState.has_value() &&
+        chassisPowerState.value() == types::PowerStateIface::State::Off)
+    {
+        // start set-spi-mux service
+        if (constants::failure == startService(constants::setSpiMuxServiceName))
+        {
+            lg2::error(
+                "pgood-chassis-check: failed to request start of set-spi-mux service");
+        }
+        else
+        {
+            lg2::info("pgood-chassis-check: triggered set-spi-mux service");
+        }
+    }
+    else if (chassisPowerState.has_value() &&
+             chassisPowerState.value() == types::PowerStateIface::State::On)
+    {
+        lg2::info(
+            "pgood-chassis-check: local chassis is on, not triggering set-spi-mux service");
+    }
+    else
+    {
+        lg2::info(
+            "pgood-chassis-check: failed to read local chassis power state, not triggering set-spi-mux service");
+    }
+}
+
 } // namespace pgood_chassis_check
 
 int main()
@@ -294,6 +364,8 @@ int main()
     {
         const auto chassisPowerState =
             pgood_chassis_check::readChassisPowerState();
+
+        pgood_chassis_check::triggerSetSpiMux(chassisPowerState);
 
         // publish the chassis power state
         // assume power state as off if we failed to read the chassis power
