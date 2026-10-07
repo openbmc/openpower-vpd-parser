@@ -42,5 +42,8 @@ class VpdToolHelp
 
     /** @brief Print help text for dumpInventory opeartion. */
     void printDumpInventoryHelp() const noexcept;
+
+    /** @brief Print help text for validateRedundantEEPROM operation. */
+    void printValidateRedundantEepromHelp() const noexcept;
 };
 } // namespace vpd
