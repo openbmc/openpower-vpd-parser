@@ -23,6 +23,7 @@
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
 
+#include <expected>
 #include <map>
 #include <string>
 #include <utility>
@@ -217,75 +218,104 @@ inline types::GpioValue readGpioValue(const std::string& gpioName) noexcept
 }
 
 /**
- * @brief Method to read and publish power state
+ * @brief Method to read chassis power state
  *
  * This method reads the BMC position from D-Bus, decides which pgood GPIO pin
- * to read, reads the selected pgood GPIO, and then updates the PowerState
- * property on inventory manager service accordingly.
+ * to read, reads the selected pgood GPIO. In case this API fails to read the
+ * BMC position from D-Bus, it assumes chassis power is off.
  *
- * @return  0 or 1 on success, -1 on failure. All exceptions are caught
- *         locally.
+ * @return  On success, returns 0 if local chassis power state is off, 1 if it
+ * is on, -1 on failure. All exceptions are caught locally.
  */
-int readAndPublishPowerState() noexcept
+std::expected<types::PowerStateIface::State, int>
+    readChassisPowerState() noexcept
 {
     try
     {
         // read the BMC position
-        const auto bmcPosition = pgood_chassis_check::readBmcPositionFromDbus();
-        if (bmcPosition ==
-            pgood_chassis_check::types::BmcPosition::INVALID_VALUE)
+        const auto bmcPosition = readBmcPositionFromDbus();
+        if (bmcPosition == types::BmcPosition::INVALID_VALUE)
         {
-            pgood_chassis_check::createPel(
-                pgood_chassis_check::types::DbusFailureError::errName,
-                "pgood-chassis-check: invalid BMC position value read "
-                "from D-Bus. Updating chassis power state as off.",
-                pgood_chassis_check::types::EntryIface::Level::Informational);
+            createPel(types::DbusFailureError::errName,
+                      "pgood-chassis-check: invalid BMC position value read "
+                      "from D-Bus. Updating chassis power state as off.",
+                      types::EntryIface::Level::Informational);
 
             // could not read the BMC position, so cannot determine which GPIO
             // to read, assume chassis is powered off
-            return pgood_chassis_check::publishChassisPowerState(
-                pgood_chassis_check::types::PowerStateIface::State::Off);
+            return types::PowerStateIface::State::Off;
         }
 
         // determine which pgood GPIO to read
         const std::string gpioName =
-            (bmcPosition == pgood_chassis_check::types::BmcPosition::POSITION_1)
-                ? pgood_chassis_check::constants::gpioLineBmc1
-                : pgood_chassis_check::constants::gpioLineBmc0;
+            (bmcPosition == types::BmcPosition::POSITION_1)
+                ? constants::gpioLineBmc1
+                : constants::gpioLineBmc0;
 
         lg2::info(
             "pgood-chassis-check: BMC position={POS}, reading GPIO '{GPIO}'",
             "POS", bmcPosition, "GPIO", gpioName);
 
         // read the GPIO value
-        const auto pgoodGpioValue =
-            pgood_chassis_check::readGpioValue(gpioName);
+        const auto pgoodGpioValue = readGpioValue(gpioName);
 
-        if (pgoodGpioValue == pgood_chassis_check::types::GpioValue::ON)
+        switch (pgoodGpioValue)
         {
-            lg2::notice(
-                "pgood-chassis-check: GPIO '{GPIO}' is 1 - chassis is powered on",
-                "GPIO", gpioName);
+            case types::GpioValue::ON:
+                lg2::notice(
+                    "pgood-chassis-check: GPIO '{GPIO}' is 1 - chassis is powered on",
+                    "GPIO", gpioName);
+                return types::PowerStateIface::State::On;
 
-            return pgood_chassis_check::publishChassisPowerState(
-                pgood_chassis_check::types::PowerStateIface::State::On);
-        }
-        else if (pgoodGpioValue == pgood_chassis_check::types::GpioValue::OFF)
-        {
-            lg2::info(
-                "pgood-chassis-check: GPIO '{GPIO}' is 0 - chassis is powered off",
-                "GPIO", gpioName);
-        }
+            case types::GpioValue::OFF:
+                lg2::info(
+                    "pgood-chassis-check: GPIO '{GPIO}' is 0 - chassis is powered off",
+                    "GPIO", gpioName);
+                return types::PowerStateIface::State::Off;
 
-        return pgood_chassis_check::publishChassisPowerState(
-            pgood_chassis_check::types::PowerStateIface::State::Off);
+            case types::GpioValue::INVALID_VALUE:
+            default:
+                lg2::error(
+                    "pgood-chassis-check: GPIO '{GPIO}' returned invalid value, "
+                    "defaulting to chassis off",
+                    "GPIO", gpioName);
+                return types::PowerStateIface::State::Off;
+        }
     }
     catch (const std::exception& ex)
     {
         lg2::error(
-            "pgood-chassis-check: exception while reading and publishing the power state: {ERR}.",
+            "pgood-chassis-check: exception while reading the power state: {ERR}.",
             "ERR", ex.what());
-        return pgood_chassis_check::constants::failure;
+        return std::unexpected(constants::failure);
+    }
+}
+
+/**
+ * @brief An API to start set-spi-mux service
+ *
+ * This API does a D-Bus method call to start set-spi-mux service.
+ *
+ * @return On success, returns 0, otherwise returns 1.
+ */
+inline int startSetSpiMuxService() noexcept
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            constants::systemdService, constants::systemdObjectPath,
+            constants::systemdManagerInterface, "StartUnit");
+        method.append("set-spi-mux.service", "replace");
+        bus.call_noreply(method);
+        return constants::success;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while making D-bus call to start set-spi-mux service: {ERR}.",
+            "ERR", ex.what());
+        return constants::failure;
     }
 }
 
@@ -295,7 +325,30 @@ int main()
 {
     try
     {
-        return pgood_chassis_check::readAndPublishPowerState();
+        const auto chassisPowerState =
+            pgood_chassis_check::readChassisPowerState();
+
+        // assume power state as off if we failed to read the chassis power
+        // state
+        const auto chassisPowerStateValue =
+            chassisPowerState.has_value()
+                ? chassisPowerState.value()
+                : pgood_chassis_check::types::PowerStateIface::State::Off;
+
+        if (chassisPowerStateValue ==
+            pgood_chassis_check::types::PowerStateIface::State::Off)
+        {
+            // start set-spi-mux service
+            if (pgood_chassis_check::constants::failure ==
+                startSetSpiMuxService())
+            {
+                lg2::error(
+                    "pgood-chassis-check: failed to start set-spi-mux service");
+            }
+        }
+
+        // publish the chassis power state
+        return publishChassisPowerState(chassisPowerStateValue);
     }
     catch (const std::exception& ex)
     {
