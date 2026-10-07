@@ -40,7 +40,9 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
     const std::unordered_map<std::string,
                              std::function<void(const VpdToolHelp*)>>
         flagToHelp{{"writeKeyword", &VpdToolHelp::printWriteKeywordHelp},
-                   {"readKeyword", &VpdToolHelp::printReadKeywordHelp}};
+                   {"readKeyword", &VpdToolHelp::printReadKeywordHelp},
+                   {"validateRedundantEeprom",
+                    &VpdToolHelp::printValidateRedundantEepromHelp}};
 
     for (const auto& arg : args)
     {
@@ -206,6 +208,44 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
     {
         std::cerr << "Failed to print read keyword help. Please try again"
                   << std::endl;
+    }
+}
+
+void VpdToolHelp::printValidateRedundantEepromHelp() const noexcept
+{
+    try
+    {
+        std::cout
+            << "Operation: validateRedundantEeprom\n\n"
+            << "Description:\n"
+            << "  Validates a primary EEPROM against its redundant EEPROM copy.\n"
+            << "  Only the primary EEPROM path should be provided as input.\n"
+            << "  Providing a redundant EEPROM path is not supported.\n\n"
+            << "Usage:\n"
+            << "  vpd-tool --validateRedundantEeprom -O <EEPROM Path>\n"
+            << "  vpd-tool -e -O <EEPROM Path>\n\n"
+            << "Return values:\n"
+            << "  Success (0): EEPROM validation succeeded. A confirmation message is printed\n"
+            << "               to the console.\n"
+            << "  Failure :    Error code is returned and error message is displayed on the console.\n"
+            << "               Check the system journal logs for more details.\n";
+
+        std::cout << "\nError codes for validate redundant EEPROM operation\n";
+
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 38);
+
+        const types::TableInputData errData = {
+            {"-2", "Invalid input parameter"}, {"-5", "D-Bus call failed"}};
+
+        errTable.print(errData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr
+            << "Failed to print validate redundant EEPROM help text. Please try again."
+            << std::endl;
     }
 }
 } // namespace vpd

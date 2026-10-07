@@ -39,5 +39,8 @@ class VpdToolHelp
 
     /** @brief Print help for the readKeyword operation. */
     void printReadKeywordHelp() const noexcept;
+
+    /** @brief Print help text for validateRedundantEEPROM operation. */
+    void printValidateRedundantEepromHelp() const noexcept;
 };
 } // namespace vpd
