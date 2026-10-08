@@ -45,5 +45,11 @@ class VpdToolHelp
 
     /** @brief Print help text for validateRedundantEEPROM operation. */
     void printValidateRedundantEepromHelp() const noexcept;
+
+    /** @brief Print help text for the enterSplitMode operation. */
+    void printEnterSplitModeHelp() const noexcept;
+
+    /** @brief print help text for the exitSplitMode operation. */
+    void printExitSplitModeHelp() const noexcept;
 };
 } // namespace vpd
