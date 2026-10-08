@@ -869,6 +869,48 @@ inline types::BaseActionResult executeBaseAction(
 }
 
 /**
+ * @brief API to check if input FRU path is a redundant EEPROM
+ *
+ * Checks if the input FRU path is a redundant EEPROM
+ * by checking the 'isRedundant' flag.
+ *
+ * @param[in] i_vpdPath - Path to where VPD is stored.
+ *
+ * @return true if the input path is a redundant EEPROM, false otherwise.
+ */
+
+inline std::expected<bool, uint16_t> isRedundantEeprom(
+    const std::string& i_vpdPath)
+{
+    if (i_vpdPath.empty())
+    {
+        return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+    }
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
+    }
+
+    const auto l_sysCfgJsonObjResult = l_configManager->getJsonObj(i_vpdPath);
+
+    if (!l_sysCfgJsonObjResult.has_value())
+    {
+        return std::unexpected(l_sysCfgJsonObjResult.error());
+    }
+
+    const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
+
+    if (l_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    {
+        return l_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
+            "isRedundant", false);
+    }
+    return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
+}
+
+/**
  * @brief Get redundant FRU path from system config JSON
  *
  * Given either D-bus inventory path/FRU path/redundant FRU path, this

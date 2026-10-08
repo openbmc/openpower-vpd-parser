@@ -1136,15 +1136,25 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
 
     const auto& l_jsonObj = l_jsonObjResult.value().get();
 
+    const auto l_isRedundantEepromPath =
+        jsonUtility::isRedundantEeprom(i_fruPath);
+    if (l_isRedundantEepromPath.has_value() && *l_isRedundantEepromPath)
+    {
+        m_logger->logMessage(std::format(
+            "Received redundant EEPROM path:[{}] requires primary EEPROM Path",
+            i_fruPath));
+
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("PATH"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+
     uint16_t l_errCode;
     std::string l_redundantEeprom =
         jsonUtility::getRedundantEepromPathFromJson(i_fruPath, l_errCode);
 
     if (l_redundantEeprom.empty())
     {
-        /* @todo Add support for cases where the input path refers to a
-         * redundant EEPROM directly.*/
-
         phosphor::logging::elog<types::DbusInvalidArgument>(
             types::InvalidArgument::ARGUMENT_NAME("PATH"),
             types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
