@@ -43,7 +43,9 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
                    {"readKeyword", &VpdToolHelp::printReadKeywordHelp},
                    {"dumpInventory", &VpdToolHelp::printDumpInventoryHelp},
                    {"validateRedundantEeprom",
-                    &VpdToolHelp::printValidateRedundantEepromHelp}};
+                    &VpdToolHelp::printValidateRedundantEepromHelp},
+                   {"enterSplitMode", &VpdToolHelp::printEnterSplitModeHelp},
+                   {"exitSplitMode", &VpdToolHelp::printExitSplitModeHelp}};
 
     for (const auto& arg : args)
     {
@@ -302,6 +304,93 @@ void VpdToolHelp::printDumpInventoryHelp() const noexcept
     {
         std::cerr << "Failed to print dump inventory help, error: " << ex.what()
                   << ". Please try again." << std::endl;
+    }
+}
+
+void VpdToolHelp::printEnterSplitModeHelp() const noexcept
+{
+    try
+    {
+        Table usageTable(' ', '|', true);
+        usageTable.addColumn("Usage", 28);
+        usageTable.addColumn("Description", 46);
+        usageTable.addColumn("Requires", 24);
+        usageTable.addColumn("Example", 50);
+        usageTable.addColumn("Return", 50);
+
+        const types::TableInputData usageData = {
+            {"Enter split mode",
+             "Sets the system environment to enter split mode. Note : Expects system VPD file is copied to /var/lib/vpd/file/ location.",
+             "--enterSplitMode", "vpd-tool --enterSplitMode",
+             "Success: Success message is displayed on the console. Failure: Error code is returned and error message is displayed on the console."},
+            {"Enter split mode using --file",
+             "Sets the system environment to enter split mode. System VPD Path should be provided as input using --file option.",
+             "--enterSplitMode --file",
+             "vpd-tool --enterSplitMode --file <System VPD Path>",
+             "Same as above"}};
+
+        usageTable.print(usageData, true);
+
+        std::cout << "\nError codes for the enter split mode operation\n";
+
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 50);
+
+        const types::TableInputData errData = {
+            {"-1", "Operation failed"},
+            {"-2", "Input parameter(s) are invalid"},
+            {"-6", "File system error"},
+            {"-7", "File not found at file-mode VPD path"},
+            {"-8", "Standard exception occurred"},
+            {"-16", "System command failed"},
+            {"-17", "U-Boot variable not found or unexpected output"},
+        };
+
+        errTable.print(errData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Failed to print help text for enter split mode, reason: "
+                  << ex.what() << ". Please try again." << std::endl;
+    }
+}
+
+void VpdToolHelp::printExitSplitModeHelp() const noexcept
+{
+    try
+    {
+        std::cout
+            << "Operation: exitSplitMode\n\n"
+            << "Usage:\n"
+            << "  vpd-tool --exitSplitMode\n\n"
+            << "Description:\n"
+            << "  Resets the system changes done while setting up the system in split mode.\n\n"
+            << "Return values:\n"
+            << "  Success (0): System is ready to exit split mode. A confirmation\n"
+            << "               message is printed to the console.\n"
+            << "  Failure :    Error code is returned and the error message is\n"
+            << "               displayed on the console.\n";
+
+        std::cout << "\nError codes for the exit split mode operation\n";
+
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 50);
+
+        const types::TableInputData errData = {
+            {"-1", "Operation failed"},
+            {"-8", "Standard exception occurred"},
+            {"-16", "System command failed"},
+            {"-17", "U-Boot variable not found or unexpected output"},
+        };
+
+        errTable.print(errData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Failed to print help text for exit split mode, reason: "
+                  << ex.what() << ". Please try again." << std::endl;
     }
 }
 } // namespace vpd
