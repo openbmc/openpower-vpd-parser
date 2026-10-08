@@ -869,6 +869,74 @@ inline types::BaseActionResult executeBaseAction(
 }
 
 /**
+ * @brief API to check if input FRU path is a redundant EEPROM
+ *
+ * Checks if the input FRU path is a redundant EEPROM by checking
+ * whether it has a "isRedundant" flag or appears as the value of a
+ * "redundantEeprom" tag.
+ *
+ * @param[in] i_vpdPath - Path to where VPD is stored.
+ *
+ * @return std::expected<bool, error_code>
+ *         - true: if the input path is a redundant EEPROM.
+ *         - false: if the input path is a primary FRU EEPROM.
+ *         - error_code::INVALID_INPUT_PARAMETER: if input is empty.
+ *         - error_code::CONFIG_MANAGER_UNINITIALIZED: if config manager is
+ * uninitialized.
+ *         - error_code::FRU_PATH_NOT_FOUND: if fru path is not present in the
+ * configuration.
+ *         - error_code::PATH_NOT_FOUND_IN_JSON: in case of failure while
+ * fetching the JSON object.
+ */
+inline std::expected<bool, uint16_t> isRedundantEeprom(
+    const std::string& i_vpdPath) noexcept
+{
+    if (i_vpdPath.empty())
+    {
+        return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+    }
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
+    }
+
+    const auto l_sysCfgJsonObjResult = l_configManager->getJsonObj(i_vpdPath);
+
+    if (!l_sysCfgJsonObjResult.has_value())
+    {
+        return std::unexpected(l_sysCfgJsonObjResult.error());
+    }
+
+    const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
+
+    if (l_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    {
+        return l_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
+            "isRedundant", false);
+    }
+
+    const nlohmann::json& l_fruList =
+        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+    for (const auto& l_fru : l_fruList.items())
+    {
+        const std::string& l_fruPath = l_fru.key();
+        const std::string& l_redundantFruPath =
+            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("redundantEeprom",
+                                                           "");
+
+        if (l_redundantFruPath == i_vpdPath)
+        {
+            return true;
+        }
+    }
+
+    return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
+}
+
+/**
  * @brief Get redundant FRU path from system config JSON
  *
  * Given either D-bus inventory path/FRU path/redundant FRU path, this
