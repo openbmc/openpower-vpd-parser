@@ -202,7 +202,7 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
  * @param[in] i_keywordName - Keyword name.
  * @param[in] i_fileOption - Option to pass file path.
  * @param[in] i_filePath - File path.
- * @param[in] i_chassisIdOption - Option to pass chassis Id
+ * @param[in] i_chassisOption - Option to pass chassis id
  * @param[in] i_chassisId - Chassis id
  *
  * @return Success if corresponding value is found against option, failure
@@ -212,7 +212,7 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
                          const auto& i_recordOption, const auto& i_recordName,
                          const auto& i_keywordOption, const auto& i_keywordName,
                          const auto& i_fileOption, const auto& i_filePath,
-                         const auto& i_chassisIdOption, const auto& i_chassisId)
+                         const auto& i_chassisOption, const auto& i_chassisId)
 {
     if (!i_objectOption->empty() && i_vpdPath.empty())
     {
@@ -242,9 +242,9 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
         return static_cast<int>(vpd::ErrorCode::EMPTY_FILE);
     }
 
-    if (!i_chassisIdOption->empty() && !i_chassisId)
+    if (!i_chassisOption->empty() && !i_chassisId)
     {
-        std::cerr << "Chassis Id is empty." << std::endl;
+        std::cerr << "Chassis id is empty." << std::endl;
         return static_cast<int>(vpd::ErrorCode::CHASSIS_ID_NOT_PROVIDED);
     }
 
@@ -285,9 +285,6 @@ int main(int argc, char** argv)
                          "Keyword value in ascii/hex format."
                          " ascii ex: 01234; hex ex: 0x30313233");
 
-    auto l_chassisIdOption =
-        l_app.add_option("--chassisId, -N", l_chassisId, "Chassis Id");
-
     auto l_hardwareFlag =
         l_app.add_flag("--Hardware, -H", "CAUTION: Developer only option.");
 
@@ -311,9 +308,9 @@ int main(int argc, char** argv)
     auto l_dumpInventoryTableFlag =
         l_app.add_flag("--table, -t", "Dump inventory in table format");
 
-    auto l_dumpChassisInventoryFlag =
-        l_app.add_flag("--chassis, -c", "Dump chassis based inventory")
-            ->needs(l_chassisIdOption);
+    auto l_dumpChassisInventoryOption = l_app.add_option(
+        "--chassis, -c", l_chassisId,
+        "Dump chassis based inventory for the given chassis id");
 
     auto l_validateRedundantEepromFlag =
         l_app
@@ -386,7 +383,7 @@ int main(int argc, char** argv)
     if (auto l_rc = checkOptionValuePair(
             l_objectOption, l_vpdPath, l_recordOption, l_recordName,
             l_keywordOption, l_keywordName, l_fileOption, l_filePath,
-            l_chassisIdOption, l_chassisId);
+            l_dumpChassisInventoryOption, l_chassisId);
         l_rc < vpd::constants::VALUE_0)
     {
         return l_rc;
@@ -432,9 +429,8 @@ int main(int argc, char** argv)
     if (!l_dumpInventoryFlag->empty())
     {
         vpd::VpdTool l_vpdToolObj;
-        return l_vpdToolObj.dumpInventory(
-            !l_dumpChassisInventoryFlag->empty() ? l_chassisId : std::nullopt,
-            !l_dumpInventoryTableFlag->empty());
+        return l_vpdToolObj.dumpInventory(l_chassisId,
+                                          !l_dumpInventoryTableFlag->empty());
     }
 
     if (!l_validateRedundantEepromFlag->empty())
