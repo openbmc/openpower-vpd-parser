@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4064fabb_84b608b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-09T04:48:33Z",
+      "side": 1,
+      "message": "Please add a why section in the commit message.",
+      "revId": "2855de9aedbcc31157ba5a32a1977a1cd0c56e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec17904a_5be3bb66",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-09T04:48:33Z",
+      "side": 1,
+      "message": "A blank line between two methods.",
+      "revId": "2855de9aedbcc31157ba5a32a1977a1cd0c56e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea88f59_9292d02e",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-09T04:48:33Z",
+      "side": 1,
+      "message": "We have migrated to std::expected for new APIs. Could you please follow that.",
+      "revId": "2855de9aedbcc31157ba5a32a1977a1cd0c56e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
