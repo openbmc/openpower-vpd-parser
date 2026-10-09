@@ -22,6 +22,30 @@
       },
       "revId": "476d41b7bffd2507d900d14368d1fbda054da3a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae415b0e_e191a422",
+        "filename": "vpd-tool/src/tool_table.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-09T09:10:08Z",
+      "side": 1,
+      "message": "This change is outside the scope of the current commit, which focuses on moving the `Table` class from the utils file into a separate file. Will address this issue in a separate commit.",
+      "parentUuid": "51e806c6_db15a099",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 40
+      },
+      "revId": "476d41b7bffd2507d900d14368d1fbda054da3a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
