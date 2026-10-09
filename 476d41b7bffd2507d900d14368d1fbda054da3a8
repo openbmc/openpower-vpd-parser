@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e806c6_db15a099",
+        "filename": "vpd-tool/src/tool_table.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-10-09T08:33:37Z",
+      "side": 1,
+      "message": "The `row.size() \u003e columns.size()` check runs inside the loop, after the header and horizontal lines are already on stdout. Now, if a later row is invalid, the function returns FAILURE and leaves a half-drawn table with no closing border ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 40
+      },
+      "revId": "476d41b7bffd2507d900d14368d1fbda054da3a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
