@@ -947,6 +947,13 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
         return std::string{};
     }
 
+    const auto l_isRedundantEepromPath =
+        jsonUtility::isRedundantEeprom(i_vpdPath);
+    if (l_isRedundantEepromPath.has_value() && *l_isRedundantEepromPath)
+    {
+        return i_vpdPath;
+    }
+
     const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
 
     // check if given path is FRU path
