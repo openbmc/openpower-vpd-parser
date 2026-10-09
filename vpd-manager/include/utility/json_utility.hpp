@@ -967,6 +967,33 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
         return std::string{};
     }
 
+    // For a redundant EEPROM path, the JSON lookup succeeds because
+    // redundant EEPROM paths are present as JSON keys, and returns an
+    // empty string. If the input is already a redundant EEPROM path,
+    // return the input path directly.
+    const auto l_isRedundantEepromPath =
+        jsonUtility::isRedundantEeprom(i_vpdPath);
+    if (!l_isRedundantEepromPath.has_value())
+    {
+        // isRedundantEeprom() sets error, FRU_PATH_NOT_FOUND when the input is
+        // an inventory path. Do not return early if the input is an inventory
+        // path.
+        if (l_isRedundantEepromPath.error() != error_code::FRU_PATH_NOT_FOUND)
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to check if path [" + i_vpdPath +
+                "] is a redundant EEPROM, error : " +
+                commonUtility::getErrCodeMsg(l_isRedundantEepromPath.error()));
+
+            o_errCode = l_isRedundantEepromPath.error();
+            return std::string{};
+        }
+    }
+    else if (l_isRedundantEepromPath.value())
+    {
+        return i_vpdPath;
+    }
+
     const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
 
     // check if given path is FRU path
