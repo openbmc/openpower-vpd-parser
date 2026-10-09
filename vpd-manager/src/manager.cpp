@@ -1139,7 +1139,8 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
         m_logger->logMessage(std::format(
             "Failed to get JSON for path {}. Error: {}, can't validate redundant Eeprom.",
             i_fruPath, commonUtility::getErrCodeMsg(l_jsonObjResult.error())));
-        return l_rc;
+
+        throw types::DbusInvalidArgument();
     }
 
     const auto& l_jsonObj = l_jsonObjResult.value().get();
