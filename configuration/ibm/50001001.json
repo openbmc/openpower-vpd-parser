@@ -814,8 +814,10 @@
                 "inherit": false,
                 "noprime": true,
                 "extraInterfaces": {
-                    "xyz.openbmc_project.Inventory.Item.Ethernet": null,
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": {
+                        "PortProtocol": "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Ethernet"
+                    },
                     "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
                         "LocationCode": "Ufcs-P0-C5-T0"
                     },
@@ -837,8 +839,10 @@
                 "inherit": false,
                 "noprime": true,
                 "extraInterfaces": {
-                    "xyz.openbmc_project.Inventory.Item.Ethernet": null,
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": {
+                        "PortProtocol": "xyz.openbmc_project.Inventory.Connector.Port.PortProtocol.Ethernet"
+                    },
                     "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
                         "LocationCode": "Ufcs-P0-C5-T1"
                     },
