@@ -33,6 +33,16 @@ enum vpdType
  */
 static vpdType vpdTypeCheck(const types::BinaryVector& i_vpdVector)
 {
+    // The EEPROM-backed vector is read at fixed offsets below (byte 11 for
+    // the IPZ tag, bytes 2 and 3 for the SPD type checks). An EEPROM that
+    // reports fewer bytes than the largest fixed offset is malformed, not a
+    // candidate for any format; reject it before the first index so no
+    // branch can read past the end of the data.
+    if (i_vpdVector.size() < (constants::IPZ_DATA_START + 1))
+    {
+        return vpdType::INVALID_VPD_FORMAT;
+    }
+
     if (i_vpdVector[constants::IPZ_DATA_START] == constants::IPZ_DATA_START_TAG)
     {
         return vpdType::IPZ_VPD;

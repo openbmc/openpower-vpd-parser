@@ -216,7 +216,13 @@ auto IpzVpdParser::readTOC(types::BinaryVector::const_iterator& itrToVPD)
         readUInt16LE((itrToVPD + Offset::VTOC_PTR)); // itrToVPD);
 
     // Got the offset to VTOC, skip past record header and keyword header
-    // to get to the record name.
+    // to get to the record name. Validate the full span before walking:
+    // vtocOffset is read from the VPD data itself and is not otherwise
+    // bounded.
+    checkOffsetBounds(vtocOffset,
+                      sizeof(types::RecordId) + sizeof(types::RecordSize) +
+                          Length::KW_NAME + sizeof(types::KwSize) +
+                          Length::RECORD_NAME);
     std::advance(itrToVPD, vtocOffset + sizeof(types::RecordId) +
                                sizeof(types::RecordSize) +
                                // Skip past the RT keyword, which contains
@@ -266,6 +272,14 @@ std::pair<types::RecordOffsetList, types::InvalidRecordList>
     // we care only about the record offset information.
     while (itrToPT < end)
     {
+        // Each entry reads RECORD_NAME + sizeof(RecordType) +
+        // sizeof(RecordOffset) bytes; validate against the vector end before
+        // the walk dereferences the entry (ptLength itself comes from the VPD
+        // data).
+        checkOffsetBounds(
+            static_cast<size_t>(std::distance(m_vpdVector.cbegin(), itrToPT)),
+            Length::RECORD_NAME + sizeof(types::RecordType) +
+                sizeof(types::RecordOffset));
         std::string recordName(itrToPT, itrToPT + Length::RECORD_NAME);
         // Skip record name and record type
         std::advance(itrToPT, Length::RECORD_NAME + sizeof(types::RecordType));
@@ -339,7 +353,11 @@ types::IPZVpdMap::mapped_type IpzVpdParser::readKeywords(
             std::advance(itrToKwds, sizeof(types::KwSize));
         }
 
-        // support all the Keywords
+        // support all the Keywords. kwdDataLength comes from the VPD data;
+        // validate the span before constructing the keyword value from it.
+        checkOffsetBounds(
+            static_cast<size_t>(std::distance(m_vpdVector.cbegin(), itrToKwds)),
+            kwdDataLength);
         auto stop = std::next(itrToKwds, kwdDataLength);
         std::string kwdata(itrToKwds, stop);
         kwdValueMap.emplace(std::move(kwdName), std::move(kwdata));
@@ -360,7 +378,10 @@ void IpzVpdParser::processRecord(auto recordOffset)
         // the record name.
         Length::KW_NAME + sizeof(types::KwSize);
 
-    // Get record name
+    // Get record name. recordOffset comes from the PT table inside the VPD
+    // data; validate the span the record-name read needs before walking.
+    checkOffsetBounds(recordNameOffset, Length::RECORD_NAME + Length::KW_NAME +
+                                            sizeof(types::KwSize));
     auto itrToVPDStart = m_vpdVector.cbegin();
     std::advance(itrToVPDStart, recordNameOffset);
 
