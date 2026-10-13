@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e90e08_10684470",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c23472a_295b7f75",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eed9de69_7abc9d5a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-12T05:58:52Z",
       "side": 1,
       "message": "nit: \"journal\" log. `journalctl` is the name of the command.",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d054bb8d_bc154547",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eed9de69_7abc9d5a",
       "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4312e751_be330c36",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d26d8b85_466baae7",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "783ae17d_f752c29c",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-10-12T04:35:46Z",
       "side": 1,
       "message": "utility API\u0027s should be marked as noexcept, should not throw any exceptions.",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad0bdf0a_05f4e862",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "783ae17d_f752c29c",
       "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddbd5695_26dc418d",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7791a6a1_320936b0",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8483c309_65958703",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-10-12T04:35:46Z",
       "side": 1,
       "message": "nit: primary EEPROM path",
+      "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc0a2f6_58d764ac",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-13T09:11:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8483c309_65958703",
       "revId": "89b6530592e7f72cde315a441e936fe7153f86ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
