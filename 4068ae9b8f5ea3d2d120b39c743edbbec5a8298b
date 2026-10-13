@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ca365d_1e6ad1c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-13T04:57:58Z",
+      "side": 1,
+      "message": "The line needs to be wrapped near to 72 characters.",
+      "revId": "4068ae9b8f5ea3d2d120b39c743edbbec5a8298b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79248c1b_9e80d53c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-13T04:57:58Z",
+      "side": 1,
+      "message": "Please add a brief comment here so that it is clear why this condition has been added.",
+      "revId": "4068ae9b8f5ea3d2d120b39c743edbbec5a8298b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
