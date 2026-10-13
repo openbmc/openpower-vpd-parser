@@ -379,8 +379,16 @@ void DdimmVpdParser::readKeywords(
     types::BinaryVector l_ccin(i_iterator, i_iterator + constants::CCIN_LEN);
 
     types::BinaryVector l_mfgId(DRAM_MANUFACTURER_ID_LENGTH);
-    std::copy_n((m_vpdVector.cbegin() + DRAM_MANUFACTURER_ID_OFFSET),
-                DRAM_MANUFACTURER_ID_LENGTH, l_mfgId.begin());
+    // The 11S barcode gate in the parser factory only guarantees the
+    // barcode bytes (offset 416 + 26); the manufacturer ID lives further
+    // out (offset 0x228). Check the actual span before the copy instead
+    // of reading past a shorter-but-legal DDIMM EEPROM.
+    if (m_vpdVector.size() >=
+        (DRAM_MANUFACTURER_ID_OFFSET + DRAM_MANUFACTURER_ID_LENGTH))
+    {
+        std::copy_n((m_vpdVector.cbegin() + DRAM_MANUFACTURER_ID_OFFSET),
+                    DRAM_MANUFACTURER_ID_LENGTH, l_mfgId.begin());
+    }
 
     m_parsedVpdMap.emplace("FN", l_partNumber);
     m_parsedVpdMap.emplace("PN", move(l_partNumber));

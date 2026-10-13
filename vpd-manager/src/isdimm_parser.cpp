@@ -1,6 +1,7 @@
 #include "isdimm_parser.hpp"
 
 #include "constants.hpp"
+#include "exceptions.hpp"
 #include "logger.hpp"
 
 #include <algorithm>
@@ -328,6 +329,15 @@ types::JedecSpdMap JedecSpdParser::readKeywords(
 
 types::VPDMapVariant JedecSpdParser::parse()
 {
+    // The DDR4 keyword walk reads fixed offsets up to
+    // SPD_JEDEC_DDR4_SN_BYTE3_OFFSET (328) without per-field checks. An
+    // SPD that short is malformed; reject it here instead of walking off
+    // the end of the data.
+    if (m_memSpd.size() < (SPD_JEDEC_DDR4_SN_BYTE3_OFFSET + 1))
+    {
+        throw(DataException("Truncated SPD data"));
+    }
+
     // Read the data and return the map
     auto l_iterator = m_memSpd.cbegin();
     auto l_spdDataMap = readKeywords(l_iterator);

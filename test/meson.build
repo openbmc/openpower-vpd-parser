@@ -58,6 +58,7 @@ tests = [
     'utest_keyword_parser.cpp',
     'utest_ddimm_parser.cpp',
     'utest_ipz_parser.cpp',
+    'utest_vpd_bounds_regression.cpp',
     #'utest_json_utility.cpp',
 ]
 

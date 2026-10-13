@@ -52,9 +52,13 @@ types::VPDMapVariant KeywordVpdParser::parse()
     }
 
     types::BinaryVector::const_iterator l_checkSumEnd = m_vpdIterator;
+    // Validate the span (checksum byte + end tag) BEFORE validateChecksum()
+    // dereferences m_vpdIterator + ONE_BYTE; previously the check ran after
+    // the read, so a VPD ending exactly at the end tag read one byte past
+    // the data.
+    checkNextBytesValidity(constants::TWO_BYTES);
     validateChecksum(l_checkSumStart, l_checkSumEnd);
 
-    checkNextBytesValidity(constants::TWO_BYTES);
     std::advance(m_vpdIterator, constants::TWO_BYTES);
 
     // Check VPD end Tag.

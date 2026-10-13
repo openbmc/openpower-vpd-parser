@@ -1,5 +1,6 @@
 #pragma once
 
+#include "exceptions.hpp"
 #include "logger.hpp"
 #include "parser_interface.hpp"
 #include "types.hpp"
@@ -65,6 +66,27 @@ class IpzVpdParser : public ParserInterface
      * @return parsed VPD data.
      */
     virtual types::VPDMapVariant parse() override;
+
+    /**
+     * @brief Validate that [offset, offset + span) lies inside the VPD
+     * vector before a walk dereferences it.
+     *
+     * The record/keyword walk is driven by offsets and lengths read from
+     * the VPD data itself; without this check a malformed (or malicious)
+     * EEPROM walks the iterator past the end of the vector.
+     *
+     * @param[in] offset - start of the span to validate.
+     * @param[in] span - number of bytes from offset that will be read.
+     * @throws DataException when the span is out of bounds.
+     */
+    void checkOffsetBounds(size_t offset, size_t span) const
+    {
+        if ((offset > m_vpdVector.size()) ||
+            (span > m_vpdVector.size() - offset))
+        {
+            throw(DataException("VPD offset/length out of bounds"));
+        }
+    }
 
     /**
      * @brief API to check validity of VPD header.
