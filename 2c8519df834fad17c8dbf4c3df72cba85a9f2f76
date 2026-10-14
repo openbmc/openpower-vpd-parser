@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692416d6_6d67dd42",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-14T06:28:11Z",
+      "side": 1,
+      "message": "Why it has been typed as DbusInternalFailure",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4eab063_752a9e2e",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-14T06:28:11Z",
+      "side": 1,
+      "message": "Wrap the sentence close to 72 characters.",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b55119a_3f669ca8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-14T06:28:11Z",
+      "side": 1,
+      "message": "Not all redundant paths are modeled as key. We might need another check to see if it is a redundant path. Check \"getRedundantEepromPathFromJson\".",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57423289_2b7a453c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-14T06:28:11Z",
+      "side": 1,
+      "message": "This is not a Dbus internal failure.",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
