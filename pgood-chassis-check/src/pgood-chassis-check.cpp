@@ -22,10 +22,13 @@
 #include <gpiod.hpp>
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
+#include <chrono>
 #include <expected>
 #include <map>
 #include <string>
+#include <thread>
 #include <utility>
 #include <variant>
 
@@ -292,28 +295,82 @@ std::expected<types::PowerStateIface::State, int>
 }
 
 /**
- * @brief An API to start set-spi-mux service
+ * @brief An API to start set-spi-mux service and verify it started
+ * successfully.
  *
- * This API does a D-Bus method call to start set-spi-mux service.
+ * Calls systemd StartUnit, then polls the unit's ActiveState property until
+ * the service reaches "active" (success) or "failed"/"inactive" (failure),
+ * or until the retry limit is exceeded.
  *
  * @return On success, returns 0, otherwise returns 1.
  */
 inline int startSetSpiMuxService() noexcept
 {
+    static constexpr auto unitName = "set-spi-mux.service";
+    static constexpr int maxRetries = 20;
+    static constexpr auto pollInterval = std::chrono::milliseconds(500);
+
     try
     {
         auto bus = sdbusplus::bus::new_default();
-        auto method = bus.new_method_call(
+
+        // 1. Request systemd to start the unit. Using call() instead of
+        //    call_noreply() so that any D-Bus-level error is surfaced
+        //    immediately as an exception.
+        auto startMethod = bus.new_method_call(
             constants::systemdService, constants::systemdObjectPath,
             constants::systemdManagerInterface, "StartUnit");
-        method.append("set-spi-mux.service", "replace");
-        bus.call_noreply(method);
-        return constants::success;
+        startMethod.append(unitName, "replace");
+        bus.call(startMethod);
+
+        // 2. Resolve the unit's D-Bus object path via GetUnit.
+        auto getUnitMethod = bus.new_method_call(
+            constants::systemdService, constants::systemdObjectPath,
+            constants::systemdManagerInterface, "GetUnit");
+        getUnitMethod.append(unitName);
+        auto getUnitReply = bus.call(getUnitMethod);
+        sdbusplus::message::object_path unitPath;
+        getUnitReply.read(unitPath);
+
+        // 3. Poll ActiveState until the service finishes starting.
+        for (int i = 0; i < maxRetries; ++i)
+        {
+            auto getProp = bus.new_method_call(
+                constants::systemdService, unitPath.str.c_str(),
+                "org.freedesktop.DBus.Properties", "Get");
+            getProp.append("org.freedesktop.systemd1.Unit", "ActiveState");
+            auto propReply = bus.call(getProp);
+            std::variant<std::string> activeStateVariant;
+            propReply.read(activeStateVariant);
+            const auto& activeState = std::get<std::string>(activeStateVariant);
+
+            if (activeState == "active")
+            {
+                lg2::info(
+                    "pgood-chassis-check: set-spi-mux.service started successfully");
+                return constants::success;
+            }
+
+            if (activeState == "failed" || activeState == "inactive")
+            {
+                lg2::error(
+                    "pgood-chassis-check: set-spi-mux.service reached unexpected state '{STATE}'",
+                    "STATE", activeState);
+                return constants::failure;
+            }
+
+            // Still "activating" — wait and retry.
+            std::this_thread::sleep_for(pollInterval);
+        }
+
+        lg2::error(
+            "pgood-chassis-check: timed out waiting for set-spi-mux.service to start");
+        return constants::failure;
     }
     catch (const std::exception& ex)
     {
         lg2::error(
-            "pgood-chassis-check: exception while making D-bus call to start set-spi-mux service: {ERR}.",
+            "pgood-chassis-check: exception while starting set-spi-mux service: {ERR}.",
             "ERR", ex.what());
         return constants::failure;
     }
