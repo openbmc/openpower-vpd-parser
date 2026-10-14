@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da94b5ce_4e5ab574",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-14T14:55:40Z",
+      "side": 1,
+      "message": "Can we wrap code specific to start spi mux into a separate function to keep the main flow clean.",
+      "range": {
+        "startLine": 328,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 9
+      },
+      "revId": "705d150a1aad07649c915a149d4f0f2506186a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
