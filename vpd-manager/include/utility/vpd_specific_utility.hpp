@@ -2015,5 +2015,162 @@ inline std::expected<void, error_code> updateExtraInterfaceProperties(
     return {};
 }
 
+/**
+ * @brief Updates the system location code on D-Bus.
+ *
+ * This API updates system location code on D-Bus.
+ *
+ * @param[in] errCode - To set error code incase of exception.
+ */
+inline std::expected<void, uint16_t> updateSystemLocCode() noexcept
+{
+    try
+    {
+        const auto& expandedLocCode = getExpandedLocationCode(
+            constants::systemInvPath, constants::systemLocationCode,
+            std::monostate{});
+
+        if (!expandedLocCode.has_value())
+        {
+            std::cout << "Failed to get system location code : "
+                      << commonUtility::getErrCodeMsg(expandedLocCode.error())
+                      << std::endl;
+            return std::unexpected(expandedLocCode.error());
+        }
+
+        types::ObjectMap objectMap = {
+            {sdbusplus::message::object_path(constants::systemInvPath),
+             {{constants::locationCodeInf,
+               {{"LocationCode",
+                 types::DbusVariantType{expandedLocCode.value()}}}}}}};
+
+        if (!dbusUtility::publishVpdOnDBus(std::move(objectMap)))
+        {
+            return std::unexpected(error_code::DBUS_FAILURE);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to update system location code, error : {}.", ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+
+    return {};
+}
+
+/**
+ * @brief API to update location code for FRUs
+ *
+ * This API retrieves the location code of each inventory item from the
+ * configuration JSON and publishes the updated expanded location code on
+ * D-Bus. FRUs that are not present, or have a location code containing "Umts",
+ * or have missing required configuration fields are skipped.
+ *
+ * @param[in] cfgJsonObj - configuration JSON.
+ *
+ * @return std::expected<void, uint16_t> - Error code is returned in case of
+ * error
+ */
+inline std::expected<void, uint16_t> updateLocationCodeForAllFrus(
+    const nlohmann::json& cfgJsonObj) noexcept
+{
+    try
+    {
+        if (!cfgJsonObj.contains("frus"))
+        {
+            return std::unexpected(error_code::INVALID_JSON);
+        }
+
+        types::ObjectMap objectMap{};
+
+        const nlohmann::json& listOfFrus =
+            cfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& fru : listOfFrus.items())
+        {
+            for (const auto& inventoryItem : fru.value())
+            {
+                if (!inventoryItem.contains("inventoryPath") ||
+                    !inventoryItem.contains("extraInterfaces") ||
+                    !inventoryItem["extraInterfaces"].contains(
+                        constants::locationCodeInf) ||
+                    !inventoryItem["extraInterfaces"]
+                                  [constants::locationCodeInf]
+                                    .contains("LocationCode"))
+                {
+                    continue;
+                }
+
+                const std::string& inventoryPath =
+                    std::string(inventoryItem["inventoryPath"]);
+                const std::string& locationCode = std::string(
+                    inventoryItem["extraInterfaces"][constants::locationCodeInf]
+                                 ["LocationCode"]);
+
+                if (locationCode.find("Umts") != std::string::npos)
+                {
+                    continue;
+                }
+
+                const auto propertyValue = dbusUtility::readDbusProperty(
+                    constants::pimServiceName, inventoryPath,
+                    constants::inventoryItemInf, "Present");
+
+                const auto* presentPropertyValue =
+                    std::get_if<bool>(&propertyValue);
+
+                if (presentPropertyValue == nullptr)
+                {
+                    Logger::getLoggerInstance()->logMessage(std::format(
+                        "Failed to read present property for path [{}]. "
+                        "Skip updating location code",
+                        inventoryPath));
+                    continue;
+                }
+
+                if (!*presentPropertyValue)
+                {
+                    // FRU is not present; skip updating location code.
+                    continue;
+                }
+
+                const auto& expandedLocCode = getExpandedLocationCode(
+                    inventoryPath, locationCode, std::monostate{});
+
+                if (!expandedLocCode.has_value())
+                {
+                    Logger::getLoggerInstance()->logMessage(std::format(
+                        "Failed to get expanded location code for FRU : {}, error : {}",
+                        inventoryPath,
+                        commonUtility::getErrCodeMsg(expandedLocCode.error())));
+                    continue;
+                }
+
+                objectMap.emplace(
+                    inventoryPath,
+                    types::InterfaceMap{
+                        {constants::locationCodeInf,
+                         types::PropertyMap{
+                             {"LocationCode", types::DbusVariantType{
+                                                  expandedLocCode.value()}}}}});
+            }
+        }
+
+        if (!dbusUtility::publishVpdOnDBus(std::move(objectMap)))
+        {
+            return std::unexpected(error_code::DBUS_FAILURE);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to update location code for all FRUs, error: {}.",
+            ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+
+    return {};
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd

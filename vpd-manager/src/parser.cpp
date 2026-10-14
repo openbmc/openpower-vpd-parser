@@ -280,6 +280,16 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     commonUtility::getErrCodeMsg(
                         l_updateExtraInterfaceResult.error()));
             }
+
+            std::cout << "Record : " << l_recordName
+                      << " keyword : " << l_propertyName << std::endl;
+
+            if (l_recordName == constants::recVCEN &&
+                (l_propertyName == constants::kwdFC ||
+                 l_propertyName == constants::kwdSE))
+            {
+                vpdSpecificUtility::updateLocationCodeForAllFrus(m_parsedJson);
+            }
         }
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
