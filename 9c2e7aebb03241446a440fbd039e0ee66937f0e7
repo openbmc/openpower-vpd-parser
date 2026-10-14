@@ -16,6 +16,24 @@
       "message": "What if there is any exception in D-Bus call?\nHaving all the changes here does not give any error safety. In case pgood fails, we would still want set spi mux to execute?",
       "revId": "9c2e7aebb03241446a440fbd039e0ee66937f0e7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6efd404e_be14d7b3",
+        "filename": "service_files/pgood-chassis-check.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-14T13:44:03Z",
+      "side": 1,
+      "message": "Addressed by https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/95303 and https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/95301. Abandoning this patch.",
+      "parentUuid": "682e9e2c_a07147d6",
+      "revId": "9c2e7aebb03241446a440fbd039e0ee66937f0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
