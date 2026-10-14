@@ -280,6 +280,23 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     commonUtility::getErrCodeMsg(
                         l_updateExtraInterfaceResult.error()));
             }
+
+            if (l_recordName == constants::recVCEN &&
+                (l_propertyName == constants::kwdFC ||
+                 l_propertyName == constants::kwdSE))
+            {
+                const auto l_locationCodeUpdateResult =
+                    vpdSpecificUtility::updateLocationCodeForAllFrus(
+                        m_parsedJson);
+
+                if (!l_locationCodeUpdateResult.has_value() &&
+                    l_locationCodeUpdateResult.error() ==
+                        error_code::DBUS_FAILURE)
+                {
+                    m_logger->logMessage(
+                        "Failed to update location code for all FRU's, error : D-Bus call failed");
+                }
+            }
         }
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)

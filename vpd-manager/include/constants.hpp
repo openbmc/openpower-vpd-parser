@@ -261,5 +261,7 @@ static constexpr auto physicalContextInterface =
 static constexpr auto physicalContextTypeProperty = "Type";
 static constexpr auto physicalContextManagerValue =
     "xyz.openbmc_project.Common.PhysicalContext.PhysicalContextType.Manager";
+
+static constexpr auto systemLocationCode = "Umts";
 } // namespace constants
 } // namespace vpd
