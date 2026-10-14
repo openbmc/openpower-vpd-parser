@@ -239,6 +239,15 @@ int main(int argc, char** argv)
                              vpd::constants::vpdCollectionFailed));
         }
 
+        // check and see if there is any inventory backup data. If it's there
+        // restore the data.
+        if (checkAndHandleInventoryBackup())
+        {
+            // backup data is found and restored successfully, return success
+            // here as we don't need to go for FRU VPD collection.
+            return vpd::constants::VALUE_0;
+        }
+
         // Read the chassis PowerState property set by pgood-chassis-check.
         // On any failure (property missing, type mismatch, D-Bus error) log
         // and fall through to normal active flow (full VPD collection).
@@ -265,15 +274,6 @@ int main(int argc, char** argv)
             vpd::Logger::getLoggerInstance()->logMessage(
                 "Failed to read chassis PowerState from D-Bus. "
                 "Proceeding with full VPD collection.");
-        }
-
-        // check and see if there is any inventory backup data. If it's there
-        // restore the data.
-        if (checkAndHandleInventoryBackup())
-        {
-            // backup data is found and restored successfully, return success
-            // here as we don't need to go for FRU VPD collection.
-            return vpd::constants::VALUE_0;
         }
 
         PrimeInventory l_primeObj;
