@@ -280,6 +280,30 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     commonUtility::getErrCodeMsg(
                         l_updateExtraInterfaceResult.error()));
             }
+
+            // The expanded location code of a FRU includes the FC and SE
+            // keyword values from its chassis VCEN record. Update the location
+            // code whenever either keyword is modified to keep it in sync with
+            // the VPD data.
+            if (l_recordName == constants::recVCEN &&
+                (l_propertyName == constants::kwdFC ||
+                 l_propertyName == constants::kwdSE))
+            {
+                const auto l_locationCodeUpdateResult =
+                    vpdSpecificUtility::updateLocationCodeForAllFrus(
+                        m_parsedJson);
+
+                if (!l_locationCodeUpdateResult.has_value())
+                {
+                    m_logger->logMessage(std::format(
+                        "Failed to update location codes for all FRUs after updating keyword "
+                        "[{}] for path [{}]. Error: {}",
+                        l_keyWordIdentifier(i_paramsToWriteData),
+                        l_inventoryObjPath,
+                        commonUtility::getErrCodeMsg(
+                            l_locationCodeUpdateResult.error())));
+                }
+            }
         }
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
