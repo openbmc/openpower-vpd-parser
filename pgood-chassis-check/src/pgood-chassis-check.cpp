@@ -22,10 +22,13 @@
 #include <gpiod.hpp>
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
+#include <chrono>
 #include <expected>
 #include <map>
 #include <string>
+#include <thread>
 #include <utility>
 #include <variant>
 
@@ -321,6 +324,120 @@ inline int startService(const std::string& serviceName) noexcept
     }
 }
 
+/**
+ * @brief Poll a service unit's ActiveState until it leaves "activating".
+ *
+ * Resolves the unit's D-Bus object path via GetUnit, then reads the
+ * ActiveState and SubState properties every @p pollInterval until the unit
+ * reaches a terminal state, or @p maxRetries is exhausted.
+ *
+ * Terminal states:
+ *   - ActiveState="active"              : success (long-running or oneshot
+ *                                         with RemainAfterExit=yes)
+ *   - ActiveState="inactive",
+ *     SubState="dead"                   : success (Type=oneshot completed
+ *                                         successfully)
+ *   - ActiveState="failed"              : failure
+ *
+ * Note: GetAll is not used to fetch both properties in one round-trip because
+ * org.freedesktop.systemd1.Unit's GetAll returns a{sv} with mixed D-Bus value
+ * types that cannot be safely deserialised into a single-type variant map.
+ * Two individual Get calls each return a clean v{s}.
+ *
+ * @param[in] serviceName  - Systemd unit name (e.g. "set-spi-mux.service").
+ * @param[in] maxRetries   - Maximum number of polling attempts.
+ * @param[in] pollInterval - Time to wait between each polling attempt.
+ * @return On success, returns 0, otherwise returns 1.
+ */
+inline int checkServiceActivation(
+    const std::string& serviceName, int maxRetries,
+    const std::chrono::milliseconds pollInterval) noexcept
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+
+        // Resolve the unit's D-Bus object path via GetUnit.
+        auto getUnitMethod = bus.new_method_call(
+            constants::systemdService, constants::systemdObjectPath,
+            constants::systemdManagerInterface, "GetUnit");
+        getUnitMethod.append(serviceName);
+        auto getUnitReply = bus.call(getUnitMethod);
+        sdbusplus::message::object_path unitPath;
+        getUnitReply.read(unitPath);
+
+        // Poll ActiveState + SubState until the service finishes starting.
+        // Type=oneshot services never linger in "active"; on success they
+        // settle to ActiveState="inactive" / SubState="dead". They only reach
+        // ActiveState="failed" on an actual failure.
+        for (int i = 0; i < maxRetries; ++i)
+        {
+            // Read ActiveState and SubState via separate Get calls.
+            // GetAll returns a{sv} with mixed value types and cannot be
+            // safely read into a single-type variant map.
+            auto getActive = bus.new_method_call(
+                constants::systemdService, unitPath.str.c_str(),
+                "org.freedesktop.DBus.Properties", "Get");
+            getActive.append("org.freedesktop.systemd1.Unit", "ActiveState");
+            std::variant<std::string> activeStateVariant;
+            bus.call(getActive).read(activeStateVariant);
+            const auto& activeState = std::get<std::string>(activeStateVariant);
+
+            auto getSub = bus.new_method_call(
+                constants::systemdService, unitPath.str.c_str(),
+                "org.freedesktop.DBus.Properties", "Get");
+            getSub.append("org.freedesktop.systemd1.Unit", "SubState");
+            std::variant<std::string> subStateVariant;
+            bus.call(getSub).read(subStateVariant);
+            const auto& subState = std::get<std::string>(subStateVariant);
+
+            // "active" covers long-running services or oneshot with
+            // RemainAfterExit=yes.
+            if (activeState == "active")
+            {
+                lg2::info(
+                    "pgood-chassis-check: '{SERVICE}' started successfully",
+                    "SERVICE", serviceName);
+                return constants::success;
+            }
+
+            // Type=oneshot success: process exited 0, unit winds down to
+            // inactive/dead.
+            if (activeState == "inactive" && subState == "dead")
+            {
+                lg2::info(
+                    "pgood-chassis-check: '{SERVICE}' completed successfully (oneshot)",
+                    "SERVICE", serviceName);
+                return constants::success;
+            }
+
+            if (activeState == "failed")
+            {
+                lg2::error(
+                    "pgood-chassis-check: '{SERVICE}' failed (ActiveState='{STATE}', SubState='{SUBSTATE}')",
+                    "SERVICE", serviceName, "STATE", activeState, "SUBSTATE",
+                    subState);
+                return constants::failure;
+            }
+
+            // Still "activating" or "deactivating" — wait and retry.
+            std::this_thread::sleep_for(pollInterval);
+        }
+
+        lg2::error(
+            "pgood-chassis-check: timed out waiting for '{SERVICE}' to start",
+            "SERVICE", serviceName);
+        return constants::failure;
+    }
+    catch (const std::exception& ex)
+    {
+        lg2::error(
+            "pgood-chassis-check: exception while checking activation of '{SERVICE}': {ERR}.",
+            "SERVICE", serviceName, "ERR", ex.what());
+        return constants::failure;
+    }
+}
+
 } // namespace pgood_chassis_check
 
 int main()
@@ -336,7 +453,10 @@ int main()
         if (chassisPowerStateValue ==
             pgood_chassis_check::types::PowerStateIface::State::Off)
         {
-            // start set-spi-mux service
+            static constexpr int maxRetries = 20;
+            static constexpr auto pollInterval = std::chrono::milliseconds(500);
+
+            // Start the service, then verify it reached "active".
             if (pgood_chassis_check::constants::failure ==
                 pgood_chassis_check::startService(
                     pgood_chassis_check::constants::setSpiMuxServiceName))
@@ -344,15 +464,19 @@ int main()
                 lg2::error(
                     "pgood-chassis-check: failed to request start of set-spi-mux service");
             }
-            else
+            else if (pgood_chassis_check::constants::failure ==
+                     pgood_chassis_check::checkServiceActivation(
+                         pgood_chassis_check::constants::setSpiMuxServiceName,
+                         maxRetries, pollInterval))
             {
-                lg2::info("pgood-chassis-check: triggered set-spi-mux service");
+                lg2::error(
+                    "pgood-chassis-check: set-spi-mux service did not activate successfully");
             }
         }
         else
         {
             lg2::info(
-                "pgood-chassis-check: chassis is on, not triggering set-spi-mux service");
+                "pgood-chassis-check: chassis powered on, not triggering set-spi-mux service");
         }
 
         // publish the chassis power state
