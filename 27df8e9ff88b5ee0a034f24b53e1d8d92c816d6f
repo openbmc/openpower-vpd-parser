@@ -16,6 +16,24 @@
       "message": "Looking at the base implementation \"chassisPowerState\" will be set to off even when there is any gpio error and in that case the thought process is to not trigger spi-mux-servce.",
       "revId": "27df8e9ff88b5ee0a034f24b53e1d8d92c816d6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6af57e8_78e89577",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-14T14:20:45Z",
+      "side": 1,
+      "message": "Sorry, missed uploading latest patch set. Patchset 8+ handles this.",
+      "parentUuid": "cdbc9c52_d1b59d87",
+      "revId": "27df8e9ff88b5ee0a034f24b53e1d8d92c816d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
