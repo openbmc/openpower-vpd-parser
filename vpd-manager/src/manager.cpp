@@ -687,7 +687,7 @@ std::string Manager::getExpandedLocationCode(
     }
 
     const auto l_inventoryPathResult =
-        m_configManager->getInventoryPath(l_nodeLocCodeKeyResult.value());
+        m_configManager->getInventoryPaths(l_nodeLocCodeKeyResult.value());
 
     if (!l_inventoryPathResult.has_value())
     {
@@ -699,8 +699,16 @@ std::string Manager::getExpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
+    /*
+     * For FRUs(or sub-FRUs) under the same node with same unexpanded location
+     * code, the expanded location code will be same. `l_inventoryPathResult`
+     * will have a list of object paths mapping to the node qualified unexpanded
+     * location code,So it is fine to pick first object from the list to
+     * read the expanded location from D-Bus.
+     */
+
     auto l_dbusReadRes = dbusUtility::readDbusProperty(
-        constants::pimServiceName, l_inventoryPathResult.value(),
+        constants::pimServiceName, l_inventoryPathResult.value().at(0),
         constants::locationCodeInf, "LocationCode");
 
     const auto l_expandedLocationCodeRes =
@@ -752,22 +760,22 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto l_inventoryPathResult =
-        m_configManager->getInventoryPath(l_nodeLocCodeKeyResult.value());
+    const auto l_inventoryPathsResult =
+        m_configManager->getInventoryPaths(l_nodeLocCodeKeyResult.value());
 
-    if (!l_inventoryPathResult.has_value())
+    if (!l_inventoryPathsResult.has_value())
     {
         //@todo: a PEL used to be logged here using deprecated
         // phosphor::logging::elog API. Should we still log a PEL here?
         m_logger->logMessage(std::format(
             "Failed to get inventory paths for unexpanded location code: {}. Error: {}",
             i_unexpandedLocationCode,
-            commonUtility::getErrCodeMsg(l_inventoryPathResult.error())));
+            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
 
         throw types::DbusInvalidArgument();
     }
 
-    return types::ListOfPaths{l_inventoryPathResult.value()};
+    return l_inventoryPathsResult.value();
 }
 
 types::EepromPathList Manager::getHwPath(

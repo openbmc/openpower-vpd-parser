@@ -113,17 +113,18 @@ class ConfigManager final
             const noexcept;
 
     /**
-     * @brief API to get inventory path for a given node-qualified unexpanded
+     * @brief API to get inventory path(s) for a given node-qualified unexpanded
      * location code.
      *
-     * With node-qualified keys, each unexpanded location code maps to exactly
-     * one inventory path.
+     * This API returns inventory path(s) for given unexpanded location code. An
+     * unexpanded location code can map to single or multiple inventory paths,
+     * this API returns a single or a list of matching inventory paths.
      *
      * @param[in] unexpandedLocationCode - Unexpanded location code
      *
-     * @return Matching inventory path on success, error code otherwise.
+     * @return Matching inventory paths on success, error code otherwise.
      */
-    std::expected<sdbusplus::object_path, error_code> getInventoryPath(
+    std::expected<types::ListOfPaths, error_code> getInventoryPaths(
         const std::string& unexpandedLocationCode) const noexcept;
 
     /**
@@ -393,9 +394,9 @@ class ConfigManager final
 
     // Node-qualified unexpanded location code to inventory path map - O(1)
     // lookup. The key is the unexpanded location code with the node identifier
-    // inserted after prefix "Ufcs/Umts". With node-qualified keys each key
-    // maps to exactly one inventory path.
-    std::unordered_map<std::string, sdbusplus::object_path>
+    // inserted after prefix "Ufcs/Umts". Each key can map to multiple inventory
+    // paths, so a list of paths is stored as the value.
+    std::unordered_map<std::string, types::ListOfPaths>
         unexpandedLocCodeToInvPathsMap;
 
     // Shared pointer to Logger object
