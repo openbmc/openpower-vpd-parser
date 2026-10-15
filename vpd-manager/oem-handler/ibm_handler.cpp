@@ -296,7 +296,7 @@ void IbmHandler::setEnvAndReboot(const std::string& key,
 
     if (errCode)
     {
-        throw std::runtime_error(
+        throw FirmwareException(
             "Failed to execute command [/sbin/fw_setenv " + key + " " + value +
             "], error : " + commonUtility::getErrCodeMsg(errCode));
     }
@@ -443,7 +443,7 @@ std::string IbmHandler::createAssetTagString(
                 itrToVsys->second, constants::kwdTM, errCode)};
             if (tmKwdValue.empty())
             {
-                throw std::runtime_error(
+                throw DataException(
                     std::string("Failed to get value for keyword [") +
                     constants::kwdTM +
                     std::string("] while creating Asset tag. Error : " +
@@ -453,7 +453,7 @@ std::string IbmHandler::createAssetTagString(
                 itrToVsys->second, constants::kwdSE, errCode)};
             if (seKwdValue.empty())
             {
-                throw std::runtime_error(
+                throw DataException(
                     std::string("Failed to get value for keyword [") +
                     constants::kwdSE +
                     std::string("] while creating Asset tag. Error : " +
@@ -464,14 +464,13 @@ std::string IbmHandler::createAssetTagString(
         }
         else
         {
-            throw std::runtime_error(
+            throw DataException(
                 "VSYS record not found in parsed VPD map to create Asset tag.");
         }
     }
     else
     {
-        throw std::runtime_error(
-            "Invalid VPD type received to create Asset tag.");
+        throw DataException("Invalid VPD type received to create Asset tag.");
     }
     return assetTag;
 }
@@ -500,7 +499,7 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                     sdbusplus::object_path(constants::systemInvPath));
                 if (itrToSystemPath == objectInterfaceMap.end())
                 {
-                    throw std::runtime_error(
+                    throw DataException(
                         "Asset tag update failed. System Path not found in object map.");
                 }
                 types::PropertyMap assetTagProperty;
@@ -528,7 +527,7 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
         // Call method to update the dbus
         if (!dbusUtility::publishVpdOnDBus(std::move(objectInterfaceMap)))
         {
-            throw std::runtime_error("Call to PIM failed for system VPD");
+            throw DbusException("Call to PIM failed for system VPD");
         }
     }
     else
@@ -570,7 +569,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
         {
             // No point going further. If removal fails for existing symlink,
             // create will anyways throw.
-            throw std::runtime_error(
+            throw FirmwareException(
                 "Removal of symlink failed with Error = " + ec.message() +
                 ". Can't proceed with create_symlink.");
         }
@@ -580,7 +579,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
     {
         if (ec)
         {
-            throw std::runtime_error(
+            throw FirmwareException(
                 "File system call to exist failed with error = " +
                 ec.message());
         }
@@ -591,7 +590,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
         {
             if (ec)
             {
-                throw std::runtime_error(
+                throw FirmwareException(
                     "File system call to create directory failed with error = " +
                     ec.message());
             }
@@ -602,7 +601,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
     std::filesystem::create_symlink(systemJson, INVENTORY_JSON_SYM_LINK, ec);
     if (ec)
     {
-        throw std::runtime_error(
+        throw FirmwareException(
             "create_symlink system call failed with error: " + ec.message());
     }
 
@@ -634,7 +633,7 @@ void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
 
         if (errCode)
         {
-            throw std::runtime_error(
+            throw FirmwareException(
                 "Failed to get effective System VPD path, for [" +
                 systemVpdPath +
                 "], reason: " + commonUtility::getErrCodeMsg(errCode));
@@ -647,7 +646,7 @@ void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
 
         if (std::holds_alternative<std::monostate>(parsedSystemVpdMap))
         {
-            throw std::runtime_error("VPD parsing failed");
+            throw EepromException("VPD parsing failed");
         }
     }
     catch (const std::exception& exception)
