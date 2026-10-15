@@ -72,6 +72,22 @@ class IbmHandler
                               types::VPDMapVariant& parsedSystemVpdMap);
 
     /**
+     * @brief Helper to read and parse system VPD from a single EEPROM path.
+     *
+     * Resolves the effective path via @c getEffectiveFruPath, constructs a
+     * @c Parser, and populates @p parsedSystemVpdMap.  Throws the original
+     * typed exception (EccException, DataException, EepromException, …) on
+     * any failure so the caller can preserve root-cause information.
+     *
+     * @throw FirmwareException, EepromException, or any parser exception.
+     *
+     * @param[in]  eepromPath        - EEPROM path to read from.
+     * @param[out] parsedSystemVpdMap - Populated on success.
+     */
+    void collectSystemVpdFromPath(const std::string& eepromPath,
+                                  types::VPDMapVariant& parsedSystemVpdMap);
+
+    /**
      * @brief API to detect if system vpd is backed up in cache.
      *
      * System vpd can be cached either in cache or some other location. The

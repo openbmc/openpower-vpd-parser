@@ -614,6 +614,32 @@ void IbmHandler::setJsonSymbolicLink(const std::string& systemJson)
     isFactoryResetDone = true;
 }
 
+void IbmHandler::collectSystemVpdFromPath(
+    const std::string& eepromPath, types::VPDMapVariant& parsedSystemVpdMap)
+{
+    uint16_t errCode = 0;
+    std::string resolvedPath{eepromPath};
+    commonUtility::getEffectiveFruPath(vpdCollectionMode, resolvedPath,
+                                       errCode);
+
+    if (errCode)
+    {
+        throw FirmwareException(
+            "Failed to get effective System VPD path, for [" + resolvedPath +
+            "], reason: " + commonUtility::getErrCodeMsg(errCode));
+    }
+
+    std::shared_ptr<Parser> vpdParser =
+        std::make_shared<Parser>(resolvedPath, sysCfgJsonObj);
+    parsedSystemVpdMap = vpdParser->parse();
+
+    if (std::holds_alternative<std::monostate>(parsedSystemVpdMap))
+    {
+        throw EepromException(
+            "VPD parsing failed for path [" + resolvedPath + "]");
+    }
+}
+
 void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
                                       types::VPDMapVariant& parsedSystemVpdMap)
 {
@@ -623,82 +649,79 @@ void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
         throw JsonException("System config JSON is empty", sysCfgJsonObj);
     }
 
-    static std::string error;
+    // Attempt primary EEPROM collection.  Capture the exception_ptr so the
+    // original typed exception (EccException, DataException, EepromException,
+    // FirmwareException, …) is preserved for accurate PEL reporting.
     uint16_t errCode = 0;
+    std::exception_ptr primaryException;
     try
     {
-        std::string systemVpdPath{fruPath};
-        commonUtility::getEffectiveFruPath(vpdCollectionMode, systemVpdPath,
-                                           errCode);
-
-        if (errCode)
-        {
-            throw FirmwareException(
-                "Failed to get effective System VPD path, for [" +
-                systemVpdPath +
-                "], reason: " + commonUtility::getErrCodeMsg(errCode));
-        }
-
-        // parse system VPD
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(systemVpdPath, sysCfgJsonObj);
-        parsedSystemVpdMap = vpdParser->parse();
-
-        if (std::holds_alternative<std::monostate>(parsedSystemVpdMap))
-        {
-            throw EepromException("VPD parsing failed");
-        }
+        collectSystemVpdFromPath(fruPath, parsedSystemVpdMap);
     }
-    catch (const std::exception& exception)
+    catch (...)
     {
-        error += std::format(
-            "System VPD collection failed from path [{}], reason: {}. ",
-            fruPath, exception.what());
+        primaryException = std::current_exception();
+    }
 
-        // if system is in split mode, and we failed to collect VPD from primary
-        // EEPROM file path, do not attempt to collect from redundant EEPROM
-        // file path.
-        if (vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+    if (!primaryException)
+    {
+        // Primary succeeded — nothing more to do in this section.
+    }
+    else
+    {
+        // Log the primary failure to journal for diagnostics.
+        try
         {
-            logger->logMessage(error);
-            throw EepromException(error);
+            std::rethrow_exception(primaryException);
+        }
+        catch (const std::exception& primaryEx)
+        {
+            logger->logMessage(std::format(
+                "System VPD collection failed from path [{}], reason: {}.",
+                fruPath, primaryEx.what()));
         }
 
         const std::string& redundantEepromPath{REDUNDANT_SYSTEM_VPD_FILE_PATH};
 
-        if (redundantEepromPath.empty() || redundantEepromPath == fruPath)
+        // In FILE_MODE or when no distinct redundant path is configured,
+        // re-raise the original typed exception — no intermediate PEL.
+        if (vpdCollectionMode == types::VpdCollectionMode::FILE_MODE ||
+            redundantEepromPath.empty() || redundantEepromPath == fruPath)
         {
-            logger->logMessage(error);
-            throw EepromException(error);
+            std::rethrow_exception(primaryException);
         }
 
-        // Try system VPD collection from redundant path
-        setDeviceTreeAndJson(redundantEepromPath, parsedSystemVpdMap);
+        // Attempt redundant EEPROM collection.  If this also fails, propagate
+        // the exception directly — no intermediate PEL is logged.
+        collectSystemVpdFromPath(redundantEepromPath, parsedSystemVpdMap);
 
-        return;
-    }
-
-    /* TODO: Revisit the code and update the flow will specific error handling
-       so that specific failure type can be reported in the PEL.
-
-       Also, as per current flow in case redundant path collection fails post
-       this point, current implementation will end up logging two PELs which is
-       not desired and needs to be handled. Update code to log only one PEL
-       irrespective to any failure in the flow.*/
-    if (fruPath != SYSTEM_VPD_FILE_PATH)
-    {
-        // TODO: Replace with a device callout once the corresponding API
-        // is implemented.
-        logger->logMessage(
-            error + std::format(
-                        " Successfully collected VPD from redundant path [{}].",
-                        fruPath),
-            PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
-            types::PelInfoTuple{
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
-                std::optional<types::CalloutData>{types::InventoryCalloutData{
-                    SYSTEM_VPD_FILE_PATH, types::CalloutPriority::High}}});
+        // Redundant collection succeeded.  Log a single Warning PEL for the
+        // primary failure, using the exact ErrorType from the original
+        // exception and an inventory callout for SYSTEM_VPD_FILE_PATH.
+        // TODO: Replace with a device callout once the corresponding API is
+        // implemented.
+        try
+        {
+            std::rethrow_exception(primaryException);
+        }
+        catch (const std::exception& primaryEx)
+        {
+            logger->logMessage(
+                std::format(
+                    "System VPD collection failed from primary path [{}], "
+                    "reason: {}. Successfully collected VPD from redundant "
+                    "path [{}].",
+                    fruPath, primaryEx.what(), redundantEepromPath),
+                PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
+                types::PelInfoTuple{
+                    EventLogger::getErrorType(primaryEx),
+                    types::SeverityType::Warning, 0, std::nullopt, std::nullopt,
+                    std::nullopt, std::nullopt,
+                    std::optional<types::CalloutData>{
+                        types::InventoryCalloutData{
+                            SYSTEM_VPD_FILE_PATH,
+                            types::CalloutPriority::High}}});
+        }
     }
 
     // Implies it is default JSON.
