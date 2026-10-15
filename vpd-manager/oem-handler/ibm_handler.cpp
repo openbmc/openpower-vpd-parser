@@ -911,10 +911,17 @@ void IbmHandler::performInitialSetup()
         // Any issue in system's initial set up is handled in this catch. Error
         // will not propagate to manager.
 
+        // EepromException, EccException, and DataException all indicate a
+        // failure reading or interpreting data from the system VPD EEPROM,
+        // so log a Critical PEL with an inventory callout pointing to the
+        // EEPROM path.  All other exception types (JsonException,
+        // FirmwareException, …) use a plain PEL without a callout.
         std::optional<types::CalloutData> callout = std::nullopt;
         PlaceHolder placeHolder = PlaceHolder::ASYNC_PEL;
 
-        if (typeid(exception) == typeid(EepromException))
+        if (typeid(exception) == typeid(EepromException) ||
+            typeid(exception) == typeid(EccException) ||
+            typeid(exception) == typeid(DataException))
         {
             placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
             callout =
