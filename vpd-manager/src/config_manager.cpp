@@ -319,8 +319,7 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
                         {
                             mapKey.append("-" + nodeId);
                         }
-                        unexpandedLocCodeToInvPathsMap[mapKey] =
-                            sdbusplus::object_path{std::string{inventoryPath}};
+                        unexpandedLocCodeToInvPathsMap[mapKey].emplace_back(inventoryPath);
                     }
                 }
                 else
@@ -344,8 +343,8 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
     }
 }
 
-std::expected<sdbusplus::object_path, error_code>
-    ConfigManager::getInventoryPath(
+std::expected<types::ListOfPaths, error_code>
+    ConfigManager::getInventoryPaths(
         const std::string& unexpandedLocationCode) const noexcept
 {
     try
