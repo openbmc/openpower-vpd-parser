@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5daf76e5_0a2bbd5b",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-15T06:09:42Z",
+      "side": 1,
+      "message": "Enter split mode can be moved to top",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e7b7e83_69d8dcc4",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-15T06:09:42Z",
+      "side": 1,
+      "message": "can we add quote to path, it distinguish with other words.",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6798603e_ff18c471",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-15T06:09:42Z",
+      "side": 1,
+      "message": "\u0027Try again\u0027 can be moved to new line, to get highlighted.\n\nsame for exit split mode.",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30c377f_01b8e9a1",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-15T06:09:42Z",
+      "side": 1,
+      "message": "Do we need \u0027Operation\u0027 ?\nwhich is not there for enter split mode.\n\ncan we keep description with space like \"Exit split mode\" similar to \"Enter split mode\" ?",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c92342e5_31ede77b",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-15T06:09:42Z",
+      "side": 1,
+      "message": "Instead of system changes can we say \"Restores/Resets the environment variables\" which directly tells what is reseted ?",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
