@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0adc359f_416881d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-15T14:21:04Z",
+      "side": 1,
+      "message": "Emergency patch set to avoid VPD-Manager core dump in case of malformed VPD file.",
+      "revId": "b66b313c7e5ef64debfe404c2c460705f198df12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
