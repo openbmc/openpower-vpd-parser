@@ -111,6 +111,12 @@ bool IpzVpdParser::vtocEccCheck()
     std::advance(vpdPtr, sizeof(types::ECCOffset));
     auto vtocECCLength = readUInt16LE(vpdPtr);
 
+    // Validate that the VTOC data span and ECC span are within the vector
+    // before using vtocOffset/vtocECCOffset as raw array indices.
+    // Both values come from the VPD data itself and are not otherwise bounded.
+    checkOffsetBounds(vtocOffset, vtocLength);
+    checkOffsetBounds(vtocECCOffset, vtocECCLength);
+
     // To avoid 1 bit flip correction from corrupting the main buffer.
     const types::BinaryVector tempVector = m_vpdVector;
     // Reset pointer to start of the vpd,
@@ -160,6 +166,12 @@ bool IpzVpdParser::recordEccCheck(types::BinaryVector::const_iterator iterator)
     {
         throw(EccException("Invalid ECC length or offset."));
     }
+
+    // Validate that the record data span and ECC span are within the vector
+    // before using recordOffset/eccOffset as raw array indices.
+    // Both values come from the PT entry inside the VPD data itself.
+    checkOffsetBounds(recordOffset, recordLength);
+    checkOffsetBounds(eccOffset, eccLength);
 
     // To avoid 1 bit flip correction from corrupting the main buffer.
     const types::BinaryVector tempVector = m_vpdVector;
@@ -318,6 +330,13 @@ types::IPZVpdMap::mapped_type IpzVpdParser::readKeywords(
     types::IPZVpdMap::mapped_type kwdValueMap{};
     while (true)
     {
+        // Guard the keyword-name read and the length-field byte(s) that
+        // follow before any dereference. kwdDataLength from a prior
+        // iteration may have advanced itrToKwds to or past the vector end.
+        checkOffsetBounds(
+            static_cast<size_t>(std::distance(m_vpdVector.cbegin(), itrToKwds)),
+            Length::KW_NAME + sizeof(types::KwSize));
+
         // Note keyword name
         std::string kwdName(itrToKwds, itrToKwds + Length::KW_NAME);
         if (constants::LAST_KW == kwdName)
