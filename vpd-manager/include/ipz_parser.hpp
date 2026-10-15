@@ -81,7 +81,7 @@ class IpzVpdParser : public ParserInterface
      */
     void checkOffsetBounds(size_t offset, size_t span) const
     {
-        if ((offset > m_vpdVector.size()) ||
+        if ((offset >= m_vpdVector.size()) ||
             (span > m_vpdVector.size() - offset))
         {
             throw(DataException("VPD offset/length out of bounds"));
