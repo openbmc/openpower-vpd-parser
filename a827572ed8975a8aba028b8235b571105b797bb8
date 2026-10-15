@@ -51,6 +51,24 @@
       "message": "should we add a log for invalid value received ?",
       "revId": "a827572ed8975a8aba028b8235b571105b797bb8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "242f6555_651cfc98",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-15T12:10:32Z",
+      "side": 1,
+      "message": "What value would it add?",
+      "parentUuid": "3be5dcd3_e0fd9abd",
+      "revId": "a827572ed8975a8aba028b8235b571105b797bb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
