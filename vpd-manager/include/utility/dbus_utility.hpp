@@ -837,5 +837,58 @@ inline std::expected<types::ListOfPaths, error_code>
     }
 }
 
+/**
+ * @brief API to check if a FRU is ready to be removed.
+ *
+ * The API reads the ReadyToRemove property of the
+ * xyz.openbmc_project.State.ReadyToRemove interface for the given FRU object
+ * path, hosted by inventory manager service on D-Bus.
+ *
+ * @param[in] i_objectPath - Inventory object path of the FRU.
+ *
+ * @return On success, returns the value of the ReadyToRemove property.
+ * Returns std::unexpected(error_code::INVALID_INPUT_PARAMETER) if the object
+ * path is empty, std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS) if
+ * the property could not be read or is not of type bool, or
+ * std::unexpected(error_code::DBUS_FAILURE) on any other failure.
+ */
+inline std::expected<bool, error_code> isFruReadyToBeRemoved(
+    const sdbusplus::object_path& i_objectPath) noexcept
+{
+    try
+    {
+        const std::string l_objectPath = i_objectPath.str;
+
+        if (l_objectPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        const auto l_readyToRemoveVariant = readDbusProperty(
+            constants::pimServiceName, l_objectPath,
+            constants::readyToRemoveIface, constants::readyToRemoveProperty);
+
+        const auto* l_readyToRemove =
+            std::get_if<bool>(&l_readyToRemoveVariant);
+
+        if (l_readyToRemove == nullptr)
+        {
+            Logger::getLoggerInstance()->logMessage(std::format(
+                "Failed to read ReadyToRemove property for path: {}",
+                l_objectPath));
+            return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
+        }
+
+        return *l_readyToRemove;
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to check ReadyToRemove property for path: {}. Error: {}",
+            i_objectPath.str, l_ex.what()));
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
+}
+
 } // namespace dbusUtility
 } // namespace vpd
