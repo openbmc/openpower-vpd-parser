@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adc88a7d_1ae195df",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-16T14:07:37Z",
+      "side": 1,
+      "message": "used DbusInternalFailure, to align with other sdbusplus errors, should I use \u0027InternalFailure\u0027 instead?",
+      "parentUuid": "692416d6_6d67dd42",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4eab063_752a9e2e",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-14T06:28:11Z",
       "side": 1,
       "message": "Wrap the sentence close to 72 characters.",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac5acd3_80545876",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-16T14:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4eab063_752a9e2e",
       "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-10-14T06:28:11Z",
       "side": 1,
       "message": "Not all redundant paths are modeled as key. We might need another check to see if it is a redundant path. Check \"getRedundantEepromPathFromJson\".",
+      "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75d6075_439bf201",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-16T14:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b55119a_3f669ca8",
       "revId": "2c8519df834fad17c8dbf4c3df72cba85a9f2f76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
