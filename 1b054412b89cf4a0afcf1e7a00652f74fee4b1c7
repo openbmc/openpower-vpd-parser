@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a93840_ed8b7d9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-10-21T15:56:08Z",
+      "side": 1,
+      "message": "It would be good to note that we\u0027re doing this to avoid a cyclical dependency where set-spi-mux.service had to run after the power app (to know if pgood was on) which had to run after vpd collection (to know the system configuration) which had to run after set-spi-mux (to get to the vpd). This commit breaks that cyclical dependency by utilizing some code already in VPD to check pgood without need for the power app.",
+      "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787633ab_f490b4b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-10-21T15:56:08Z",
+      "side": 1,
+      "message": "nit: ideally you wrap at 72 chars in commit message to keep it clean when reading in gerrit.",
+      "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff9809d_ba277621",
+        "filename": "pgood-chassis-check/src/pgood-chassis-check.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-10-21T15:56:08Z",
+      "side": 1,
+      "message": "There could be an argument for making this something configurable in the makefile but as really the only openpower systems utilizing this also have the set-spi-mux.service, that\u0027s probably overkill until a real use case comes along.",
+      "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
