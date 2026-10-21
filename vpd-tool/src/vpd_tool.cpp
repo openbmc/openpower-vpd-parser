@@ -317,6 +317,15 @@ void VpdTool::populateFruJson(
                                             l_properties, io_fruJsonObject);
             continue;
         }
+
+        if (l_interface == constants::vpdCollectionInterface)
+        {
+            const std::vector<std::string> l_properties = {"Status"};
+            populateInterfaceJson<std::string>(
+                i_inventoryObjPath, constants::vpdCollectionInterface,
+                l_properties, io_fruJsonObject);
+            continue;
+        }
     }
 }
 
