@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6434b268_0f57252c",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-21T11:38:52Z",
+      "side": 1,
+      "message": "is \u0027Operation\u0027 prefix is required ?\nwhich is not added in other cases.",
+      "revId": "53ec4fdb99e695434e02c8af2840103a1ca004b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
