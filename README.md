@@ -4,7 +4,7 @@ This repository hosts code for OpenPower and IBM IPZ format VPD parsers. Both
 OpenPower VPD and IPZ VPD formats are structured binaries that consist of
 records and keywords. A record is a collection of multiple keywords. More
 information about the format can be found
-[at a broken link](https://www-355.ibm.com/systems/power/openpower/posting.xhtml?postingId=1D060729AC96891885257E1B0053BC95).
+[at a broken link](https://www-355.ibm.com/systems/power/openpower/posting.xhtml?postingId=1D060729AC96891885257E1B0053BC95). TestTest
 
 The repository consists of two distinct applications, which are:
 
