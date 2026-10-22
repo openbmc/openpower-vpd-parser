@@ -16,6 +16,24 @@
       "message": "I think \"frus\" check is not needed here. As per `vpd-manager` flow, all JSON objects in the code are fetched from `ConfigManager` which does JSON validation during `Manager` initialization flow.",
       "revId": "84486bc17fbaf4dd366e293070c46dcc4c19f0e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c36145f5_51a39f50",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-22T08:19:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c0291ab6_fd7a1c71",
+      "revId": "84486bc17fbaf4dd366e293070c46dcc4c19f0e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
