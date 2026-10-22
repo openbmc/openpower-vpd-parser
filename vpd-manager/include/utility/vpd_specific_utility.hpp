@@ -1104,6 +1104,12 @@ inline void setCollectionStatusProperty(
         return;
     }
 
+    if (!sysCfgJsonObj["frus"].contains(eepromPath))
+    {
+        errCode = error_code::FRU_PATH_NOT_FOUND;
+        return;
+    }
+
     for (const auto& fru : sysCfgJsonObj["frus"][eepromPath])
     {
         sdbusplus::object_path fruObjectPath(fru["inventoryPath"]);
@@ -1169,6 +1175,12 @@ inline void resetObjTreeVpd(const std::string& vpdPath,
 
         if (errCode)
         {
+            return;
+        }
+
+        if (!sysCfgJsonObj["frus"].contains(fruPath))
+        {
+            errCode = error_code::FRU_PATH_NOT_FOUND;
             return;
         }
 
