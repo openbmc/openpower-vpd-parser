@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e75dd7bd_d395f8ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-22T07:09:17Z",
+      "side": 1,
+      "message": "Emergency fix to avoid JSON exception causing service to core dump.",
+      "revId": "5c9b05bd6c1848e2eaae154490a225f3598b541a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
