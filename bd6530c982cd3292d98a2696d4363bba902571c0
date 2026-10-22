@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54a9b33b_42a4b6b1",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-22T05:40:30Z",
+      "side": 1,
+      "message": "Note comes first and then the usage.",
+      "parentUuid": "accd02f4_7518faa2",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e7b7e83_69d8dcc4",
         "filename": "vpd-tool/src/tool_help.cpp",
         "patchSetId": 2
@@ -172,6 +190,24 @@
       "writtenOn": "2026-10-15T06:09:42Z",
       "side": 1,
       "message": "Instead of system changes can we say \"Restores/Resets the environment variables\" which directly tells what is reseted ?",
+      "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8037a05_5d4431c0",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-22T05:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c92342e5_31ede77b",
       "revId": "bd6530c982cd3292d98a2696d4363bba902571c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

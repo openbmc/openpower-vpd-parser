@@ -16,6 +16,24 @@
       "message": "is \u0027Operation\u0027 prefix is required ?\nwhich is not added in other cases.",
       "revId": "53ec4fdb99e695434e02c8af2840103a1ca004b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65b39005_92a813c9",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-22T05:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6434b268_0f57252c",
+      "revId": "53ec4fdb99e695434e02c8af2840103a1ca004b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
