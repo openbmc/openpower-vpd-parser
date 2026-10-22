@@ -94,6 +94,25 @@ class CollectionOrchestrator final
     void registerVpdCollectionStatusListener();
 
     /**
+     * @brief API to register a listener for the collection service exiting
+     *
+     * Registers a NameOwnerChanged match on the collection service name, so
+     * that the event loop can be stopped early if the service exits or crashes.
+     */
+    void registerServiceExitListener() noexcept;
+
+    /**
+     * @brief Callback API to process NameOwnerChanged signal of collection
+     * service
+     *
+     * If the collection service has lost its bus name owner, sets the service
+     * exited flag and stops the event loop.
+     *
+     * @param[in] i_msg - Callback message
+     */
+    void serviceExitCallback(sdbusplus::message_t& i_msg) noexcept;
+
+    /**
      * @brief Callback API to process collect all FRU VPD D-Bus call status
      *
      * @param[in] i_msg - Callback message
@@ -147,12 +166,18 @@ class CollectionOrchestrator final
     // flag which indicates whether collection status has been read as complete
     std::atomic_bool m_collectionDone{false};
 
+    // flag which indicates that the collection service has exited
+    std::atomic_bool m_serviceExited{false};
+
     // flag which is used to ensure IO context is stopped only once, even if
     // multiple callbacks execute concurrently
     std::once_flag m_stopOnceFlag;
 
     // match object required by Collection Status listener
     std::unique_ptr<sdbusplus::match> m_collectionStatusMatch{nullptr};
+
+    // match object required by collection service exit listener
+    std::unique_ptr<sdbusplus::match> m_serviceExitMatch{nullptr};
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
