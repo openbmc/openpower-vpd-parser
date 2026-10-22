@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a844f3bb_4e1c1416",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-22T05:55:52Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "02a93840_ed8b7d9e",
+      "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "787633ab_f490b4b4",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-21T15:56:08Z",
       "side": 1,
       "message": "nit: ideally you wrap at 72 chars in commit message to keep it clean when reading in gerrit.",
+      "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af39d920_e3b92deb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-22T05:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787633ab_f490b4b4",
       "revId": "1b054412b89cf4a0afcf1e7a00652f74fee4b1c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
