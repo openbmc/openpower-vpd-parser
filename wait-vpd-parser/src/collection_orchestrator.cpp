@@ -12,6 +12,9 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
 {
     try
     {
+        // register before triggering collection so that an exit is not missed
+        registerServiceExitListener();
+
         m_asioConn->async_method_call(
             [this](boost::system::error_code l_ec,
                    sdbusplus::message_t& l_msg) {
@@ -26,7 +29,14 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
         // event loop returned
         if (m_collectionDone)
         {
-            m_logger->logMessage("VPD collection is done");
+            // FRU VPD collection is complete, reset the collection service
+            // match object
+            m_serviceExitMatch.reset();
+        }
+        else if (m_serviceExited)
+        {
+            throw std::runtime_error(
+                "vpd-manager exited before collection completed");
         }
         else
         {
@@ -96,6 +106,61 @@ void CollectionOrchestrator::collectAllFruVpdCallback(
     {
         throw std::runtime_error(std::format(
             "Error processing collect all FRU VPD callback: {}", l_ex.what()));
+    }
+}
+
+void CollectionOrchestrator::registerServiceExitListener()
+{
+    try
+    {
+        m_serviceExitMatch = std::make_unique<sdbusplus::match>(
+            *m_asioConn,
+            sdbusplus::match_rules::nameOwnerChanged(m_collectionServiceName),
+            [this](sdbusplus::message_t& l_msg) {
+                serviceExitCallback(l_msg);
+            });
+    }
+    catch (const std::exception& l_ex)
+    {
+        throw std::runtime_error(
+            std::format("Failed to register listener for {} exit. Error: {}",
+                        m_collectionServiceName, l_ex.what()));
+    }
+}
+
+void CollectionOrchestrator::serviceExitCallback(
+    sdbusplus::message_t& i_msg) noexcept
+{
+    try
+    {
+        if (i_msg.is_method_error())
+        {
+            throw vpd::DbusException(
+                "Error in reading name owner changed signal.");
+        }
+
+        std::string l_name;
+        std::string l_oldOwner;
+        std::string l_newOwner;
+        i_msg.read(l_name, l_oldOwner, l_newOwner);
+
+        if (l_name != m_collectionServiceName || !l_newOwner.empty())
+        {
+            return;
+        }
+
+        m_logger->logMessage(std::format(
+            "{} has lost its bus name owner, stopping wait for VPD collection",
+            m_collectionServiceName));
+
+        m_serviceExited = true;
+        std::call_once(m_stopOnceFlag, [this]() { m_ioContext.stop(); });
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to process name owner changed callback. Error : {}",
+            l_ex.what()));
     }
 }
 
