@@ -958,6 +958,20 @@ std::tuple<bool, bool> Worker::parseAndPublishVPD(
             return std::make_tuple(false, l_presenceState);
         }
 
+        // i_vpdFilePath may be a redundant EEPROM path which is not a key
+        // in i_configJson["frus"]; operator[] on a const JSON asserts when
+        // the key is absent, so guard every access before indexing.
+        if (!i_configJson.contains("frus") ||
+            !i_configJson["frus"].contains(i_vpdFilePath))
+        {
+            m_logger->logMessage(
+                std::format("Path [{}] not found in config JSON frus, "
+                            "aborting parse and publish VPD.",
+                            i_vpdFilePath),
+                PlaceHolder::COLLECTION);
+            return std::make_tuple(false, l_presenceState);
+        }
+
         // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
         if (i_configJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
