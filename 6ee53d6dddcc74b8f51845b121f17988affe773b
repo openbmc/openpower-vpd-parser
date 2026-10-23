@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0162dba_764d3fa4",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-23T09:11:16Z",
+      "side": 1,
+      "message": "nit: I think it\u0027s sufficient to specify \"relevant error code in case of failure\", instead of listing down all possible error codes which can be returned by this API.",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f516be_1b0e34fa",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-23T09:11:16Z",
+      "side": 1,
+      "message": "`elog` is a deprecated API. Please see https://github.com/ibm-openbmc/phosphor-logging/blob/1210/README.md",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ac71860_41085989",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-10-23T09:11:16Z",
+      "side": 1,
+      "message": "`elog` is a deprecated API. Please see https://github.com/ibm-openbmc/phosphor-logging/blob/1210/README.md",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
