@@ -72,9 +72,9 @@ Manager::Manager(
             });
 
         iFace->register_method(
-            "CollectFRUVPD",
-            [this](const sdbusplus::object_path& i_dbusObjPath) {
-                this->collectSingleFruVpd(i_dbusObjPath);
+            "CollectFRUVPD", [this](const sdbusplus::object_path& i_dbusObjPath,
+                                    const bool i_isCMFlow) {
+                this->collectSingleFruVpd(i_dbusObjPath, i_isCMFlow);
             });
 
         iFace->register_method(
@@ -550,7 +550,8 @@ types::DbusVariantType Manager::readKeyword(
     }
 }
 
-void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
+                                  [[maybe_unused]] const bool i_isCMFlow)
 {
     if (std::string(i_dbusObjPath).empty())
     {
