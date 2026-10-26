@@ -152,6 +152,7 @@ using RecordData = std::tuple<RecordOffset, RecordLength, ECCOffset, ECCLength>;
 using DbusInvalidArgument =
     sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
 using DbusNotAllowed = sdbusplus::xyz::openbmc_project::Common::Error::NotAllowed;
+using InternalFailure = sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
 
 using InvalidArgument = phosphor::logging::xyz::openbmc_project::Common::InvalidArgument;
 
@@ -182,7 +183,7 @@ enum CalloutPriority
 };
 
 /* The Message property of the event entry for creating PEL, to introduce new message needs to be added in 'phosphor-logging' message_registry.json as well. */
-enum ErrorType
+enum class ErrorType
 {
     DefaultValue,
     InvalidVpdMessage,
