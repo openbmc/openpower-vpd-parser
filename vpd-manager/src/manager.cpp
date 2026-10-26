@@ -578,6 +578,32 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         return;
     }
 
+    // For non-CM flow, check if field mode is enabled.
+    // If field mode is off, skip all checks (including Worker replaceability).
+    bool l_skipReplaceabilityCheck = false;
+    if (!i_isCMFlow)
+    {
+        uint16_t l_errCode = 0;
+        if (!commonUtility::isFieldModeEnabled(l_errCode))
+        {
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to check field mode for [" +
+                    std::string(i_dbusObjPath) +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
+                    ". Skipping replaceability check.");
+            }
+
+            // Field mode off: allow unconditionally.
+            l_skipReplaceabilityCheck = true;
+            Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),
+                                         i_dbusObjPath,
+                                         l_skipReplaceabilityCheck);
+            return;
+        }
+    }
+
     // CM flow: check ReadyToRemove before allowing collection.
     if (i_isCMFlow)
     {
@@ -602,7 +628,10 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         }
     }
 
-    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(), i_dbusObjPath);
+    // CM flow or non-CM with field mode ON: delegate to Worker.
+    // Worker will perform its own replaceability check.
+    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(), i_dbusObjPath,
+                                 l_skipReplaceabilityCheck);
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
