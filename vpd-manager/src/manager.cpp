@@ -72,9 +72,9 @@ Manager::Manager(
             });
 
         iFace->register_method(
-            "CollectFRUVPD",
-            [this](const sdbusplus::object_path& i_dbusObjPath) {
-                this->collectSingleFruVpd(i_dbusObjPath);
+            "CollectFRUVPD", [this](const sdbusplus::object_path& i_dbusObjPath,
+                                    const bool i_isCMFlow) {
+                this->collectSingleFruVpd(i_dbusObjPath, i_isCMFlow);
             });
 
         iFace->register_method(
@@ -550,7 +550,8 @@ types::DbusVariantType Manager::readKeyword(
     }
 }
 
-void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
+                                  const bool i_isCMFlow)
 {
     if (std::string(i_dbusObjPath).empty())
     {
@@ -575,6 +576,41 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             std::string(i_dbusObjPath),
             commonUtility::getErrCodeMsg(l_configJsonResult.error())));
         return;
+    }
+
+    // CM flow: check ReadyToRemove before allowing collection.
+    if (i_isCMFlow)
+    {
+        const auto l_readyToRemoveProperty = dbusUtility::readDbusProperty(
+            constants::pimServiceName, std::string(i_dbusObjPath),
+            constants::readyToRemoveIface, constants::readyToRemoveProperty);
+
+        if (const auto l_readyToRemove =
+                std::get_if<bool>(&l_readyToRemoveProperty))
+        {
+            // in CM flow, CollectFRUVPD should be triggered after setting
+            // ReadyToRemove to false validate that the value is indeed false
+            if (!*l_readyToRemove)
+            {
+                Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),
+                                             i_dbusObjPath);
+                return;
+            }
+            else
+            {
+                m_logger->logMessage(std::format(
+                    "ReadyToRemove property for {} is set to true. Rejecting single FRU VPD collection",
+                    std::string(i_dbusObjPath)));
+                throw types::DbusNotAllowed();
+            }
+        }
+        else
+        {
+            m_logger->logMessage(std::format(
+                "Failed to read {} from D-Bus for {}.",
+                constants::readyToRemoveProperty, std::string(i_dbusObjPath)));
+            throw types::InternalFailure();
+        }
     }
 
     Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),

@@ -531,6 +531,42 @@ inline bool isBMCReady()
 }
 
 /**
+ * @brief API to check if a FRU has ReadyToRemove set to true on D-Bus.
+ *
+ * This API reads the ReadyToRemove property from the
+ * xyz.openbmc_project.State.ReadyToRemove interface for the given inventory
+ * path on PIM.
+ *
+ * @param[in] i_invPath - D-Bus inventory path of the FRU.
+ *
+ * @return std::expected<bool, error_code>:
+ *         - true if ReadyToRemove property is true.
+ *         - false if ReadyToRemove property is false.
+ *         - std::unexpected(error_code::INVALID_INPUT_PARAMETER) if path is
+ *           empty or the property value is not of boolean type.
+ *         - std::unexpected(error_code::DBUS_FAILURE) if the D-Bus read fails.
+ */
+inline std::expected<bool, error_code> isFruReadyToRemove(
+    const std::string& i_invPath)
+{
+    if (i_invPath.empty())
+    {
+        return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+    }
+
+    const auto l_readyToRemove = dbusUtility::readDbusProperty(
+        constants::pimServiceName, i_invPath, constants::readyToRemoveIface,
+        constants::readyToRemoveProperty);
+
+    if (const auto l_val = std::get_if<bool>(&l_readyToRemove))
+    {
+        return *l_val;
+    }
+
+    return std::unexpected(error_code::DBUS_FAILURE);
+}
+
+/**
  * @brief An API to enable BMC reboot guard
  *
  * This API does a D-Bus method call to enable BMC reboot guard.
