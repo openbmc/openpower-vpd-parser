@@ -1441,7 +1441,8 @@ void Worker::performVpdRecollection(
 }
 
 void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
-                                 const sdbusplus::object_path& i_dbusObjPath)
+                                 const sdbusplus::object_path& i_dbusObjPath,
+                                 [[maybe_unused]] const bool i_isCMFlow)
 {
     std::string l_fruPath{};
     uint16_t l_errCode = 0;

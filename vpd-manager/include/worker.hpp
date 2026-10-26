@@ -101,10 +101,14 @@ class Worker
      * allowed for VPD recollection.
      *
      * @param[in] i_configJsonObj - Config Json object.
-     * @param[in] i_dbusObjPath - D-bus object path
+     * @param[in] i_dbusObjPath - D-bus object path.
+     * @param[in] i_isCMFlow - Flag which indicates whether this API is being
+     * invoked during concurrent maintenance flow. Default value is considered
+     * as true.
      */
     void collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
-                             const sdbusplus::object_path& i_dbusObjPath);
+                             const sdbusplus::object_path& i_dbusObjPath,
+                             const bool i_isCMFlow = true);
 
     /**
      * @brief  Perform VPD recollection
