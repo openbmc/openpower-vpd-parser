@@ -102,9 +102,12 @@ class Worker
      *
      * @param[in] i_configJsonObj - Config Json object.
      * @param[in] i_dbusObjPath - D-bus object path
+     * @param[in] i_skipReplaceabilityCheck - If true, skip the system-state
+     *            replaceability check (standby/runtime). Defaults to false.
      */
     void collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
-                             const sdbusplus::object_path& i_dbusObjPath);
+                             const sdbusplus::object_path& i_dbusObjPath,
+                             bool i_skipReplaceabilityCheck = false);
 
     /**
      * @brief  Perform VPD recollection
