@@ -129,10 +129,14 @@ class Manager
      * allowed for VPD recollection.
      *
      * @param[in] i_dbusObjPath - D-bus object path
+     * @param[in] i_isCMFlow - Flag which indicates whether this API is being
+     * invoked during concurrent maintenance flow. Default value is considered
+     * as true.
      *
      * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
      */
-    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
+                             const bool i_isCMFlow = true);
 
     /**
      * @brief Delete single FRU VPD
