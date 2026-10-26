@@ -53,6 +53,12 @@ std::vector<std::string> Table::wrapText(const std::string& text,
             {
                 chunk = chunk.substr(constants::VALUE_0, lastSpace);
             }
+            else if (const auto lastSpace = chunk.rfind('.');
+                     lastSpace != std::string_view::npos &&
+                     lastSpace > constants::VALUE_0)
+            {
+                chunk = chunk.substr(constants::VALUE_0, lastSpace);
+            }
             // For paths or other slash-separated values, break after '/'.
             else if (const auto lastSlash = chunk.rfind('/');
                      lastSlash != std::string_view::npos)
