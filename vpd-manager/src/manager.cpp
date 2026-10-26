@@ -551,7 +551,7 @@ types::DbusVariantType Manager::readKeyword(
 }
 
 void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
-                                  [[maybe_unused]] const bool i_isCMFlow)
+                                  const bool i_isCMFlow)
 {
     if (std::string(i_dbusObjPath).empty())
     {
@@ -578,8 +578,31 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         return;
     }
 
-    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),
-                                 i_dbusObjPath);
+    // CM flow: check ReadyToRemove before allowing collection.
+    if (i_isCMFlow)
+    {
+        const auto l_readyToRemove =
+            dbusUtility::isFruReadyToRemove(std::string(i_dbusObjPath));
+
+        if (!l_readyToRemove.has_value())
+        {
+            m_logger->logMessage(
+                "Failed to read ReadyToRemove property for [" +
+                std::string(i_dbusObjPath) +
+                "]. Single FRU VPD collection is not performed.");
+            return;
+        }
+
+        if (!l_readyToRemove.value())
+        {
+            m_logger->logMessage(
+                "ReadyToRemove is not set for [" + std::string(i_dbusObjPath) +
+                "]. Single FRU VPD collection is not performed.");
+            return;
+        }
+    }
+
+    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(), i_dbusObjPath);
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
