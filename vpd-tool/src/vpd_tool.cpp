@@ -1114,9 +1114,10 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
 
             // columns to be populated in the Inventory table
             const std::vector<types::TableColumnNameSizePair> l_tableColumns = {
-                {"FRU", 100},         {"CC", 6},  {"DR", 20},
-                {"LocationCode", 32}, {"PN", 8},  {"PrettyName", 80},
-                {"SubModel", 10},     {"SN", 15}, {"type", 60}};
+                {"FRU", 35},          {"CC", 6},  {"DR", 10},
+                {"LocationCode", 25}, {"PN", 10}, {"PrettyName", 35},
+                {"SubModel", 10},     {"SN", 15}, {"type", 40},
+                {"Status", 40}};
 
             types::TableInputData l_tableData;
 
@@ -1168,7 +1169,7 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
                 l_tableData.push_back(l_row);
             }
 
-            l_rc = l_inventoryTable.print(l_tableData);
+            l_rc = l_inventoryTable.print(l_tableData, true);
         }
         else
         {
