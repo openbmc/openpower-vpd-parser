@@ -108,6 +108,66 @@ Currently following property is supported:
 - **pin** - Gpio pin name.
 - **cmd** - shell command to execute.
 
+### Record inheritance flags (`inherit`, `copyRecords`, `skipRecords`, `inheritCI`)
+
+These flags are set on an entry of the `frus.<EEPROM_PATH_OF_FRU>` array. They
+decide which parsed VPD records, and which `commonInterfaces`, are published on
+that entry's `inventoryPath`. They can be set on any entry, including the base
+FRU (index 0), and not only on child FRUs.
+
+- **inherit** - Boolean, default `true`. If `true`, every record parsed from the
+  EEPROM (and the `commonInterfaces`, if defined) is published on this inventory
+  object. If `false`, `copyRecords` or `skipRecords` decide what is published.
+  If neither `copyRecords` nor `skipRecords` is defined, no record is copied to
+  that FRU's inventory path.
+- **copyRecords** - Array of record names (e.g. `["VSYS"]`). Only the listed
+  records are published (allow-list). Records that are not present in the parsed
+  VPD are silently ignored. Must be an array. `commonInterfaces` are not
+  published unless `inheritCI` is `true`.
+- **skipRecords** - Array of record names. Every parsed record except the listed
+  ones is published (deny-list). Must be an array, otherwise a message is logged
+  and no records are published. Supported for IPZ VPD only. `commonInterfaces`
+  are not published unless `inheritCI` is `true`.
+- **inheritCI** - Boolean, default `false`. Only meaningful when `inherit` is
+  `false` (when `inherit` is `true`, `commonInterfaces` are already published).
+  If `true`, the top-level `commonInterfaces` are also published on this
+  inventory object, in addition to whatever `copyRecords` / `skipRecords`
+  select. Keyword updates also sync the `commonInterfaces` properties of such
+  entries.
+
+#### Precedence
+
+`copyRecords` and `skipRecords` are evaluated only when `inherit` is `false`,
+and `copyRecords` takes precedence over `skipRecords`:
+
+| `inherit`        | `copyRecords` | `skipRecords` | Records published on the inventory object        |
+| ---------------- | ------------- | ------------- | ------------------------------------------------ |
+| absent or `true` | ignored       | ignored       | All records, plus `commonInterfaces`             |
+| `false`          | present       | ignored       | Only the records listed in `copyRecords`         |
+| `false`          | absent        | present       | All records except those listed in `skipRecords` |
+| `false`          | absent        | absent        | None. Only `extraInterfaces` apply               |
+
+`inheritCI: true` is independent of the table above: when `inherit` is `false`,
+it adds the `commonInterfaces` on top of the records selected by the table.
+
+> **Note:** Use only one of `copyRecords` and `skipRecords` per entry. If a
+> record is listed in both, `copyRecords` wins: the record is published and its
+> keyword updates are applied to the inventory object.
+
+#### Example
+
+```json
+{
+  "inventoryPath": "/xyz/openbmc_project/inventory/system",
+  "serviceName": "xyz.openbmc_project.Inventory.Manager",
+  "inherit": false,
+  "copyRecords": ["VSYS"]
+}
+```
+
+Only the `VSYS` record is published on `/xyz/openbmc_project/inventory/system`.
+Other records parsed from the same EEPROM (e.g. `VINI`) are not published on it.
+
 ### Note on Extensibility
 
 > ⚠️ **Important** Although the JSON structure is generic and allows future
@@ -255,17 +315,39 @@ Currently following property is supported:
         "handlePresence": "<bool: vpd-manager manages FRU presence>",
         "monitorPresence": "<bool: FRU presence is actively monitored>",
         "essentialFru": "<bool: FRU is essential for system operation>",
-        "readOnly": "<bool: FRU or its VPD data is read-only>"
+        "readOnly": "<bool: FRU or its VPD data is read-only>",
+
+        "inherit": "<bool, default true: if true, all records of the EEPROM
+        and the commonInterfaces are published on this inventory object. If
+        false, copyRecords / skipRecords decide which records are published.>",
+        "copyRecords": "<array of strings: only these records are published.
+        Used only when inherit is false.>",
+        "skipRecords": "<array of strings: all records except these are
+        published. Used only when inherit is false and copyRecords is absent.
+        Applies to IPZ VPD only.>",
+        "inheritCI": "<bool, default false: when inherit is false, also publish
+        the commonInterfaces on this inventory object.>"
       },
       {
-        "<All FRUs at index 1 or onwards are considered child FRUs>"
-        "inherit" : "<bool: indicating whether the child FRU inherits all
-        properties from the base FRU>",
-        "copyRecords": "<string, specifies which VPD fields should be copied
-        from the parent/base FRU. This is an array of field names,allowing the
-        child FRU to copy/inherit only the relevant VPD informations>",
-
+        "<Entries at index 1 or onwards model child FRUs: additional inventory
+        objects that are populated from the same EEPROM as the base FRU. They
+        use the same fields as above. Below is an example of a child FRU that
+        publishes only selected records.>",
+        "inventoryPath": "<string: Inventory object path of the child FRU. It is mandatory field.>",
+        "serviceName": "<string: Name of the service hosting the inventory object.
+        It is mandatory field>",
+        "inherit": false,
+        "copyRecords": ["<RECORD_1>", "<RECORD_2>", "..."],
+        "inheritCI": true,
+        "extraInterfaces": {
+          "xyz.openbmc_project.Inventory.Item": {
+            "PrettyName": "<string: User-friendly FRU name>"
+          }
+        }
       },
+      {
+        "...": "Any number of additional child FRUs"
+      }
     ]
   }
 }
