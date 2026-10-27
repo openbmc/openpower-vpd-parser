@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fe7918_a341414a",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-27T04:55:33Z",
+      "side": 1,
+      "message": "This will exit the complete collection process in case the code fails to register this match.\nThis logic is just to avoid unnecessary waiting, not a mandatory pre-condition for collection to take place. \nThe code should not tie collection with this logic.",
+      "revId": "8892ec4e561340f69750cf927645ea78b36b3465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
