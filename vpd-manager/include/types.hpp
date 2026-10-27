@@ -158,7 +158,7 @@ using InvalidArgument = phosphor::logging::xyz::openbmc_project::Common::Invalid
 namespace DeviceError = sdbusplus::xyz::openbmc_project::Common::Device::Error;
 
 /* PEL Severity enum as defined in [xyz.openbmc_project.Logging.Entry.Level]log.hpp from 'phosphor-logging' repo. */
-enum SeverityType
+enum class SeverityType
 {
     Notice,
     Informational,
@@ -171,7 +171,7 @@ enum SeverityType
 };
 
 /* PEL callout priority from 'phosphor-logging' pel_types.hpp. If any change in 'phosphor-logging', it needs update here as well. */
-enum CalloutPriority
+enum class CalloutPriority
 {
     High,
     Medium,
@@ -182,7 +182,7 @@ enum CalloutPriority
 };
 
 /* The Message property of the event entry for creating PEL, to introduce new message needs to be added in 'phosphor-logging' message_registry.json as well. */
-enum ErrorType
+enum class ErrorType
 {
     DefaultValue,
     InvalidVpdMessage,
