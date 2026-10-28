@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8921add5_2bc41065",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-28T10:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "085572c6_f16b2a3b",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595d6074_49c1eb13",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-28T05:04:40Z",
       "side": 1,
       "message": "leaving commnet for why skipping Umts, will be helpful here.",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbdd7858_1dfb2822",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-28T10:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595d6074_49c1eb13",
       "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed22aeb3_2cb8fdc7",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-28T10:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3a5e210_2d000dd4",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "442bddf1_1687d880",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-10-28T05:04:40Z",
       "side": 1,
       "message": "checking only on error would be enough, \u0026 should we just log for all error type not just DBUS_FAILURE.\nAnd can we include input details aswell .",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4bacc6_d0f9092c",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-10-28T10:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442bddf1_1687d880",
       "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
