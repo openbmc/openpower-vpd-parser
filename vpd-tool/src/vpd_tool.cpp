@@ -303,7 +303,7 @@ void VpdTool::populateFruJson(
         if (l_interface == constants::slotNumInf)
         {
             const std::vector<std::string> l_properties = {"SlotNumber"};
-            populateInterfaceJson<uint32_t>(i_inventoryObjPath,
+            populateInterfaceJson<uint64_t>(i_inventoryObjPath,
                                             constants::slotNumInf, l_properties,
                                             io_fruJsonObject);
             continue;
@@ -439,11 +439,20 @@ nlohmann::json VpdTool::getInventoryPropertyJson(
                 l_resultInJson.emplace(i_propertyName,
                                        std::to_string(*l_value));
             }
+            else if constexpr (std::is_same<PropertyType, uint64_t>::value)
+            {
+                l_resultInJson.emplace(i_propertyName,
+                                       std::to_string(*l_value));
+            }
         }
         else
         {
             // TODO: Enable logging when verbose is enabled.
-            std::cout << "Invalid data type received." << std::endl;
+            std::cerr
+                << std::format(
+                       "Invalid data type received for property [{}] on interface [{}] at object path [{}].",
+                       i_propertyName, i_interface, i_objectPath)
+                << std::endl;
         }
     }
     catch (const std::exception& l_ex)
