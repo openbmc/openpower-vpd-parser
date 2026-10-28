@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085572c6_f16b2a3b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-28T05:04:40Z",
+      "side": 1,
+      "message": "instead of uint16_t we can use ErrorCode ?",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595d6074_49c1eb13",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-28T05:04:40Z",
+      "side": 1,
+      "message": "leaving commnet for why skipping Umts, will be helpful here.",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a5e210_2d000dd4",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-28T05:04:40Z",
+      "side": 1,
+      "message": "leaving comment why we updating location here, will be helpful.",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "442bddf1_1687d880",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-10-28T05:04:40Z",
+      "side": 1,
+      "message": "checking only on error would be enough, \u0026 should we just log for all error type not just DBUS_FAILURE.\nAnd can we include input details aswell .",
+      "revId": "055b7cbc9310e904741031647c26fd309d325f9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
