@@ -18,6 +18,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0a4880_04d790c8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-28T13:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0162dba_764d3fa4",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8391717_bbe30832",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-28T13:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0162dba_764d3fa4",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93f516be_1b0e34fa",
@@ -52,6 +88,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66361944_9fef3c79",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-28T13:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "187e3141_db4acefc",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b5876a4_d2435b9c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-28T13:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f516be_1b0e34fa",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ac71860_41085989",
@@ -65,6 +137,24 @@
       "writtenOn": "2026-10-23T09:11:16Z",
       "side": 1,
       "message": "`elog` is a deprecated API. Please see https://github.com/ibm-openbmc/phosphor-logging/blob/1210/README.md",
+      "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e3a8f1_d854927b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-10-28T13:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ac71860_41085989",
       "revId": "6ee53d6dddcc74b8f51845b121f17988affe773b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
