@@ -335,6 +335,7 @@ class Logger
      */
     void terminateVpdCollectionLogging() noexcept
     {
+        std::lock_guard<std::mutex> l_lock{m_collectionLoggerMutex};
         m_collectionLogger.reset();
     }
 #endif
@@ -358,8 +359,14 @@ class Logger
      * collection log files and if 3 such files are found, it deletes the oldest
      * file and initiates a VPD collection logger object, so that every new VPD
      * collection flow always gets logged into a new file.
+     *
+     * Note: The caller must hold m_collectionLoggerMutex.
      */
     void initiateVpdCollectionLogging() noexcept;
+
+    // mutex to serialize creation, access and destruction of the collection
+    // logger object, as collection messages are logged from multiple threads
+    std::mutex m_collectionLoggerMutex;
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
