@@ -162,7 +162,6 @@ int VpdTool::readKeyword(
 
 int VpdTool::dumpObject(std::string i_fruPath) const noexcept
 {
-    int l_rc{constants::FAILURE};
     try
     {
         // ToDo: For PFuture system take only full path from the user.
@@ -192,15 +191,15 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
             std::cout << "FRU [" << i_fruPath
                       << "] is not present in the system" << std::endl;
         }
-        l_rc = constants::SUCCESS;
+        return constants::SUCCESS;
     }
     catch (std::exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
         std::cerr << "Dump Object failed for FRU [" << i_fruPath
                   << "], Error: " << l_ex.what() << std::endl;
+        return static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
     }
-    return l_rc;
 }
 
 template <typename PropertyType>
@@ -333,7 +332,14 @@ std::expected<nlohmann::json, ErrorCode> VpdTool::getFruProperties(
     const std::string& i_objectPath) const noexcept
 {
     // check if FRU is present in the system
-    if (!isFruPresent(i_objectPath))
+    const auto l_fruPresentResult = isFruPresent(i_objectPath);
+
+    if (!l_fruPresentResult.has_value())
+    {
+        return std::unexpected(l_fruPresentResult.error());
+    }
+
+    if (!l_fruPresentResult.value())
     {
         return nlohmann::json::object_t();
     }
@@ -967,7 +973,8 @@ std::expected<nlohmann::json, ErrorCode> VpdTool::getFruTypeProperty(
     return l_resultInJson;
 }
 
-bool VpdTool::isFruPresent(const std::string& i_objectPath) const noexcept
+std::expected<bool, ErrorCode> VpdTool::isFruPresent(
+    const std::string& i_objectPath) const noexcept
 {
     bool l_returnValue{false};
     try
@@ -978,7 +985,7 @@ bool VpdTool::isFruPresent(const std::string& i_objectPath) const noexcept
 
         if (!l_keywordValue.has_value())
         {
-            return l_returnValue;
+            return std::unexpected(l_keywordValue.error());
         }
 
         if (const auto l_value = std::get_if<bool>(&l_keywordValue.value()))
@@ -989,9 +996,9 @@ bool VpdTool::isFruPresent(const std::string& i_objectPath) const noexcept
     catch (const std::runtime_error& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        // std::cerr << "Failed to check \"Present\" property for FRU "
-        //           << i_objectPath << " Error: " << l_ex.what() <<
-        //           std::endl;
+        std::cerr << "Failed to check \"Present\" property for FRU "
+                  << i_objectPath << " Error: " << l_ex.what() << std::endl;
+        return std::unexpected(ErrorCode::STANDARD_EXCEPTION);
     }
     return l_returnValue;
 }
@@ -1063,7 +1070,14 @@ int VpdTool::dumpInventory(std::optional<int> i_chassisId,
                 return static_cast<int>(l_chassisPath.error());
             }
 
-            if (!isFruPresent(l_chassisPath.value()))
+            const auto l_fruPresentResult = isFruPresent(l_chassisPath.value());
+
+            if (!l_fruPresentResult.has_value())
+            {
+                return static_cast<int>(l_fruPresentResult.error());
+            }
+
+            if (!l_fruPresentResult.value())
             {
                 std::cout << std::format("Chassis [{}] is not present.",
                                          l_chassisPath.value())

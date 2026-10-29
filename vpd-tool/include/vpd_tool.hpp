@@ -118,9 +118,12 @@ class VpdTool
      *
      * @param[in] i_objectPath - DBus object path.
      *
-     * @return true if FRU's "Present" property is true, false otherwise.
+     * @return std::expected<bool, ErrorCode> - Returns true if the FRU is
+     *         present, false if it is not present, or an error code if
+     *         reading the Present property fails.
      */
-    bool isFruPresent(const std::string& i_objectPath) const noexcept;
+    std::expected<bool, ErrorCode> isFruPresent(
+        const std::string& i_objectPath) const noexcept;
 
     /**
      * @brief An API to get backup-restore config JSON of the system.
@@ -265,7 +268,7 @@ class VpdTool
      *
      * @param[in] i_fruPath - DBus object path.
      *
-     * @return On success returns 0, otherwise returns -1.
+     * @return On success returns 0, otherwise corresponding error code.
      */
     int dumpObject(std::string i_fruPath) const noexcept;
 

@@ -51,5 +51,8 @@ class VpdToolHelp
 
     /** @brief print help text for the exitSplitMode operation. */
     void printExitSplitModeHelp() const noexcept;
+
+    /** @brief print help text for dumpObject operation. */
+    void printDumpObjectHelp() const noexcept;
 };
 } // namespace vpd
