@@ -45,7 +45,8 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
                    {"validateRedundantEeprom",
                     &VpdToolHelp::printValidateRedundantEepromHelp},
                    {"enterSplitMode", &VpdToolHelp::printEnterSplitModeHelp},
-                   {"exitSplitMode", &VpdToolHelp::printExitSplitModeHelp}};
+                   {"exitSplitMode", &VpdToolHelp::printExitSplitModeHelp},
+                   {"dumpObject", &VpdToolHelp::printDumpObjectHelp}};
 
     for (const auto& arg : args)
     {
@@ -72,6 +73,7 @@ void VpdToolHelp::printGenericHelp() const noexcept
         << "  validateRedundantEeprom       Validate an EEPROM against its redundant copy\n"
         << "  enterSplitMode                Configure the system to operate in split mode\n"
         << "  exitSplitMode                 Configure the system to exit split mode\n"
+        << "  dumpObject                    Dump inventory of a particular object path\n"
         << "\n"
         << "Use 'vpd-tool <operation> --help' for more information on a specific operation.\n";
 }
@@ -398,6 +400,42 @@ void VpdToolHelp::printExitSplitModeHelp() const noexcept
     catch (const std::exception& ex)
     {
         std::cerr << "Failed to print help text for exit split mode, reason: "
+                  << ex.what() << ".\n Please try again." << std::endl;
+    }
+}
+
+void VpdToolHelp::printDumpObjectHelp() const noexcept
+{
+    try
+    {
+        std::cout
+            << "   Dumps inventory of specified object in JSON format.\n\n"
+            << "Usage: \n"
+            << "  vpd-tool -o -O <Object Path>\n"
+            << "  vpd-tool --dumpObject -O <Object Path>\n\n"
+            << "Return values:\n"
+            << "  Success (0) : Dumps the inventory of specified object on console.\n"
+            << "  Failure     : Error code is returned and error message is displayed on console.\n\n";
+
+        std::cout << "Error codes for the dump object operation" << std::endl;
+
+        Table errTable(' ', '|', true);
+        errTable.addColumn("Code", 8);
+        errTable.addColumn("Description", 50);
+
+        const types::TableInputData errorData = {
+            {"-2", "Input parameter(s) are invalid"},
+            {"-5", "DBus call failed"},
+            {"-8", "Standard exception occurred"},
+            {"-9", "JSON parse error"},
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"}};
+
+        errTable.print(errorData);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cerr << "Failed to print help text for dump object, reason: "
                   << ex.what() << ".\n Please try again." << std::endl;
     }
 }
