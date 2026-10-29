@@ -326,19 +326,6 @@ class Logger
         m_connection = i_asioConnection;
     }
 
-#ifdef ENABLE_FILE_LOGGING
-    /**
-     * @brief API to terminate VPD collection logging.
-     *
-     * This API terminates the VPD collection logging by destroying the
-     * associated VPD collection logger object.
-     */
-    void terminateVpdCollectionLogging() noexcept
-    {
-        m_collectionLogger.reset();
-    }
-#endif
-
   private:
     /**
      * @brief Constructor
@@ -358,8 +345,30 @@ class Logger
      * collection log files and if 3 such files are found, it deletes the oldest
      * file and initiates a VPD collection logger object, so that every new VPD
      * collection flow always gets logged into a new file.
+     *
+     * Note: The caller must hold m_collectionLoggerMutex.
      */
     void initiateVpdCollectionLogging() noexcept;
+
+    /**
+     * @brief API to terminate VPD collection logging.
+     *
+     * This API terminates the VPD collection logging by destroying the
+     * associated VPD collection logger object.
+     *
+     * Note: Private on purpose. Logger::logMessage() uses the collection
+     * logger without holding m_collectionLoggerMutex once it has been
+     * created, so it must not be reset while other threads may be logging.
+     */
+    void terminateVpdCollectionLogging() noexcept
+    {
+        std::lock_guard<std::mutex> l_lock{m_collectionLoggerMutex};
+        m_collectionLogger.reset();
+    }
+
+    // mutex to serialize the creation of the collection logger object, as
+    // collection messages are logged from multiple threads
+    std::mutex m_collectionLoggerMutex;
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
