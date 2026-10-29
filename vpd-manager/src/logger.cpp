@@ -24,23 +24,28 @@ void Logger::logMessage(std::string_view i_message,
         if (i_placeHolder == PlaceHolder::COLLECTION)
         {
 #ifdef ENABLE_FILE_LOGGING
-            if (m_collectionLogger.get() == nullptr)
+            std::shared_ptr<ILogFileHandler> l_collectionLogger;
             {
-                initiateVpdCollectionLogging();
+                // collection messages are logged from multiple threads, so
+                // serialize the lazy creation of the collection logger.
+                std::lock_guard<std::mutex> l_lock{m_collectionLoggerMutex};
 
-                if (m_collectionLogger.get() != nullptr)
+                if (m_collectionLogger == nullptr)
                 {
-                    // Log it to a specific place.
-                    m_collectionLogger->logMessage(l_log.str());
+                    initiateVpdCollectionLogging();
                 }
-                else
-                {
-                    std::cout << l_log.str() << std::endl;
-                }
+
+                l_collectionLogger = m_collectionLogger;
+            }
+
+            if (l_collectionLogger != nullptr)
+            {
+                // Log it to a specific place.
+                l_collectionLogger->logMessage(l_log.str());
             }
             else
             {
-                m_collectionLogger->logMessage(l_log.str());
+                std::cout << l_log.str() << std::endl;
             }
 #else
             std::cout << l_log.str() << std::endl;
