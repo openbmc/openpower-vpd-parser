@@ -324,13 +324,13 @@ int main(int argc, char** argv)
     auto l_exitSplitModeFlag =
         l_app.add_flag("--exitSplitMode", "Exit split mode");
 
-#if 0
     auto l_dumpObjFlag =
         l_app
             .add_flag("--dumpObject, -o",
                       "Dump specific properties of an inventory object")
             ->needs(l_objectOption);
 
+#if 0
     auto l_fixSystemVpdFlag = l_app.add_flag(
         "--fixSystemVPD",
         "Use this option to interactively fix critical system VPD keywords");
@@ -453,13 +453,13 @@ int main(int argc, char** argv)
         return l_splitModeObj.exitSplitMode();
     }
 
-#if 0
     if (!l_dumpObjFlag->empty())
     {
         vpd::VpdTool l_vpdToolObj;
         return l_vpdToolObj.dumpObject(l_vpdPath);
     }
 
+#if 0
     if (!l_fixSystemVpdFlag->empty())
     {
         vpd::VpdTool l_vpdToolObj;

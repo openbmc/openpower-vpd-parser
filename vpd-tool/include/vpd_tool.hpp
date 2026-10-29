@@ -120,7 +120,8 @@ class VpdTool
      *
      * @return true if FRU's "Present" property is true, false otherwise.
      */
-    bool isFruPresent(const std::string& i_objectPath) const noexcept;
+    std::expected<bool, ErrorCode> isFruPresent(
+        const std::string& i_objectPath) const noexcept;
 
     /**
      * @brief An API to get backup-restore config JSON of the system.
