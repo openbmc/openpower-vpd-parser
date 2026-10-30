@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e714efd6_adae7bbd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-10-30T12:31:03Z",
+      "side": 1,
+      "message": "Please wrap the sentence close to 72 characters.",
+      "revId": "156454c3526ec762a54bfddb71e4ca30e9aa4315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
