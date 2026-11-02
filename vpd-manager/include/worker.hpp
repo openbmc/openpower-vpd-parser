@@ -2,11 +2,13 @@
 
 #include "config_manager.hpp"
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
 
+#include <expected>
 #include <mutex>
 #include <optional>
 #include <semaphore>
@@ -471,6 +473,25 @@ class Worker
     void processSkipRecordsFlag(const nlohmann::json& i_fruJson,
                                 const types::VPDMapVariant& i_parsedVpdMap,
                                 types::InterfaceMap& o_interfaces);
+
+    /**
+     * @brief API to check if a FRU is replaceable in the current system state.
+     *
+     * If the host is running, the FRU must be replaceable at host runtime. If
+     * the host is not running but BMC is ready, the FRU must be replaceable
+     * either at standby or at runtime. In any other state, the FRU is
+     * considered replaceable.
+     *
+     * @param[in] i_fruPath - FRU path as present in the config JSON.
+     * @param[in] i_dbusObjPath - D-bus object path of the FRU, used for
+     * logging.
+     *
+     * @return true if the FRU is replaceable in the current state, false
+     * otherwise. Error code on failure.
+     */
+    std::expected<bool, error_code> isFruCurrentlyReplaceable(
+        const std::string& i_fruPath,
+        const sdbusplus::object_path& i_dbusObjPath) noexcept;
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
