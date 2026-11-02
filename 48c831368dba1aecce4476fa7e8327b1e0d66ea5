@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c5ab0d_83542938",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-02T08:30:11Z",
+      "side": 1,
+      "message": "The log should be re-phrased. \n```suggestion\n            \"Received redundant EEPROM path:[{}] as input. This API requires primary EEPROM path as input.\",\n```",
+      "revId": "48c831368dba1aecce4476fa7e8327b1e0d66ea5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
