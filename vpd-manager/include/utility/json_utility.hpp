@@ -1038,7 +1038,17 @@ inline std::string getFruPathFromJson(const std::string& i_vpdPath,
     // check if given path is FRU path
     if (l_parsedConfigJson["frus"].contains(i_vpdPath))
     {
-        return i_vpdPath;
+        const auto l_isRedundantEepromPath =
+            jsonUtility::isRedundantEeprom(i_vpdPath);
+        if (!l_isRedundantEepromPath.has_value())
+        {
+            o_errCode = ERROR_CHECKING_REDUNDANT_PATH;
+            return std::string{};
+        }
+        if (!l_isRedundantEepromPath.value())
+        {
+            return i_vpdPath;
+        }
     }
 
     const nlohmann::json& l_fruList =
@@ -1049,10 +1059,12 @@ inline std::string getFruPathFromJson(const std::string& i_vpdPath,
         const auto l_fruPath = l_fru.key();
 
         // check if given path is redundant FRU path or inventory path
-        if (i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
-                             "redundantEeprom", "") ||
-            (i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
-                              "inventoryPath", "")))
+        if ((i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
+                              "redundantEeprom", "") ||
+             i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
+                              "inventoryPath", "")) &&
+            !l_parsedConfigJson["frus"][l_fruPath].at(0).value("isRedundant",
+                                                               false))
         {
             return l_fruPath;
         }
