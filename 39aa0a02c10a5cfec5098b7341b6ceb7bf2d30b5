@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbb13f2a_69fa2159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-03T07:10:13Z",
+      "side": 1,
+      "message": "Line needs to be wrapped near to 72 characters.",
+      "revId": "39aa0a02c10a5cfec5098b7341b6ceb7bf2d30b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
