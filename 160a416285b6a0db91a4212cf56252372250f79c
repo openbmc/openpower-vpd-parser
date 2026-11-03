@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e86770_728eea3e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-03T15:21:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08024045_c79faa73",
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20713e7c_782d7cf7",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b84c07a_9f40e44e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-03T15:21:05Z",
+      "side": 1,
+      "message": "Updated the code to log error at caller along with respective string representation of specific error code. In future implementation, we may want to expose specific error codes to D-Bus caller. Having this return type would help with that.",
+      "parentUuid": "20713e7c_782d7cf7",
+      "range": {
+        "startLine": 1777,
+        "startChar": 20,
+        "endLine": 1777,
+        "endChar": 30
+      },
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7e43e00_90813a8c",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 4
@@ -54,6 +96,24 @@
       "writtenOn": "2026-11-03T14:29:01Z",
       "side": 1,
       "message": "If caller is going to make use of error code to log then let\u0027s have logging only at one place.",
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ba0224_cd0082e7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-03T15:21:05Z",
+      "side": 1,
+      "message": "Addressed. Error case logging is only done at caller along with respective string representation of specific error code.",
+      "parentUuid": "a7e43e00_90813a8c",
       "revId": "160a416285b6a0db91a4212cf56252372250f79c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
