@@ -39,6 +39,23 @@
       },
       "revId": "160a416285b6a0db91a4212cf56252372250f79c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e43e00_90813a8c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-03T14:29:01Z",
+      "side": 1,
+      "message": "If caller is going to make use of error code to log then let\u0027s have logging only at one place.",
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
