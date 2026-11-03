@@ -1794,6 +1794,43 @@ std::expected<bool, error_code> Worker::isFruOperationAllowed(
 
         if (i_isCMFlow)
         {
+            const auto l_readyToRemove = dbusUtility::readDbusProperty(
+                constants::pimServiceName, i_dbusObjPath,
+                constants::readyToRemoveIface,
+                constants::readyToRemoveProperty);
+
+            // A failed read yields an empty variant (index 0), meaning the
+            // interface is not published on the FRU.
+            if (l_readyToRemove.index() != 0)
+            {
+                const auto l_value = std::get_if<bool>(&l_readyToRemove);
+
+                if (!l_value)
+                {
+                    m_logger->logMessage(std::format(
+                        "{} check failed, invalid ReadyToRemove value for [{}]",
+                        getFruOperationName(i_operation), i_dbusObjPath));
+                    return std::unexpected(
+                        error_code::INVALID_VALUE_READ_FROM_DBUS);
+                }
+
+                // Collection is allowed only when ReadyToRemove is false and
+                // deletion is allowed only when ReadyToRemove is true.
+                const bool l_isDeletion =
+                    (i_operation == types::FruOperation::Deletion);
+
+                if (*l_value == l_isDeletion)
+                {
+                    return {};
+                }
+
+                m_logger->logMessage(std::format(
+                    "{} rejected, invalid ReadyToRemove value [{}] for [{}]",
+                    getFruOperationName(i_operation), *l_value, i_dbusObjPath));
+                return std::unexpected(
+                    error_code::INVALID_FRU_READY_TO_REMOVE_VALUE);
+            }
+
             l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
                                                  i_operation);
         }
