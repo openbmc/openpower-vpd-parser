@@ -53,7 +53,8 @@ enum error_code
     INVALID_VALUE_READ_FROM_DBUS,
     INVALID_VALUE_READ_FROM_EEPROM,
     RECORD_NOT_FOUND,
-    FRU_NOT_REPLACEABLE
+    FRU_NOT_REPLACEABLE,
+    INVALID_FRU_READY_TO_REMOVE_VALUE
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -109,5 +110,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
     {error_code::SERVICE_RUNNING, "Service is running"},
     {error_code::SERVICE_NOT_RUNNING, "Service is not running"},
-    {error_code::FRU_NOT_REPLACEABLE, "FRU is not replaceable."}};
+    {error_code::FRU_NOT_REPLACEABLE, "FRU is not replaceable."},
+    {error_code::INVALID_FRU_READY_TO_REMOVE_VALUE,
+     "ReadyToRemove value is invalid for the requested FRU operation."}};
 } // namespace vpd
