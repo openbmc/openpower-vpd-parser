@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c227cd2_b6618172",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-11-03T07:24:53Z",
+      "side": 1,
+      "message": "We are now following common coding guideline regarding receiving the std::exepcted outcome : that we use \"`res`\" or \"`expected`\" at the end of variable name so that it reflects that it is object of std::expected and not a normal value .",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 335,
+        "endChar": 33
+      },
+      "revId": "da3c3648627049cfe0309707854fe87f3cf9e7ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95afff04_d3730c4f",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-11-03T07:24:53Z",
+      "side": 1,
+      "message": "We are now following common coding guideline regarding receiving the std::exepcted outcome : that we use \"`res`\" or \"`expected`\" at the end of variable name so that it reflects that it is object of std::expected and not a normal value .",
+      "range": {
+        "startLine": 1073,
+        "startChar": 23,
+        "endLine": 1073,
+        "endChar": 41
+      },
+      "revId": "da3c3648627049cfe0309707854fe87f3cf9e7ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
