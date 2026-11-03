@@ -215,6 +215,14 @@ enum class VpdCollectionMode : uint8_t
     DEFAULT_MODE = HARDWARE_MODE
 };
 
+/** @brief Enum which defines operations performed on a FRU */
+enum class FruOperation : uint8_t
+{
+    Collection,
+    Deletion,
+    Default = Collection
+};
+
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
