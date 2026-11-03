@@ -52,7 +52,8 @@ enum error_code
     INVALID_KEYWORD_LENGTH,
     INVALID_VALUE_READ_FROM_DBUS,
     INVALID_VALUE_READ_FROM_EEPROM,
-    RECORD_NOT_FOUND
+    RECORD_NOT_FOUND,
+    FRU_NOT_REPLACEABLE
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -107,5 +108,6 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
     {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
     {error_code::SERVICE_RUNNING, "Service is running"},
-    {error_code::SERVICE_NOT_RUNNING, "Service is not running"}};
+    {error_code::SERVICE_NOT_RUNNING, "Service is not running"},
+    {error_code::FRU_NOT_REPLACEABLE, "FRU is not replaceable."}};
 } // namespace vpd

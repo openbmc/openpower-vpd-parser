@@ -475,6 +475,37 @@ class Worker
                                 types::InterfaceMap& o_interfaces);
 
     /**
+     * @brief API to check if an operation is allowed on a FRU.
+     *
+     * Decision tree (replaceability check = isFruCurrentlyReplaceable):
+     * CM flow:
+     *   ReadyToRemove interface published on FRU?
+     *     yes: property false -> allow (skip replaceability check)
+     *          property true  -> reject
+     *     no : replaceability check -> allow / reject
+     * Non-CM flow:
+     *   lab mode (field mode disabled)? yes -> allow (skip check)
+     *   FRU hot pluggable?  no  -> reject
+     *                       yes -> replaceability check -> allow / reject
+     *
+     * The operation is only used to name it in logs. Success means proceed;
+     * any other outcome is an error_code, returned unchanged, with dedicated
+     * codes for policy rejections (e.g. FRU_NOT_REPLACEABLE).
+     *
+     * @param[in] i_fruPath - FRU path as present in the config JSON.
+     * @param[in] i_dbusObjPath - D-bus object path of the FRU.
+     * @param[in] i_isCMFlow - true if the request is from CM flow.
+     * @param[in] i_operation - Operation to be performed on the FRU.
+     *
+     * @return Success if allowed, error code otherwise.
+     */
+    std::expected<void, error_code> isFruOperationAllowed(
+        const std::string& i_fruPath, const std::string& i_dbusObjPath,
+        const bool i_isCMFlow,
+        const types::FruOperation i_operation =
+            types::FruOperation::Default) noexcept;
+
+    /**
      * @brief API to check if a FRU is replaceable in the current system state.
      *
      * If the host is running, the FRU must be replaceable at host runtime. If
@@ -492,9 +523,13 @@ class Worker
      */
     std::expected<bool, error_code> isFruCurrentlyReplaceable(
         const std::string& i_fruPath,
+<<<<<<< HEAD
         const sdbusplus::object_path& i_dbusObjPath,
         const types::FruOperation i_fruOperation =
             types::FruOperation::Default) noexcept;
+=======
+        const std::string& i_dbusObjPath) noexcept;
+>>>>>>> ddfb810 (CollectFRUVPD:Add FRU operation gate)
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
