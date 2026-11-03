@@ -480,16 +480,14 @@ class Worker
      * Decision tree (replaceability check = isFruCurrentlyReplaceable):
      * CM flow:
      *   ReadyToRemove interface published on FRU?
-     *     yes: property false -> allow (skip replaceability check)
-     *          property true  -> reject
-     *     no : replaceability check -> allow / reject
-     * Non-CM flow:
-     *   lab mode (field mode disabled)? yes -> allow (skip check)
-     *   FRU hot pluggable?  no  -> reject
-     *                       yes -> replaceability check -> allow / reject
+     *     yes: operation is collection and property false -> allow (skip
+     * replaceability check) operation is deletion and property true -> allow
+     * (skip replaceability check) any other case : reject no : replaceability
+     * check -> allow / reject Non-CM flow: lab mode (field mode disabled)? yes
+     * -> allow (skip check) FRU hot pluggable?  no  -> reject yes ->
+     * replaceability check -> allow / reject
      *
-     * The operation is only used to name it in logs. Failures to determine
-     * the outcome are returned as an error_code.
+     * Failures to determine the outcome are returned as an error_code.
      *
      * @param[in] i_fruPath - FRU path as present in the config JSON.
      * @param[in] i_dbusObjPath - D-bus object path of the FRU.
