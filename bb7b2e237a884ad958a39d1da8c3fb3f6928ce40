@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "701a33d4_2c6ae9a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-11-03T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "012c479d_905c6f75",
+      "revId": "bb7b2e237a884ad958a39d1da8c3fb3f6928ce40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5524e4a7_3745528f",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a429bfdf_f97107c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-11-03T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5524e4a7_3745528f",
+      "revId": "bb7b2e237a884ad958a39d1da8c3fb3f6928ce40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7932ae57_8ca9d614",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-03T05:54:46Z",
       "side": 1,
       "message": "This API can return an error code. That check should be added and error message corresponding to error code should be logged.",
+      "revId": "bb7b2e237a884ad958a39d1da8c3fb3f6928ce40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "945c7838_d786b64f",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-11-03T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7932ae57_8ca9d614",
       "revId": "bb7b2e237a884ad958a39d1da8c3fb3f6928ce40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
