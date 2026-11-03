@@ -1449,7 +1449,7 @@ void Worker::performVpdRecollection(
 
 void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
                                  const sdbusplus::object_path& i_dbusObjPath,
-                                 [[maybe_unused]] const bool i_isCMFlow)
+                                 const bool i_isCMFlow)
 {
     std::string l_fruPath{};
     uint16_t l_errCode = 0;
@@ -1486,23 +1486,23 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             return;
         }
 
-        // Check if FRU is replaceable in the current system state
-        const auto l_isFruCurrentlyReplaceable = isFruCurrentlyReplaceable(
-            l_fruPath, i_dbusObjPath, types::FruOperation::Collection);
+        // Check if VPD collection is allowed for the FRU
+        const auto l_result =
+            isFruOperationAllowed(l_fruPath, std::string(i_dbusObjPath),
+                                  i_isCMFlow, types::FruOperation::Collection);
 
-        if (!l_isFruCurrentlyReplaceable.has_value())
+        if (!l_result)
         {
-            m_logger->logMessage(std::format(
-                "Failed to check if FRU is currently replaceable or not. Error: {}",
-                commonUtility::getErrCodeMsg(
-                    l_isFruCurrentlyReplaceable.error())));
+            m_logger->logMessage(
+                "Single FRU VPD collection is not performed for [" +
+                std::string(i_dbusObjPath) +
+                "], error : " + commonUtility::getErrCodeMsg(l_result.error()));
             return;
         }
 
-        if (!l_isFruCurrentlyReplaceable.value())
+        if (!l_result.value())
         {
-            m_logger->logMessage(
-                "FRU is not replaceable in current system state");
+            // Reason is already logged by isFruOperationAllowed.
             return;
         }
 
@@ -1782,6 +1782,82 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
             i_fruPath, l_ex.what()));
 
         return std::make_tuple(l_fruPresent, constants::vpdCollectionFailed);
+    }
+}
+
+std::expected<bool, error_code> Worker::isFruOperationAllowed(
+    const std::string& i_fruPath, const std::string& i_dbusObjPath,
+    const bool i_isCMFlow, const types::FruOperation i_operation) noexcept
+{
+    try
+    {
+        std::expected<bool, error_code> l_result{};
+
+        if (i_isCMFlow)
+        {
+            /* TODO:
+            - check if given FRU has ReadyToRemove interface published
+                - if yes,
+                    read the ReadyToRemove property from D-Bus
+                        - if FRU operation is Collection and ReadyToRemove
+            property is false, proceed with collection without doing
+            replaceability check
+                        - if FRU operation is Deletion and ReadyToRemove
+            property is true, proceed with deletion without doing replaceability
+            check
+                        - else
+                            reject the operation request and log error
+                - if no,
+                    - execute replaceability checks
+                    - if satisfied,
+                        proceed with FRU operation
+                    - else,
+                        reject FRU operation and log error
+            */
+            l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
+                                                 i_operation);
+        }
+        else
+        {
+            /* TODO:
+                - check labmode
+                - if yes,
+                    proceed with FRU operation without doing replaceability
+                    check
+                - if no,
+                    check if FRU is hot pluggable
+                        - if yes,
+                            - execute replaceability checks
+                                - if satisfied,
+                                    proceed with FRU operation
+                                - else,
+                                    reject FRU operation request and log error
+                        - if not hot pluggable,
+                            reject FRU operation request and log error
+            */
+            l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
+                                                 i_operation);
+        }
+
+        if (l_result.has_value() && !l_result.value())
+        {
+            m_logger->logMessage(
+                getFruOperationName(i_operation) +
+                " rejected, FRU not replaceable : " + i_dbusObjPath);
+        }
+        else
+        {
+            return std::unexpected(l_result.error());
+        }
+
+        return l_result;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            getFruOperationName(i_operation) + " check failed for [" +
+            i_dbusObjPath + "] : " + l_ex.what());
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
 

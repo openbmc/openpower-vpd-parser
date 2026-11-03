@@ -475,6 +475,37 @@ class Worker
                                 types::InterfaceMap& o_interfaces);
 
     /**
+     * @brief API to check if an operation is allowed on a FRU.
+     *
+     * Decision tree (replaceability check = isFruCurrentlyReplaceable):
+     * CM flow:
+     *   ReadyToRemove interface published on FRU?
+     *     yes: property false -> allow (skip replaceability check)
+     *          property true  -> reject
+     *     no : replaceability check -> allow / reject
+     * Non-CM flow:
+     *   lab mode (field mode disabled)? yes -> allow (skip check)
+     *   FRU hot pluggable?  no  -> reject
+     *                       yes -> replaceability check -> allow / reject
+     *
+     * The operation is only used to name it in logs. Failures to determine
+     * the outcome are returned as an error_code.
+     *
+     * @param[in] i_fruPath - FRU path as present in the config JSON.
+     * @param[in] i_dbusObjPath - D-bus object path of the FRU.
+     * @param[in] i_isCMFlow - true if the request is from CM flow.
+     * @param[in] i_operation - Operation to be performed on the FRU.
+     *
+     * @return true if the operation is allowed, false if it is not allowed,
+     * error code on failure.
+     */
+    std::expected<bool, error_code> isFruOperationAllowed(
+        const std::string& i_fruPath, const std::string& i_dbusObjPath,
+        const bool i_isCMFlow,
+        const types::FruOperation i_operation =
+            types::FruOperation::Default) noexcept;
+
+    /**
      * @brief API to check if a FRU is replaceable in the current system state.
      *
      * If the host is running, the FRU must be replaceable at host runtime. If
