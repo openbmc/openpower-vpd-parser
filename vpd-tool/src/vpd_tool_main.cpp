@@ -254,6 +254,7 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
 int main(int argc, char** argv)
 {
     CLI::App l_app{"VPD Command Line Tool"};
+    l_app.set_help_flag(); // Removes CLI11's default -h, --help
 
     std::string l_vpdPath{};
     std::string l_recordName{};
@@ -478,6 +479,6 @@ int main(int argc, char** argv)
     }
 #endif
 
-    std::cout << l_app.help() << std::endl;
+    vpd::VpdToolHelp{}.printHelp(argc, argv);
     return vpd::constants::FAILURE;
 }
