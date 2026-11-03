@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08024045_c79faa73",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-03T14:23:02Z",
+      "side": 1,
+      "message": "Technically no issue, but for consistency lets have functions declared in header file so that we can have all the functions and required doxygen at the same place.",
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20713e7c_782d7cf7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-03T14:23:02Z",
+      "side": 1,
+      "message": "What is the use case of having a complex return type? Caller\u0027s implementation is based on bool then why not just have that?",
+      "range": {
+        "startLine": 1777,
+        "startChar": 20,
+        "endLine": 1777,
+        "endChar": 30
+      },
+      "revId": "160a416285b6a0db91a4212cf56252372250f79c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
