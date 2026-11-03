@@ -28,7 +28,7 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
 
     // Return early if --help / -h is not present.
     const bool wantHelp = std::ranges::any_of(args, [](const auto& arg) {
-        return arg == "--help" || arg == "-h";
+        return arg == "--help" || arg == "-h" || arg == "-help";
     });
 
     if (!wantHelp)

@@ -254,6 +254,7 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
 int main(int argc, char** argv)
 {
     CLI::App l_app{"VPD Command Line Tool"};
+    l_app.set_help_flag(); // Removes CLI11's default -h, --help
 
     std::string l_vpdPath{};
     std::string l_recordName{};
@@ -351,7 +352,16 @@ int main(int argc, char** argv)
         "Force collect for hardware. CAUTION: Developer only option.");
 #endif
 
-    CLI11_PARSE(l_app, argc, argv);
+    try
+    {
+        l_app.parse(argc, argv);
+    }
+    catch (const CLI::ParseError& l_ex)
+    {
+        std::cerr << l_ex.what() << std::endl;
+        std::cerr << "Try: 'vpd-tool --help' for more information." << std::endl;
+        return vpd::constants::FAILURE;
+    }
 
     const auto l_vpdCollectionStatus = vpd::utils::readDbusProperty(
         vpd::constants::vpdManagerService, vpd::constants::vpdManagerObjectPath,
@@ -478,6 +488,5 @@ int main(int argc, char** argv)
     }
 #endif
 
-    std::cout << l_app.help() << std::endl;
     return vpd::constants::FAILURE;
 }
