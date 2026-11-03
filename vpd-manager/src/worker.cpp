@@ -1491,19 +1491,6 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             isFruOperationAllowed(l_fruPath, std::string(i_dbusObjPath),
                                   i_isCMFlow, types::FruOperation::Collection);
 
-        if (!l_isFruCurrentlyReplaceable.has_value() ||
-            !l_isFruCurrentlyReplaceable.value())
-        {
-            /* TODO:
-                - capture specific error code here
-                - update Worker::collectSingleFruVpd return type to return
-               specific error codes
-                - update Manager::collectSingleFruVpd to return error codes to
-               D-Bus caller
-            */
-            return;
-        }
-
         vpdSpecificUtility::setCollectionStatusProperty(
             l_fruPath, types::VpdCollectionStatus::InProgress, i_configJsonObj,
             l_errCode);
@@ -1793,25 +1780,40 @@ std::expected<bool, error_code> Worker::isFruOperationAllowed(
 
         if (i_isCMFlow)
         {
-            /* TODO:
-            - check if given FRU has ReadyToRemove interface published
-                - if yes,
-                    read the ReadyToRemove property from D-Bus
-                        - if FRU operation is Collection and ReadyToRemove
-            property is false, proceed with collection without doing
-            replaceability check
-                        - if FRU operation is Deletion and ReadyToRemove
-            property is true, proceed with deletion without doing replaceability
-            check
-                        - else
-                            reject the operation request and log error
-                - if no,
-                    - execute replaceability checks
-                    - if satisfied,
-                        proceed with FRU operation
-                    - else,
-                        reject FRU operation and log error
-            */
+            const auto l_readyToRemove = dbusUtility::readDbusProperty(
+                constants::pimServiceName, i_dbusObjPath,
+                constants::readyToRemoveIface,
+                constants::readyToRemoveProperty);
+
+            // A failed read yields an empty variant (index 0), meaning the
+            // interface is not published on the FRU.
+            if (l_readyToRemove.index() != 0)
+            {
+                const auto l_value = std::get_if<bool>(&l_readyToRemove);
+
+                if (!l_value)
+                {
+                    return std::unexpected(
+                        error_code::INVALID_VALUE_READ_FROM_DBUS);
+                }
+
+                // Collection is allowed only when ReadyToRemove is false and
+                // deletion is allowed only when ReadyToRemove is true.
+                const bool l_isDeletion =
+                    (i_operation == types::FruOperation::Deletion);
+
+                if (*l_value == l_isDeletion)
+                {
+                    return true;
+                }
+
+                m_logger->logMessage(std::format(
+                    "[{}] is not allowed when ReadyToRemove value is [{}] for",
+                    getFruOperationName(i_operation), *l_value, i_dbusObjPath));
+
+                return false;
+            }
+
             l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
                                                  i_operation);
         }
