@@ -1491,10 +1491,10 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
 
         if (!l_result)
         {
-            m_logger->logMessage(
-                "Single FRU VPD collection is not performed for [" +
-                std::string(i_dbusObjPath) + "], error : " +
-                commonUtility::getErrCodeMsg(l_result.error()));
+            m_logger->logMessage(std::format(
+                "Single FRU VPD collection is not performed for [{}], error : {}",
+                std::string(i_dbusObjPath),
+                commonUtility::getErrCodeMsg(l_result.error())));
             return;
         }
 
@@ -1787,6 +1787,37 @@ std::expected<void, error_code> Worker::isFruOperationAllowed(
 
         if (i_isCMFlow)
         {
+            const auto l_readyToRemove = dbusUtility::readDbusProperty(
+                constants::pimServiceName, i_dbusObjPath,
+                constants::readyToRemoveIface,
+                constants::readyToRemoveProperty);
+
+            // A failed read yields an empty variant (index 0), meaning the
+            // interface is not published on the FRU.
+            if (l_readyToRemove.index() != 0)
+            {
+                const auto l_value = std::get_if<bool>(&l_readyToRemove);
+
+                if (!l_value)
+                {
+                    m_logger->logMessage(std::format(
+                        "{} check failed, invalid ReadyToRemove value for [{}]",
+                        getFruOperationName(i_operation), i_dbusObjPath));
+                    return std::unexpected(
+                        error_code::INVALID_VALUE_READ_FROM_DBUS);
+                }
+
+                if (!*l_value)
+                {
+                    return {};
+                }
+
+                m_logger->logMessage(std::format(
+                    "{} rejected, FRU is ready to remove : {}",
+                    getFruOperationName(i_operation), i_dbusObjPath));
+                return std::unexpected(error_code::FRU_READY_TO_REMOVE);
+            }
+
             l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath);
         }
         else
@@ -1796,9 +1827,9 @@ std::expected<void, error_code> Worker::isFruOperationAllowed(
 
         if (l_result.has_value() && !l_result.value())
         {
-            m_logger->logMessage(getFruOperationName(i_operation) +
-                                 " rejected, FRU not replaceable : " +
-                                 i_dbusObjPath);
+            m_logger->logMessage(
+                std::format("{} rejected, FRU not replaceable : {}",
+                            getFruOperationName(i_operation), i_dbusObjPath));
             return std::unexpected(error_code::FRU_NOT_REPLACEABLE);
         }
 
@@ -1806,9 +1837,9 @@ std::expected<void, error_code> Worker::isFruOperationAllowed(
     }
     catch (const std::exception& l_ex)
     {
-        m_logger->logMessage(getFruOperationName(i_operation) +
-                             " check failed for [" + i_dbusObjPath +
-                             "] : " + l_ex.what());
+        m_logger->logMessage(std::format("{} check failed for [{}] : {}",
+                                         getFruOperationName(i_operation),
+                                         i_dbusObjPath, l_ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
@@ -1828,18 +1859,17 @@ std::expected<bool, error_code> Worker::isFruCurrentlyReplaceable(
 
             if (l_errCode)
             {
-                m_logger->logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                m_logger->logMessage(std::format(
+                    "Failed to check if FRU is replaceable at runtime for FRU : [{}], error : {}",
+                    i_dbusObjPath, commonUtility::getErrCodeMsg(l_errCode)));
                 return std::unexpected(static_cast<error_code>(l_errCode));
             }
 
             if (!isFruReplaceableAtRuntime)
             {
-                m_logger->logMessage(
-                    "Given FRU is not replaceable at host runtime : " +
-                    i_dbusObjPath);
+                m_logger->logMessage(std::format(
+                    "Given FRU is not replaceable at host runtime : {}",
+                    i_dbusObjPath));
                 return false;
             }
         }
@@ -1851,10 +1881,9 @@ std::expected<bool, error_code> Worker::isFruCurrentlyReplaceable(
 
             if (l_errCode)
             {
-                m_logger->logMessage(
-                    "Error while checking if FRU is replaceable at standby for FRU [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                m_logger->logMessage(std::format(
+                    "Error while checking if FRU is replaceable at standby for FRU [{}], error : {}",
+                    i_dbusObjPath, commonUtility::getErrCodeMsg(l_errCode)));
             }
 
             bool isFruReplaceableAtRuntime =
@@ -1862,18 +1891,17 @@ std::expected<bool, error_code> Worker::isFruCurrentlyReplaceable(
 
             if (l_errCode)
             {
-                m_logger->logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                m_logger->logMessage(std::format(
+                    "Failed to check if FRU is replaceable at runtime for FRU : [{}], error : {}",
+                    i_dbusObjPath, commonUtility::getErrCodeMsg(l_errCode)));
                 return std::unexpected(static_cast<error_code>(l_errCode));
             }
 
             if (!isFruReplaceableAtStandby && (!isFruReplaceableAtRuntime))
             {
-                m_logger->logMessage(
-                    "Given FRU is neither replaceable at standby nor at runtime : " +
-                    i_dbusObjPath);
+                m_logger->logMessage(std::format(
+                    "Given FRU is neither replaceable at standby nor at runtime : {}",
+                    i_dbusObjPath));
                 return false;
             }
         }
@@ -1882,9 +1910,9 @@ std::expected<bool, error_code> Worker::isFruCurrentlyReplaceable(
     }
     catch (const std::exception& l_ex)
     {
-        m_logger->logMessage(
-            "Failed to check if FRU [" + std::string(i_dbusObjPath) +
-            "] is replaceable, error : " + std::string(l_ex.what()));
+        m_logger->logMessage(std::format(
+            "Failed to check if FRU [{}] is replaceable, error : {}",
+            i_dbusObjPath, l_ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
