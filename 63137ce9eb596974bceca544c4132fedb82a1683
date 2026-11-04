@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee9a550_d6f05227",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-04T06:23:34Z",
+      "side": 1,
+      "message": "We generally avoid logging inside utility methods and let callers handle the logging.  We declare a new error code (for eg. `ERROR_CHECKING_REDUNDANT_PATH`) and return the error code.",
+      "revId": "63137ce9eb596974bceca544c4132fedb82a1683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
