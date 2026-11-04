@@ -793,57 +793,35 @@ types::EepromPathList Manager::getHwPath(
 
     if (!m_configManager)
     {
-        //@todo should we throw exception here?
         m_logger->logMessage(std::format(
             "The feature is only supported when system config JSON is initialized. Failed to get hardware path for {}. ConfigManager is not initialized",
             l_dbusObjPathStr));
-        return l_result;
+        throw types::InternalFailure();
     }
 
     uint16_t l_errCode{constants::VALUE_0};
 
-    // get the primary EEPROM path
-    const auto l_primaryEepromPath =
-        jsonUtility::getFruPathFromJson(l_dbusObjPathStr, l_errCode);
+    l_result =
+        jsonUtility::getAllHardwarePathFromJson(l_dbusObjPathStr, l_errCode);
 
-    if (l_primaryEepromPath.empty())
+    if (l_result.empty())
     {
-        m_logger->logMessage(std::format(
-            "Failed to get primary EEPROM path for {}. Error: {}",
-            l_dbusObjPathStr, commonUtility::getErrCodeMsg(l_errCode)));
-
-        throw sdbusplus::error::com::ibm::vpd::PathNotFound();
-    }
-
-    try
-    {
-        // push the primary path into result vector first
-        l_result.emplace_back(l_primaryEepromPath);
-
-        // check if any redundant EEPROM path is there, if yes add it to the
-        // result
-        const auto l_redundantEepromPath =
-            jsonUtility::getRedundantEepromPathFromJson(l_dbusObjPathStr,
-                                                        l_errCode);
-
-        if (!l_redundantEepromPath.empty())
-        {
-            l_result.emplace_back(l_redundantEepromPath);
-        }
-        else if (l_errCode)
+        if (l_errCode)
         {
             m_logger->logMessage(std::format(
-                "Failed to get redundant EEPROM path for {}. Error: {}",
+                "Failed to fetch hardware paths for {}. Error: {}",
                 l_dbusObjPathStr, commonUtility::getErrCodeMsg(l_errCode)));
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        m_logger->logMessage(
-            std::format("Failed to get hardware path for {}. Error: {}",
-                        l_dbusObjPathStr, l_ex.what()));
-    }
 
+            if (l_errCode == error_code::INVALID_INVENTORY_PATH)
+            {
+                throw sdbusplus::error::com::ibm::vpd::PathNotFound();
+            }
+            throw types::InternalFailure();
+        }
+        m_logger->logMessage(
+            std::format("Inventory path {} do not inherit from any EEPROM",
+                        l_dbusObjPathStr));
+    }
     return l_result;
 }
 

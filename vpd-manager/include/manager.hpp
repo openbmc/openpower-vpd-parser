@@ -212,10 +212,12 @@ class Manager
      *
      * @throw
      *  - sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     *  - sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure
      *  - com.ibm.VPD.Error.PathNotFound
      *
      * @return An array containing hardware paths corresponding to given D-Bus
-     * object path. The first entry represents the primary hardware
+     * object path, if the path fully or partially inherits data from the
+     * corresponding EEPROM. The first entry represents the primary hardware
      * path. All other entries(if any) represents the redundant
      * hardware paths. Note: The inventory path must be present in the
      * system configuration JSON used by vpd-manager.

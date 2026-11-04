@@ -26,6 +26,7 @@ enum error_code
     ERROR_GETTING_REDUNDANT_PATH,
     NO_EEPROM_PATH,
     INVALID_LOCATION_CODE_FORMAT,
+    ERROR_FETCHING_HARDWARE_PATH,
 
     // Generic errors.
     CONFIG_MANAGER_UNINITIALIZED,
@@ -82,8 +83,10 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::NO_EEPROM_PATH, "EEPROM path not found."},
     {error_code::INVALID_LOCATION_CODE_FORMAT,
      "Malformed location code format found."},
-    {error_code::DEVICE_NOT_PRESENT,
-     "Presence pin read successfully but device was absent."},
+    {error_code::ERROR_FETCHING_HARDWARE_PATH,
+     "Error while fetching all the hardware paths for an inventory path."} {
+        error_code::DEVICE_NOT_PRESENT,
+        "Presence pin read successfully but device was absent."},
     {error_code::DEVICE_PRESENCE_UNKNOWN, "Exception on presence line GPIO."},
     {error_code::GPIO_LINE_EXCEPTION, "There was an exception in GPIO line."},
     {error_code::ERROR_PROCESSING_SYSTEM_CMD,
