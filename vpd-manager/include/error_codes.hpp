@@ -26,6 +26,7 @@ enum error_code
     ERROR_GETTING_REDUNDANT_PATH,
     NO_EEPROM_PATH,
     INVALID_LOCATION_CODE_FORMAT,
+    ERROR_FETCHING_HARDWARE_PATH,
     ERROR_CHECKING_REDUNDANT_PATH,
 
     // Generic errors.
@@ -85,6 +86,8 @@ const std::unordered_map<int, std::string> errorCodeMap = {
      "Malformed location code format found."},
     {error_code::ERROR_CHECKING_REDUNDANT_PATH,
      "Error while trying to check if the EEPROM path is redundant."},
+    {error_code::ERROR_FETCHING_HARDWARE_PATH,
+     "Error while fetching all the hardware paths for an inventory path."},
     {error_code::DEVICE_NOT_PRESENT,
      "Presence pin read successfully but device was absent."},
     {error_code::DEVICE_PRESENCE_UNKNOWN, "Exception on presence line GPIO."},
