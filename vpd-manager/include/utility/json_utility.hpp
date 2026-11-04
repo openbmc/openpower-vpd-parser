@@ -1026,6 +1026,95 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
 }
 
 /**
+ * @brief Get all hardware paths from system config JSON
+ *
+ * Given an inventory path, the API returns all the hardware paths, given
+ * that the inventory path is the base FRU of the EEPROM or inherits records
+ * from it.
+ *
+ * @param[in] i_inventoryPath - inventory path
+ * @param[out] o_errCode - to set the error codes in case if a error
+ *
+ * @return on success return list of hardware paths. On failure, return an empty
+ * list.
+ */
+inline types::EepromPathList getAllHardwarePathFromJson(
+    const std::string& i_inventoryPath, uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    types::EepromPathList l_eepromList;
+
+    if (i_inventoryPath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_eepromList;
+    }
+
+    auto l_configManager = ConfigManager::getInstance();
+    if (!l_configManager)
+    {
+        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return l_eepromList;
+    }
+
+    const auto l_configJsonResult =
+        l_configManager->getJsonObj(i_inventoryPath);
+    if (!l_configJsonResult.has_value())
+    {
+        o_errCode = l_configJsonResult.error();
+        return l_eepromList;
+    }
+
+    const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
+    // Error code will be reset once a inventory path is found in the JSON
+    o_errCode = error_code::INVALID_INVENTORY_PATH;
+
+    const nlohmann::json& l_fruList =
+        l_parsedConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
+
+    for (const auto& l_fru : l_fruList.items())
+    {
+        const std::string& l_fruPath = l_fru.key();
+
+        for (const auto& l_entry : l_fru.value())
+        {
+            if (l_entry.value("inventoryPath", "") != i_inventoryPath)
+            {
+                continue;
+            }
+
+            o_errCode = 0;
+
+            if (l_entry.value("isRedundant", false))
+            {
+                continue;
+            }
+
+            if (!l_entry.value("inherit", true) &&
+                !l_entry.contains("copyRecords") &&
+                !l_entry.contains("skipRecords"))
+            {
+                break;
+            }
+
+            l_eepromList.emplace_back(l_fruPath);
+
+            const std::string l_redundantEepromPath =
+                l_fru.value().at(0).value("redundantEeprom", "");
+            if (!l_redundantEepromPath.empty())
+            {
+                l_eepromList.emplace_back(l_redundantEepromPath);
+            }
+
+            return l_eepromList;
+        }
+    }
+
+    return l_eepromList;
+}
+
+/**
  * @brief Get FRU EEPROM path from system config JSON
  *
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,

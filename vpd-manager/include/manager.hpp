@@ -212,6 +212,7 @@ class Manager
      *
      * @throw
      *  - sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     *  - sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure
      *  - com.ibm.VPD.Error.PathNotFound
      *
      * @return An array containing hardware paths corresponding to given D-Bus
