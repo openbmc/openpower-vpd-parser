@@ -1026,6 +1026,114 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
 }
 
 /**
+ * @brief Get all hardware paths from system config JSON
+ *
+ * Given an inventory path, the API returns all the hardware paths, if the
+ * inventory path is a base FRU. If it is not a base FRU, the hardware paths are
+ * returned if it inherits records from the EEPROM through 'inherit',
+ * 'copyRecords' or 'skipRecords' keywords. Otherwise, an empty list is
+ * returned.
+ *
+ * @param[in] i_inventoryPath - inventory path
+ *
+ * @return std::expected<types::EepromPathList, error_code>
+ *         - list of hardware paths, if the inventory path inherits from an
+ *           EEPROM.
+ *         - empty list, if the inventory path is present in the JSON but does
+ *           not inherit from any EEPROM.
+ *         - relevant error code in case of failure.
+ */
+inline std::expected<types::EepromPathList, error_code>
+    getAllHardwarePathFromJson(const std::string& i_inventoryPath) noexcept
+{
+    try
+    {
+        if (i_inventoryPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        auto l_configManager = ConfigManager::getInstance();
+        if (!l_configManager)
+        {
+            return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
+        }
+
+        const auto l_configJsonResult =
+            l_configManager->getJsonObj(i_inventoryPath);
+        if (!l_configJsonResult.has_value())
+        {
+            return std::unexpected(l_configJsonResult.error());
+        }
+
+        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+
+        bool l_isInvPathFound = false;
+
+        const nlohmann::json& l_fruList =
+            l_parsedConfigJson["frus"]
+                .get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& l_fru : l_fruList.items())
+        {
+            const std::string& l_fruPath = l_fru.key();
+            const auto& l_entries = l_fru.value();
+
+            const auto l_it = std::ranges::find_if(
+                l_entries, [&i_inventoryPath](const nlohmann::json& l_entry) {
+                    return l_entry.value("inventoryPath", "") ==
+                           i_inventoryPath;
+                });
+
+            if (l_it == l_entries.end())
+            {
+                continue;
+            }
+
+            l_isInvPathFound = true;
+
+            if (l_it->value("isRedundant", false))
+            {
+                continue;
+            }
+
+            if (!l_it->value("inherit", true) &&
+                !l_it->contains("copyRecords") &&
+                !l_it->contains("skipRecords"))
+            {
+                continue;
+            }
+
+            types::EepromPathList l_eepromList{l_fruPath};
+
+            const std::string l_redundantEepromPath =
+                l_entries.at(0).value("redundantEeprom", "");
+            if (!l_redundantEepromPath.empty())
+            {
+                l_eepromList.emplace_back(l_redundantEepromPath);
+            }
+
+            return l_eepromList;
+        }
+
+        if (!l_isInvPathFound)
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Exception [{}] while getting hardware paths for {}: {}",
+            typeid(l_ex).name(), i_inventoryPath, l_ex.what()));
+
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+
+    return types::EepromPathList{};
+}
+
+/**
  * @brief Get FRU EEPROM path from system config JSON
  *
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,
