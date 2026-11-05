@@ -68,7 +68,7 @@ class ParserInterface
      *
      * This virtual method is created to achieve runtime polymorphism for
      * comparing VPDs of different types. This virtual method can be
-     * redefined at derived classess to implement VPD comparion according to the
+     * redefined at derived classes to implement VPD comparison according to the
      * type of VPD.
      *
      * @param[in] i_redundantParser - Shared pointer to redundant parser

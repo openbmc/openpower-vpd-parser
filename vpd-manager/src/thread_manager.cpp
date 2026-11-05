@@ -340,7 +340,7 @@ bool ThreadManager::processChassisResults() noexcept
 }
 
 void ThreadManager::launchFruCollectionPool(
-    const std::string& chassisEeepromPath, const nlohmann::json& chassisJson,
+    const std::string& chassisEepromPath, const nlohmann::json& chassisJson,
     const size_t maxThreadsPerChassis) noexcept
 {
     bool anyThreadLaunched{false};
@@ -349,14 +349,14 @@ void ThreadManager::launchFruCollectionPool(
     {
         // Create shared context for FRU collection thread pool
         auto fruThreadContext =
-            std::make_shared<FruThreadContext>(chassisEeepromPath, chassisJson);
+            std::make_shared<FruThreadContext>(chassisEepromPath, chassisJson);
 
         // Launch thread pool for parallel FRU VPD collection
         for (size_t index = 0; index < maxThreadsPerChassis; ++index)
         {
             try
             {
-                std::thread([this, chassisEeepromPath, fruThreadContext]() {
+                std::thread([this, chassisEepromPath, fruThreadContext]() {
                     processFruCollection(fruThreadContext);
                 }).detach();
 
@@ -367,7 +367,7 @@ void ThreadManager::launchFruCollectionPool(
                 logger->logMessage(std::format(
                     "Failed to launch FRU collection thread #{} for chassis "
                     "[{}], error: {}",
-                    index + 1, chassisEeepromPath, ex.what()));
+                    index + 1, chassisEepromPath, ex.what()));
             }
         }
     }
@@ -376,7 +376,7 @@ void ThreadManager::launchFruCollectionPool(
         logger->logMessage(std::format(
             "Failed to create FRU collection thread pool for chassis "
             "[{}], error: {}",
-            chassisEeepromPath, ex.what()));
+            chassisEepromPath, ex.what()));
     }
 
     // Decrement the FRU counter if no threads were launched
@@ -426,7 +426,7 @@ void ThreadManager::processFruCollection(
         logger->logMessage(
             std::format("Exception in FRU collection thread for chassis "
                         "[{}], error: {}",
-                        fruThreadContext->chassisEeepromPath, ex.what()));
+                        fruThreadContext->chassisEepromPath, ex.what()));
     }
 }
 
@@ -451,7 +451,7 @@ std::string ThreadManager::getNextFruPath(
             ++fruThreadContext->fruItr;
 
             // Skip chassis EEPROM as it was already collected
-            if (fruPath == fruThreadContext->chassisEeepromPath)
+            if (fruPath == fruThreadContext->chassisEepromPath)
             {
                 fruPath.clear();
                 continue;

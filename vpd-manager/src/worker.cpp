@@ -1783,7 +1783,7 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
             {
                 m_logger->logMessage(
                     std::format(
-                        "Triggerring vpd collection from redundant VPD path [ {} ]",
+                        "Triggering vpd collection from redundant VPD path [ {} ]",
                         l_redundantEepromPath),
                     PlaceHolder::COLLECTION);
 

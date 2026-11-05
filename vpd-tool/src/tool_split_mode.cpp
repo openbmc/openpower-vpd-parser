@@ -158,7 +158,7 @@ int SplitMode::enterSplitMode(
     {
         std::cerr
             << std::format(
-                   "Exception occured while setting system in split mode, error : {}."
+                   "Exception occurred while setting system in split mode, error : {}."
                    "Aborting split mode environment set up.",
                    l_ex.what())
             << std::endl;
@@ -230,7 +230,7 @@ int SplitMode::exitSplitMode() const noexcept
     {
         std::cerr
             << std::format(
-                   "Exception occured while exiting split mode. Error : {}. Aborting exit split mode.",
+                   "Exception occurred while exiting split mode. Error : {}. Aborting exit split mode.",
                    l_ex.what())
             << std::endl;
 
