@@ -40,7 +40,7 @@ class VpdToolHelp
     /** @brief Print help for the readKeyword operation. */
     void printReadKeywordHelp() const noexcept;
 
-    /** @brief Print help text for dumpInventory opeartion. */
+    /** @brief Print help text for dumpInventory operation. */
     void printDumpInventoryHelp() const noexcept;
 
     /** @brief Print help text for validateRedundantEEPROM operation. */

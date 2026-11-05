@@ -595,7 +595,7 @@ inline void deleteDirectory(const std::filesystem::path& i_path,
     {
         o_errCode = error_code::STANDARD_EXCEPTION;
         Logger::getLoggerInstance()->logMessage(std::format(
-            "Exception occured while traversing directory {}, error : {}",
+            "Exception occurred while traversing directory {}, error : {}",
             i_path.string(), l_ex.what()));
     }
 }

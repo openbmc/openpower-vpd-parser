@@ -156,7 +156,7 @@ class Parser
         const std::string& i_fruPath,
         const types::WriteVpdParams& i_paramsToWriteData);
 
-    // holds offfset to VPD if applicable.
+    // holds offset to VPD if applicable.
     size_t m_vpdStartOffset = 0;
 
     // Base VPD file path used for JSON lookups.
