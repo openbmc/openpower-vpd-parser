@@ -94,7 +94,7 @@ class IpzVpdParser : public ParserInterface
      * Note: The API throws exception in case of any failure or malformed VDP.
      *
      * @param[in] itrToVPD - Iterator to the beginning of VPD file.
-     * Don't change the parameter to reference as movement of passsed iterator
+     * Don't change the parameter to reference as movement of passed iterator
      * to an offset is not required after header check.
      */
     void checkHeader(types::BinaryVector::const_iterator itrToVPD);

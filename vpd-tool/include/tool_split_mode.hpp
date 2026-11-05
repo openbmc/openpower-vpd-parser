@@ -10,7 +10,7 @@ namespace vpd
  * @brief Class to support split mode operations.
  *
  * System VPD EEPROM is not accessible in split mode. So, system
- * VPD is copied to the file mode loaction before entering split mode. This
+ * VPD is copied to the file mode location before entering split mode. This
  * allows BMC to read the VPD from the file mode path after reboot. To read
  * the system VPD from file mode path requires setting up U-Boot variables.
  *
@@ -23,7 +23,7 @@ class SplitMode
     /**
      * @brief Set up the system in split mode.
      *
-     * Setting up the system in split mode requires system configuartion
+     * Setting up the system in split mode requires system configuration
      * changes. Performs the following actions:
      * 1. Check if the system VPD file path is accessible.
      * 2. Copy the system VPD file to the file-mode location if a source path is

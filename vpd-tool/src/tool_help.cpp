@@ -18,7 +18,7 @@ bool VpdToolHelp::printHelp(int argc, char** argv) const
     // Print generic help when no operation are provided.
     if (argc == 1)
     {
-        std::cout << "No operation specified. Please provide an opeartion."
+        std::cout << "No operation specified. Please provide an operation."
                   << std::endl;
         printGenericHelp();
         return true;

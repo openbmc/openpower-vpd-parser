@@ -83,20 +83,20 @@ class ThreadManager
     {
         /**
          * @brief Constructor
-         * @param[in] chassisEeepromPath - Chassis EEPROM path
+         * @param[in] chassisEepromPath - Chassis EEPROM path
          * @param[in] chassisJson - Chassis JSON containing FRU list
          *
          * @throw nlohmann json exception
          */
-        explicit FruThreadContext(const std::string& chassisEeepromPath,
+        explicit FruThreadContext(const std::string& chassisEepromPath,
                                   const nlohmann::json& chassisJson) :
-            chassisEeepromPath(chassisEeepromPath), chassisJson(chassisJson),
+            chassisEepromPath(chassisEepromPath), chassisJson(chassisJson),
             frus(this->chassisJson["frus"]
                      .get_ref<const nlohmann::json::object_t&>()),
             fruItr(frus.begin())
         {}
 
-        const std::string chassisEeepromPath; // Chassis EEPROM
+        const std::string chassisEepromPath; // Chassis EEPROM
         const nlohmann::json chassisJson;     // Chassis configuration
         const nlohmann::json::object_t& frus; // FRU list reference
         nlohmann::json::object_t::const_iterator fruItr; // Shared iterator
@@ -224,13 +224,13 @@ class ThreadManager
      * Creates a thread pool for the provided chassis and initiates
      * parallel VPD collection for all FRUs belonging to that chassis.
      *
-     * @param[in] chassisEeepromPath - EEPROM path of the chassis where its
+     * @param[in] chassisEepromPath - EEPROM path of the chassis where its
      * VPD is present.
      * @param[in] chassisJson - Chassis based JSON object.
      * @param[in] maxThreadsPerChassis - Maximum threads allowed for
      * collecting FRUs VPD per chassis.
      */
-    void launchFruCollectionPool(const std::string& chassisEeepromPath,
+    void launchFruCollectionPool(const std::string& chassisEepromPath,
                                  const nlohmann::json& chassisJson,
                                  const size_t maxThreadsPerChassis) noexcept;
 

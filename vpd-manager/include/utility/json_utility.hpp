@@ -701,7 +701,7 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
         // that case the condition will fail. So the failed tag will be filled
         // by the tag which actually failed.
         // ii) IF presence was called in the flow and was the first tag to fail
-        // then this condition will hold and the failed tag should be explicity
+        // then this condition will hold and the failed tag should be explicitly
         // updated with gpiopresence.
         if (io_result.m_failedTag.empty())
         {
@@ -822,7 +822,7 @@ inline types::BaseActionResult executeBaseAction(
         if (l_itrToFunction == funcionMap.end())
         {
             Logger::getLoggerInstance()->logMessage(
-                std::format("Tag: {} is not supprted by the code.", l_tagName));
+                std::format("Tag: {} is not supported by the code.", l_tagName));
             continue;
         }
 
