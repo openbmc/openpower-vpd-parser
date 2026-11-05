@@ -335,6 +335,7 @@ class Logger
      */
     void terminateVpdCollectionLogging() noexcept
     {
+        std::lock_guard<std::mutex> l_lock(m_collectionLoggerMutex);
         m_collectionLogger.reset();
     }
 #endif
@@ -363,6 +364,9 @@ class Logger
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
+
+    // mutex to protect creation, usage and destruction of collection logger
+    std::mutex m_collectionLoggerMutex;
 
 #endif
 
