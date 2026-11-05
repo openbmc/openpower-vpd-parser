@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c86466a_378e8a96",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-05T09:31:00Z",
+      "side": 1,
+      "message": "should we include --h as well? as most of the commands support --h as well.",
+      "revId": "3e76333c4af7dffb8c73a153ca3c38e02c2368bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b279cb1_6c7c4c7b",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-05T09:31:00Z",
+      "side": 1,
+      "message": "can we say \n\"Try: \u0027vpd-tool --help\u0027 for more information\"",
+      "revId": "3e76333c4af7dffb8c73a153ca3c38e02c2368bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
