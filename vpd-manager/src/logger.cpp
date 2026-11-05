@@ -24,6 +24,10 @@ void Logger::logMessage(std::string_view i_message,
         if (i_placeHolder == PlaceHolder::COLLECTION)
         {
 #ifdef ENABLE_FILE_LOGGING
+            // Serialize lazy initialization so that concurrent threads do not
+            // initiate collection logging more than once.
+            std::lock_guard<std::mutex> l_lock(m_collectionLoggerMutex);
+
             if (m_collectionLogger.get() == nullptr)
             {
                 initiateVpdCollectionLogging();
