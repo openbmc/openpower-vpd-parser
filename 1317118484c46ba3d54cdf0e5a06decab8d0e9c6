@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa1c1a4_1094fbfc",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-06T09:33:41Z",
+      "side": 1,
+      "message": "replaceability check should include the hot pluggable check, and others checks like repleacebale at standby, replceable at runtime ?\nwhy rejecting if not hot pluggable ?",
+      "revId": "1317118484c46ba3d54cdf0e5a06decab8d0e9c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
