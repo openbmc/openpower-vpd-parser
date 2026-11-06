@@ -935,7 +935,8 @@ inline std::expected<bool, uint16_t> isRedundantEeprom(
  *
  * Given either D-bus inventory path/FRU path/redundant FRU path, this
  * API returns the redundant FRU path taken from "redundantEeprom" tag from
- * system config JSON.
+ * system config JSON. For a D-Bus inventory path, a redundant
+ * FRU path is returned only if the inventory path corresponds to a base FRU.
  *
  * @param[in] i_vpdPath - Path to where VPD is stored.
  * @param[out] o_errCode - To set error code in case of error.
@@ -1012,12 +1013,18 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
         const std::string& l_redundantFruPath =
             l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("redundantEeprom",
                                                            "");
+        const auto l_isRedundantEeprom =
+            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("isRedundant",
+                                                           false);
 
-        // check if given path is inventory path or redundant FRU path
+        // check if given path is inventory path.
         if ((l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath",
-                                                            "") == i_vpdPath) ||
-            (l_redundantFruPath == i_vpdPath))
+                                                            "") == i_vpdPath))
         {
+            if (l_isRedundantEeprom)
+            {
+                return l_fruPath;
+            }
             return l_redundantFruPath;
         }
     }
