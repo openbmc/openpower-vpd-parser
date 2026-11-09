@@ -138,7 +138,8 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
             {"-10", "EEPROM path not found"},
             {"-11", "Empty file"},
             {"-12", "Keyword name is not provided"},
-        };
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"}};
 
         errTable.print(errData);
     }
@@ -169,7 +170,7 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
              "Reads keyword value from DBus for the given record.",
              "-r -O -K -R",
              "vpd-tool -r -O <Object Path> -R <Record Name> -K <Keyword name>",
-             "Success: Number of bytes read is returned, and the keyword value is displayed on the console."
+             "Success: Number of bytes read is returned, and the keyword value is displayed on the console. "
              "Failure: Error code is returned, and the error message is displayed on the console."},
             {"Read keyword using -H",
              "Reads keyword value from hardware. Reads data directly from the hardware path provided.",
@@ -184,7 +185,7 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
             {"Read keyword using -H, --file",
              "Reads keyword value from hardware and saves it to the file path provided.",
              "-r -H -O -K [-R] --file",
-             "vpd-tool -r -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File path>",
+             "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File path>",
              "Same as above"}};
 
         usageTable.print(usageData, true);
@@ -205,7 +206,9 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
             {"-9", "JSON parse error"},
             {"-10", "EEPROM path not found"},
             {"-11", "Empty file"},
-            {"-12", "Keyword name is not provided"}};
+            {"-12", "Keyword name is not provided"},
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"}};
 
         errTable.print(errData);
     }
@@ -242,7 +245,10 @@ void VpdToolHelp::printValidateRedundantEepromHelp() const noexcept
         errTable.addColumn("Description", 38);
 
         const types::TableInputData errData = {
-            {"-2", "Invalid input parameter"}, {"-5", "D-Bus call failed"}};
+            {"-2", "Invalid input parameter"},
+            {"-5", "D-Bus call failed"},
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"}};
 
         errTable.print(errData);
     }
@@ -297,6 +303,8 @@ void VpdToolHelp::printDumpInventoryHelp() const noexcept
             {"-5", "DBus call failed"},
             {"-8", "Standard exception occurred"},
             {"-9", "JSON parse error"},
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"},
             {"-15", "Chassis Id is not provided"},
         };
 
@@ -350,6 +358,8 @@ void VpdToolHelp::printEnterSplitModeHelp() const noexcept
             {"-6", "File system error"},
             {"-7", "File not found at file-mode VPD path"},
             {"-8", "Standard exception occurred"},
+            {"-13", "Received invalid data type value from DBus"},
+            {"-14", "Operation is not allowed"},
             {"-16", "System command failed"},
             {"-17", "U-Boot variable not found or unexpected output"},
         };
