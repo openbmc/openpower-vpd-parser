@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f758a77b_813034ac",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-09T14:41:49Z",
+      "side": 1,
+      "message": "Why base FRU needs to be treated specially?",
+      "revId": "1712e69a377281d6af88f14cd6349f290b4c24c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07704460_4c0c2ebd",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-09T14:41:49Z",
+      "side": 1,
+      "message": "We should ignore redundant EEPROM entry.",
+      "revId": "1712e69a377281d6af88f14cd6349f290b4c24c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503a392a_723b19f3",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-09T14:41:49Z",
+      "side": 1,
+      "message": "Is there a requirement to emplace at the end separately? Code can be optimized.",
+      "revId": "1712e69a377281d6af88f14cd6349f290b4c24c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
