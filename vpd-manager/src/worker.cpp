@@ -1245,6 +1245,27 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
         return;
     }
 
+    // check if FRU operation is allowed
+    const auto l_fruOperationCheckResult =
+        isFruOperationAllowed(l_fruPath, std::string(i_dbusObjPath), i_isCMFlow,
+                              types::FruOperation::Deletion);
+    if (!l_fruOperationCheckResult)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to check if VPD deletion is allowed for [{}], error : {}. Aborting single FRU VPD deletion.",
+            std::string(i_dbusObjPath),
+            commonUtility::getErrCodeMsg(l_fruOperationCheckResult.error())));
+        return;
+    }
+
+    if (!l_fruOperationCheckResult.value())
+    {
+        m_logger->logMessage(std::format(
+            "Single FRU VPD deletion is not allowed for [{}]. Single FRU VPD deletion is not performed.",
+            std::string(i_dbusObjPath)));
+        return;
+    }
+
     try
     {
         if (jsonUtility::isActionRequired(l_fruPath, "preAction", "deletion",
