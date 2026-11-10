@@ -90,11 +90,15 @@ class Worker
      * @param[in] i_configJsonObj - Config json.
      *
      * @param[in] i_dbusObjPath - Dbus object path of the FRU.
+     * @param[in] i_isCMFlow - Flag which indicates whether this API is being
+     * invoked during concurrent maintenance flow. Default value is considered
+     * as true.
      *
      * @throw std::runtime_error if given input path is empty.
      */
     void deleteFruVpd(const nlohmann::json& i_configJsonObj,
-                      const std::string& i_dbusObjPath);
+                      const std::string& i_dbusObjPath,
+                      const bool i_isCMFlow = true);
 
     /**
      * @brief Collect single FRU VPD
