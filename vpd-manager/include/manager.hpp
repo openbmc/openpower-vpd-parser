@@ -143,10 +143,14 @@ class Manager
      * API can be used to perform VPD deletion for the given FRU.
      *
      * @param[in] i_dbusObjPath - D-bus object path
+     * @param[in] i_isCMFlow - Flag which indicates whether this API is being
+     * invoked during concurrent maintenance flow. Default value is considered
+     * as true.
      *
      * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
      */
-    void deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
+    void deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
+                            const bool i_isCMFlow = true);
 
     /**
      * @brief Get expanded location code.
