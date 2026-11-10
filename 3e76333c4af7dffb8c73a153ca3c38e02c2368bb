@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f02f27_c1f44f2f",
+        "filename": "vpd-tool/src/tool_help.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-10T10:40:34Z",
+      "side": 1,
+      "message": "--\"single letter\" is not a standard. Hence there is no point supporting it explicitly.",
+      "parentUuid": "1994572d_9cb12d1f",
+      "revId": "3e76333c4af7dffb8c73a153ca3c38e02c2368bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b279cb1_6c7c4c7b",
