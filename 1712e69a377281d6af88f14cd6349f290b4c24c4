@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99002424_8e3b6e8a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-10T08:52:06Z",
+      "side": 1,
+      "message": "What is the behavior of this API if the input inventory path is not a base FRU? The same should be documented here.",
+      "revId": "1712e69a377281d6af88f14cd6349f290b4c24c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f96645_be4fbfb7",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-10T08:52:06Z",
+      "side": 1,
+      "message": "As the API has a `noexcept` specifier, the body should be wrapped in a `try-catch` block.",
+      "revId": "1712e69a377281d6af88f14cd6349f290b4c24c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f758a77b_813034ac",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 1
