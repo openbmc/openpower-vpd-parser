@@ -78,9 +78,9 @@ Manager::Manager(
             });
 
         iFace->register_method(
-            "DeleteFRUVPD",
-            [this](const sdbusplus::object_path& i_dbusObjPath) {
-                this->deleteSingleFruVpd(i_dbusObjPath);
+            "DeleteFRUVPD", [this](const sdbusplus::object_path& i_dbusObjPath,
+                                   const bool i_isCMFlow) {
+                this->deleteSingleFruVpd(i_dbusObjPath, i_isCMFlow);
             });
 
         iFace->register_method(
@@ -582,7 +582,8 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                                  i_dbusObjPath, i_isCMFlow);
 }
 
-void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
+                                 [[maybe_unused]] const bool i_isCMFlow)
 {
     if (std::string(i_dbusObjPath).empty())
     {

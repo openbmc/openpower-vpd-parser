@@ -1218,7 +1218,8 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
 }
 
 void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
-                          const std::string& i_dbusObjPath)
+                          const std::string& i_dbusObjPath,
+                          [[maybe_unused]] const bool i_isCMFlow)
 {
     if (i_configJsonObj.empty())
     {
