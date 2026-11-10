@@ -1837,24 +1837,50 @@ std::expected<bool, error_code> Worker::isFruOperationAllowed(
         }
         else
         {
-            /* TODO:
-                - check labmode
-                - if yes,
-                    proceed with FRU operation without doing replaceability
-                    check
-                - if no,
-                    check if FRU is hot pluggable
-                        - if yes,
-                            - execute replaceability checks
-                                - if satisfied,
-                                    proceed with FRU operation
-                                - else,
-                                    reject FRU operation request and log error
-                        - if not hot pluggable,
-                            reject FRU operation request and log error
-            */
-            l_result = isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
-                                                 i_operation);
+            // check if system is in fieldmode
+            uint16_t l_errCode{constants::VALUE_0};
+            if (!commonUtility::isFieldModeEnabled(l_errCode))
+            {
+                if (l_errCode)
+                {
+                    m_logger->logMessage(std::format(
+                        "Failed to check if system is in field mode. Error:{}",
+                        commonUtility::getErrCodeMsg(l_errCode)));
+                    l_result =  std::unexpected(static_cast<error_code>(l_errCode));
+                }
+
+                // lab mode, allow FRU operation without performing
+                // replaceability check
+                l_result =  true;
+            }
+            else
+            {
+                // field mode
+                // check if FRU is hotPluggable
+                bool l_isHotPluggableFru = jsonUtility::isActionRequired(
+                    i_fruPath, "pollingRequired", "hotPlugging", l_errCode);
+
+                if (l_isHotPluggableFru)
+                {
+                    // allow FRU operation if replaceability checks suceed
+                    l_result =  isFruCurrentlyReplaceable(i_fruPath, i_dbusObjPath,
+                                                     i_operation);
+                }
+                else
+                {
+                    if (l_errCode)
+                    {
+                        m_logger->logMessage(std::format(
+                            "Failed to check if FRU [{}] is hot pluggable. Error: {}",
+                            i_fruPath,
+                            commonUtility::getErrCodeMsg(l_errCode)));
+                        l_result =  std::unexpected(
+                            static_cast<error_code>(l_errCode));
+                    }
+                    // FRU is not hot pluggable, reject the operation
+                    l_result =  false;
+                }
+            }
         }
         return l_result;
     }
