@@ -1219,7 +1219,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
 
 void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
                           const std::string& i_dbusObjPath,
-                          [[maybe_unused]] const bool i_isCMFlow)
+                          const bool i_isCMFlow)
 {
     if (i_configJsonObj.empty())
     {
@@ -1242,6 +1242,27 @@ void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
             "Failed to get FRU path for inventory path [" + i_dbusObjPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
             " Aborting FRU VPD deletion.");
+        return;
+    }
+
+    // check if FRU operation is allowed
+    const auto l_fruOperationCheckResult =
+        isFruOperationAllowed(l_fruPath, std::string(i_dbusObjPath), i_isCMFlow,
+                              types::FruOperation::Deletion);
+    if (!l_fruOperationCheckResult)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to check if VPD deletion is allowed for [{}], error : {}. Aborting single FRU VPD deletion.",
+            std::string(i_dbusObjPath),
+            commonUtility::getErrCodeMsg(l_fruOperationCheckResult.error())));
+        return;
+    }
+
+    if (!l_fruOperationCheckResult.value())
+    {
+        m_logger->logMessage(std::format(
+            "Single FRU VPD deletion is not allowed for [{}]. Single FRU VPD deletion is not performed.",
+            std::string(i_dbusObjPath)));
         return;
     }
 

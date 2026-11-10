@@ -583,7 +583,7 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
-                                 [[maybe_unused]] const bool i_isCMFlow)
+                                 const bool i_isCMFlow)
 {
     if (std::string(i_dbusObjPath).empty())
     {
@@ -611,7 +611,7 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         }
 
         Worker{}.deleteFruVpd(l_configJsonResult.value().get(),
-                              std::string(i_dbusObjPath));
+                              std::string(i_dbusObjPath), i_isCMFlow);
     }
     catch (const std::exception& l_ex)
     {
