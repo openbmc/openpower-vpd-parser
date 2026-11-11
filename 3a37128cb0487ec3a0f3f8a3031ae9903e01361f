@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "098b6417_120e59af",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-11T07:35:54Z",
+      "side": 1,
+      "message": "Suggestion: this loop is searching for inventory path match. We can refactor this using C++23 `std::ranges::find_if()`. Something like:\n\n```\nconst std::string\u0026 l_fruPath \u003d l_fru.key();\n    const auto\u0026 l_entries \u003d l_fru.value();\n\n    // C++23 style predicate search\n    auto l_it \u003d std::ranges::find_if(l_entries, [\u0026i_inventoryPath](const auto\u0026 l_entry) {\n        return l_entry.value(\"inventoryPath\", \"\") \u003d\u003d i_inventoryPath;\n    });\n    ```\n    \n1. This will eliminate a level of indentation\n2. Standard algorithms are thoroughly tested, exception-safe, and handle edge cases (like empty containers) cleanly.\n3. Performance overhead remains unaffected.",
+      "revId": "3a37128cb0487ec3a0f3f8a3031ae9903e01361f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90b3c4ca_d77e21dc",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 6
@@ -48,6 +65,23 @@
       "writtenOn": "2026-11-11T07:18:15Z",
       "side": 1,
       "message": "This falls under standard exception category. No need of new error code and log standard exception as it might get lost.",
+      "revId": "3a37128cb0487ec3a0f3f8a3031ae9903e01361f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9493aa11_9e155249",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-11T07:35:54Z",
+      "side": 1,
+      "message": "Exception type should be logged, else it gets lost.",
       "revId": "3a37128cb0487ec3a0f3f8a3031ae9903e01361f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
