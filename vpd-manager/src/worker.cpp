@@ -1521,8 +1521,53 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
 
         // Parse VPD
         bool l_fruPresenceState = false;
-        types::VPDMapVariant l_parsedVpd =
-            parseVpdFile(i_configJsonObj, l_fruPath, false, l_fruPresenceState);
+        types::VPDMapVariant l_parsedVpd;
+        std::string l_collectedFromPath = l_fruPath;
+
+        try
+        {
+            l_parsedVpd = parseVpdFile(i_configJsonObj, l_fruPath, false,
+                                       l_fruPresenceState);
+        }
+        catch (const std::exception& l_primaryEx)
+        {
+            // VPD collection from primary EEPROM failed, log a predictive PEL.
+            m_logger->logMessage(
+                std::format(
+                    "VPD collection failed from primary EEPROM [{}], reason: {}",
+                    l_fruPath, EventLogger::getErrorMsg(l_primaryEx)),
+                PlaceHolder::PEL,
+                types::PelInfoTuple{EventLogger::getErrorType(l_primaryEx),
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt, std::nullopt});
+
+            const std::string l_redundantEepromPath =
+                jsonUtility::getRedundantEepromPathFromJson(l_fruPath,
+                                                            l_errCode);
+
+            if (l_redundantEepromPath.empty())
+            {
+                if (l_errCode)
+                {
+                    m_logger->logMessage(std::format(
+                        "Failed to get redundant EEPROM path for primary path [{}], error : {}",
+                        l_fruPath, commonUtility::getErrCodeMsg(l_errCode)));
+                }
+
+                // No redundant EEPROM to fall back on.
+                throw;
+            }
+
+            m_logger->logMessage(std::format(
+                "Triggering VPD collection from redundant EEPROM [{}]",
+                l_redundantEepromPath));
+
+            // If this also fails, the exception is handled by the outer catch.
+            l_parsedVpd = parseVpdFile(i_configJsonObj, l_redundantEepromPath,
+                                       true, l_fruPresenceState);
+            l_collectedFromPath = l_redundantEepromPath;
+        }
 
         if (isPresentPropertyHandlingRequired(
                 i_configJsonObj["frus"][l_fruPath].at(0)))
@@ -1557,7 +1602,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             types::ObjectMap l_dbusObjectMap;
             // Get D-bus object map from worker class
             populateDbus(i_configJsonObj, l_parsedVpd, l_dbusObjectMap,
-                         l_fruPath);
+                         l_collectedFromPath);
 
             if (l_dbusObjectMap.empty())
             {
