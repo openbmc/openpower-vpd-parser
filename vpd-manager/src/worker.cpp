@@ -1524,8 +1524,128 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
 
         // Parse VPD
         bool l_fruPresenceState = false;
-        types::VPDMapVariant l_parsedVpd =
-            parseVpdFile(i_configJsonObj, l_fruPath, false, l_fruPresenceState);
+        types::VPDMapVariant l_parsedVpd;
+        std::string l_collectedFromPath = l_fruPath;
+
+        // Logs a predictive PEL with the given message and error type.
+        const auto l_logPredictivePel =
+            [&](const std::string& i_msg, const types::ErrorType i_errorType) {
+                m_logger->logMessage(
+                    i_msg, PlaceHolder::PEL,
+                    types::PelInfoTuple{
+                        i_errorType, types::SeverityType::Warning, 0,
+                        std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                        std::nullopt});
+            };
+
+        // Attempts VPD collection from the redundant EEPROM (if any) when VPD
+        // could not be collected from the primary EEPROM, either because it
+        // doesn't exist (i_isPrimaryPresent = false) or because its parsing
+        // failed (i_isPrimaryPresent = true).
+        //
+        // Outcomes:
+        // - primary absent, redundant absent / not configured: FRU is absent,
+        //   returns without error and without a PEL.
+        // - primary absent, redundant parsing failed: logs a PEL for the
+        //   redundant EEPROM and throws.
+        // - primary absent, redundant parsed: logs a PEL for the primary
+        //   EEPROM and returns.
+        // - primary present but failed, redundant absent / not configured:
+        //   logs a PEL for the primary EEPROM and throws.
+        // - primary present but failed, redundant parsing failed: logs a PEL
+        //   for each EEPROM and throws.
+        // - primary present but failed, redundant parsed: logs a PEL for the
+        //   primary EEPROM and returns.
+        const auto l_collectFromRedundant = [&](const bool i_isPrimaryPresent,
+                                                const std::string& i_reason,
+                                                const types::ErrorType
+                                                    i_errorType) {
+            const std::string l_primaryFailureMsg = std::format(
+                "VPD collection for [{}] failed from primary EEPROM [{}], reason: [{}]",
+                std::string{i_dbusObjPath}, l_fruPath, i_reason);
+
+            // Primary EEPROM exists but its parsing failed.
+            if (i_isPrimaryPresent)
+            {
+                l_logPredictivePel(l_primaryFailureMsg, i_errorType);
+            }
+
+            const auto l_redundantResult = collectFromRedundantEeprom(
+                i_configJsonObj, l_fruPath, l_parsedVpd, l_collectedFromPath,
+                l_fruPresenceState);
+
+            if (!l_redundantResult)
+            {
+                // Redundant EEPROM exists but its parsing failed.
+                const std::string l_redundantFailureMsg = std::format(
+                    "VPD collection for [{}] failed from redundant EEPROM [{}], primary EEPROM [{}] {}. Error: {}",
+                    std::string{i_dbusObjPath}, l_collectedFromPath, l_fruPath,
+                    i_isPrimaryPresent ? "parsing also failed" : "is absent",
+                    EventLogger::getErrorTypeString(l_redundantResult.error()));
+
+                l_logPredictivePel(l_redundantFailureMsg,
+                                   l_redundantResult.error());
+                throw EepromException(l_redundantFailureMsg);
+            }
+
+            // No redundant EEPROM configured or redundant EEPROM absent.
+            if (!l_redundantResult.value() ||
+                std::holds_alternative<std::monostate>(l_parsedVpd))
+            {
+                if (i_isPrimaryPresent)
+                {
+                    throw FirmwareException(std::format(
+                        "VPD collection for [{}] failed from primary EEPROM [{}], reason: [{}]. No usable redundant EEPROM found.",
+                        std::string{i_dbusObjPath}, l_fruPath, i_reason));
+                }
+
+                // Both EEPROMs are absent, hence FRU is absent. It is not an
+                // error.
+                l_fruPresenceState = false;
+                return;
+            }
+
+            // VPD collected from redundant EEPROM.
+            if (!i_isPrimaryPresent)
+            {
+                l_logPredictivePel(l_primaryFailureMsg, i_errorType);
+            }
+
+            m_logger->logMessage(std::format(
+                "VPD collected for [{}] from redundant EEPROM path [{}]",
+                std::string{i_dbusObjPath}, l_collectedFromPath));
+        };
+
+        bool l_primaryParseFailed{false};
+        std::string l_primaryFailureReason{};
+        types::ErrorType l_primaryErrorType{types::ErrorType::DefaultValue};
+
+        try
+        {
+            l_parsedVpd = parseVpdFile(i_configJsonObj, l_fruPath, false,
+                                       l_fruPresenceState);
+        }
+        catch (const std::exception& l_primaryParseException)
+        {
+            l_primaryParseFailed = true;
+            l_primaryFailureReason =
+                EventLogger::getErrorMsg(l_primaryParseException);
+            l_primaryErrorType =
+                EventLogger::getErrorType(l_primaryParseException);
+        }
+
+        if (l_primaryParseFailed)
+        {
+            l_collectFromRedundant(true, l_primaryFailureReason,
+                                   l_primaryErrorType);
+        }
+        else if (std::holds_alternative<std::monostate>(l_parsedVpd))
+        {
+            // Primary EEPROM is absent (file doesn't exist or GPIO reports FRU
+            // as not present).
+            l_collectFromRedundant(false, "primary EEPROM is absent",
+                                   types::ErrorType::InvalidEeprom);
+        }
 
         if (isPresentPropertyHandlingRequired(
                 i_configJsonObj["frus"][l_fruPath].at(0)))
@@ -1685,6 +1805,49 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
             populateIPZVPDpropertyMap(o_interfaces, l_keywordMap,
                                       constants::ipzVpdInf + l_recordName);
         }
+    }
+}
+
+std::expected<bool, types::ErrorType> Worker::collectFromRedundantEeprom(
+    const nlohmann::json& i_configJsonObj, const std::string& i_primaryFruPath,
+    types::VPDMapVariant& o_parsedVpd, std::string& o_collectedFromPath,
+    bool& o_fruPresenceState) noexcept
+{
+    try
+    {
+        uint16_t l_errCode = 0;
+        const std::string l_redundantEepromPath =
+            jsonUtility::getRedundantEepromPathFromJson(i_primaryFruPath,
+                                                        l_errCode);
+
+        if (l_redundantEepromPath.empty())
+        {
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get redundant EEPROM path for primary path [{}], error : {}",
+                    i_primaryFruPath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
+            return false;
+        }
+
+        m_logger->logMessage(
+            std::format("Triggering VPD collection from redundant EEPROM [{}]",
+                        l_redundantEepromPath));
+
+        o_collectedFromPath = l_redundantEepromPath;
+        o_parsedVpd = parseVpdFile(i_configJsonObj, l_redundantEepromPath, true,
+                                   o_fruPresenceState);
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "VPD collection failed from redundant EEPROM for primary path [{}], error : {}",
+            i_primaryFruPath, l_ex.what()));
+
+        return std::unexpected(EventLogger::getErrorType(l_ex));
     }
 }
 
