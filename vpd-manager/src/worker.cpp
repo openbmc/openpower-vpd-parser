@@ -1454,6 +1454,10 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
     std::string l_fruPath{};
     uint16_t l_errCode = 0;
 
+    // flag which indicates whether VPD collection has been attempted from
+    // redundant EEPROM or not
+    bool l_redundantEepromCollectionAttempted{false};
+
     try
     {
         // Check if system config JSON is present
@@ -1521,8 +1525,112 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
 
         // Parse VPD
         bool l_fruPresenceState = false;
-        types::VPDMapVariant l_parsedVpd =
-            parseVpdFile(i_configJsonObj, l_fruPath, false, l_fruPresenceState);
+        types::VPDMapVariant l_parsedVpd;
+        std::string l_collectedFromPath = l_fruPath;
+
+        try
+        {
+            l_parsedVpd = parseVpdFile(i_configJsonObj, l_fruPath, false,
+                                       l_fruPresenceState);
+
+            if (std::holds_alternative<std::monostate>(l_parsedVpd))
+            {
+                // VPD collection from primary EEPROM failed, log a predictive
+                // PEL
+                m_logger->logMessage(
+                    std::format(
+                        "VPD collection for [{}] failed from primary EEPROM [{}], reason: empty VPD map read",
+                        std::string{i_dbusObjPath}, l_fruPath,
+                        EventLogger::getErrorTypeString(
+                            types::ErrorType::InvalidEeprom)),
+                    PlaceHolder::PEL,
+                    types::PelInfoTuple{types::ErrorType::InvalidEeprom,
+                                        types::SeverityType::Warning, 0,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt});
+
+                // attempt VPD collection from redundant EEPROM(if any)
+                const auto l_redundantResult = collectFromRedundantEeprom(
+                    i_configJsonObj, l_fruPath, l_parsedVpd,
+                    l_collectedFromPath, l_fruPresenceState);
+
+                l_redundantEepromCollectionAttempted = true;
+
+                if (l_redundantResult && l_redundantResult.value())
+                {
+                    m_logger->logMessage(std::format(
+                        "VPD collected for [{}] from redundant EEPROM path [{}]",
+                        std::string{i_dbusObjPath}, l_collectedFromPath));
+                }
+                else if (!l_redundantResult)
+                {
+                    throw EepromException(std::format(
+                        "VPD collection for [{}] from redundant EEPROM [{}] failed. Error: {}",
+                        std::string{i_dbusObjPath}, l_collectedFromPath,
+                        EventLogger::getErrorTypeString(
+                            l_redundantResult.error())));
+                }
+                else
+                {
+                    throw FirmwareException(std::format(
+                        "VPD collection for [{}] failed from primary EEPROM [{}], reason: empty VPD map read. No redundant EEPROM found.",
+                        std::string{i_dbusObjPath}, l_fruPath));
+                }
+            }
+        }
+        catch (const std::exception& l_primaryParseException)
+        {
+            if (!l_redundantEepromCollectionAttempted)
+            {
+                // VPD collection from primary EEPROM failed, log a predictive
+                // PEL
+                m_logger->logMessage(
+                    std::format(
+                        "VPD collection for [{}] failed from primary EEPROM [{}], reason: [{}]",
+                        std::string{i_dbusObjPath}, l_fruPath,
+                        EventLogger::getErrorMsg(l_primaryParseException)),
+                    PlaceHolder::PEL,
+                    types::PelInfoTuple{
+                        EventLogger::getErrorType(l_primaryParseException),
+                        types::SeverityType::Warning, 0, std::nullopt,
+                        std::nullopt, std::nullopt, std::nullopt,
+                        std::nullopt});
+
+                // attempt VPD collection from redundant EEPROM(if any)
+                const auto l_redundantResult = collectFromRedundantEeprom(
+                    i_configJsonObj, l_fruPath, l_parsedVpd,
+                    l_collectedFromPath, l_fruPresenceState);
+
+                if (l_redundantResult && l_redundantResult.value())
+                {
+                    m_logger->logMessage(std::format(
+                        "VPD collected for [{}] from redundant EEPROM path [{}]",
+                        std::string{i_dbusObjPath}, l_collectedFromPath));
+                }
+                else if (!l_redundantResult)
+                {
+                    throw EepromException(std::format(
+                        "VPD collection for [{}] from redundant EEPROM [{}] failed. Error: {}",
+                        std::string{i_dbusObjPath}, l_collectedFromPath,
+                        EventLogger::getErrorTypeString(
+                            l_redundantResult.error())));
+                }
+                else
+                {
+                    throw FirmwareException(std::format(
+                        "VPD collection for [{}] from primary EEPROM [{}] failed. No redundant EEPROM found.",
+                        std::string{i_dbusObjPath}, l_fruPath));
+                }
+            }
+            else
+            {
+                // catch exceptions which were thrown after attempting redundant
+                // EEPROM collection and re-throw so that collection failure
+                // block in outer exception handler executes
+                throw;
+            }
+        }
 
         if (isPresentPropertyHandlingRequired(
                 i_configJsonObj["frus"][l_fruPath].at(0)))
@@ -1557,7 +1665,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             types::ObjectMap l_dbusObjectMap;
             // Get D-bus object map from worker class
             populateDbus(i_configJsonObj, l_parsedVpd, l_dbusObjectMap,
-                         l_fruPath);
+                         l_collectedFromPath);
 
             if (l_dbusObjectMap.empty())
             {
@@ -1682,6 +1790,49 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
             populateIPZVPDpropertyMap(o_interfaces, l_keywordMap,
                                       constants::ipzVpdInf + l_recordName);
         }
+    }
+}
+
+std::expected<bool, types::ErrorType> Worker::collectFromRedundantEeprom(
+    const nlohmann::json& i_configJsonObj, const std::string& i_primaryFruPath,
+    types::VPDMapVariant& o_parsedVpd, std::string& o_collectedFromPath,
+    bool& o_fruPresenceState) noexcept
+{
+    try
+    {
+        uint16_t l_errCode = 0;
+        const std::string l_redundantEepromPath =
+            jsonUtility::getRedundantEepromPathFromJson(i_primaryFruPath,
+                                                        l_errCode);
+
+        if (l_redundantEepromPath.empty())
+        {
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get redundant EEPROM path for primary path [{}], error : {}",
+                    i_primaryFruPath, commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
+            return false;
+        }
+
+        m_logger->logMessage(
+            std::format("Triggering VPD collection from redundant EEPROM [{}]",
+                        l_redundantEepromPath));
+
+        o_parsedVpd = parseVpdFile(i_configJsonObj, l_redundantEepromPath, true,
+                                   o_fruPresenceState);
+        o_collectedFromPath = l_redundantEepromPath;
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "VPD collection failed from redundant EEPROM for primary path [{}], error : {}",
+            i_primaryFruPath, l_ex.what()));
+
+        return std::unexpected(EventLogger::getErrorType(l_ex));
     }
 }
 
