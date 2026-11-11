@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b12580a_6516f80e",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-11T13:24:00Z",
+      "side": 1,
+      "message": "Can you update the doxygen that this API only works for inventory path of base FRU?",
+      "revId": "f342a3bb8c3f06572ae1ba1aa3043c789958d53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
