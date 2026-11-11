@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8424edda_6228cb07",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-11-11T07:59:44Z",
+      "side": 1,
+      "message": "Can we use std::expected as the return type instead of passing the error code through an output parameter? \n\nWe are following this for the new APIs if we are setting error code",
+      "revId": "3a37128cb0487ec3a0f3f8a3031ae9903e01361f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e7f60d0_a9feca10",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 6
