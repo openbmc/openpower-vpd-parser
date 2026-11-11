@@ -59,7 +59,9 @@ const std::unordered_map<types::ErrorType, std::string> errorMsgMap = {
     {types::ErrorType::UnknownSystemSettings,
      "com.ibm.VPD.Error.UnknownSystemSettings"},
     {types::ErrorType::FirmwareError, "com.ibm.VPD.Error.FirmwareError"},
-    {types::ErrorType::VpdParseError, "com.ibm.VPD.Error.VPDParseError"}};
+    {types::ErrorType::VpdParseError, "com.ibm.VPD.Error.VPDParseError"},
+    {types::ErrorType::InvalidArgument,
+     "xyz.openbmc_project.Common.Error.InvalidArgument"}};
 
 const std::unordered_map<types::CalloutPriority, std::string> priorityMap = {
     {types::CalloutPriority::High, "H"},
@@ -142,6 +144,18 @@ inline types::ExceptionDataMap getExceptionData(
             l_errorInfo["ErrorType"] = l_ex.getErrorType();
             l_errorInfo["ErrorMsg"] =
                 std::string("Eeprom Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(types::DbusInvalidArgument))
+        {
+            l_errorInfo["ErrorType"] = types::ErrorType::InvalidArgument;
+            l_errorInfo["ErrorMsg"] =
+                std::string("Invalid argument. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(types::InternalFailure))
+        {
+            l_errorInfo["ErrorType"] = types::ErrorType::InternalFailure;
+            l_errorInfo["ErrorMsg"] =
+                std::string("Internal failure. Reason: ") + i_exception.what();
         }
         else if (typeid(i_exception) == typeid(std::runtime_error))
         {
