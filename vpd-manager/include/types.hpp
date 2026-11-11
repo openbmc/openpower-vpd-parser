@@ -201,7 +201,8 @@ enum class ErrorType
     UndefinedError,
     UnknownSystemSettings,
     FirmwareError,
-    VpdParseError /* Should be used in case of any generic VPD parsing error. */
+    VpdParseError, /* Should be used in case of any generic VPD parsing error. */
+    InvalidArgument /* Should be used when an invalid argument is received. */
 };
 
 /**
