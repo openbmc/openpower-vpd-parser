@@ -160,6 +160,27 @@ class Worker
         const std::string& i_eepromFilePath) noexcept;
 
     /**
+     * @brief Attempt VPD collection from redundant EEPROM.
+     *
+     * @param[in] i_configJsonObj - Config JSON object.
+     * @param[in] i_redundantEepromPath - Redundant EEPROM file path.
+     * @param[out] o_parsedVpd - Map to store parsed VPD from redundant EEPROM.
+     * It is left empty (std::monostate) if the redundant EEPROM is absent.
+     * @param[out] o_fruPresenceState - Set to presence state of redundant
+     * EEPROM.
+     *
+     * @return std::expected<bool, types::ErrorType> - Returns true if the
+     * given path is a redundant EEPROM and was processed without error (check
+     * o_parsedVpd to know if the EEPROM was absent), false if the given path
+     * is not a redundant EEPROM (or this could not be determined), or
+     * ErrorType if parsing it failed.
+     */
+    std::expected<bool, types::ErrorType> collectFromRedundantEeprom(
+        const nlohmann::json& i_configJsonObj,
+        const std::string& i_redundantEepromPath,
+        types::VPDMapVariant& o_parsedVpd, bool& o_fruPresenceState) noexcept;
+
+    /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
      *
      * Note: This API will handle all the exceptions internally and will return
