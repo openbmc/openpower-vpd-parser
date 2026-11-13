@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5552079e_e7291e92",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-13T07:14:24Z",
+      "side": 1,
+      "message": "Could we distinguish an absent FRU from a failed EEPROM collection before attempting fallback? parseVpdFile() returns an empty variant when the presence GPIO reports the FRU absent and explicitly treats that as a non-failure. With no redundant EEPROM configured, this path now logs a predictive EEPROM PEL and marks collection Failed, whereas the previous flow handled the empty result as completed.",
+      "revId": "8f70022b3b2ae923c1b6d1f2c1018575072edf95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "833f036d_977be45d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-13T07:14:24Z",
+      "side": 1,
+      "message": "Could we check for std::monostate after parsing the redundant EEPROM? If its file is missing and no pre-action is required, parseVpdFile() returns an empty variant without throwing. This helper then returns success, so the caller logs a successful redundant collection and eventually marks it Completed, although no VPD was collected.",
+      "revId": "8f70022b3b2ae923c1b6d1f2c1018575072edf95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
