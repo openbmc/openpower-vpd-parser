@@ -860,10 +860,13 @@ types::VPDMapVariant Worker::parseVpdFile(
             }
 
             // Skip VPD collection if VPD path is redundant path and
-            // i_processRedundant is set to false.
-            if (i_configJsonObj["frus"][i_vpdFilePath].at(0).value(
-                    "isRedundant", false) &&
-                !i_processRedundant)
+            // i_processRedundant is set to false. i_vpdFilePath may be a
+            // redundant EEPROM path which is not a key in "frus"; operator[]
+            // on a const JSON asserts when the key is absent, so guard it.
+            if (!i_processRedundant &&
+                i_configJsonObj["frus"].contains(i_vpdFilePath) &&
+                i_configJsonObj["frus"][i_vpdFilePath].at(0).value(
+                    "isRedundant", false))
             {
                 return types::VPDMapVariant{};
             }
