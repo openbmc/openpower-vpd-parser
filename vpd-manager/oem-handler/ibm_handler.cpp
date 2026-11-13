@@ -42,7 +42,7 @@ IbmHandler::IbmHandler(
         performInitialSetup();
 
         // Init back up and restore.
-        initBackupAndRestore();
+        // initBackupAndRestore();
     }
     catch (const std::exception& exception)
     {
@@ -802,20 +802,20 @@ void IbmHandler::setDeviceTreeAndJson(const std::string& fruPath,
         const types::MapperGetObject& sysVpdObjMap =
             dbusUtility::getObjectMap(sysVpdInvPath, interfaceList);
 
-        if (!sysVpdObjMap.empty())
-        {
-            if (isBackupOnCache() &&
-                jsonUtility::isBackupAndRestoreRequired(errCode))
-            {
-                performBackupAndRestore(parsedSystemVpdMap);
-            }
-            else if (errCode)
-            {
-                logger->logMessage(
-                    "Failed to check if backup and restore required. Reason : " +
-                    commonUtility::getErrCodeMsg(errCode));
-            }
-        }
+        // if (!sysVpdObjMap.empty())
+        // {
+        //     if (isBackupOnCache() &&
+        //         jsonUtility::isBackupAndRestoreRequired(errCode))
+        //     {
+        //         performBackupAndRestore(parsedSystemVpdMap);
+        //     }
+        //     else if (errCode)
+        //     {
+        //         logger->logMessage(
+        //             "Failed to check if backup and restore required. Reason :
+        //             " + commonUtility::getErrCodeMsg(errCode));
+        //     }
+        // }
         return;
     }
 
@@ -946,10 +946,10 @@ void IbmHandler::collectionStatusChangeCallback(
             vpd::types::CommonProgress::convertOperationStatusFromString(
                 *status) == types::VpdCollectionStatus::Failed)
         {
-            if (backupAndRestoreObj)
-            {
-                backupAndRestoreObj->backupAndRestore();
-            }
+            // if (backupAndRestoreObj)
+            // {
+            //     backupAndRestoreObj->backupAndRestore();
+            // }
 
             if (eventListener)
             {

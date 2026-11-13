@@ -355,16 +355,16 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         auto l_rc =
             l_parserObj->updateVpdKeyword(i_paramsToWriteData, l_updatedValue);
 
-        if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
-        {
-            if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
-                    l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
-            {
-                m_logger->logMessage(
-                    "Write success, but backup and restore failed for file[" +
-                    l_fruPath + "]");
-            }
-        }
+        // if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
+        // {
+        //     if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
+        //             l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
+        //     {
+        //         m_logger->logMessage(
+        //             "Write success, but backup and restore failed for file["
+        //             + l_fruPath + "]");
+        //     }
+        // }
 
         types::WriteVpdParams l_writeParams;
         types::BinaryVector l_valueToUpdate;
