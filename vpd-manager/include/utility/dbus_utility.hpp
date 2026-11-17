@@ -76,41 +76,41 @@ inline types::MapperGetObject getObjectMap(
  * Note: It will be caller's responsibility to check for empty map returned and
  * generate appropriate error.
  *
- * @param[in] i_service - Service name.
- * @param[in] i_objectPath - object path.
- * @param[in] i_interface - Interface, for the properties to be listed.
+ * @param[in] service - Service name.
+ * @param[in] objectPath - object path.
+ * @param[in] interface - Interface, for the properties to be listed.
  *
  * @return - A map of property and value of an interface, if success.
  *           if failed, empty map.
  */
-inline types::PropertyMap getPropertyMap(const std::string& i_service,
-                                         const std::string& i_objectPath,
-                                         const std::string& i_interface)
+inline types::PropertyMap getPropertyMap(const std::string& service,
+                                         const std::string& objectPath,
+                                         const std::string& interface)
 {
-    types::PropertyMap l_propertyValueMap;
-    if (i_service.empty() || i_objectPath.empty() || i_interface.empty())
+    types::PropertyMap propertyValueMap;
+    if (service.empty() || objectPath.empty() || interface.empty())
     {
         Logger::getLoggerInstance()->logMessage(
             "Invalid parameters to get property map");
-        return l_propertyValueMap;
+        return propertyValueMap;
     }
 
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(i_service.c_str(), i_objectPath.c_str(),
-                                  "org.freedesktop.DBus.Properties", "GetAll");
-        l_method.append(i_interface);
-        auto l_result = l_bus.call(l_method);
-        l_result.read(l_propertyValueMap);
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call(service.c_str(), objectPath.c_str(),
+                                "org.freedesktop.DBus.Properties", "GetAll");
+        method.append(interface);
+        auto result = bus.call(method);
+        result.read(propertyValueMap);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
-        Logger::getLoggerInstance()->logMessage(l_ex.what());
+        Logger::getLoggerInstance()->logMessage(ex.what());
     }
 
-    return l_propertyValueMap;
+    return propertyValueMap;
 }
 
 /**
@@ -125,42 +125,42 @@ inline types::PropertyMap getPropertyMap(const std::string& i_service,
  * It will be caller's responsibility to check for empty vector returned
  * and generate appropriate error.
  *
- * @param[in] i_objectPath - Path to search for an interface.
- * @param[in] i_depth - Maximum depth of the tree to search.
- * @param[in] i_interfaces - List of interfaces to search.
+ * @param[in] objectPath - Path to search for an interface.
+ * @param[in] depth - Maximum depth of the tree to search.
+ * @param[in] interfaces - List of interfaces to search.
  *
  * @return - A map of object and its related services and interfaces, if
  *           success. If failed, empty map.
  */
 
 inline types::MapperGetSubTree getObjectSubTree(
-    const std::string& i_objectPath, const int& i_depth,
-    const std::vector<std::string>& i_interfaces)
+    const std::string& objectPath, const int& depth,
+    const std::vector<std::string>& interfaces)
 {
-    types::MapperGetSubTree l_subTreeMap;
+    types::MapperGetSubTree subTreeMap;
 
-    if (i_objectPath.empty())
+    if (objectPath.empty())
     {
         Logger::getLoggerInstance()->logMessage("Object path is empty.");
-        return l_subTreeMap;
+        return subTreeMap;
     }
 
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
             constants::objectMapperService, constants::objectMapperPath,
             constants::objectMapperInf, "GetSubTree");
-        l_method.append(i_objectPath, i_depth, i_interfaces);
-        auto l_result = l_bus.call(l_method);
-        l_result.read(l_subTreeMap);
+        method.append(objectPath, depth, interfaces);
+        auto result = bus.call(method);
+        result.read(subTreeMap);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
-        Logger::getLoggerInstance()->logMessage(l_ex.what());
+        Logger::getLoggerInstance()->logMessage(ex.what());
     }
 
-    return l_subTreeMap;
+    return subTreeMap;
 }
 
 /**
@@ -170,8 +170,8 @@ inline types::MapperGetSubTree getObjectSubTree(
  * to retrieve all objects, their interfaces, and properties managed by
  * a service in a single D-Bus call.
  *
- * @param[in] i_serviceName - D-Bus service name.
- * @param[in] i_objectPath - Object path that implements ObjectManager.
+ * @param[in] serviceName - D-Bus service name.
+ * @param[in] objectPath - Object path that implements ObjectManager.
  *
  * @return - std::expected containing either:
  *           - types::ObjectMap on success
@@ -182,30 +182,31 @@ inline types::MapperGetSubTree getObjectSubTree(
  * ObjectManager interface .
  */
 inline std::expected<types::ObjectMap, error_code> getManagedObjects(
-    const std::string& i_serviceName, const std::string& i_objectPath)
+    const std::string& serviceName, const std::string& objectPath)
 {
-    if (i_serviceName.empty() || i_objectPath.empty())
+    if (serviceName.empty() || objectPath.empty())
     {
         return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
     }
 
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
-            i_serviceName.c_str(), i_objectPath.c_str(),
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            serviceName.c_str(), objectPath.c_str(),
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 
-        auto l_result = l_bus.call(l_method);
-        types::ObjectMap l_managedObjects;
-        l_result.read(l_managedObjects);
-        return l_managedObjects;
+        auto result = bus.call(method);
+        types::ObjectMap managedObjects;
+        result.read(managedObjects);
+        return managedObjects;
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
-            "Failed to get managed objects for service: {}, path: {}, error: {}",
-            i_serviceName, i_objectPath, l_ex.what()));
+            "Failed to get managed objects for service: {}, path: {}, "
+            "error: {}",
+            serviceName, objectPath, ex.what()));
         return std::unexpected(error_code::DBUS_FAILURE);
     }
 }
@@ -297,10 +298,10 @@ inline bool writeDbusProperty(
 
         return true;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "DBus write failed, error: " + std::string(l_ex.what()));
+            "DBus write failed, error: " + std::string(ex.what()));
         return false;
     }
 }
@@ -317,15 +318,15 @@ inline bool callPIM(types::ObjectMap&& objectMap)
 {
     try
     {
-        for (const auto& l_objectKeyValue : objectMap)
+        for (const auto& objectKeyValue : objectMap)
         {
-            if (l_objectKeyValue.first.str.find(constants::pimPath, 0) !=
+            if (objectKeyValue.first.str.find(constants::pimPath, 0) !=
                 std::string::npos)
             {
-                auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
-                l_nodeHandle.key() = l_nodeHandle.key().str.replace(
+                auto nodeHandle = objectMap.extract(objectKeyValue.first);
+                nodeHandle.key() = nodeHandle.key().str.replace(
                     0, std::strlen(constants::pimPath), "");
-                objectMap.insert(std::move(l_nodeHandle));
+                objectMap.insert(std::move(nodeHandle));
             }
         }
 
@@ -350,11 +351,11 @@ inline bool callPIM(types::ObjectMap&& objectMap)
  * based on the configuration.
  * NOTE- In future, support else part to call other service/method.
  *
- * @param[in] i_objectMap - map of object and it's data
+ * @param[in] objectMap - map of object and it's data
  *
  * @return bool - true if success, false otherwise.
  */
-inline bool publishVpdOnDBus(types::ObjectMap&& i_objectMap)
+inline bool publishVpdOnDBus(types::ObjectMap&& objectMap)
 {
     // Initialise it as default, otherwise compiler fails it assuming if
     // "if condition" doesn't match then it will be left uninitialised.
@@ -366,7 +367,7 @@ inline bool publishVpdOnDBus(types::ObjectMap&& i_objectMap)
     dBusCall = callPIM;
 #endif
 
-    auto reply = dBusCall(move(i_objectMap));
+    auto reply = dBusCall(move(objectMap));
 
     return reply;
 }
@@ -378,31 +379,31 @@ inline bool publishVpdOnDBus(types::ObjectMap&& i_objectMap)
  * not in a running state. Hence the API returns false in case of any exception
  * as well.
  *
- * @param[in] i_serviceName - D-Bus service name whose status is to be checked.
+ * @param[in] serviceName - D-Bus service name whose status is to be checked.
  * @return bool - True if the service is running, false otherwise.
  */
-inline bool isServiceRunning(const std::string& i_serviceName)
+inline bool isServiceRunning(const std::string& serviceName)
 {
-    bool l_retVal = false;
+    bool retVal = false;
 
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
-            "org.freedesktop.DBus", "/org/freedesktop/DBus",
-            "org.freedesktop.DBus", "NameHasOwner");
-        l_method.append(i_serviceName);
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call("org.freedesktop.DBus", "/org/freedesktop/DBus",
+                                "org.freedesktop.DBus", "NameHasOwner");
+        method.append(serviceName);
 
-        l_bus.call(l_method).read(l_retVal);
+        bus.call(method).read(retVal);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
             "Call to check service status failed with exception: " +
-            std::string(l_ex.what()));
+            std::string(ex.what()));
     }
 
-    return l_retVal;
+    return retVal;
 }
 
 /**
@@ -414,36 +415,36 @@ inline bool isServiceRunning(const std::string& i_serviceName)
  * API returns an empty variant of type BiosAttributeCurrentValue in case of any
  * error.
  *
- * @param[in] i_attributeName - Attribute to be read.
+ * @param[in] attributeName - Attribute to be read.
  * @return Tuple of PLDM attribute Type, current attribute value and pending
  * attribute value.
  */
 inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
-    const std::string& i_attributeName) noexcept
+    const std::string& attributeName) noexcept
 {
-    types::BiosGetAttrRetType l_attributeVal;
+    types::BiosGetAttrRetType attributeVal;
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "GetAttribute");
-        l_method.append(i_attributeName);
+        method.append(attributeName);
 
-        auto l_result = l_bus.call(l_method);
-        l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
-                      std::get<2>(l_attributeVal));
+        auto result = bus.call(method);
+        result.read(std::get<0>(attributeVal), std::get<1>(attributeVal),
+                    std::get<2>(attributeVal));
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to read BIOS Attribute: " + i_attributeName +
-            " due to error " + std::string(l_ex.what()));
+            "Failed to read BIOS Attribute: " + attributeName +
+            " due to error " + std::string(ex.what()));
 
         // TODO: Log an informational PEL here.
     }
 
-    return std::get<1>(l_attributeVal);
+    return std::get<1>(attributeVal);
 }
 
 /**
@@ -490,13 +491,13 @@ inline bool isChassisPowerOn()
  */
 inline bool isHostRunning()
 {
-    const auto l_hostState = dbusUtility::readDbusProperty(
+    const auto hostState = dbusUtility::readDbusProperty(
         constants::hostService, constants::hostObjectPath,
         constants::hostInterface, "CurrentHostState");
 
-    if (const auto l_currHostState = std::get_if<std::string>(&l_hostState))
+    if (const auto currHostState = std::get_if<std::string>(&hostState))
     {
-        if (*l_currHostState == constants::hostRunningState)
+        if (*currHostState == constants::hostRunningState)
         {
             return true;
         }
@@ -515,13 +516,13 @@ inline bool isHostRunning()
  */
 inline bool isBMCReady()
 {
-    const auto l_bmcState = dbusUtility::readDbusProperty(
+    const auto bmcState = dbusUtility::readDbusProperty(
         constants::bmcStateService, constants::bmcZeroStateObject,
         constants::bmcStateInterface, constants::currentBMCStateProperty);
 
-    if (const auto l_currBMCState = std::get_if<std::string>(&l_bmcState))
+    if (const auto currBMCState = std::get_if<std::string>(&bmcState))
     {
-        if (*l_currBMCState == constants::bmcReadyState)
+        if (*currBMCState == constants::bmcReadyState)
         {
             return true;
         }
@@ -539,26 +540,26 @@ inline bool isBMCReady()
  */
 inline int EnableRebootGuard() noexcept
 {
-    int l_rc{constants::FAILURE};
+    int rc{constants::FAILURE};
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
             constants::systemdService, constants::systemdObjectPath,
             constants::systemdManagerInterface, "StartUnit");
-        l_method.append("reboot-guard-enable.service", "replace");
-        l_bus.call_noreply(l_method);
-        l_rc = constants::SUCCESS;
+        method.append("reboot-guard-enable.service", "replace");
+        bus.call_noreply(method);
+        rc = constants::SUCCESS;
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
-        std::string l_errMsg =
+        std::string errMsg =
             "D-Bus call to enable BMC reboot guard failed for reason: ";
-        l_errMsg += l_ex.what();
+        errMsg += ex.what();
 
-        Logger::getLoggerInstance()->logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(errMsg);
     }
-    return l_rc;
+    return rc;
 }
 
 /**
@@ -572,52 +573,52 @@ inline int EnableRebootGuard() noexcept
  */
 inline int DisableRebootGuard() noexcept
 {
-    int l_rc{constants::FAILURE};
+    int rc{constants::FAILURE};
 
     // A lambda which executes the DBus call to disable BMC reboot guard.
-    auto l_executeDisableRebootGuard = []() -> int {
-        int l_dBusCallRc{constants::FAILURE};
+    auto executeDisableRebootGuard = []() -> int {
+        int dBusCallRc{constants::FAILURE};
         try
         {
-            auto l_bus = sdbusplus::bus::new_default();
-            auto l_method = l_bus.new_method_call(
+            auto bus = sdbusplus::bus::new_default();
+            auto method = bus.new_method_call(
                 constants::systemdService, constants::systemdObjectPath,
                 constants::systemdManagerInterface, "StartUnit");
-            l_method.append("reboot-guard-disable.service", "replace");
-            l_bus.call_noreply(l_method);
-            l_dBusCallRc = constants::SUCCESS;
+            method.append("reboot-guard-disable.service", "replace");
+            bus.call_noreply(method);
+            dBusCallRc = constants::SUCCESS;
         }
-        catch (const sdbusplus::exception::internal_exception& l_ex)
+        catch (const sdbusplus::exception::internal_exception& ex)
         {}
-        return l_dBusCallRc;
+        return dBusCallRc;
     };
 
-    if (constants::FAILURE == l_executeDisableRebootGuard())
+    if (constants::FAILURE == executeDisableRebootGuard())
     {
-        std::function<void()> l_retryDisableRebootGuard;
+        std::function<void()> retryDisableRebootGuard;
 
         // A lambda which tries to disable BMC reboot guard for 3 times at an
         // interval of 333 ms.
-        l_retryDisableRebootGuard = [&]() {
-            constexpr int MAX_RETRIES{3};
-            static int l_numRetries{0};
+        retryDisableRebootGuard = [&]() {
+            constexpr int maxRetries{3};
+            static int numRetries{0};
 
-            if (l_numRetries < MAX_RETRIES)
+            if (numRetries < maxRetries)
             {
-                l_numRetries++;
-                if (constants::FAILURE == l_executeDisableRebootGuard())
+                numRetries++;
+                if (constants::FAILURE == executeDisableRebootGuard())
                 {
                     // sleep for 333ms before next retry. This is just a random
                     // value so that 3 re-tries * 333ms takes ~1 second in the
                     // worst case.
-                    const std::chrono::milliseconds l_sleepTime{333};
-                    std::this_thread::sleep_for(l_sleepTime);
-                    l_retryDisableRebootGuard();
+                    const std::chrono::milliseconds sleepTime{333};
+                    std::this_thread::sleep_for(sleepTime);
+                    retryDisableRebootGuard();
                 }
                 else
                 {
-                    l_numRetries = 0;
-                    l_rc = constants::SUCCESS;
+                    numRetries = 0;
+                    rc = constants::SUCCESS;
                 }
             }
             else
@@ -625,18 +626,18 @@ inline int DisableRebootGuard() noexcept
                 // Failed to Disable Reboot Guard even after 3 retries.
                 Logger::getLoggerInstance()->logMessage(
                     "Failed to Disable Reboot Guard after " +
-                    std::to_string(MAX_RETRIES) + " re-tries");
-                l_numRetries = 0;
+                    std::to_string(maxRetries) + " re-tries");
+                numRetries = 0;
             }
         };
 
-        l_retryDisableRebootGuard();
+        retryDisableRebootGuard();
     }
     else
     {
-        l_rc = constants::SUCCESS;
+        rc = constants::SUCCESS;
     }
-    return l_rc;
+    return rc;
 }
 
 /**
@@ -645,24 +646,24 @@ inline int DisableRebootGuard() noexcept
  * This API uses PIM's Notify method to update the given FRU VPD collection
  * status on D-bus.
  *
- * @param[in] i_inventoryPath - D-bus inventory path
- * @param[in] i_fruCollectionStatus - FRU VPD collection status.
+ * @param[in] inventoryPath - D-bus inventory path
+ * @param[in] fruCollectionStatus - FRU VPD collection status.
  *
  * @return true if update succeeds, false otherwise.
  */
-inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
-                                      const std::string& i_fruCollectionStatus)
+inline bool notifyFRUCollectionStatus(const std::string& inventoryPath,
+                                      const std::string& fruCollectionStatus)
 {
-    types::ObjectMap l_objectMap;
-    types::InterfaceMap l_interfaceMap;
-    types::PropertyMap l_propertyMap;
+    types::ObjectMap objectMap;
+    types::InterfaceMap interfaceMap;
+    types::PropertyMap propertyMap;
 
-    l_propertyMap.emplace("Status", i_fruCollectionStatus);
-    l_interfaceMap.emplace(constants::vpdCollectionInterface, l_propertyMap);
-    l_objectMap.emplace(i_inventoryPath, l_interfaceMap);
+    propertyMap.emplace("Status", fruCollectionStatus);
+    interfaceMap.emplace(constants::vpdCollectionInterface, propertyMap);
+    objectMap.emplace(inventoryPath, interfaceMap);
 
     // Call method to update the dbus
-    if (!dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
+    if (!dbusUtility::publishVpdOnDBus(std::move(objectMap)))
     {
         return false;
     }
@@ -677,10 +678,10 @@ inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
  * object path in the DBus tree. This API calls DBus method GetSubTreePaths
  * hosted by ObjectMapper DBus service.
  *
- * @param[in] i_objectPath - DBus object path.
- * @param[in] i_depth - The maximum subtree depth for which results should be
+ * @param[in] objectPath - DBus object path.
+ * @param[in] depth - The maximum subtree depth for which results should be
  * fetched. For unconstrained fetches use a depth of zero.
- * @param[in] i_constrainingInterfaces - An array of result set constraining
+ * @param[in] constrainingInterfaces - An array of result set constraining
  * interfaces.
  *
  * @return On success, returns a std::vector<std::string> of object paths,
@@ -689,80 +690,80 @@ inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
  * Note: The caller of this API should check for empty vector.
  */
 inline std::vector<std::string> GetSubTreePaths(
-    const std::string i_objectPath, const int i_depth = 0,
-    const std::vector<std::string>& i_constrainingInterfaces = {}) noexcept
+    const std::string objectPath, const int depth = 0,
+    const std::vector<std::string>& constrainingInterfaces = {}) noexcept
 {
-    std::vector<std::string> l_objectPaths;
+    std::vector<std::string> objectPaths;
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method = l_bus.new_method_call(
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
             constants::objectMapperService, constants::objectMapperPath,
             constants::objectMapperInf, "GetSubTreePaths");
 
-        l_method.append(i_objectPath, i_depth, i_constrainingInterfaces);
+        method.append(objectPath, depth, constrainingInterfaces);
 
-        auto l_result = l_bus.call(l_method);
-        l_result.read(l_objectPaths);
+        auto result = bus.call(method);
+        result.read(objectPaths);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Error while getting GetSubTreePaths for path [" + i_objectPath +
-            "], error: " + std::string(l_ex.what()));
+            "Error while getting GetSubTreePaths for path [" + objectPath +
+            "], error: " + std::string(ex.what()));
     }
-    return l_objectPaths;
+    return objectPaths;
 }
 
 /**
  * @brief API to get Dbus service name for given connection identifier.
  *
- * @param[in] i_connectionId - Dbus connection ID.
+ * @param[in] connectionId - Dbus connection ID.
  *
  * @return On success, returns the DBus service associated with given connection
  * ID, empty string otherwise.
  */
 inline std::string getServiceNameFromConnectionId(
-    const std::string& i_connectionId) noexcept
+    const std::string& connectionId) noexcept
 {
     try
     {
-        if (i_connectionId.empty())
+        if (connectionId.empty())
         {
             throw std::runtime_error("Empty connection ID");
         }
 
-        auto l_bus = sdbusplus::bus::new_default();
+        auto bus = sdbusplus::bus::new_default();
 
         // get PID corresponding to the connection ID
-        auto l_method = l_bus.new_method_call(
+        auto method = bus.new_method_call(
             "org.freedesktop.DBus", "/org/freedesktop/DBus",
             "org.freedesktop.DBus", "GetConnectionUnixProcessID");
-        l_method.append(i_connectionId);
-        auto l_result = l_bus.call(l_method);
+        method.append(connectionId);
+        auto result = bus.call(method);
 
-        auto l_pid = l_result.unpack<unsigned>();
+        auto pid = result.unpack<unsigned>();
 
         // use PID to get corresponding unit object path
-        l_method = l_bus.new_method_call(
+        method = bus.new_method_call(
             "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", "GetUnitByPID");
-        l_method.append(l_pid);
-        l_result = l_bus.call(l_method);
+        method.append(pid);
+        result = bus.call(method);
 
-        auto l_unitObjectPath = l_result.unpack<sdbusplus::object_path>();
+        auto unitObjectPath = result.unpack<sdbusplus::object_path>();
 
         // use unit object path to get service name
-        l_method = l_bus.new_method_call(
-            "org.freedesktop.systemd1", std::string(l_unitObjectPath).c_str(),
-            "org.freedesktop.DBus.Properties", "Get");
-        l_method.append("org.freedesktop.systemd1.Unit", "Id");
-        l_result = l_bus.call(l_method);
-        auto l_serviceNameVar = l_result.unpack<types::DbusVariantType>();
+        method = bus.new_method_call("org.freedesktop.systemd1",
+                                     std::string(unitObjectPath).c_str(),
+                                     "org.freedesktop.DBus.Properties", "Get");
+        method.append("org.freedesktop.systemd1.Unit", "Id");
+        result = bus.call(method);
+        auto serviceNameVar = result.unpack<types::DbusVariantType>();
 
-        if (auto l_serviceNameStr = std::get_if<std::string>(&l_serviceNameVar))
+        if (auto serviceNameStr = std::get_if<std::string>(&serviceNameVar))
         {
-            return *l_serviceNameStr;
+            return *serviceNameStr;
         }
         else
         {
@@ -770,11 +771,11 @@ inline std::string getServiceNameFromConnectionId(
                 "Invalid type received while reading service name.");
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to get service name from connection ID: [" +
-            i_connectionId + "]. error: " + std::string(l_ex.what()));
+            "Failed to get service name from connection ID: [" + connectionId +
+            "]. error: " + std::string(ex.what()));
     }
     return std::string{};
 }
@@ -800,39 +801,39 @@ inline std::expected<types::ListOfPaths, error_code>
 {
     try
     {
-        const auto l_objectPaths = GetSubTreePaths(
+        const auto objectPaths = GetSubTreePaths(
             constants::pimPath, 0,
             std::vector<std::string>{constants::physicalContextInterface});
 
-        if (l_objectPaths.empty())
+        if (objectPaths.empty())
         {
             return std::unexpected(error_code::INVALID_VALUE_READ_FROM_DBUS);
         }
 
-        types::ListOfPaths l_bmcPaths;
+        types::ListOfPaths bmcPaths;
 
-        for (const auto& l_objectPath : l_objectPaths)
+        for (const auto& objectPath : objectPaths)
         {
-            const auto l_typeVariant =
-                readDbusProperty(constants::pimServiceName, l_objectPath,
+            const auto typeVariant =
+                readDbusProperty(constants::pimServiceName, objectPath,
                                  constants::physicalContextInterface,
                                  constants::physicalContextTypeProperty);
 
-            const auto* l_typeStr = std::get_if<std::string>(&l_typeVariant);
+            const auto* typeStr = std::get_if<std::string>(&typeVariant);
 
-            if (l_typeStr != nullptr &&
-                *l_typeStr == constants::physicalContextManagerValue)
+            if (typeStr != nullptr &&
+                *typeStr == constants::physicalContextManagerValue)
             {
-                l_bmcPaths.emplace_back(l_objectPath);
+                bmcPaths.emplace_back(objectPath);
             }
         }
 
-        return l_bmcPaths;
+        return bmcPaths;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
-            "Failed to get BMC inventory paths. Error: {}", l_ex.what()));
+            "Failed to get BMC inventory paths. Error: {}", ex.what()));
         return std::unexpected(error_code::DBUS_FAILURE);
     }
 }
