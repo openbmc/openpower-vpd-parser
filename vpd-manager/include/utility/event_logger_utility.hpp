@@ -72,164 +72,164 @@ const std::unordered_map<types::CalloutPriority, std::string> priorityMap = {
 /**
  * @brief API to get error info based on the exception.
  *
- * @param[in] i_exception - Exception object.
+ * @param[in] exception - Exception object.
  *
  * @return - Valid ExceptionDataMap on success, otherwise map having
  * default value.
  */
 inline types::ExceptionDataMap getExceptionData(
-    const std::exception& i_exception)
+    const std::exception& exception)
 {
-    types::ExceptionDataMap l_errorInfo{
+    types::ExceptionDataMap errorInfo{
         {"ErrorType", types::ErrorType::UndefinedError},
-        {"ErrorMsg", i_exception.what()}};
+        {"ErrorMsg", exception.what()}};
 
     try
     {
-        if (typeid(i_exception) == typeid(DataException))
+        if (typeid(exception) == typeid(DataException))
         {
-            const DataException& l_ex =
-                dynamic_cast<const DataException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Data Exception. Reason: ") + i_exception.what();
+            const DataException& ex =
+                dynamic_cast<const DataException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Data Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(EccException))
+        else if (typeid(exception) == typeid(EccException))
         {
-            const EccException& l_ex =
-                dynamic_cast<const EccException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Ecc Exception. Reason: ") + i_exception.what();
+            const EccException& ex =
+                dynamic_cast<const EccException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Ecc Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(JsonException))
+        else if (typeid(exception) == typeid(JsonException))
         {
-            const JsonException& l_ex =
-                dynamic_cast<const JsonException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Json Exception. Reason: ") + i_exception.what();
+            const JsonException& ex =
+                dynamic_cast<const JsonException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Json Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(GpioException))
+        else if (typeid(exception) == typeid(GpioException))
         {
-            const GpioException& l_ex =
-                dynamic_cast<const GpioException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Gpio Exception. Reason: ") + i_exception.what();
+            const GpioException& ex =
+                dynamic_cast<const GpioException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Gpio Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(DbusException))
+        else if (typeid(exception) == typeid(DbusException))
         {
-            const DbusException& l_ex =
-                dynamic_cast<const DbusException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Dbus Exception. Reason: ") + i_exception.what();
+            const DbusException& ex =
+                dynamic_cast<const DbusException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Dbus Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(FirmwareException))
+        else if (typeid(exception) == typeid(FirmwareException))
         {
-            const FirmwareException& l_ex =
-                dynamic_cast<const FirmwareException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
+            const FirmwareException& ex =
+                dynamic_cast<const FirmwareException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
                 std::string("Firmware Exception. Reason: ") +
-                i_exception.what();
+                exception.what();
         }
-        else if (typeid(i_exception) == typeid(EepromException))
+        else if (typeid(exception) == typeid(EepromException))
         {
-            const EepromException& l_ex =
-                dynamic_cast<const EepromException&>(i_exception);
-            l_errorInfo["ErrorType"] = l_ex.getErrorType();
-            l_errorInfo["ErrorMsg"] =
-                std::string("Eeprom Exception. Reason: ") + i_exception.what();
+            const EepromException& ex =
+                dynamic_cast<const EepromException&>(exception);
+            errorInfo["ErrorType"] = ex.getErrorType();
+            errorInfo["ErrorMsg"] =
+                std::string("Eeprom Exception. Reason: ") + exception.what();
         }
-        else if (typeid(i_exception) == typeid(std::runtime_error))
+        else if (typeid(exception) == typeid(std::runtime_error))
         {
             // Since it is a standard exception no casting is required and error
             // type is hardcoded.
-            l_errorInfo["ErrorType"] = types::ErrorType::FirmwareError;
-            l_errorInfo["ErrorMsg"] =
+            errorInfo["ErrorType"] = types::ErrorType::FirmwareError;
+            errorInfo["ErrorMsg"] =
                 std::string("Standard runtime exception. Reason: ") +
-                i_exception.what();
+                exception.what();
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to get error info, reason: " + std::string(l_ex.what()));
+            "Failed to get error info, reason: " + std::string(ex.what()));
     }
-    return l_errorInfo;
+    return errorInfo;
 }
 
 /**
  * @brief API to get Error type.
  *
- * @param[in] i_exception - Exception object.
+ * @param[in] exception - Exception object.
  *
  * @return Error type set for the exception.
  * types::ErrorType::InternalFailure otherwise.
  */
-inline types::ErrorType getErrorType(const std::exception& i_exception)
+inline types::ErrorType getErrorType(const std::exception& exception)
 {
-    const auto& l_exceptionDataMap = getExceptionData(i_exception);
+    const auto& exceptionDataMap = getExceptionData(exception);
 
-    auto l_itrToErrType = l_exceptionDataMap.find("ErrorType");
-    if (l_itrToErrType == l_exceptionDataMap.end())
+    auto itrToErrType = exceptionDataMap.find("ErrorType");
+    if (itrToErrType == exceptionDataMap.end())
     {
         return types::ErrorType::UndefinedError;
     }
 
-    auto l_ptrToErrType =
-        std::get_if<types::ErrorType>(&l_itrToErrType->second);
-    if (!l_ptrToErrType)
+    auto ptrToErrType =
+        std::get_if<types::ErrorType>(&itrToErrType->second);
+    if (!ptrToErrType)
     {
         return types::ErrorType::UndefinedError;
     }
 
-    return *l_ptrToErrType;
+    return *ptrToErrType;
 }
 
 /**
  * @brief API to get Error msg.
  *
- * @param[in] i_exception - Exception object.
+ * @param[in] exception - Exception object.
  *
  * @return Error msg set for the specific exception. Default error msg
  * otherwise.
  */
-inline std::string getErrorMsg(const std::exception& i_exception)
+inline std::string getErrorMsg(const std::exception& exception)
 {
-    const auto& l_exceptionDataMap = getExceptionData(i_exception);
+    const auto& exceptionDataMap = getExceptionData(exception);
 
-    auto l_itrToErrMsg = l_exceptionDataMap.find("ErrorMsg");
-    if (l_itrToErrMsg == l_exceptionDataMap.end())
+    auto itrToErrMsg = exceptionDataMap.find("ErrorMsg");
+    if (itrToErrMsg == exceptionDataMap.end())
     {
-        return i_exception.what();
+        return exception.what();
     }
 
-    auto l_ptrToErrMsg = std::get_if<std::string>(&l_itrToErrMsg->second);
-    if (!l_ptrToErrMsg)
+    auto ptrToErrMsg = std::get_if<std::string>(&itrToErrMsg->second);
+    if (!ptrToErrMsg)
     {
-        return i_exception.what();
+        return exception.what();
     }
 
-    return *l_ptrToErrMsg;
+    return *ptrToErrMsg;
 }
 
 /**
  * @brief API to get string representation of a Error type enum.
  *
- * @param[in] i_exception - Exception object.
+ * @param[in] exception - Exception object.
  *
  * @return Error msg set for the specific error type. Default error msg
  * otherwise.
  */
 inline std::string getErrorTypeString(
-    const types::ErrorType& i_errorType) noexcept
+    const types::ErrorType& errorType) noexcept
 {
-    const auto l_entry = errorMsgMap.find(i_errorType);
-    return (l_entry != errorMsgMap.end()
-                ? l_entry->second
+    const auto entry = errorMsgMap.find(errorType);
+    return (entry != errorMsgMap.end()
+                ? entry->second
                 : errorMsgMap.at(types::ErrorType::UndefinedError));
 }
 
@@ -246,50 +246,51 @@ inline std::string getErrorTypeString(
  * @todo: Symbolic FRU and procedure callout needs to be handled in this
  * API.
  *
- * @param[in] i_asioConnection - Dbus Connection.
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_callouts - Callout information, list of tuple having
+ * @param[in] asioConnection - Dbus Connection.
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] callouts - Callout information, list of tuple having
  * inventory path and priority as input [optional].
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
- * @param[in] i_symFru - Symblolic FRU callout data [optional].
- * @param[in] i_procedure - Procedure callout data [optional].
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
+ * @param[in] symFru - Symblolic FRU callout data [optional].
+ * @param[in] procedure - Procedure callout data [optional].
  *
  * @throw exception in case of error.
  */
 inline void createAsyncPelWithInventoryCallout(
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
-    const std::vector<types::InventoryCalloutData>& i_callouts,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2,
-    const std::optional<std::string> i_symFru,
-    const std::optional<std::string> i_procedure)
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConnection,
+    const types::ErrorType& errorType, const types::SeverityType& severity,
+    const std::vector<types::InventoryCalloutData>& callouts,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2,
+    const std::optional<std::string> symFru,
+    const std::optional<std::string> procedure)
 {
-    (void)i_symFru;
-    (void)i_procedure;
+    (void)symFru;
+    (void)procedure;
 
     try
     {
-        const std::string l_description =
-            (i_description.empty() ? "VPD generic error" : i_description);
+        const std::string descriptionStr =
+            (description.empty() ? "VPD generic error" : description);
 
-        if (i_asioConnection == nullptr)
+        if (asioConnection == nullptr)
         {
             Logger::getLoggerInstance()->logMessage(std::format(
-                "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
-                l_description));
+                "Error: Dbus Connection is empty, can't log async PEL. "
+                "Error that couldn't log :{}",
+                descriptionStr));
             return;
         }
 
-        if (i_callouts.empty())
+        if (callouts.empty())
         {
             Logger::getLoggerInstance()->logMessage(
                 "Callout information is missing to create PEL");
@@ -297,7 +298,7 @@ inline void createAsyncPelWithInventoryCallout(
             return;
         }
 
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error(
                 "Error type not found in the error message map to create PEL");
@@ -305,39 +306,39 @@ inline void createAsyncPelWithInventoryCallout(
             // default message in message_registry.json.
         }
 
-        const std::string& l_message = errorMsgMap.at(i_errorType);
+        const std::string& message = errorMsgMap.at(errorType);
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        std::string l_userData1 = (i_userData1) ? (*i_userData1) : "";
+        std::string userData1Str = (userData1) ? (*userData1) : "";
 
-        std::string l_userData2 = (i_userData2) ? (*i_userData2) : "";
+        std::string userData2Str = (userData2) ? (*userData2) : "";
 
-        const types::InventoryCalloutData& l_invCallout = i_callouts[0];
+        const types::InventoryCalloutData& invCallout = callouts[0];
         // TODO: Need to handle multiple inventory path callout's, when multiple
         // callout's is supported by "Logging" service.
 
-        const types::CalloutPriority& l_priorityEnum = get<1>(l_invCallout);
+        const types::CalloutPriority& priorityEnum = get<1>(invCallout);
 
-        const std::string& l_priority =
-            (priorityMap.find(l_priorityEnum) != priorityMap.end()
-                 ? priorityMap.at(l_priorityEnum)
+        const std::string& priority =
+            (priorityMap.find(priorityEnum) != priorityMap.end()
+                 ? priorityMap.at(priorityEnum)
                  : priorityMap.at(types::CalloutPriority::Low));
 
-        const std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
-            {"DESCRIPTION", l_description},
-            {"CALLOUT_INVENTORY_PATH", get<0>(l_invCallout)},
-            {"CALLOUT_PRIORITY", l_priority},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1},
-            {"UserData2", l_userData2}};
+        const std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
+            {"DESCRIPTION", descriptionStr},
+            {"CALLOUT_INVENTORY_PATH", get<0>(invCallout)},
+            {"CALLOUT_PRIORITY", priority},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1Str},
+            {"UserData2", userData2Str}};
 
-        i_asioConnection->async_method_call(
+        asioConnection->async_method_call(
             [](boost::system::error_code ec) {
                 if (ec)
                 {
@@ -348,197 +349,200 @@ inline void createAsyncPelWithInventoryCallout(
             },
             constants::eventLoggingServiceName,
             constants::eventLoggingObjectPath, constants::eventLoggingInterface,
-            "Create", l_message, l_severity, l_additionalData);
+            "Create", message, severityStr, additionalData);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Create PEL failed with error: " + std::string(l_ex.what()));
+            "Create PEL failed with error: " + std::string(ex.what()));
     }
 }
 
 /**
  * @brief An API to create async PEL with device path callout.
  *
- * @param[in] i_asioConnection - Dbus Connection.
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_callouts - Callout information, list of tuple having device
+ * @param[in] asioConnection - Dbus Connection.
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] callouts - Callout information, list of tuple having device
  * path and error number as input.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
  */
 inline void createAsyncPelWithDeviceCallout(
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-    const types::ErrorType i_errorType, const types::SeverityType i_severity,
-    const std::vector<types::DeviceCalloutData>& i_callouts,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2)
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConnection,
+    const types::ErrorType errorType, const types::SeverityType severity,
+    const std::vector<types::DeviceCalloutData>& callouts,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2)
 {
     try
     {
-        const std::string l_description =
-            (i_description.empty() ? "VPD generic error" : i_description);
+        const std::string descriptionStr =
+            (description.empty() ? "VPD generic error" : description);
 
-        if (i_asioConnection == nullptr)
+        if (asioConnection == nullptr)
         {
             throw std::runtime_error(
                 "Error: Dbus Connection is empty, can't log async PEL.");
         }
 
-        if (i_callouts.empty())
+        if (callouts.empty())
         {
             throw std::runtime_error(
                 "Callout information is missing to create PEL.");
         }
 
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error(
                 "Error type not found in the error message map to create PEL");
         }
 
-        const std::string& l_message = errorMsgMap.at(i_errorType);
+        const std::string& message = errorMsgMap.at(errorType);
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        const std::string l_userData1 = i_userData1.value_or("");
-        const std::string l_userData2 = i_userData2.value_or("");
+        const std::string userData1Str = userData1.value_or("");
+        const std::string userData2Str = userData2.value_or("");
 
-        const types::DeviceCalloutData& l_devCallout = i_callouts[0];
+        const types::DeviceCalloutData& devCallout = callouts[0];
 
-        const std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
-            {"DESCRIPTION", l_description},
-            {"CALLOUT_DEVICE_PATH", std::get<0>(l_devCallout)},
-            {"CALLOUT_ERRNO", std::get<1>(l_devCallout)},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1},
-            {"UserData2", l_userData2}};
+        const std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
+            {"DESCRIPTION", descriptionStr},
+            {"CALLOUT_DEVICE_PATH", std::get<0>(devCallout)},
+            {"CALLOUT_ERRNO", std::get<1>(devCallout)},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1Str},
+            {"UserData2", userData2Str}};
 
-        i_asioConnection->async_method_call(
-            [l_description](boost::system::error_code l_ec) {
-                if (l_ec)
+        asioConnection->async_method_call(
+            [descriptionStr](boost::system::error_code ec) {
+                if (ec)
                 {
                     Logger::getLoggerInstance()->logMessage(std::format(
-                        "Async PEL with Device Callout failed. Reason : {}. Error that couldn't log: [{}]",
-                        l_ec.message(), l_description));
+                        "Async PEL with Device Callout failed. Reason : {}. "
+                        "Error that couldn't log: [{}]",
+                        ec.message(), descriptionStr));
                 }
             },
             constants::eventLoggingServiceName,
             constants::eventLoggingObjectPath, constants::eventLoggingInterface,
-            "Create", l_message, l_severity, l_additionalData);
+            "Create", message, severityStr, additionalData);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
-            "Create PEL failed with error: {}. Error that couldn't log, FileName: [{}], FunctionName: [{}],"
+            "Create PEL failed with error: {}. Error that couldn't log, "
+            "FileName: [{}], FunctionName: [{}],"
             " DESCRIPTION: [{}], ERROR_TYPE: [{}]",
-            std::string(l_ex.what()), i_fileName, i_funcName, i_description,
-            std::to_underlying(i_errorType)));
+            std::string(ex.what()), fileName, funcName, description,
+            std::to_underlying(errorType)));
     }
 }
 
 /**
  * @brief An API to create a PEL with I2c bus callout.
  *
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_callouts - Callout information, list of tuple having i2c
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] callouts - Callout information, list of tuple having i2c
  * bus, i2c address and error number as input.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
  */
 inline void createAsyncPelWithI2cBusCallout(
-    const types::ErrorType i_errorType, const types::SeverityType i_severity,
-    const std::vector<types::I2cBusCalloutData>& i_callouts,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc,
-    const std::optional<std::pair<std::string, std::string>> i_userData1,
-    const std::optional<std::pair<std::string, std::string>> i_userData2);
+    const types::ErrorType errorType, const types::SeverityType severity,
+    const std::vector<types::I2cBusCalloutData>& callouts,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc,
+    const std::optional<std::pair<std::string, std::string>> userData1,
+    const std::optional<std::pair<std::string, std::string>> userData2);
 
 /**
  * @brief An API to create a PEL.
  *
- * @param[in] i_asioConnection - Dbus Connection.
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
- * @param[in] i_symFru - Symblolic FRU callout data [optional].
- * @param[in] i_procedure - Procedure callout data [optional].
+ * @param[in] asioConnection - Dbus Connection.
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
+ * @param[in] symFru - Symblolic FRU callout data [optional].
+ * @param[in] procedure - Procedure callout data [optional].
  *
  * @todo: Symbolic FRU and procedure callout needs to be handled in this
  * API.
  */
 inline void createAsyncPel(
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2,
-    const std::optional<std::string> i_symFru,
-    const std::optional<std::string> i_procedure)
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConnection,
+    const types::ErrorType& errorType, const types::SeverityType& severity,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2,
+    const std::optional<std::string> symFru,
+    const std::optional<std::string> procedure)
 {
-    (void)i_symFru;
-    (void)i_procedure;
+    (void)symFru;
+    (void)procedure;
     try
     {
-        const std::string l_description =
-            (i_description.empty() ? "VPD generic error" : i_description);
+        const std::string descriptionStr =
+            (description.empty() ? "VPD generic error" : description);
 
-        if (i_asioConnection == nullptr)
+        if (asioConnection == nullptr)
         {
             Logger::getLoggerInstance()->logMessage(std::format(
-                "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
-                l_description));
+                "Error: Dbus Connection is empty, can't log async PEL. "
+                "Error that couldn't log :{}",
+                descriptionStr));
             return;
         }
 
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error("Unsupported error type received");
             // TODO: Need to handle, instead of throwing an exception.
         }
 
-        const std::string& l_message = errorMsgMap.at(i_errorType);
+        const std::string& message = errorMsgMap.at(errorType);
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        const std::string l_userData1 = ((i_userData1) ? (*i_userData1) : "");
+        const std::string userData1Str = ((userData1) ? (*userData1) : "");
 
-        const std::string l_userData2 = ((i_userData2) ? (*i_userData2) : "");
+        const std::string userData2Str = ((userData2) ? (*userData2) : "");
 
-        const std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
-            {"DESCRIPTION", l_description},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1},
-            {"UserData2", l_userData2}};
+        const std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
+            {"DESCRIPTION", descriptionStr},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1Str},
+            {"UserData2", userData2Str}};
 
-        i_asioConnection->async_method_call(
+        asioConnection->async_method_call(
             [](boost::system::error_code ec) {
                 if (ec)
                 {
@@ -548,13 +552,13 @@ inline void createAsyncPel(
             },
             constants::eventLoggingServiceName,
             constants::eventLoggingObjectPath, constants::eventLoggingInterface,
-            "Create", l_message, l_severity, l_additionalData);
+            "Create", message, severityStr, additionalData);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
             "Async PEL creation failed with an error: " +
-            std::string(l_ex.what()));
+            std::string(ex.what()));
     }
 }
 
@@ -563,74 +567,74 @@ inline void createAsyncPel(
  *
  * This API makes synchronous call to phosphor-logging Create method.
  *
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
- * @param[in] i_symFru - Symblolic FRU callout data [optional].s
- * @param[in] i_procedure - Procedure callout data [optional].
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
+ * @param[in] symFru - Symblolic FRU callout data [optional].s
+ * @param[in] procedure - Procedure callout data [optional].
  *
  * @todo: Symbolic FRU and procedure callout needs to be handled in this
  * API.
  */
 inline void createSyncPel(
-    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2,
-    const std::optional<std::string> i_symFru,
-    const std::optional<std::string> i_procedure)
+    const types::ErrorType& errorType, const types::SeverityType& severity,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2,
+    const std::optional<std::string> symFru,
+    const std::optional<std::string> procedure)
 {
-    (void)i_symFru;
-    (void)i_procedure;
+    (void)symFru;
+    (void)procedure;
     try
     {
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error("Unsupported error type received");
             // TODO: Need to handle, instead of throwing an exception.
         }
 
-        const std::string& l_message = errorMsgMap.at(i_errorType);
+        const std::string& message = errorMsgMap.at(errorType);
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        const std::string l_description =
-            ((!i_description.empty() ? i_description : "VPD generic error"));
+        const std::string descriptionStr =
+            ((!description.empty() ? description : "VPD generic error"));
 
-        const std::string l_userData1 = ((i_userData1) ? (*i_userData1) : "");
+        const std::string userData1Str = ((userData1) ? (*userData1) : "");
 
-        const std::string l_userData2 = ((i_userData2) ? (*i_userData2) : "");
+        const std::string userData2Str = ((userData2) ? (*userData2) : "");
 
-        std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
-            {"DESCRIPTION", l_description},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1},
-            {"UserData2", l_userData2}};
+        std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
+            {"DESCRIPTION", descriptionStr},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1Str},
+            {"UserData2", userData2Str}};
 
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(constants::eventLoggingServiceName,
-                                  constants::eventLoggingObjectPath,
-                                  constants::eventLoggingInterface, "Create");
-        l_method.append(l_message, l_severity, l_additionalData);
-        l_bus.call(l_method);
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call(constants::eventLoggingServiceName,
+                                constants::eventLoggingObjectPath,
+                                constants::eventLoggingInterface, "Create");
+        method.append(message, severityStr, additionalData);
+        bus.call(method);
     }
-    catch (const sdbusplus::exception::internal_exception& l_ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
             "Sync PEL creation failed with an error: " +
-            std::string(l_ex.what()));
+            std::string(ex.what()));
     }
 }
 
@@ -650,65 +654,65 @@ inline void createSyncPel(
  * @todo: Symbolic FRU and procedure callout needs to be handled in this
  * API.
  *
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_callouts - Callout information.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
- * @param[in] i_symFru - Symblolic FRU callout data [optional].
- * @param[in] i_procedure - Procedure callout data [optional].
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] callouts - Callout information.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
+ * @param[in] symFru - Symblolic FRU callout data [optional].
+ * @param[in] procedure - Procedure callout data [optional].
  *
  */
 inline void createSyncPelWithInvCallOut(
-    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::vector<types::InventoryCalloutData>& i_callouts,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2,
-    [[maybe_unused]] const std::optional<std::string> i_symFru,
-    [[maybe_unused]] const std::optional<std::string> i_procedure)
+    const types::ErrorType& errorType, const types::SeverityType& severity,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::vector<types::InventoryCalloutData>& callouts,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2,
+    [[maybe_unused]] const std::optional<std::string> symFru,
+    [[maybe_unused]] const std::optional<std::string> procedure)
 {
     try
     {
-        if (i_callouts.empty())
+        if (callouts.empty())
         {
-            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
-                          i_internalRc, i_description, i_userData1, i_userData2,
-                          i_symFru, i_procedure);
+            createSyncPel(errorType, severity, fileName, funcName,
+                          internalRc, description, userData1, userData2,
+                          symFru, procedure);
             Logger::getLoggerInstance()->logMessage(
                 "Callout list is empty, creating PEL without call out");
             return;
         }
 
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error("Unsupported error type received");
         }
 
         // Path to hold callout inventory path.
-        std::string l_calloutInvPath;
+        std::string calloutInvPath;
 
-        uint16_t l_errCode = 0;
+        uint16_t errCode = 0;
 
         // check if callout path is a valid inventory path. if not, get the JSON
         // object to get inventory path.
-        if (std::get<0>(i_callouts[0])
+        if (std::get<0>(callouts[0])
                 .compare(constants::VALUE_0, strlen(constants::pimPath),
                          constants::pimPath) != constants::STR_CMP_SUCCESS)
         {
-            std::error_code l_ec;
+            std::error_code ec;
             // implies json dependent execution.
-            if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec))
+            if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK, ec))
             {
-                if (!l_ec)
+                if (!ec)
                 {
-                    l_calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
-                        std::get<0>(i_callouts[0]), l_errCode);
+                    calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
+                        std::get<0>(callouts[0]), errCode);
                 }
                 else
                 {
@@ -718,48 +722,48 @@ inline void createSyncPelWithInvCallOut(
             }
         }
 
-        if (l_calloutInvPath.empty())
+        if (calloutInvPath.empty())
         {
-            l_calloutInvPath = std::get<0>(i_callouts[0]);
+            calloutInvPath = std::get<0>(callouts[0]);
 
-            if (l_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
                     "Failed to get inventory object path from JSON for FRU [" +
-                    std::get<0>(i_callouts[0]) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    std::get<0>(callouts[0]) +
+                    "], error : " + commonUtility::getErrCodeMsg(errCode));
             }
         }
 
-        const std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
+        const std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
             {"DESCRIPTION",
-             (!i_description.empty() ? i_description : "VPD generic error")},
-            {"CALLOUT_INVENTORY_PATH", l_calloutInvPath},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", i_userData1 ? *i_userData1 : ""},
-            {"UserData2", i_userData2 ? *i_userData2 : ""}};
+             (!description.empty() ? description : "VPD generic error")},
+            {"CALLOUT_INVENTORY_PATH", calloutInvPath},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1 ? *userData1 : ""},
+            {"UserData2", userData2 ? *userData2 : ""}};
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(constants::eventLoggingServiceName,
-                                  constants::eventLoggingObjectPath,
-                                  constants::eventLoggingInterface, "Create");
-        l_method.append(errorMsgMap.at(i_errorType), l_severity,
-                        l_additionalData);
-        l_bus.call(l_method);
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call(constants::eventLoggingServiceName,
+                                constants::eventLoggingObjectPath,
+                                constants::eventLoggingInterface, "Create");
+        method.append(errorMsgMap.at(errorType), severityStr,
+                      additionalData);
+        bus.call(method);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(
             "Sync PEL creation with inventory path failed with error: " +
-            std::string(l_ex.what()));
+            std::string(ex.what()));
     }
 }
 
@@ -771,76 +775,79 @@ inline void createSyncPelWithInvCallOut(
  * If device path is not provided in the callout, it will create
  * PEL without call out. Currently only one callout is handled in this API.
  *
- * @param[in] i_errorType - Enum to map with event message name.
- * @param[in] i_severity - Severity of the event.
- * @param[in] i_callouts - Callout information.
- * @param[in] i_fileName - File name.
- * @param[in] i_funcName - Function name.
- * @param[in] i_internalRc - Internal return code.
- * @param[in] i_description - Error description.
- * @param[in] i_userData1 - Additional user data [optional].
- * @param[in] i_userData2 - Additional user data [optional].
+ * @param[in] errorType - Enum to map with event message name.
+ * @param[in] severity - Severity of the event.
+ * @param[in] callouts - Callout information.
+ * @param[in] fileName - File name.
+ * @param[in] funcName - Function name.
+ * @param[in] internalRc - Internal return code.
+ * @param[in] description - Error description.
+ * @param[in] userData1 - Additional user data [optional].
+ * @param[in] userData2 - Additional user data [optional].
  */
 inline void createSyncPelWithDeviceCallout(
-    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
-    const std::vector<types::DeviceCalloutData>& i_callouts,
-    const std::string& i_fileName, const std::string& i_funcName,
-    const uint8_t i_internalRc, const std::string& i_description,
-    const std::optional<std::string> i_userData1,
-    const std::optional<std::string> i_userData2) noexcept
+    const types::ErrorType& errorType, const types::SeverityType& severity,
+    const std::vector<types::DeviceCalloutData>& callouts,
+    const std::string& fileName, const std::string& funcName,
+    const uint8_t internalRc, const std::string& description,
+    const std::optional<std::string> userData1,
+    const std::optional<std::string> userData2) noexcept
 {
     try
     {
-        if (i_callouts.empty())
+        if (callouts.empty())
         {
-            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
-                          i_internalRc, i_description, i_userData1, i_userData2,
+            createSyncPel(errorType, severity, fileName, funcName,
+                          internalRc, description, userData1, userData2,
                           std::nullopt, std::nullopt);
             Logger::getLoggerInstance()->logMessage(std::format(
-                "Callout list is empty, creating PEL without call out. FileName: {}, FunctionName: {}",
-                i_fileName, i_funcName));
+                "Callout list is empty, creating PEL without call out. "
+                "FileName: {}, FunctionName: {}",
+                fileName, funcName));
             return;
         }
 
-        if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
+        if (errorMsgMap.find(errorType) == errorMsgMap.end())
         {
             throw std::runtime_error("Unsupported error type received");
         }
 
-        const types::DeviceCalloutData& l_devCallout = i_callouts[0];
+        const types::DeviceCalloutData& devCallout = callouts[0];
 
-        const std::map<std::string, std::string> l_additionalData{
-            {"FileName", i_fileName},
-            {"FunctionName", i_funcName},
+        const std::map<std::string, std::string> additionalData{
+            {"FileName", fileName},
+            {"FunctionName", funcName},
             {"DESCRIPTION",
-             (!i_description.empty() ? i_description : "VPD generic error")},
-            {"CALLOUT_DEVICE_PATH", std::get<0>(l_devCallout)},
-            {"CALLOUT_ERRNO", std::get<1>(l_devCallout)},
-            {"InternalRc", std::to_string(i_internalRc)},
-            {"UserData1", i_userData1.value_or("")},
-            {"UserData2", i_userData2.value_or("")}};
+             (!description.empty() ? description : "VPD generic error")},
+            {"CALLOUT_DEVICE_PATH", std::get<0>(devCallout)},
+            {"CALLOUT_ERRNO", std::get<1>(devCallout)},
+            {"InternalRc", std::to_string(internalRc)},
+            {"UserData1", userData1.value_or("")},
+            {"UserData2", userData2.value_or("")}};
 
-        const std::string& l_severity =
-            (severityMap.find(i_severity) != severityMap.end()
-                 ? severityMap.at(i_severity)
+        const std::string& severityStr =
+            (severityMap.find(severity) != severityMap.end()
+                 ? severityMap.at(severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(constants::eventLoggingServiceName,
-                                  constants::eventLoggingObjectPath,
-                                  constants::eventLoggingInterface, "Create");
-        l_method.append(errorMsgMap.at(i_errorType), l_severity,
-                        l_additionalData);
-        l_bus.call(l_method);
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call(constants::eventLoggingServiceName,
+                                constants::eventLoggingObjectPath,
+                                constants::eventLoggingInterface, "Create");
+        method.append(errorMsgMap.at(errorType), severityStr,
+                      additionalData);
+        bus.call(method);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
-            "Sync PEL creation with device path failed with error: {}. Error that couldn't log,"
-            " FileName: [{}], FunctionName: [{}], Description: [{}], ErrorType: [{}]",
-            l_ex.what(), i_fileName, i_funcName, i_description,
-            std::to_underlying(i_errorType)));
+            "Sync PEL creation with device path failed with error: {}. "
+            "Error that couldn't log,"
+            " FileName: [{}], FunctionName: [{}],"
+            " Description: [{}], ErrorType: [{}]",
+            ex.what(), fileName, funcName, description,
+            std::to_underlying(errorType)));
     }
 }
 } // namespace EventLogger
