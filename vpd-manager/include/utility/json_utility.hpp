@@ -21,82 +21,80 @@ namespace jsonUtility
 {
 
 // forward declaration of API for function map.
-bool processSystemCmdTag(const std::string& i_vpdFilePath,
-                         const std::string& i_baseAction,
-                         const std::string& i_flagToProcess,
-                         uint16_t& o_errCode);
+bool processSystemCmdTag(const std::string& vpdFilePath,
+                         const std::string& baseAction,
+                         const std::string& flagToProcess, uint16_t& errCode);
 
 // forward declaration of API for function map.
 bool processGpioPresenceTag(
-    const std::string& i_vpdFilePath, const std::string& i_baseAction,
-    const std::string& i_flagToProcess, uint16_t& o_errCode);
+    const std::string& vpdFilePath, const std::string& baseAction,
+    const std::string& flagToProcess, uint16_t& errCode);
 
 // forward declaration of API for function map.
-bool procesSetGpioTag(const std::string& i_vpdFilePath,
-                      const std::string& i_baseAction,
-                      const std::string& i_flagToProcess, uint16_t& o_errCode);
+bool processSetGpioTag(const std::string& vpdFilePath,
+                       const std::string& baseAction,
+                       const std::string& flagToProcess, uint16_t& errCode);
 
 // Function pointers to process tags from config JSON.
-typedef bool (*functionPtr)(
-    const std::string& i_vpdFilePath, const std::string& i_baseAction,
-    const std::string& i_flagToProcess, uint16_t& o_errCode);
+using FunctionPtr =
+    bool (*)(const std::string& vpdFilePath, const std::string& baseAction,
+             const std::string& flagToProcess, uint16_t& errCode);
 
-inline std::unordered_map<std::string, functionPtr> funcionMap{
+inline std::unordered_map<std::string, FunctionPtr> functionMap{
     {"gpioPresence", processGpioPresenceTag},
-    {"setGpio", procesSetGpioTag},
+    {"setGpio", processSetGpioTag},
     {"systemCmd", processSystemCmdTag}};
 
 /**
  * @brief API to read VPD offset from JSON file.
  *
- * @param[in] i_vpdFilePath - VPD file path.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdFilePath - VPD file path.
+ * @param[out] errCode - To set error code in case of error.
  * @return VPD offset if found in JSON, 0 otherwise.
  */
-inline size_t getVPDOffset(const std::string& i_vpdFilePath,
-                           uint16_t& o_errCode)
+inline size_t getVPDOffset(const std::string& vpdFilePath, uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFilePath.empty())
+    errCode = 0;
+    if (vpdFilePath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return 0;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return 0;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFilePath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFilePath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return 0;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (l_sysCfgJsonObj["frus"].contains(i_vpdFilePath))
+    if (sysCfgJsonObj["frus"].contains(vpdFilePath))
     {
-        return l_sysCfgJsonObj["frus"][i_vpdFilePath].at(0).value("offset", 0);
+        return sysCfgJsonObj["frus"][vpdFilePath].at(0).value("offset", 0);
     }
 
-    const nlohmann::json& l_fruList =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        const auto l_fruPath = l_fru.key();
+        const auto fruPath = fru.key();
 
         // check if given path is redundant FRU path
-        if (i_vpdFilePath == l_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
-                                 "redundantEeprom", ""))
+        if (vpdFilePath ==
+            sysCfgJsonObj["frus"][fruPath].at(0).value("redundantEeprom", ""))
         {
             // Return the offset of redundant EEPROM taken from JSON.
-            return l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("offset", 0);
+            return sysCfgJsonObj["frus"][fruPath].at(0).value("offset", 0);
         }
     }
 
@@ -107,47 +105,47 @@ inline size_t getVPDOffset(const std::string& i_vpdFilePath,
  * @brief API to parse respective JSON.
  *
  * @param[in] pathToJson - Path to JSON.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  * @return on success parsed JSON. On failure empty JSON object.
  *
  * Note: Caller has to handle it in case an empty JSON object is received.
  */
 inline nlohmann::json getParsedJson(const std::string& pathToJson,
-                                    uint16_t& o_errCode) noexcept
+                                    uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
+    errCode = 0;
     if (pathToJson.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return nlohmann::json{};
     }
 
     if (!std::filesystem::exists(pathToJson))
     {
-        o_errCode = error_code::FILE_NOT_FOUND;
+        errCode = error_code::FILE_NOT_FOUND;
         return nlohmann::json{};
     }
 
     if (std::filesystem::is_empty(pathToJson))
     {
-        o_errCode = error_code::EMPTY_FILE;
+        errCode = error_code::EMPTY_FILE;
         return nlohmann::json{};
     }
 
-    std::ifstream l_jsonFile(pathToJson);
-    if (!l_jsonFile)
+    std::ifstream jsonFile(pathToJson);
+    if (!jsonFile)
     {
-        o_errCode = error_code::FILE_ACCESS_ERROR;
+        errCode = error_code::FILE_ACCESS_ERROR;
         return nlohmann::json{};
     }
 
     try
     {
-        return nlohmann::json::parse(l_jsonFile);
+        return nlohmann::json::parse(jsonFile);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::JSON_PARSE_ERROR;
+        errCode = error_code::JSON_PARSE_ERROR;
         return nlohmann::json{};
     }
 }
@@ -158,62 +156,61 @@ inline nlohmann::json getParsedJson(const std::string& pathToJson,
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,
  * this API returns D-bus inventory path if present in JSON.
  *
- * @param[in] i_vpdPath - Path to where VPD is stored.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdPath - Path to where VPD is stored.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success a valid path is returned, on failure an empty string is
  * returned.
  *
  * Note: Caller has to handle it in case an empty string is received.
  */
-inline std::string getInventoryObjPathFromJson(const std::string& i_vpdPath,
-                                               uint16_t& o_errCode) noexcept
+inline std::string getInventoryObjPathFromJson(const std::string& vpdPath,
+                                               uint16_t& errCode) noexcept
 {
-    o_errCode = 0;
-    if (i_vpdPath.empty())
+    errCode = 0;
+    if (vpdPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return std::string{};
     }
 
-    const auto& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const auto& sysCfgJsonObj = configJsonResult.value().get();
 
     // check if given path is FRU path
-    if (l_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    if (sysCfgJsonObj["frus"].contains(vpdPath))
     {
-        return l_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
-            "inventoryPath", "");
+        return sysCfgJsonObj["frus"][vpdPath].at(0).value("inventoryPath", "");
     }
 
-    const nlohmann::json& l_fruList =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        const auto l_fruPath = l_fru.key();
-        const auto l_invObjPath =
-            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath", "");
+        const auto fruPath = fru.key();
+        const auto invObjPath =
+            sysCfgJsonObj["frus"][fruPath].at(0).value("inventoryPath", "");
 
         // check if given path is redundant FRU path or inventory path
-        if (i_vpdPath == l_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
-                             "redundantEeprom", "") ||
-            (i_vpdPath == l_invObjPath))
+        if (vpdPath == sysCfgJsonObj["frus"][fruPath].at(0).value(
+                           "redundantEeprom", "") ||
+            (vpdPath == invObjPath))
         {
-            return l_invObjPath;
+            return invObjPath;
         }
     }
 
@@ -228,74 +225,73 @@ inline std::string getInventoryObjPathFromJson(const std::string& i_vpdPath,
  * action can be defined in the config JSON for that FRU and it will be handled
  * under this API.
  *
- * @param[in] i_vpdFilePath - EEPROM file path
- * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
+ * @param[in] vpdFilePath - EEPROM file path
+ * @param[in] flagToProcess - To identify which flag(s) needs to be processed
  * under PostFailAction tag of config JSON.
- * @param[out] o_errCode - To set error code in case of error
+ * @param[out] errCode - To set error code in case of error
  * @return - success or failure
  */
-inline bool executePostFailAction(const std::string& i_vpdFilePath,
-                                  const std::string& i_flagToProcess,
-                                  uint16_t& o_errCode)
+inline bool executePostFailAction(const std::string& vpdFilePath,
+                                  const std::string& flagToProcess,
+                                  uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFilePath.empty() || i_flagToProcess.empty())
+    errCode = 0;
+    if (vpdFilePath.empty() || flagToProcess.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFilePath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFilePath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& i_parsedConfigJson = l_configJsonResult.value().get();
+    const nlohmann::json& parsedConfigJson = configJsonResult.value().get();
 
-    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
+    if (!parsedConfigJson["frus"].contains(vpdFilePath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(
-            "postFailAction"))
+    if (!parsedConfigJson["frus"][vpdFilePath].at(0).contains("postFailAction"))
     {
-        o_errCode = error_code::MISSING_ACTION_TAG;
+        errCode = error_code::MISSING_ACTION_TAG;
         return false;
     }
 
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
-             .contains(i_flagToProcess))
+    if (!(parsedConfigJson["frus"][vpdFilePath].at(0))["postFailAction"]
+             .contains(flagToProcess))
     {
-        o_errCode = error_code::MISSING_FLAG;
+        errCode = error_code::MISSING_FLAG;
         return false;
     }
 
-    for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-             0))["postFailAction"][i_flagToProcess]
-                                  .items())
+    for (const auto& tags : (parsedConfigJson["frus"][vpdFilePath].at(
+             0))["postFailAction"][flagToProcess]
+                                .items())
     {
-        auto itrToFunction = funcionMap.find(l_tags.key());
-        if (itrToFunction != funcionMap.end())
+        auto itrToFunction = functionMap.find(tags.key());
+        if (itrToFunction != functionMap.end())
         {
-            if (!itrToFunction->second(i_vpdFilePath, "postFailAction",
-                                       i_flagToProcess, o_errCode))
+            if (!itrToFunction->second(vpdFilePath, "postFailAction",
+                                       flagToProcess, errCode))
             {
-                if (o_errCode)
+                if (errCode)
                 {
                     Logger::getLoggerInstance()->logMessage(
-                        l_tags.key() + " failed for [" + i_vpdFilePath +
-                        "]. Reason " + commonUtility::getErrCodeMsg(o_errCode));
+                        tags.key() + " failed for [" + vpdFilePath +
+                        "]. Reason " + commonUtility::getErrCodeMsg(errCode));
                 }
                 return false;
             }
@@ -311,61 +307,60 @@ inline bool executePostFailAction(const std::string& i_vpdFilePath,
  * The API will process "systemCmd" tag if it is defined in the config
  * JSON for the given FRU.
  *
- * @param[in] i_parsedConfigJson - config JSON
- * @param[in] i_vpdFilePath - EEPROM file path
- * @param[in] i_baseAction - Base action for which this tag has been called.
- * @param[in] i_flagToProcess - Flag nested under the base action for which this
+ * @param[in] parsedConfigJson - config JSON
+ * @param[in] vpdFilePath - EEPROM file path
+ * @param[in] baseAction - Base action for which this tag has been called.
+ * @param[in] flagToProcess - Flag nested under the base action for which this
  * tag has been called.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  * @return Execution status.
  */
 inline bool processSystemCmdTag(
-    const std::string& i_vpdFilePath, const std::string& i_baseAction,
-    const std::string& i_flagToProcess, uint16_t& o_errCode)
+    const std::string& vpdFilePath, const std::string& baseAction,
+    const std::string& flagToProcess, uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFilePath.empty() || i_baseAction.empty() ||
-        i_flagToProcess.empty())
+    errCode = 0;
+    if (vpdFilePath.empty() || baseAction.empty() || flagToProcess.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFilePath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFilePath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+    const auto& parsedConfigJson = configJsonResult.value().get();
 
     try
     {
-        if (!((l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                   0)[i_baseAction][i_flagToProcess]["systemCmd"])
+        if (!((parsedConfigJson["frus"][vpdFilePath].at(
+                   0)[baseAction][flagToProcess]["systemCmd"])
                   .contains("cmd")))
         {
-            o_errCode = error_code::MISSING_FLAG;
+            errCode = error_code::MISSING_FLAG;
             return false;
         }
 
-        const std::string& l_systemCommand =
-            l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
+        const std::string& systemCommand =
+            parsedConfigJson["frus"][vpdFilePath].at(
+                0)[baseAction][flagToProcess]["systemCmd"]["cmd"];
 
-        commonUtility::executeCmd(l_systemCommand, o_errCode);
+        commonUtility::executeCmd(systemCommand, errCode);
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        o_errCode = error_code::ERROR_PROCESSING_SYSTEM_CMD;
+        errCode = error_code::ERROR_PROCESSING_SYSTEM_CMD;
         return false;
     }
     return true;
@@ -377,115 +372,112 @@ inline bool processSystemCmdTag(
  * This API returns the presence information of the FRU corresponding to the
  * given VPD file path by setting the presence pin.
  *
- * @param[in] i_parsedConfigJson - config JSON
- * @param[in] i_vpdFilePath - EEPROM file path
- * @param[in] i_baseAction - Base action for which this tag has been called.
- * @param[in] i_flagToProcess - Flag nested under the base action for which this
+ * @param[in] parsedConfigJson - config JSON
+ * @param[in] vpdFilePath - EEPROM file path
+ * @param[in] baseAction - Base action for which this tag has been called.
+ * @param[in] flagToProcess - Flag nested under the base action for which this
  * tag has been called.
- * @param[out] o_errCode - To set error code in case of error
+ * @param[out] errCode - To set error code in case of error
  * @return Execution status.
  */
 inline bool processGpioPresenceTag(
-    const std::string& i_vpdFilePath, const std::string& i_baseAction,
-    const std::string& i_flagToProcess, uint16_t& o_errCode)
+    const std::string& vpdFilePath, const std::string& baseAction,
+    const std::string& flagToProcess, uint16_t& errCode)
 {
-    o_errCode = 0;
-    std::string l_presencePinName;
+    errCode = 0;
+    std::string presencePinName;
     try
     {
-        if (i_vpdFilePath.empty() || i_baseAction.empty() ||
-            i_flagToProcess.empty())
+        if (vpdFilePath.empty() || baseAction.empty() || flagToProcess.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return false;
         }
 
-        auto l_configManager = ConfigManager::getInstance();
-        if (!l_configManager)
+        auto configManager = ConfigManager::getInstance();
+        if (!configManager)
         {
-            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+            errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
             return false;
         }
 
-        const auto l_configJsonResult =
-            l_configManager->getJsonObj(i_vpdFilePath);
-        if (!l_configJsonResult.has_value())
+        const auto configJsonResult = configManager->getJsonObj(vpdFilePath);
+        if (!configJsonResult.has_value())
         {
-            o_errCode = l_configJsonResult.error();
+            errCode = configJsonResult.error();
             return false;
         }
 
-        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+        const auto& parsedConfigJson = configJsonResult.value().get();
 
-        if (!(((l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+        if (!(((parsedConfigJson["frus"][vpdFilePath].at(
+                    0)[baseAction][flagToProcess]["gpioPresence"])
                    .contains("pin")) &&
-              ((l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+              ((parsedConfigJson["frus"][vpdFilePath].at(
+                    0)[baseAction][flagToProcess]["gpioPresence"])
                    .contains("value"))))
         {
-            o_errCode = error_code::JSON_MISSING_GPIO_INFO;
+            errCode = error_code::JSON_MISSING_GPIO_INFO;
             return false;
         }
 
         // get the pin name
-        l_presencePinName = l_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["gpioPresence"]["pin"];
+        presencePinName = parsedConfigJson["frus"][vpdFilePath].at(
+            0)[baseAction][flagToProcess]["gpioPresence"]["pin"];
 
         // get the pin value
-        uint8_t l_presencePinValue =
-            l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["gpioPresence"]["value"];
+        uint8_t presencePinValue = parsedConfigJson["frus"][vpdFilePath].at(
+            0)[baseAction][flagToProcess]["gpioPresence"]["value"];
 
-        gpiod::line l_presenceLine = gpiod::find_line(l_presencePinName);
+        gpiod::line presenceLine = gpiod::find_line(presencePinName);
 
-        if (!l_presenceLine)
+        if (!presenceLine)
         {
-            o_errCode = error_code::GPIO_LINE_EXCEPTION;
+            errCode = error_code::GPIO_LINE_EXCEPTION;
             throw GpioException("Couldn't find the GPIO line.");
         }
 
-        l_presenceLine.request({"Read the presence line",
-                                gpiod::line_request::DIRECTION_INPUT, 0});
+        presenceLine.request({"Read the presence line",
+                              gpiod::line_request::DIRECTION_INPUT, 0});
 
-        if (l_presencePinValue != l_presenceLine.get_value())
+        if (presencePinValue != presenceLine.get_value())
         {
             // As false is being returned in this case, caller needs to know
             // that it is not due to some exception. It is because the pin was
             // read correctly but was not having expected value.
-            o_errCode = error_code::DEVICE_NOT_PRESENT;
+            errCode = error_code::DEVICE_NOT_PRESENT;
             return false;
         }
 
         return true;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         // In catch without error code implies some standard exception.
-        if (!o_errCode)
+        if (!errCode)
         {
-            o_errCode = error_code::STANDARD_EXCEPTION;
+            errCode = error_code::STANDARD_EXCEPTION;
         }
 
-        std::string l_errMsg = "Exception on GPIO line: ";
-        l_errMsg += l_presencePinName;
-        l_errMsg += " Reason: ";
-        l_errMsg += l_ex.what();
-        l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
+        std::string errMsg = "Exception on GPIO line: ";
+        errMsg += presencePinName;
+        errMsg += " Reason: ";
+        errMsg += ex.what();
+        errMsg += " File: " + vpdFilePath + " Pel Logged";
 
         // ToDo -- Check if PEL is required. Update Internal Rc code.
         /**
-         uint16_t l_errCode = 0;
+         uint16_t errCode = 0;
          EventLogger::createAsyncPelWithInventoryCallout(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_vpdFilePath, l_errCode),
+            EventLogger::getErrorType(ex), types::SeverityType::Informational,
+            {{getInventoryObjPathFromJson(vpdFilePath, errCode),
               types::CalloutPriority::High}},
             std::source_location::current().file_name(),
-            std::source_location::current().function_name(), 0, l_errMsg,
+            std::source_location::current().function_name(), 0, errMsg,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
          */
 
-        Logger::getLoggerInstance()->logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(errMsg);
 
         // Except when GPIO pin value is false, we go and try collecting the
         // FRU VPD as we couldn't able to read GPIO pin value due to some
@@ -499,100 +491,98 @@ inline bool processGpioPresenceTag(
  *
  * This API enables the GPIO line.
  *
- * @param[in] i_vpdFilePath - EEPROM file path
- * @param[in] i_baseAction - Base action for which this tag has been called.
- * @param[in] i_flagToProcess - Flag nested under the base action for which this
+ * @param[in] vpdFilePath - EEPROM file path
+ * @param[in] baseAction - Base action for which this tag has been called.
+ * @param[in] flagToProcess - Flag nested under the base action for which this
  * tag has been called.
- * @param[out] o_errCode - To set error code in case of error
+ * @param[out] errCode - To set error code in case of error
  * @return Execution status.
  */
-inline bool procesSetGpioTag(
-    const std::string& i_vpdFilePath, const std::string& i_baseAction,
-    const std::string& i_flagToProcess, uint16_t& o_errCode)
+inline bool processSetGpioTag(
+    const std::string& vpdFilePath, const std::string& baseAction,
+    const std::string& flagToProcess, uint16_t& errCode)
 {
-    o_errCode = 0;
-    std::string l_pinName;
+    errCode = 0;
+    std::string pinName;
     try
     {
-        if (i_vpdFilePath.empty() || i_baseAction.empty() ||
-            i_flagToProcess.empty())
+        if (vpdFilePath.empty() || baseAction.empty() || flagToProcess.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            errCode = error_code::INVALID_INPUT_PARAMETER;
             return false;
         }
 
-        auto l_configManager = ConfigManager::getInstance();
-        if (!l_configManager)
+        auto configManager = ConfigManager::getInstance();
+        if (!configManager)
         {
-            o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+            errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
             return false;
         }
 
-        const auto l_configJsonResult =
-            l_configManager->getJsonObj(i_vpdFilePath);
-        if (!l_configJsonResult.has_value())
+        const auto configJsonResult = configManager->getJsonObj(vpdFilePath);
+        if (!configJsonResult.has_value())
         {
-            o_errCode = l_configJsonResult.error();
+            errCode = configJsonResult.error();
             return false;
         }
 
-        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+        const auto& parsedConfigJson = configJsonResult.value().get();
 
-        if (!(((l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+        if (!(((parsedConfigJson["frus"][vpdFilePath].at(
+                    0)[baseAction][flagToProcess]["setGpio"])
                    .contains("pin")) &&
-              ((l_parsedConfigJson["frus"][i_vpdFilePath].at(
-                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+              ((parsedConfigJson["frus"][vpdFilePath].at(
+                    0)[baseAction][flagToProcess]["setGpio"])
                    .contains("value"))))
         {
-            o_errCode = error_code::JSON_MISSING_GPIO_INFO;
+            errCode = error_code::JSON_MISSING_GPIO_INFO;
             return false;
         }
 
-        l_pinName = l_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["setGpio"]["pin"];
+        pinName = parsedConfigJson["frus"][vpdFilePath].at(
+            0)[baseAction][flagToProcess]["setGpio"]["pin"];
 
         // Get the value to set
-        uint8_t l_pinValue = l_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
+        uint8_t pinValue = parsedConfigJson["frus"][vpdFilePath].at(
+            0)[baseAction][flagToProcess]["setGpio"]["value"];
 
         Logger::getLoggerInstance()->logMessage(
-            "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
+            "Setting GPIO: " + pinName + " to " + std::to_string(pinValue));
 
-        gpiod::line l_outputLine = gpiod::find_line(l_pinName);
+        gpiod::line outputLine = gpiod::find_line(pinName);
 
-        if (!l_outputLine)
+        if (!outputLine)
         {
-            o_errCode = error_code::GPIO_LINE_EXCEPTION;
+            errCode = error_code::GPIO_LINE_EXCEPTION;
             throw GpioException("Couldn't find GPIO line.");
         }
 
-        l_outputLine.request(
+        outputLine.request(
             {"FRU Action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
-            l_pinValue);
+            pinValue);
         return true;
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
-        std::string l_errMsg = "Exception on GPIO line: ";
-        l_errMsg += l_pinName;
-        l_errMsg += " Reason: ";
-        l_errMsg += l_ex.what();
-        l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
+        std::string errMsg = "Exception on GPIO line: ";
+        errMsg += pinName;
+        errMsg += " Reason: ";
+        errMsg += ex.what();
+        errMsg += " File: " + vpdFilePath + " Pel Logged";
 
         // ToDo -- Update Internal RC code
         /**
-         uint16_t l_errCode = 0;
+         uint16_t errCode = 0;
          EventLogger::createAsyncPelWithInventoryCallout(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_vpdFilePath, l_errCode),
+            EventLogger::getErrorType(ex), types::SeverityType::Informational,
+            {{getInventoryObjPathFromJson(vpdFilePath, errCode),
               types::CalloutPriority::High}},
             std::source_location::current().file_name(),
-            std::source_location::current().function_name(), 0, l_errMsg,
+            std::source_location::current().function_name(), 0, errMsg,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
          */
 
-        Logger::getLoggerInstance()->logMessage(l_errMsg);
+        Logger::getLoggerInstance()->logMessage(errMsg);
 
         return false;
     }
@@ -609,43 +599,43 @@ namespace
  *
  * This function is private to this file and used only by executeBaseAction.
  *
- * @param[in] i_parsedConfigJson - Config JSON object
- * @param[in] i_action - Base action to be performed
- * @param[in] i_fruPath - EEPROM file path
- * @param[in] i_flagToProcess - Flag to identify which tags need processing
- * @param[out] o_errCode - Error code set in case of validation errors
+ * @param[in] parsedConfigJson - Config JSON object
+ * @param[in] action - Base action to be performed
+ * @param[in] fruPath - EEPROM file path
+ * @param[in] flagToProcess - Flag to identify which tags need processing
+ * @param[out] errCode - Error code set in case of validation errors
  *
  * @return true if validation passes, false otherwise
  */
 inline bool validateBaseActionInputs(
-    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
-    const std::string& i_fruPath, const std::string& i_flagToProcess,
-    uint16_t& o_errCode)
+    const nlohmann::json& parsedConfigJson, const std::string& action,
+    const std::string& fruPath, const std::string& flagToProcess,
+    uint16_t& errCode)
 {
-    o_errCode = 0;
+    errCode = 0;
 
-    if (i_flagToProcess.empty() || i_action.empty() || i_fruPath.empty())
+    if (flagToProcess.empty() || action.empty() || fruPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    if (!i_parsedConfigJson["frus"].contains(i_fruPath))
+    if (!parsedConfigJson["frus"].contains(fruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    if (!i_parsedConfigJson["frus"][i_fruPath].at(0).contains(i_action))
+    if (!parsedConfigJson["frus"][fruPath].at(0).contains(action))
     {
-        o_errCode = error_code::MISSING_ACTION_TAG;
+        errCode = error_code::MISSING_ACTION_TAG;
         return false;
     }
 
-    if (!(i_parsedConfigJson["frus"][i_fruPath].at(0))[i_action].contains(
-            i_flagToProcess))
+    if (!(parsedConfigJson["frus"][fruPath].at(0))[action].contains(
+            flagToProcess))
     {
-        o_errCode = error_code::MISSING_FLAG;
+        errCode = error_code::MISSING_FLAG;
         return false;
     }
 
@@ -655,46 +645,46 @@ inline bool validateBaseActionInputs(
 /**
  * @brief Handle non-GPIO presence tag processing.
  *
- * @param[in] i_tagName - Name of the tag being processed
- * @param[in] i_tagErrorCode - Error code from tag execution
- * @param[in,out] io_result - Result structure to update
+ * @param[in] tagName - Name of the tag being processed
+ * @param[in] tagErrorCode - Error code from tag execution
+ * @param[in,out] result - Result structure to update
  */
-inline void updateNonPresenceTagOutput(
-    const std::string& i_tagName, const uint16_t i_tagErrorCode,
-    types::BaseActionResult& io_result) noexcept
+inline void updateNonPresenceTagOutput(const std::string& tagName,
+                                       const uint16_t tagErrorCode,
+                                       types::BaseActionResult& result) noexcept
 {
-    io_result.m_success = false;
-    io_result.m_failedTag = i_tagName;
-    io_result.m_failedTagErrorCode = i_tagErrorCode;
+    result.m_success = false;
+    result.m_failedTag = tagName;
+    result.m_failedTagErrorCode = tagErrorCode;
 }
 
 /**
  * @brief API to update presence tag execution output.
  *
- * @param[in] i_tagProcessingRes - Whether the tag execution succeeded
- * @param[in] i_tagErrorCode - Error code from tag execution
- * @param[in,out] io_result - Result structure to update
+ * @param[in] tagProcessingRes - Whether the tag execution succeeded
+ * @param[in] tagErrorCode - Error code from tag execution
+ * @param[in,out] result - Result structure to update
  *
  * @return true to continue processing rest of the tags, false to stop.
  */
-inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
-                                    const uint16_t i_tagErrorCode,
-                                    types::BaseActionResult& io_result) noexcept
+inline bool updatePresenceTagOutput(const bool tagProcessingRes,
+                                    const uint16_t tagErrorCode,
+                                    types::BaseActionResult& result) noexcept
 {
-    io_result.m_gpioPresenceErrorCode = i_tagErrorCode;
+    result.m_gpioPresenceErrorCode = tagErrorCode;
 
-    if (!i_tagProcessingRes)
+    if (!tagProcessingRes)
     {
-        if (i_tagErrorCode == error_code::DEVICE_NOT_PRESENT)
+        if (tagErrorCode == error_code::DEVICE_NOT_PRESENT)
         {
             // PIN was read successfully and device is found to be absent.
             //  Stop processing other tags
-            io_result.m_presenceStatus = types::PresenceStatus::ABSENT;
+            result.m_presenceStatus = types::PresenceStatus::ABSENT;
             return false;
         }
 
         // Some other error. Continue processing other tags
-        io_result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
+        result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
 
         // This API will be called via two paths.
         // i) Some other tag failed and presence is being called explicitly. In
@@ -703,11 +693,11 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
         // ii) IF presence was called in the flow and was the first tag to fail
         // then this condition will hold and the failed tag should be explicity
         // updated with gpiopresence.
-        if (io_result.m_failedTag.empty())
+        if (result.m_failedTag.empty())
         {
-            io_result.m_success = false;
-            io_result.m_failedTag = "gpioPresence";
-            io_result.m_failedTagErrorCode = i_tagErrorCode;
+            result.m_success = false;
+            result.m_failedTag = "gpioPresence";
+            result.m_failedTagErrorCode = tagErrorCode;
         }
     }
     else
@@ -718,14 +708,14 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
         // it indicates an exception. Set presence status as unknown and still
         // return true for other tag processing. Now presence will be decided
         // based on collection status.
-        if (i_tagErrorCode != 0)
+        if (tagErrorCode != 0)
         {
-            io_result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
+            result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
         }
         else
         {
             // PIN was read successfully and device is found to be present.
-            io_result.m_presenceStatus = types::PresenceStatus::PRESENT;
+            result.m_presenceStatus = types::PresenceStatus::PRESENT;
         }
     }
     return true;
@@ -760,11 +750,11 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
  *    - Returns success with appropriate presence status if gpioPresence was
  * processed
  *
- * @param[in] i_action - Base action to be performed (e.g., "preAction",
+ * @param[in] action - Base action to be performed (e.g., "preAction",
  * "postAction")
- * @param[in] i_fruPath - EEPROM file path
- * @param[in] i_flagToProcess - Flag to identify which tags need processing
- * @param[out] o_errCode - Error code set in case of validation errors
+ * @param[in] fruPath - EEPROM file path
+ * @param[in] flagToProcess - Flag to identify which tags need processing
+ * @param[out] errCode - Error code set in case of validation errors
  *
  * @return types::BaseActionResult structure containing:
  *         - success: Overall execution status
@@ -775,66 +765,64 @@ inline bool updatePresenceTagOutput(const bool i_tagProcessingRes,
  *         - gpioPresenceErrorCode: Error code from gpioPresence execution
  */
 inline types::BaseActionResult executeBaseAction(
-    const std::string& i_action, const std::string& i_fruPath,
-    const std::string& i_flagToProcess, uint16_t& o_errCode)
+    const std::string& action, const std::string& fruPath,
+    const std::string& flagToProcess, uint16_t& errCode)
 {
-    types::BaseActionResult l_actionRes;
+    types::BaseActionResult actionRes;
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
-        l_actionRes.m_success = false;
-        return l_actionRes;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        actionRes.m_success = false;
+        return actionRes;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_fruPath);
+    const auto configJsonResult = configManager->getJsonObj(fruPath);
 
-    if (!l_configJsonResult.has_value())
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
-        l_actionRes.m_success = false;
-        return l_actionRes;
+        errCode = configJsonResult.error();
+        actionRes.m_success = false;
+        return actionRes;
     }
 
-    const nlohmann::json& i_parsedConfigJson = l_configJsonResult.value().get();
+    const nlohmann::json& parsedConfigJson = configJsonResult.value().get();
 
-    if (!validateBaseActionInputs(i_parsedConfigJson, i_action, i_fruPath,
-                                  i_flagToProcess, o_errCode))
+    if (!validateBaseActionInputs(parsedConfigJson, action, fruPath,
+                                  flagToProcess, errCode))
     {
-        l_actionRes.m_success = false;
-        return l_actionRes;
+        actionRes.m_success = false;
+        return actionRes;
     }
 
-    const nlohmann::json& l_tagsJson =
-        (i_parsedConfigJson["frus"][i_fruPath].at(
-            0))[i_action][i_flagToProcess];
+    const nlohmann::json& tagsJson =
+        (parsedConfigJson["frus"][fruPath].at(0))[action][flagToProcess];
 
     // Flag to track if gpio presence has been processed.
-    bool l_gpioPresenceProcessed = false;
+    bool gpioPresenceProcessed = false;
 
-    for (const auto& l_tag : l_tagsJson.items())
+    for (const auto& tag : tagsJson.items())
     {
-        const std::string& l_tagName = l_tag.key();
-        auto l_itrToFunction = funcionMap.find(l_tagName);
+        const std::string& tagName = tag.key();
+        auto itrToFunction = functionMap.find(tagName);
 
         // If there is no code support for the tag. Do nothing.
-        if (l_itrToFunction == funcionMap.end())
+        if (itrToFunction == functionMap.end())
         {
             Logger::getLoggerInstance()->logMessage(
-                std::format("Tag: {} is not supprted by the code.", l_tagName));
+                std::format("Tag: {} is not supported by the code.", tagName));
             continue;
         }
 
-        o_errCode = 0;
-        bool l_tagProcessingRes = l_itrToFunction->second(
-            i_fruPath, i_action, i_flagToProcess, o_errCode);
+        errCode = 0;
+        bool tagProcessingRes =
+            itrToFunction->second(fruPath, action, flagToProcess, errCode);
 
-        if (l_tagName == "gpioPresence")
+        if (tagName == "gpioPresence")
         {
-            l_gpioPresenceProcessed = true;
-            if (!updatePresenceTagOutput(l_tagProcessingRes, o_errCode,
-                                         l_actionRes))
+            gpioPresenceProcessed = true;
+            if (!updatePresenceTagOutput(tagProcessingRes, errCode, actionRes))
             {
                 break;
             }
@@ -842,30 +830,29 @@ inline types::BaseActionResult executeBaseAction(
         else
         {
             // Non-gpioPresence tag processed successfully. Move to another.
-            if (l_tagProcessingRes)
+            if (tagProcessingRes)
             {
                 continue;
             }
 
             // Tag failed - record the failure
-            updateNonPresenceTagOutput(l_tagName, o_errCode, l_actionRes);
+            updateNonPresenceTagOutput(tagName, errCode, actionRes);
 
             // Execute gpioPresence if defined and not yet processed
-            if (l_tagsJson.contains("gpioPresence") && !l_gpioPresenceProcessed)
+            if (tagsJson.contains("gpioPresence") && !gpioPresenceProcessed)
             {
-                uint16_t l_gpioErrorCode = 0;
+                uint16_t gpioErrorCode = 0;
 
                 // Process GPIO presence pin explicitly.
-                bool l_gpioRes = processGpioPresenceTag(
-                    i_fruPath, i_action, i_flagToProcess, l_gpioErrorCode);
+                bool gpioRes = processGpioPresenceTag(
+                    fruPath, action, flagToProcess, gpioErrorCode);
 
-                updatePresenceTagOutput(l_gpioRes, l_gpioErrorCode,
-                                        l_actionRes);
+                updatePresenceTagOutput(gpioRes, gpioErrorCode, actionRes);
             }
             break;
         }
     }
-    return l_actionRes;
+    return actionRes;
 }
 
 /**
@@ -875,7 +862,7 @@ inline types::BaseActionResult executeBaseAction(
  * whether it has a "isRedundant" flag or appears as the value of a
  * "redundantEeprom" tag.
  *
- * @param[in] i_vpdPath - Path to where VPD is stored.
+ * @param[in] vpdPath - Path to where VPD is stored.
  *
  * @return std::expected<bool, error_code>
  *         - true: if the input path is a redundant EEPROM.
@@ -883,45 +870,43 @@ inline types::BaseActionResult executeBaseAction(
  *         - relevant error code in case of failure.
  */
 inline std::expected<bool, uint16_t> isRedundantEeprom(
-    const std::string& i_vpdPath) noexcept
+    const std::string& vpdPath) noexcept
 {
-    if (i_vpdPath.empty())
+    if (vpdPath.empty())
     {
         return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
         return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
     }
 
-    const auto l_sysCfgJsonObjResult = l_configManager->getJsonObj(i_vpdPath);
+    const auto sysCfgJsonObjResult = configManager->getJsonObj(vpdPath);
 
-    if (!l_sysCfgJsonObjResult.has_value())
+    if (!sysCfgJsonObjResult.has_value())
     {
-        return std::unexpected(l_sysCfgJsonObjResult.error());
+        return std::unexpected(sysCfgJsonObjResult.error());
     }
 
-    const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
+    const auto& sysCfgJsonObj = sysCfgJsonObjResult.value().get();
 
-    if (l_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    if (sysCfgJsonObj["frus"].contains(vpdPath))
     {
-        return l_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
-            "isRedundant", false);
+        return sysCfgJsonObj["frus"][vpdPath].at(0).value("isRedundant", false);
     }
 
-    const nlohmann::json& l_fruList =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        const std::string& l_fruPath = l_fru.key();
-        const std::string& l_redundantFruPath =
-            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("redundantEeprom",
-                                                           "");
+        const std::string& fruPath = fru.key();
+        const std::string& redundantFruPath =
+            sysCfgJsonObj["frus"][fruPath].at(0).value("redundantEeprom", "");
 
-        if (l_redundantFruPath == i_vpdPath)
+        if (redundantFruPath == vpdPath)
         {
             return true;
         }
@@ -938,33 +923,33 @@ inline std::expected<bool, uint16_t> isRedundantEeprom(
  * system config JSON. For a D-Bus inventory path, a redundant
  * FRU path is returned only if the inventory path corresponds to a base FRU.
  *
- * @param[in] i_vpdPath - Path to where VPD is stored.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdPath - Path to where VPD is stored.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success return valid path, on failure return empty string.
  */
-inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
-                                                  uint16_t& o_errCode)
+inline std::string getRedundantEepromPathFromJson(const std::string& vpdPath,
+                                                  uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdPath.empty())
+    errCode = 0;
+    if (vpdPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
-    const auto l_sysCfgJsonObjResult = l_configManager->getJsonObj(i_vpdPath);
+    const auto sysCfgJsonObjResult = configManager->getJsonObj(vpdPath);
 
-    if (!l_sysCfgJsonObjResult.has_value())
+    if (!sysCfgJsonObjResult.has_value())
     {
-        o_errCode = l_sysCfgJsonObjResult.error();
+        errCode = sysCfgJsonObjResult.error();
         return std::string{};
     }
 
@@ -972,60 +957,57 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
     // redundant EEPROM paths are present as JSON keys, and returns an
     // empty string. If the input is already a redundant EEPROM path,
     // return the input path directly.
-    const auto l_isRedundantEepromPath =
-        jsonUtility::isRedundantEeprom(i_vpdPath);
-    if (!l_isRedundantEepromPath.has_value())
+    const auto isRedundantEepromPath = jsonUtility::isRedundantEeprom(vpdPath);
+    if (!isRedundantEepromPath.has_value())
     {
         // isRedundantEeprom() sets error, FRU_PATH_NOT_FOUND when the input is
         // an inventory path. Do not return early if the input is an inventory
         // path.
-        if (l_isRedundantEepromPath.error() != error_code::FRU_PATH_NOT_FOUND)
+        if (isRedundantEepromPath.error() != error_code::FRU_PATH_NOT_FOUND)
         {
             Logger::getLoggerInstance()->logMessage(
-                "Failed to check if path [" + i_vpdPath +
+                "Failed to check if path [" + vpdPath +
                 "] is a redundant EEPROM, error : " +
-                commonUtility::getErrCodeMsg(l_isRedundantEepromPath.error()));
+                commonUtility::getErrCodeMsg(isRedundantEepromPath.error()));
 
-            o_errCode = l_isRedundantEepromPath.error();
+            errCode = isRedundantEepromPath.error();
             return std::string{};
         }
     }
-    else if (l_isRedundantEepromPath.value())
+    else if (isRedundantEepromPath.value())
     {
-        return i_vpdPath;
+        return vpdPath;
     }
 
-    const auto& l_sysCfgJsonObj = l_sysCfgJsonObjResult.value().get();
+    const auto& sysCfgJsonObj = sysCfgJsonObjResult.value().get();
 
     // check if given path is FRU path
-    if (l_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    if (sysCfgJsonObj["frus"].contains(vpdPath))
     {
-        return l_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
-            "redundantEeprom", "");
+        return sysCfgJsonObj["frus"][vpdPath].at(0).value("redundantEeprom",
+                                                          "");
     }
 
-    const nlohmann::json& l_fruList =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        const std::string& l_fruPath = l_fru.key();
-        const std::string& l_redundantFruPath =
-            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("redundantEeprom",
-                                                           "");
-        const auto l_isRedundantEeprom =
-            l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("isRedundant",
-                                                           false);
+        const std::string& fruPath = fru.key();
+        const std::string& redundantFruPath =
+            sysCfgJsonObj["frus"][fruPath].at(0).value("redundantEeprom", "");
+        const auto isRedundantFru =
+            sysCfgJsonObj["frus"][fruPath].at(0).value("isRedundant", false);
 
         // check if given path is inventory path.
-        if ((l_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath",
-                                                            "") == i_vpdPath))
+        if ((sysCfgJsonObj["frus"][fruPath].at(0).value("inventoryPath", "") ==
+             vpdPath))
         {
-            if (l_isRedundantEeprom)
+            if (isRedundantFru)
             {
-                return l_fruPath;
+                return fruPath;
             }
-            return l_redundantFruPath;
+            return redundantFruPath;
         }
     }
 
@@ -1041,7 +1023,7 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
  * 'copyRecords' or 'skipRecords' keywords. Otherwise, an empty list is
  * returned.
  *
- * @param[in] i_inventoryPath - inventory path
+ * @param[in] inventoryPath - inventory path
  *
  * @return std::expected<types::EepromPathList, error_code>
  *         - list of hardware paths, if the inventory path inherits from an
@@ -1051,88 +1033,84 @@ inline std::string getRedundantEepromPathFromJson(const std::string& i_vpdPath,
  *         - relevant error code in case of failure.
  */
 inline std::expected<types::EepromPathList, error_code>
-    getAllHardwarePathFromJson(const std::string& i_inventoryPath) noexcept
+    getAllHardwarePathFromJson(const std::string& inventoryPath) noexcept
 {
     try
     {
-        if (i_inventoryPath.empty())
+        if (inventoryPath.empty())
         {
             return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
         }
 
-        auto l_configManager = ConfigManager::getInstance();
-        if (!l_configManager)
+        auto configManager = ConfigManager::getInstance();
+        if (!configManager)
         {
             return std::unexpected(error_code::CONFIG_MANAGER_UNINITIALIZED);
         }
 
-        const auto l_configJsonResult =
-            l_configManager->getJsonObj(i_inventoryPath);
-        if (!l_configJsonResult.has_value())
+        const auto configJsonResult = configManager->getJsonObj(inventoryPath);
+        if (!configJsonResult.has_value())
         {
-            return std::unexpected(l_configJsonResult.error());
+            return std::unexpected(configJsonResult.error());
         }
 
-        const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+        const auto& parsedConfigJson = configJsonResult.value().get();
 
-        bool l_isInvPathFound = false;
+        bool isInvPathFound = false;
 
-        const nlohmann::json& l_fruList =
-            l_parsedConfigJson["frus"]
-                .get_ref<const nlohmann::json::object_t&>();
+        const nlohmann::json& fruList =
+            parsedConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
 
-        for (const auto& l_fru : l_fruList.items())
+        for (const auto& fru : fruList.items())
         {
-            const std::string& l_fruPath = l_fru.key();
-            const auto& l_entries = l_fru.value();
+            const std::string& fruPath = fru.key();
+            const auto& entries = fru.value();
 
-            const auto l_it = std::ranges::find_if(
-                l_entries, [&i_inventoryPath](const nlohmann::json& l_entry) {
-                    return l_entry.value("inventoryPath", "") ==
-                           i_inventoryPath;
+            const auto it = std::ranges::find_if(
+                entries, [&inventoryPath](const nlohmann::json& entry) {
+                    return entry.value("inventoryPath", "") == inventoryPath;
                 });
 
-            if (l_it == l_entries.end())
+            if (it == entries.end())
             {
                 continue;
             }
 
-            l_isInvPathFound = true;
+            isInvPathFound = true;
 
-            if (l_it->value("isRedundant", false))
+            if (it->value("isRedundant", false))
             {
                 continue;
             }
 
-            if (!l_it->value("inherit", true) &&
-                !l_it->contains("copyRecords") &&
-                !l_it->contains("skipRecords"))
+            if (!it->value("inherit", true) && !it->contains("copyRecords") &&
+                !it->contains("skipRecords"))
             {
                 continue;
             }
 
-            types::EepromPathList l_eepromList{l_fruPath};
+            types::EepromPathList eepromList{fruPath};
 
-            const std::string l_redundantEepromPath =
-                l_entries.at(0).value("redundantEeprom", "");
-            if (!l_redundantEepromPath.empty())
+            const std::string redundantEepromPath =
+                entries.at(0).value("redundantEeprom", "");
+            if (!redundantEepromPath.empty())
             {
-                l_eepromList.emplace_back(l_redundantEepromPath);
+                eepromList.emplace_back(redundantEepromPath);
             }
 
-            return l_eepromList;
+            return eepromList;
         }
 
-        if (!l_isInvPathFound)
+        if (!isInvPathFound)
         {
             return std::unexpected(error_code::INVALID_INVENTORY_PATH);
         }
     }
-    catch (const std::exception& l_ex)
+    catch (const std::exception& ex)
     {
         Logger::getLoggerInstance()->logMessage(std::format(
             "Exception [{}] while getting hardware paths for {}: {}",
-            typeid(l_ex).name(), i_inventoryPath, l_ex.what()));
+            typeid(ex).name(), inventoryPath, ex.what()));
 
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
@@ -1146,73 +1124,73 @@ inline std::expected<types::EepromPathList, error_code>
  * Given either D-bus inventory path/FRU EEPROM path/redundant EEPROM path,
  * this API returns FRU EEPROM path if present in JSON.
  *
- * @param[in] i_vpdPath - Path to where VPD is stored.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] vpdPath - Path to where VPD is stored.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success return valid path, on failure return empty string.
  */
-inline std::string getFruPathFromJson(const std::string& i_vpdPath,
-                                      uint16_t& o_errCode)
+inline std::string getFruPathFromJson(const std::string& vpdPath,
+                                      uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdPath.empty())
+    errCode = 0;
+    if (vpdPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return std::string{};
     }
 
-    const auto& l_parsedConfigJson = l_configJsonResult.value().get();
+    const auto& parsedConfigJson = configJsonResult.value().get();
 
     // check if given path is FRU path
-    if (l_parsedConfigJson["frus"].contains(i_vpdPath))
+    if (parsedConfigJson["frus"].contains(vpdPath))
     {
-        const auto l_isRedundantEepromPath =
-            jsonUtility::isRedundantEeprom(i_vpdPath);
-        if (!l_isRedundantEepromPath.has_value())
+        const auto isRedundantEepromPath =
+            jsonUtility::isRedundantEeprom(vpdPath);
+        if (!isRedundantEepromPath.has_value())
         {
-            o_errCode = ERROR_CHECKING_REDUNDANT_PATH;
+            errCode = ERROR_CHECKING_REDUNDANT_PATH;
             return std::string{};
         }
-        if (!l_isRedundantEepromPath.value())
+        if (!isRedundantEepromPath.value())
         {
-            return i_vpdPath;
+            return vpdPath;
         }
     }
 
-    const nlohmann::json& l_fruList =
-        l_parsedConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        parsedConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        const auto l_fruPath = l_fru.key();
+        const auto fruPath = fru.key();
 
         // check if given path is redundant FRU path or inventory path
-        if ((i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
-                              "redundantEeprom", "") ||
-             i_vpdPath == l_parsedConfigJson["frus"][l_fruPath].at(0).value(
-                              "inventoryPath", "")) &&
-            !l_parsedConfigJson["frus"][l_fruPath].at(0).value("isRedundant",
-                                                               false))
+        if ((vpdPath == parsedConfigJson["frus"][fruPath].at(0).value(
+                            "redundantEeprom", "") ||
+             vpdPath == parsedConfigJson["frus"][fruPath].at(0).value(
+                            "inventoryPath", "")) &&
+            !parsedConfigJson["frus"][fruPath].at(0).value("isRedundant",
+                                                           false))
         {
-            return l_fruPath;
+            return fruPath;
         }
     }
 
-    o_errCode = error_code::FRU_PATH_NOT_FOUND;
+    errCode = error_code::FRU_PATH_NOT_FOUND;
     return std::string();
 }
 
@@ -1224,37 +1202,37 @@ inline std::string getFruPathFromJson(const std::string& i_vpdPath,
  * Checks if the path mentioned is a hardware path, by checking if the file path
  * exists and size of contents in the path.
  *
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return true if backup and restore is required, false otherwise.
  */
-inline bool isBackupAndRestoreRequired(uint16_t& o_errCode)
+inline bool isBackupAndRestoreRequired(uint16_t& errCode)
 {
-    o_errCode = 0;
+    errCode = 0;
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
     // get the full system configuration JSON
-    const auto l_configJsonResult = l_configManager->getJsonObj();
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj();
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    const std::string& l_backupAndRestoreCfgFilePath =
-        l_sysCfgJsonObj.value("backupRestoreConfigPath", "");
+    const std::string& backupAndRestoreCfgFilePath =
+        sysCfgJsonObj.value("backupRestoreConfigPath", "");
 
-    if (!l_backupAndRestoreCfgFilePath.empty() &&
-        std::filesystem::exists(l_backupAndRestoreCfgFilePath) &&
-        !std::filesystem::is_empty(l_backupAndRestoreCfgFilePath))
+    if (!backupAndRestoreCfgFilePath.empty() &&
+        std::filesystem::exists(backupAndRestoreCfgFilePath) &&
+        !std::filesystem::is_empty(backupAndRestoreCfgFilePath))
     {
         return true;
     }
@@ -1268,50 +1246,50 @@ inline bool isBackupAndRestoreRequired(uint16_t& o_errCode)
  * defined for an EEPROM path. The API will check if any such action is defined
  * for the EEPROM.
  *
- * @param[in] i_vpdFruPath - EEPROM path.
- * @param[in] i_action - Action to be checked.
- * @param[in] i_flowFlag - Denotes the flow w.r.t which the action should be
+ * @param[in] vpdFruPath - EEPROM path.
+ * @param[in] action - Action to be checked.
+ * @param[in] flowFlag - Denotes the flow w.r.t which the action should be
  * triggered.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  * @return - True if action is defined for the flow, false otherwise.
  */
-inline bool isActionRequired(const std::string& i_vpdFruPath,
-                             const std::string& i_action,
-                             const std::string& i_flowFlag, uint16_t& o_errCode)
+inline bool isActionRequired(const std::string& vpdFruPath,
+                             const std::string& action,
+                             const std::string& flowFlag, uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFruPath.empty() || i_action.empty() || i_flowFlag.empty())
+    errCode = 0;
+    if (vpdFruPath.empty() || action.empty() || flowFlag.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFruPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    if (!sysCfgJsonObj["frus"].contains(vpdFruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    if ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)).contains(i_action))
+    if ((sysCfgJsonObj["frus"][vpdFruPath].at(0)).contains(action))
     {
-        if ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))[i_action].contains(
-                i_flowFlag))
+        if ((sysCfgJsonObj["frus"][vpdFruPath].at(0))[action].contains(
+                flowFlag))
         {
             return true;
         }
@@ -1326,61 +1304,61 @@ inline bool isActionRequired(const std::string& i_vpdFruPath,
  * a list of FRUs that needs polling. Returns an empty list if there are
  * no FRUs that requires polling.
  *
- * @param[out] o_errCode - To set error codes in case of error.
+ * @param[out] errCode - To set error codes in case of error.
  *
  * @return On success list of FRUs parameters that needs polling. On failure,
  * empty list.
  */
-inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& o_errCode)
+inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& errCode)
 {
-    std::vector<std::string> l_gpioPollingRequiredFrusList;
-    o_errCode = 0;
+    std::vector<std::string> gpioPollingRequiredFrusList;
+    errCode = 0;
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
-        return l_gpioPollingRequiredFrusList;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return gpioPollingRequiredFrusList;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj();
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj();
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
-        return l_gpioPollingRequiredFrusList;
+        errCode = configJsonResult.error();
+        return gpioPollingRequiredFrusList;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    for (const auto& l_fru : l_sysCfgJsonObj["frus"].items())
+    for (const auto& fru : sysCfgJsonObj["frus"].items())
     {
-        const auto l_fruPath = l_fru.key();
+        const auto fruPath = fru.key();
 
-        bool l_isHotPluggableFru = isActionRequired(
-            l_fruPath, "pollingRequired", "hotPlugging", o_errCode);
+        bool isHotPluggableFru = isActionRequired(fruPath, "pollingRequired",
+                                                  "hotPlugging", errCode);
 
-        if (o_errCode)
+        if (errCode)
         {
             Logger::getLoggerInstance()->logMessage(
                 "Error while checking if action required for FRU [" +
-                std::string(l_fruPath) +
-                "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+                std::string(fruPath) +
+                "], error : " + commonUtility::getErrCodeMsg(errCode));
 
-            return l_gpioPollingRequiredFrusList;
+            return gpioPollingRequiredFrusList;
         }
 
-        if (l_isHotPluggableFru)
+        if (isHotPluggableFru)
         {
-            if (l_sysCfgJsonObj["frus"][l_fruPath]
+            if (sysCfgJsonObj["frus"][fruPath]
                     .at(0)["pollingRequired"]["hotPlugging"]
                     .contains("gpioPresence"))
             {
-                l_gpioPollingRequiredFrusList.push_back(l_fruPath);
+                gpioPollingRequiredFrusList.push_back(fruPath);
             }
         }
     }
 
-    return l_gpioPollingRequiredFrusList;
+    return gpioPollingRequiredFrusList;
 }
 
 /**
@@ -1394,92 +1372,87 @@ inline std::vector<std::string> getListOfGpioPollingFrus(uint16_t& o_errCode)
  * in the system config JSON, corresponding fields will have empty value in the
  * returning tuple.
  *
- * @param[in,out] io_vpdPath - Inventory object path or FRU EEPROM path.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in,out] vpdPath - Inventory object path or FRU EEPROM path.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns tuple of EEPROM path, inventory path & redundant
  * path, on failure returns tuple with given input path alone.
  */
 inline std::tuple<std::string, std::string, std::string>
-    getAllPathsToUpdateKeyword(std::string io_vpdPath, uint16_t& o_errCode)
+    getAllPathsToUpdateKeyword(std::string vpdPath, uint16_t& errCode)
 {
-    types::Path l_inventoryObjPath;
-    types::Path l_redundantFruPath;
-    o_errCode = 0;
+    types::Path inventoryObjPath;
+    types::Path redundantFruPath;
+    errCode = 0;
 
-    if (io_vpdPath.empty())
+    if (vpdPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return std::make_tuple(io_vpdPath, l_inventoryObjPath,
-                               l_redundantFruPath);
+        errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::make_tuple(vpdPath, inventoryObjPath, redundantFruPath);
     }
 
     // Get hardware path from system config JSON.
-    const types::Path l_fruPath =
-        jsonUtility::getFruPathFromJson(io_vpdPath, o_errCode);
+    const types::Path fruPath =
+        jsonUtility::getFruPathFromJson(vpdPath, errCode);
 
-    if (!l_fruPath.empty())
+    if (!fruPath.empty())
     {
-        io_vpdPath = l_fruPath;
+        vpdPath = fruPath;
 
         // Get inventory object path from system config JSON
-        l_inventoryObjPath =
-            jsonUtility::getInventoryObjPathFromJson(l_fruPath, o_errCode);
+        inventoryObjPath =
+            jsonUtility::getInventoryObjPathFromJson(fruPath, errCode);
 
-        if (l_inventoryObjPath.empty())
+        if (inventoryObjPath.empty())
         {
-            if (o_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
-                    "Failed to get inventory path from JSON for [" +
-                    io_vpdPath +
-                    "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+                    "Failed to get inventory path from JSON for [" + vpdPath +
+                    "], error : " + commonUtility::getErrCodeMsg(errCode));
             }
             else
             {
-                o_errCode = error_code::FRU_PATH_NOT_FOUND;
+                errCode = error_code::FRU_PATH_NOT_FOUND;
             }
 
-            return std::make_tuple(io_vpdPath, l_inventoryObjPath,
-                                   l_redundantFruPath);
+            return std::make_tuple(vpdPath, inventoryObjPath, redundantFruPath);
         }
 
         // Get redundant hardware path if present in system config JSON
-        l_redundantFruPath =
-            jsonUtility::getRedundantEepromPathFromJson(l_fruPath, o_errCode);
+        redundantFruPath =
+            jsonUtility::getRedundantEepromPathFromJson(fruPath, errCode);
 
-        if (l_redundantFruPath.empty())
+        if (redundantFruPath.empty())
         {
-            if (o_errCode)
+            if (errCode)
             {
                 Logger::getLoggerInstance()->logMessage(
-                    "Failed to get redundant EEPROM path for FRU [" +
-                    l_fruPath +
-                    "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+                    "Failed to get redundant EEPROM path for FRU [" + fruPath +
+                    "], error : " + commonUtility::getErrCodeMsg(errCode));
 
-                o_errCode = error_code::ERROR_GETTING_REDUNDANT_PATH;
+                errCode = error_code::ERROR_GETTING_REDUNDANT_PATH;
             }
             else
             {
-                o_errCode = error_code::REDUNDANT_PATH_NOT_FOUND;
+                errCode = error_code::REDUNDANT_PATH_NOT_FOUND;
             }
 
-            return std::make_tuple(io_vpdPath, l_inventoryObjPath,
-                                   l_redundantFruPath);
+            return std::make_tuple(vpdPath, inventoryObjPath, redundantFruPath);
         }
     }
-    else if (o_errCode)
+    else if (errCode)
     {
         Logger::getLoggerInstance()->logMessage(
-            "Failed to get FRU path from JSON for [" + io_vpdPath +
-            "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+            "Failed to get FRU path from JSON for [" + vpdPath +
+            "], error : " + commonUtility::getErrCodeMsg(errCode));
     }
     else
     {
-        o_errCode = error_code::NO_EEPROM_PATH;
+        errCode = error_code::NO_EEPROM_PATH;
     }
 
-    return std::make_tuple(io_vpdPath, l_inventoryObjPath, l_redundantFruPath);
+    return std::make_tuple(vpdPath, inventoryObjPath, redundantFruPath);
 }
 
 /**
@@ -1488,63 +1461,62 @@ inline std::tuple<std::string, std::string, std::string>
  * Given DBus inventory path, this API returns DBus service name if present in
  * the JSON.
  *
- * @param[in] i_inventoryPath - DBus inventory path.
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[in] inventoryPath - DBus inventory path.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success returns the service name present in the system config
  * JSON, otherwise empty string.
  *
  * Note: Caller has to handle in case of empty string received.
  */
-inline std::string getServiceName(const std::string& i_inventoryPath,
-                                  uint16_t& o_errCode)
+inline std::string getServiceName(const std::string& inventoryPath,
+                                  uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_inventoryPath.empty())
+    errCode = 0;
+    if (inventoryPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return std::string{};
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return std::string{};
     }
 
-    const auto l_configJsonResult =
-        l_configManager->getJsonObj(i_inventoryPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(inventoryPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return std::string{};
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    const nlohmann::json& l_listOfFrus =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& listOfFrus =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_frus : l_listOfFrus.items())
+    for (const auto& frus : listOfFrus.items())
     {
-        for (const auto& l_inventoryItem : l_frus.value())
+        for (const auto& inventoryItem : frus.value())
         {
-            if (i_inventoryPath.compare(l_inventoryItem.value(
+            if (inventoryPath.compare(inventoryItem.value(
                     "inventoryPath", "")) == constants::STR_CMP_SUCCESS)
             {
-                if (l_inventoryItem.contains("serviceName"))
+                if (inventoryItem.contains("serviceName"))
                 {
-                    return l_inventoryItem.value("serviceName", "");
+                    return inventoryItem.value("serviceName", "");
                 }
 
-                o_errCode = error_code::JSON_MISSING_SERVICE_NAME;
+                errCode = error_code::JSON_MISSING_SERVICE_NAME;
                 return std::string{};
             }
         }
     }
 
-    o_errCode = error_code::FRU_PATH_NOT_FOUND;
+    errCode = error_code::FRU_PATH_NOT_FOUND;
     return std::string{};
 }
 
@@ -1554,138 +1526,135 @@ inline std::string getServiceName(const std::string& i_inventoryPath,
  * Given the VPD FRU path, this API checks if the FRU VPD can be collected at
  * Chassis Power Off state only.
  *
- * @param[in] i_vpdFruPath - EEPROM path.
- * @param[out] o_errCode - To set error code for the error.
+ * @param[in] vpdFruPath - EEPROM path.
+ * @param[out] errCode - To set error code for the error.
  * @return - True if FRU VPD can be collected at Chassis Power Off state only.
  *           False otherwise
  */
-inline bool isFruPowerOffOnly(const std::string& i_vpdFruPath,
-                              uint16_t& o_errCode)
+inline bool isFruPowerOffOnly(const std::string& vpdFruPath, uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFruPath.empty())
+    errCode = 0;
+    if (vpdFruPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFruPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    if (!sysCfgJsonObj["frus"].contains(vpdFruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return ((l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
-                .contains("powerOffOnly") &&
-            (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["powerOffOnly"]));
+    return (
+        (sysCfgJsonObj["frus"][vpdFruPath].at(0)).contains("powerOffOnly") &&
+        (sysCfgJsonObj["frus"][vpdFruPath].at(0)["powerOffOnly"]));
 }
 
 /**
  * @brief API which tells if the FRU is replaceable at runtime
  *
- * @param[in] i_vpdFruPath - EEPROM path.
- * @param[out] o_errCode - to set error code in case of error.
+ * @param[in] vpdFruPath - EEPROM path.
+ * @param[out] errCode - to set error code in case of error.
  *
  * @return true if FRU is replaceable at runtime. false otherwise.
  */
-inline bool isFruReplaceableAtRuntime(const std::string& i_vpdFruPath,
-                                      uint16_t& o_errCode)
+inline bool isFruReplaceableAtRuntime(const std::string& vpdFruPath,
+                                      uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFruPath.empty())
+    errCode = 0;
+    if (vpdFruPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFruPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    if (!sysCfgJsonObj["frus"].contains(vpdFruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return (
-        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
-            .contains("replaceableAtRuntime") &&
-        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["replaceableAtRuntime"]));
+    return ((sysCfgJsonObj["frus"][vpdFruPath].at(0))
+                .contains("replaceableAtRuntime") &&
+            (sysCfgJsonObj["frus"][vpdFruPath].at(0)["replaceableAtRuntime"]));
 }
 
 /**
  * @brief API which tells if the FRU is replaceable at standby
  *
- * @param[in] i_vpdFruPath - EEPROM path.
- * @param[out] o_errCode - set error code in case of error.
+ * @param[in] vpdFruPath - EEPROM path.
+ * @param[out] errCode - set error code in case of error.
  *
  * @return true if FRU is replaceable at standby. false otherwise.
  */
-inline bool isFruReplaceableAtStandby(const std::string& i_vpdFruPath,
-                                      uint16_t& o_errCode)
+inline bool isFruReplaceableAtStandby(const std::string& vpdFruPath,
+                                      uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFruPath.empty())
+    errCode = 0;
+    if (vpdFruPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFruPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    if (!sysCfgJsonObj["frus"].contains(vpdFruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return (
-        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
-            .contains("replaceableAtStandby") &&
-        (l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["replaceableAtStandby"]));
+    return ((sysCfgJsonObj["frus"][vpdFruPath].at(0))
+                .contains("replaceableAtStandby") &&
+            (sysCfgJsonObj["frus"][vpdFruPath].at(0)["replaceableAtStandby"]));
 
     return false;
 }
@@ -1696,100 +1665,99 @@ inline bool isFruReplaceableAtStandby(const std::string& i_vpdFruPath,
  * The API will return a vector of FRUs inventory path which are replaceable at
  * standby.
  *
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return - On success, list of FRUs replaceable at standby. On failure, empty
  * vector.
  */
 inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
-    uint16_t& o_errCode)
+    uint16_t& errCode)
 {
-    std::vector<std::string> l_frusReplaceableAtStandby;
-    o_errCode = 0;
+    std::vector<std::string> frusReplaceableAtStandby;
+    errCode = 0;
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
-        return l_frusReplaceableAtStandby;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return frusReplaceableAtStandby;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj();
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj();
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
-        return l_frusReplaceableAtStandby;
+        errCode = configJsonResult.error();
+        return frusReplaceableAtStandby;
     }
 
     // get the full system configuration JSON
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    const nlohmann::json& l_fruList =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& fruList =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_fru : l_fruList.items())
+    for (const auto& fru : fruList.items())
     {
-        if (l_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
-                "replaceableAtStandby", false))
+        if (sysCfgJsonObj["frus"][fru.key()].at(0).value("replaceableAtStandby",
+                                                         false))
         {
-            const std::string& l_inventoryObjectPath =
-                l_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
-                    "inventoryPath", "");
+            const std::string& inventoryObjectPath =
+                sysCfgJsonObj["frus"][fru.key()].at(0).value("inventoryPath",
+                                                             "");
 
-            if (!l_inventoryObjectPath.empty())
+            if (!inventoryObjectPath.empty())
             {
-                l_frusReplaceableAtStandby.emplace_back(l_inventoryObjectPath);
+                frusReplaceableAtStandby.emplace_back(inventoryObjectPath);
             }
         }
     }
 
-    return l_frusReplaceableAtStandby;
+    return frusReplaceableAtStandby;
 }
 
 /**
  * @brief API to get list of FRUs for which "monitorPresence" is true.
  *
- * @param[out] o_errCode - To set error code in case of error.
+ * @param[out] errCode - To set error code in case of error.
  *
  * @return On success, returns list of FRUs for which "monitorPresence" is true,
  * empty list on error.
  */
-inline std::vector<types::Path> getFrusWithPresenceMonitoring(
-    uint16_t& o_errCode)
+inline std::vector<types::Path> getFrusWithPresenceMonitoring(uint16_t& errCode)
 {
-    std::vector<types::Path> l_frusWithPresenceMonitoring;
-    o_errCode = 0;
+    std::vector<types::Path> frusWithPresenceMonitoring;
+    errCode = 0;
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
-        return l_frusWithPresenceMonitoring;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        return frusWithPresenceMonitoring;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj();
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj();
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
-        return l_frusWithPresenceMonitoring;
+        errCode = configJsonResult.error();
+        return frusWithPresenceMonitoring;
     }
 
     // get the full system configuration JSON
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    const nlohmann::json& l_listOfFrus =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& listOfFrus =
+        sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-    for (const auto& l_aFru : l_listOfFrus)
+    for (const auto& aFru : listOfFrus)
     {
-        if (l_aFru.at(0).value("monitorPresence", false))
+        if (aFru.at(0).value("monitorPresence", false))
         {
-            l_frusWithPresenceMonitoring.emplace_back(
-                l_aFru.at(0).value("inventoryPath", ""));
+            frusWithPresenceMonitoring.emplace_back(
+                aFru.at(0).value("inventoryPath", ""));
         }
     }
 
-    return l_frusWithPresenceMonitoring;
+    return frusWithPresenceMonitoring;
 }
 
 /**
@@ -1798,46 +1766,46 @@ inline std::vector<types::Path> getFrusWithPresenceMonitoring(
  * For a given FRU, this API checks if it's presence is handled by vpd-manager
  * by checking the "handlePresence" tag.
  *
- * @param[in] i_vpdFruPath - EEPROM path.
- * @param[out] o_errCode - To set error code in case of failure.
+ * @param[in] vpdFruPath - EEPROM path.
+ * @param[out] errCode - To set error code in case of failure.
  *
  * @return true if FRU presence is handled, false otherwise.
  */
-inline bool isFruPresenceHandled(const std::string& i_vpdFruPath,
-                                 uint16_t& o_errCode)
+inline bool isFruPresenceHandled(const std::string& vpdFruPath,
+                                 uint16_t& errCode)
 {
-    o_errCode = 0;
-    if (i_vpdFruPath.empty())
+    errCode = 0;
+    if (vpdFruPath.empty())
     {
-        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
-    auto l_configManager = ConfigManager::getInstance();
-    if (!l_configManager)
+    auto configManager = ConfigManager::getInstance();
+    if (!configManager)
     {
-        o_errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
+        errCode = error_code::CONFIG_MANAGER_UNINITIALIZED;
         return false;
     }
 
-    const auto l_configJsonResult = l_configManager->getJsonObj(i_vpdFruPath);
-    if (!l_configJsonResult.has_value())
+    const auto configJsonResult = configManager->getJsonObj(vpdFruPath);
+    if (!configJsonResult.has_value())
     {
-        o_errCode = l_configJsonResult.error();
+        errCode = configJsonResult.error();
         return false;
     }
 
     // get the full system configuration JSON
-    const nlohmann::json& l_sysCfgJsonObj = l_configJsonResult.value().get();
+    const nlohmann::json& sysCfgJsonObj = configJsonResult.value().get();
 
-    if (!l_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    if (!sysCfgJsonObj["frus"].contains(vpdFruPath))
     {
-        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
-    return l_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
-        "handlePresence", true);
+    return sysCfgJsonObj["frus"][vpdFruPath].at(0).value("handlePresence",
+                                                         true);
 }
 } // namespace jsonUtility
 } // namespace vpd
