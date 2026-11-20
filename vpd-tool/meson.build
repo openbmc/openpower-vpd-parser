@@ -14,6 +14,7 @@ sources = [
     'src/tool_split_mode.cpp',
     'src/tool_help.cpp',
     'src/tool_table.cpp',
+    'src/tool_validator.cpp',
 ]
 
 vpd_tool_exe = executable(

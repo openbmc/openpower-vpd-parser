@@ -3,6 +3,7 @@
 #include "tool_help.hpp"
 #include "tool_split_mode.hpp"
 #include "tool_utils.hpp"
+#include "tool_validator.hpp"
 #include "vpd_tool.hpp"
 
 #include <CLI/CLI.hpp>
@@ -188,65 +189,6 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
                                     l_isHardwareOperation, i_filePath);
 }
 
-/**
- * @brief API to check option value pair in the tool command.
- *
- * In VPD tool command, some of the option(s) mandate values to be passed along
- * with the option. This API based on option, detects those mandatory value(s).
- *
- * @param[in] i_objectOption - Option to pass object path.
- * @param[in] i_vpdPath - Object path, DBus or EEPROM.
- * @param[in] i_recordOption - Option to pass record name.
- * @param[in] i_recordName - Record name.
- * @param[in] i_keywordOption - Option to pass keyword name.
- * @param[in] i_keywordName - Keyword name.
- * @param[in] i_fileOption - Option to pass file path.
- * @param[in] i_filePath - File path.
- * @param[in] i_chassisOption - Option to pass chassis id
- * @param[in] i_chassisId - Chassis id
- *
- * @return Success if corresponding value is found against option, failure
- * otherwise.
- */
-int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
-                         const auto& i_recordOption, const auto& i_recordName,
-                         const auto& i_keywordOption, const auto& i_keywordName,
-                         const auto& i_fileOption, const auto& i_filePath,
-                         const auto& i_chassisOption, const auto& i_chassisId)
-{
-    if (!i_objectOption->empty() && i_vpdPath.empty())
-    {
-        std::cerr << "Given path is empty." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::INVALID_INPUT_PARAMETER);
-    }
-
-    if (!i_recordOption->empty() && i_recordName.empty())
-    {
-        std::cerr << "Record name is empty." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::RECORD_NOT_PROVIDED);
-    }
-
-    if (!i_keywordOption->empty() && i_keywordName.empty())
-    {
-        std::cerr << "keyword name is empty." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::KEYWORD_NAME_NOT_PROVIDED);
-    }
-
-    if (!i_fileOption->empty() && i_filePath.empty())
-    {
-        std::cerr << "File path is empty." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::EMPTY_FILE);
-    }
-
-    if (!i_chassisOption->empty() && !i_chassisId)
-    {
-        std::cerr << "Chassis id is empty." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::CHASSIS_ID_NOT_PROVIDED);
-    }
-
-    return vpd::constants::SUCCESS;
-}
-
 int main(int argc, char** argv)
 {
     CLI::App l_app{"VPD Command Line Tool"};
@@ -357,37 +299,12 @@ int main(int argc, char** argv)
         std::cerr << l_ex.what() << std::endl;
         std::cerr << "Try: 'vpd-tool --help' for more information."
                   << std::endl;
-        return static_cast<int>(vpd::ErrorCode::CLI_PARSE_ERROR);
+        return vpd::constants::CLI_PARSE_ERROR;
     }
 
-    const auto l_vpdCollectionStatus = vpd::utils::readDbusProperty(
-        vpd::constants::vpdManagerService, vpd::constants::vpdManagerObjectPath,
-        vpd::constants::vpdCollectionInterface,
-        vpd::constants::vpdCollectionStatusProperty);
+    vpd::Validator l_validator;
 
-    if (!l_vpdCollectionStatus.has_value())
-    {
-        std::cerr << "Failed to read VPD collection status property"
-                  << std::endl;
-        return static_cast<int>(l_vpdCollectionStatus.error());
-    }
-
-    if (!std::get_if<std::string>(&l_vpdCollectionStatus.value()))
-    {
-        std::cerr << "Received invalid type from DBus." << std::endl;
-        return static_cast<int>(vpd::ErrorCode::DBUS_TYPE_MISMATCH);
-    }
-
-    if (*std::get_if<std::string>(&l_vpdCollectionStatus.value()) ==
-        vpd::constants::vpdCollectionInProgress)
-    {
-        std::cout
-            << "VPD collection is currently in progress, vpd-tool operations are blocked while the collection is in progress."
-            << std::endl;
-        return static_cast<int>(vpd::ErrorCode::NOT_ALLOWED);
-    }
-
-    if (auto l_rc = checkOptionValuePair(
+    if (auto l_rc = l_validator.validate(
             l_objectOption, l_vpdPath, l_recordOption, l_recordName,
             l_keywordOption, l_keywordName, l_fileOption, l_filePath,
             l_dumpChassisInventoryOption, l_chassisId);
