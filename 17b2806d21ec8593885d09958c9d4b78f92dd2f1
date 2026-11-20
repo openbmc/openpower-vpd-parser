@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9532f5c5_dc1964aa",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1850,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-20T07:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21266a2f_1d5a4184",
+      "revId": "17b2806d21ec8593885d09958c9d4b78f92dd2f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d942e7dc_6ce28f58",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-20T07:05:35Z",
       "side": 1,
       "message": "if we don\u0027t return from here, bool(false) will be over written to result.",
+      "revId": "17b2806d21ec8593885d09958c9d4b78f92dd2f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffd2653_d19c964a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-20T07:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d942e7dc_6ce28f58",
       "revId": "17b2806d21ec8593885d09958c9d4b78f92dd2f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
