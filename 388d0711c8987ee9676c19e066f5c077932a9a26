@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f570f381_f234ab73",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we document the currently supported top-level source, destination, type, and backupMap fields? isJsonValid() requires them; both examples using backupRestoreGroups would be rejected.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "101641c7_7d5c1f11",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we state that backup/restore currently implements only IPZ? The backup/restore code has no KEYWORD branch, even though the broader parser supports keyword VPD.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "952241de_e102c155",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we clarify the “only on D-Bus” statement? The manager resolves an inventory path to a FRU path, and the backup path can call syncIpzData() to write that FRU.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2df9e3_51215a63",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we remove copyAlways and its described behavior unless its implementation is a prerequisite? I could not find a reader for this flag in the manager or tool.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb87210b_d7cd9b00",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we clarify that isPelRequired gates the both-default case? For unequal, non-default values, the current code logs a mismatch PEL without checking this flag.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ccfe5d_543b550b",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1003195
+      },
+      "writtenOn": "2026-11-23T05:40:49Z",
+      "side": 1,
+      "message": "Could we describe this flag in the manufacturing-clean context? The tool reads it when manufacturing reset is required and BIOS synchronization was requested; it does not trigger synchronization on every keyword update.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
