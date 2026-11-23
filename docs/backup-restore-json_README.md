@@ -42,7 +42,7 @@ dedicated `backupMap` of records and keywords to synchronize.
         {
           "destination": {
             "inventoryPath": "<DESTINATION_INVENTORY_PATH>",
-            "hardwarePath": "<DESTINATION_HARDWARE_EEPROM_PATH> (optional: use inventoryPath OR hardwarePath)"
+            "hardwarePath": "<DESTINATION_HARDWARE_EEPROM_PATH> (at least one of inventoryPath or hardwarePath is mandatory)"
           },
           "backupMap": [
             {
@@ -99,13 +99,15 @@ paired with the source and contains the following fields:
 
 - **destination** - Object (mandatory). Specifies the backup destination
   location. It can be configured with either an inventory path or a hardware
-  EEPROM path:
-  - **inventoryPath** - String (optional). D-Bus inventory object path for the
+  EEPROM path. At least one of `inventoryPath` or `hardwarePath` is mandatory:
+  - **inventoryPath** - String (conditionally mandatory; required if
+    `hardwarePath` is not provided). D-Bus inventory object path for the
     destination (e.g.
     `/xyz/openbmc_project/inventory/system/chassis/motherboard`). When
     configured with an inventory path, the restored/synchronized data is updated
     only on D-Bus under that inventory path.
-  - **hardwarePath** - String (optional). Sysfs hardware/EEPROM path for the
+  - **hardwarePath** - String (conditionally mandatory; required if
+    `inventoryPath` is not provided). Sysfs hardware/EEPROM path for the
     destination device. When configured with a hardware path, the code updates
     the data on the physical EEPROM as well as on D-Bus under the inventory path
     published for that EEPROM (provided the destination EEPROM is a valid entry
