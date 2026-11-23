@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6667048d_d7b4ccff",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:15:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2796f15a_13efbdb4",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d32b574b_d25455ea",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-20T10:37:30Z",
       "side": 1,
       "message": "can be target or source ?",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d62db8_b660044c",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:15:47Z",
+      "side": 1,
+      "message": "Why the source value need to match the default value here?",
+      "parentUuid": "d32b574b_d25455ea",
       "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45f423fe_357125e4",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:15:47Z",
+      "side": 1,
+      "message": "That will be flagged when the destination will be matched to the default value given in JSON?",
+      "parentUuid": "2ac0282c_2ea2d62c",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdaf3815_54fa4361",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 3
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "631a8420_e5ca8c31",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:15:47Z",
+      "side": 1,
+      "message": "Could you please exactly tell explanation related to what is required?",
+      "parentUuid": "bdaf3815_54fa4361",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83918d7a_846837b8",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2026-11-20T10:37:30Z",
       "side": 1,
       "message": "new line is missing before this row",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed12b908_528de1de",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:15:47Z",
+      "side": 1,
+      "message": "The formatting looks okay in a readme viewer. Could you please check and reconfirm where exactly new line is missing.",
+      "parentUuid": "83918d7a_846837b8",
       "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
