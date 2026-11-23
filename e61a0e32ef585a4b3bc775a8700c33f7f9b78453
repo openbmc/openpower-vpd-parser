@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d6a7df5_bca5425d",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T16:26:35Z",
+      "side": 1,
+      "message": "Will be taken care via different commit.",
+      "parentUuid": "0e9330bf_acb5cd4f",
+      "revId": "e61a0e32ef585a4b3bc775a8700c33f7f9b78453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8896ea2_644e325d",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-23T04:56:44Z",
       "side": 1,
       "message": "Would like the caller to know that the operation is not allowed. Could you please add error code to this API and return that error code so that based on that from manager an error not allowed can be returned to the caller.",
+      "revId": "e61a0e32ef585a4b3bc775a8700c33f7f9b78453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7ff92c1_61ce181b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T16:26:35Z",
+      "side": 1,
+      "message": "Will be taken care via different commit.",
+      "parentUuid": "f8896ea2_644e325d",
       "revId": "e61a0e32ef585a4b3bc775a8700c33f7f9b78453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
