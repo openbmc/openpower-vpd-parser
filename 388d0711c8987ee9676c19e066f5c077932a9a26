@@ -88,6 +88,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "303a9a1e_b899ea7e",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-23T05:42:13Z",
+      "side": 1,
+      "message": "currently for any mismatch value PEL is always logged, \n\"isPelRequired\" tag is used when both source and destination has default value, in this case a PEL is required for that record-keyword.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ccfe5d_543b550b",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 4

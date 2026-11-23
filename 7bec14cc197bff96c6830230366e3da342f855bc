@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1355138a_638bfd0f",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-23T05:42:13Z",
+      "side": 1,
+      "message": "either backup or restoration can happen when when backup-restore is called.\nso default is checked against source and destination.",
+      "parentUuid": "b7d62db8_b660044c",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ac0282c_2ea2d62c",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 3
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "That will be flagged when the destination will be matched to the default value given in JSON?",
       "parentUuid": "2ac0282c_2ea2d62c",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c544a69c_ec7eba82",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-23T05:42:13Z",
+      "side": 1,
+      "message": "on genesis boot data will not be there in dbus, so destination(empty) length will be considered zero in that case.",
+      "parentUuid": "45f423fe_357125e4",
       "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -141,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0e42d9_b70b9087",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-23T05:42:13Z",
+      "side": 1,
+      "message": "to keep it simple for reader, if not required we can ignore this.",
+      "parentUuid": "631a8420_e5ca8c31",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83918d7a_846837b8",
@@ -172,6 +226,24 @@
       "side": 1,
       "message": "The formatting looks okay in a readme viewer. Could you please check and reconfirm where exactly new line is missing.",
       "parentUuid": "83918d7a_846837b8",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db39f32a_77bb023c",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-11-23T05:42:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed12b908_528de1de",
       "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
