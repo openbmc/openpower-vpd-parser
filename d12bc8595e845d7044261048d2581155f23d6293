@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5232c848_ee47cded",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-11-23T12:06:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1acd199_5c52d40b",
+      "revId": "d12bc8595e845d7044261048d2581155f23d6293",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0349fd2c_a68715c9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-23T07:13:31Z",
       "side": 1,
       "message": "as initBackupAndRestore is commented out, m_backupAndRestoreObj object won\u0027t be created. do we need this change ?",
+      "revId": "d12bc8595e845d7044261048d2581155f23d6293",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb720b98_1cb6f074",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1003161
+      },
+      "writtenOn": "2026-11-23T12:06:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0349fd2c_a68715c9",
       "revId": "d12bc8595e845d7044261048d2581155f23d6293",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
