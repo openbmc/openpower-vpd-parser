@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9330bf_acb5cd4f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:56:44Z",
+      "side": 1,
+      "message": "As we are modifying this API, can we add some more details into it, which would propagate actual error to the caller?\nSimilar to invalid arguments can we based on error codes return to the caller errors like not allowed?",
+      "revId": "e61a0e32ef585a4b3bc775a8700c33f7f9b78453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8896ea2_644e325d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-23T04:56:44Z",
+      "side": 1,
+      "message": "Would like the caller to know that the operation is not allowed. Could you please add error code to this API and return that error code so that based on that from manager an error not allowed can be returned to the caller.",
+      "revId": "e61a0e32ef585a4b3bc775a8700c33f7f9b78453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
