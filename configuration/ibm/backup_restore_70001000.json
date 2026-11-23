@@ -1,0 +1,164 @@
+{
+    "backupRestoreGroups": [
+        {
+            "source": {
+                "hardwarePath": "/sys/bus/i2c/drivers/at24/8-0053/eeprom"
+            },
+            "type": "IPZ",
+            "destinations": [
+                {
+                    "destination": {
+                        "hardwarePath": "/xyz/openbmc_project/inventory/system"
+                    },
+                    "backupMap": [
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "BR",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "BR",
+                            "defaultValue": [32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "TM",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "TM",
+                            "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "SE",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "SE",
+                            "defaultValue": [32, 32, 32, 32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "SU",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "SU",
+                            "defaultValue": [32, 32, 32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "RB",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "RB",
+                            "defaultValue": [32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "WN",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "WN",
+                            "defaultValue": [
+                                32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+                            ],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "VSYS",
+                            "sourceKeyword": "FV",
+                            "destinationRecord": "VSYS",
+                            "destinationKeyword": "FV",
+                            "defaultValue": [
+                                32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+                                32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+                                32, 32, 32, 32, 32, 32, 32, 32
+                            ],
+                            "isPelRequired": false,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "UTIL",
+                            "sourceKeyword": "D0",
+                            "destinationRecord": "UTIL",
+                            "destinationKeyword": "D0",
+                            "defaultValue": [0],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true,
+                            "isBiosSyncRequired": true
+                        },
+                        {
+                            "sourceRecord": "UTIL",
+                            "sourceKeyword": "D1",
+                            "destinationRecord": "UTIL",
+                            "destinationKeyword": "D1",
+                            "defaultValue": [0],
+                            "isPelRequired": false,
+                            "isManufactureResetRequired": true,
+                            "isBiosSyncRequired": true
+                        },
+                        {
+                            "sourceRecord": "UTIL",
+                            "sourceKeyword": "F0",
+                            "destinationRecord": "UTIL",
+                            "destinationKeyword": "F0",
+                            "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0],
+                            "isPelRequired": false,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "UTIL",
+                            "sourceKeyword": "F5",
+                            "destinationRecord": "UTIL",
+                            "destinationKeyword": "F5",
+                            "defaultValue": [
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                            ],
+                            "isPelRequired": false,
+                            "isManufactureResetRequired": true
+                        },
+                        {
+                            "sourceRecord": "UTIL",
+                            "sourceKeyword": "F6",
+                            "destinationRecord": "UTIL",
+                            "destinationKeyword": "F6",
+                            "defaultValue": [
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                            ],
+                            "isPelRequired": false,
+                            "isManufactureResetRequired": true
+                        }
+                    ]
+                },
+                {
+                    "destination": {
+                        "hardwarePath": "/xyz/openbmc_project/inventory/system/chassis0"
+                    },
+                    "backupMap": [
+                        {
+                            "sourceRecord": "VCEN",
+                            "sourceKeyword": "FC",
+                            "destinationRecord": "VCEN",
+                            "destinationKeyword": "FC",
+                            "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": false
+                        },
+                        {
+                            "sourceRecord": "VCEN",
+                            "sourceKeyword": "SE",
+                            "destinationRecord": "VCEN",
+                            "destinationKeyword": "SE",
+                            "defaultValue": [32, 32, 32, 32, 32, 32, 32],
+                            "isPelRequired": true,
+                            "isManufactureResetRequired": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
