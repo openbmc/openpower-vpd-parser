@@ -578,8 +578,10 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         return;
     }
 
-    Worker{}.collectSingleFruVpd(l_configJsonResult.value().get(),
-                                 i_dbusObjPath, i_isCMFlow);
+    /* @todo: read error code returned by
+    collectSingleFruVpd and throw appropriate exception to D-Bus caller.*/
+    [[maybe_unused]] const auto l_collectResult = Worker{}.collectSingleFruVpd(
+        l_configJsonResult.value().get(), i_dbusObjPath, i_isCMFlow);
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
