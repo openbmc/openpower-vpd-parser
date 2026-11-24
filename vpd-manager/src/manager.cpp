@@ -563,7 +563,7 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         m_logger->logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
             std::string(i_dbusObjPath));
-        return;
+        throw types::DbusNotAllowed();
     }
 
     const auto l_configJsonResult =
@@ -575,13 +575,19 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
             "Failed to get JSON for path {}. Error: {}, can't collect VPD.",
             std::string(i_dbusObjPath),
             commonUtility::getErrCodeMsg(l_configJsonResult.error())));
-        return;
+
+        commonUtility::throwDbusError(l_configJsonResult.error());
     }
 
-    /* @todo: read error code returned by
+    /* read error code returned by
     collectSingleFruVpd and throw appropriate exception to D-Bus caller.*/
-    [[maybe_unused]] const auto l_collectResult = Worker{}.collectSingleFruVpd(
+    const auto l_collectResult = Worker{}.collectSingleFruVpd(
         l_configJsonResult.value().get(), i_dbusObjPath, i_isCMFlow);
+
+    if (!l_collectResult)
+    {
+        commonUtility::throwDbusError(l_collectResult.error());
+    }
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
