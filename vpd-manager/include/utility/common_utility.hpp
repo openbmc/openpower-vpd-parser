@@ -61,6 +61,26 @@ inline std::string getErrCodeMsg(const uint16_t& errCode)
     return std::string{};
 }
 
+/**
+ * @brief API to throw the sdbusplus error corresponding to a vpd::error_code.
+ *
+ * @param[in] i_errCode - vpd error code.
+ *
+ * @throw types::DbusInvalidArgument, types::DbusNotAllowed or
+ * types::DeviceError::ReadFailure as per errorCodeToDbusErrorMap, otherwise
+ * types::InternalFailure.
+ */
+[[noreturn]] inline void throwDbusError(const error_code i_errCode)
+{
+    const auto l_it = errorCodeToDbusErrorMap.find(i_errCode);
+    if (l_it != errorCodeToDbusErrorMap.end())
+    {
+        l_it->second();
+    }
+
+    throwErrorOfType<types::InternalFailure>();
+}
+
 /** @brief Return the hex representation of the incoming byte.
  *
  * @param [in] aByte - The input byte.
