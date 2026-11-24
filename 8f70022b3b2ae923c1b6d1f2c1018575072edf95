@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d50812bc_66b0bcd5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1588,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-24T04:57:16Z",
+      "side": 1,
+      "message": "@suvedhab@ami.com, addressed this. This is handled in collectSingleFruVpd. An empty variant from the primary parse is no longer treated as a failure.\n\n1. A primary parse that throws is recorded as \"primary present but failed\". Only that case logs the primary PEL up front.\n\n2. An empty variant returned without an exception takes the separate else if (holds_alternative\u003cstd::monostate\u003e) branch. That branch calls l_collectFromRedundant(false, ...), so no primary PEL is logged at that point.\n\n3. If no redundant EEPROM is configured, the helper returns false. The caller then takes the \"both absent\" path . It sets l_fruPresenceState \u003d false and returns without throwing.",
+      "parentUuid": "5552079e_e7291e92",
+      "revId": "8f70022b3b2ae923c1b6d1f2c1018575072edf95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "833f036d_977be45d",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-13T07:14:24Z",
       "side": 1,
       "message": "Could we check for std::monostate after parsing the redundant EEPROM? If its file is missing and no pre-action is required, parseVpdFile() returns an empty variant without throwing. This helper then returns success, so the caller logs a successful redundant collection and eventually marks it Completed, although no VPD was collected.",
+      "revId": "8f70022b3b2ae923c1b6d1f2c1018575072edf95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c66263cf_257315e4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-24T04:57:16Z",
+      "side": 1,
+      "message": "Agreed that collectFromRedundantEeprom returns true when parseVpdFile() gives back an empty variant. That is documented in the header: \"check o_parsedVpd to know if the EEPROM was absent\". The check lives in the caller, not the helper.\n\nAt worker.cpp:1593-1594, the caller tests `l_parsedVpd` before it logs success.\n\nPrimary present but failed: it throws FirmwareException (\"No usable redundant EEPROM found\"). The success log is never reached, and the outer catch marks the collection Failed.\nPrimary absent: it treats the FRU as absent (l_fruPresenceState \u003d false) and returns without error.\nThe \"VPD collected from redundant EEPROM\" log and the primary PEL (worker.cpp:1609-1617) only run when `l_parsedVpd` holds real data.",
+      "parentUuid": "833f036d_977be45d",
       "revId": "8f70022b3b2ae923c1b6d1f2c1018575072edf95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
