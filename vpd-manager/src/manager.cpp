@@ -618,8 +618,11 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                 commonUtility::getErrCodeMsg(l_configJsonResult.error())));
         }
 
-        Worker{}.deleteFruVpd(l_configJsonResult.value().get(),
-                              std::string(i_dbusObjPath), i_isCMFlow);
+        /* @todo: read the error code from deleteFruVpd and throw appropriate
+         exception to D-Bus caller*/
+        [[maybe_unused]] const auto l_deleteResult =
+            Worker{}.deleteFruVpd(l_configJsonResult.value().get(),
+                                  std::string(i_dbusObjPath), i_isCMFlow);
     }
     catch (const std::exception& l_ex)
     {
