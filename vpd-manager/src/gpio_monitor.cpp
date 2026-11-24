@@ -45,7 +45,10 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& isFruPresent)
                     commonUtility::getErrCodeMsg(errCode));
             }
 
-            Worker{}.deleteFruVpd(configJson, invPath);
+            /* @todo: read the error code from deleteFruVpd and throw
+         appropriate exception to catch block*/
+            [[maybe_unused]] const auto l_deleteResult =
+                Worker{}.deleteFruVpd(configJson, invPath);
         }
     }
     catch (std::exception& exception)

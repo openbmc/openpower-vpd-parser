@@ -302,8 +302,11 @@ void Listener::presentPropertyChangeCallback(
             }
             else
             {
-                Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
-                                      l_objectPath);
+                /* @todo: read the error code from deleteFruVpd and throw
+         appropriate exception to catch block*/
+                [[maybe_unused]] const auto l_deleteResult =
+                    Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
+                                          l_objectPath);
             }
         }
         else
