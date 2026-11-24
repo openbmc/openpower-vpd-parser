@@ -220,20 +220,16 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
         return static_cast<int>(vpd::ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
-    if (!i_recordOption->empty() &&
-        (i_recordName.size() != vpd::constants::RECORD_SIZE))
+    if (!i_recordOption->empty() && i_recordName.empty())
     {
-        std::cerr << "Record " << i_recordName << " is not supported."
-                  << std::endl;
-        return static_cast<int>(vpd::ErrorCode::INVALID_INPUT_PARAMETER);
+        std::cerr << "Record name is empty." << std::endl;
+        return static_cast<int>(vpd::ErrorCode::RECORD_NOT_PROVIDED);
     }
 
-    if (!i_keywordOption->empty() &&
-        (i_keywordName.size() != vpd::constants::KEYWORD_SIZE))
+    if (!i_keywordOption->empty() && i_keywordName.empty())
     {
-        std::cerr << "Keyword " << i_keywordName << " is not supported."
-                  << std::endl;
-        return static_cast<int>(vpd::ErrorCode::INVALID_INPUT_PARAMETER);
+        std::cerr << "keyword name is empty." << std::endl;
+        return static_cast<int>(vpd::ErrorCode::KEYWORD_NAME_NOT_PROVIDED);
     }
 
     if (!i_fileOption->empty() && i_filePath.empty())
@@ -361,7 +357,7 @@ int main(int argc, char** argv)
         std::cerr << l_ex.what() << std::endl;
         std::cerr << "Try: 'vpd-tool --help' for more information."
                   << std::endl;
-        return vpd::constants::FAILURE;
+        return static_cast<int>(vpd::ErrorCode::CLI_PARSE_ERROR);
     }
 
     const auto l_vpdCollectionStatus = vpd::utils::readDbusProperty(

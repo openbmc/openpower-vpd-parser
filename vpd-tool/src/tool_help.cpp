@@ -139,7 +139,8 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
             {"-11", "Empty file"},
             {"-12", "Keyword name is not provided"},
             {"-13", "Received invalid data type value from DBus"},
-            {"-14", "Operation is not allowed"}};
+            {"-14", "Operation is not allowed"},
+            {"-18", "CLI parse error"}};
 
         errTable.print(errData);
     }
@@ -208,7 +209,8 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
             {"-11", "Empty file"},
             {"-12", "Keyword name is not provided"},
             {"-13", "Received invalid data type value from DBus"},
-            {"-14", "Operation is not allowed"}};
+            {"-14", "Operation is not allowed"},
+            {"-18", "CLI parse error"}};
 
         errTable.print(errData);
     }
@@ -248,7 +250,8 @@ void VpdToolHelp::printValidateRedundantEepromHelp() const noexcept
             {"-2", "Invalid input parameter"},
             {"-5", "D-Bus call failed"},
             {"-13", "Received invalid data type value from DBus"},
-            {"-14", "Operation is not allowed"}};
+            {"-14", "Operation is not allowed"},
+            {"-18", "CLI parse error"}};
 
         errTable.print(errData);
     }
@@ -306,7 +309,7 @@ void VpdToolHelp::printDumpInventoryHelp() const noexcept
             {"-13", "Received invalid data type value from DBus"},
             {"-14", "Operation is not allowed"},
             {"-15", "Chassis Id is not provided"},
-        };
+            {"-18", "CLI parse error"}};
 
         errorTable.print(errorData);
     }
@@ -362,7 +365,7 @@ void VpdToolHelp::printEnterSplitModeHelp() const noexcept
             {"-14", "Operation is not allowed"},
             {"-16", "System command failed"},
             {"-17", "U-Boot variable not found or unexpected output"},
-        };
+            {"-18", "CLI parse error"}};
 
         errTable.print(errData);
     }
@@ -439,7 +442,8 @@ void VpdToolHelp::printDumpObjectHelp() const noexcept
             {"-8", "Standard exception occurred"},
             {"-9", "JSON parse error"},
             {"-13", "Received invalid data type value from DBus"},
-            {"-14", "Operation is not allowed"}};
+            {"-14", "Operation is not allowed"},
+            {"-18", "CLI parse error"}};
 
         errTable.print(errorData);
     }
