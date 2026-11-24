@@ -1,5 +1,7 @@
 #pragma once
 
+#include "types.hpp"
+
 #include <string>
 #include <unordered_map>
 
@@ -113,4 +115,67 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::SERVICE_RUNNING, "Service is running"},
     {error_code::SERVICE_NOT_RUNNING, "Service is not running"},
     {error_code::VPD_COLLECTION_NOT_ALLOWED, "VPD collection is not allowed"}};
+
+/**
+ * @brief Helper to throw an sdbusplus error of the given type.
+ *
+ * @tparam T - sdbusplus error type to be thrown.
+ */
+template <typename T>
+[[noreturn]] inline void throwErrorOfType()
+{
+    throw T();
+}
+
+/**
+ * @brief Map of vpd::error_code to a function which throws the corresponding
+ * sdbusplus error.
+ *
+ * Error codes which are not present in this map are translated to
+ * types::InternalFailure.
+ */
+inline const std::unordered_map<int, void (*)()> errorCodeToDbusErrorMap = {
+    // Invalid argument
+    {error_code::INVALID_JSON, &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::FRU_PATH_NOT_FOUND,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::PATH_NOT_FOUND_IN_JSON,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::NO_EEPROM_PATH, &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_LOCATION_CODE_FORMAT,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_INPUT_PARAMETER,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_HEXADECIMAL_VALUE,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_INVENTORY_PATH,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::UNSUPPORTED_VPD_TYPE,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::KEYWORD_NOT_FOUND,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::INVALID_KEYWORD_LENGTH,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+    {error_code::RECORD_NOT_FOUND,
+     &throwErrorOfType<types::DbusInvalidArgument>},
+
+    // Not allowed
+    {error_code::VPD_COLLECTION_NOT_ALLOWED,
+     &throwErrorOfType<types::DbusNotAllowed>},
+
+    // Read failure
+    {error_code::FILE_NOT_FOUND,
+     &throwErrorOfType<types::DeviceError::ReadFailure>},
+    {error_code::FILE_ACCESS_ERROR,
+     &throwErrorOfType<types::DeviceError::ReadFailure>},
+    {error_code::EMPTY_FILE,
+     &throwErrorOfType<types::DeviceError::ReadFailure>},
+    {error_code::FILE_SYSTEM_ERROR,
+     &throwErrorOfType<types::DeviceError::ReadFailure>},
+    {error_code::OUT_OF_BOUND_EXCEPTION,
+     &throwErrorOfType<types::DeviceError::ReadFailure>},
+    {error_code::INVALID_VALUE_READ_FROM_EEPROM,
+     &throwErrorOfType<types::DeviceError::ReadFailure>}};
 } // namespace vpd
