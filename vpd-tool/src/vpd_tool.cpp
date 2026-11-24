@@ -570,8 +570,10 @@ int VpdTool::writeKeyword(
         {
             if (i_recordName.empty())
             {
-                throw std::runtime_error(
-                    "Record name is required for DBus write operations.");
+                std::cerr
+                    << "Record name is required for DBus write operations."
+                    << std::endl;
+                return static_cast<int>(ErrorCode::RECORD_NOT_PROVIDED);
             }
 
             i_vpdPath = constants::baseInventoryPath + i_vpdPath;

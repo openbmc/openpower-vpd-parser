@@ -710,16 +710,37 @@ inline std::expected<std::string, ErrorCode> readValueFromFile(
     std::error_code l_ec;
     if (!std::filesystem::exists(i_filePath, l_ec))
     {
-        std::string l_message{
-            "filesystem call exists failed for file [" + i_filePath + "]."};
-
         if (l_ec)
         {
-            l_message += " Error: " + l_ec.message();
+            std::cerr
+                << std::format(
+                       "Filesystem call exists failed for file [{}], reason : {}",
+                       i_filePath, l_ec.message())
+                << std::endl;
+            return std::unexpected(ErrorCode::FILE_SYSTEM_ERROR);
         }
 
-        std::cerr << l_message << std::endl;
-        return std::unexpected(ErrorCode::FILE_SYSTEM_ERROR);
+        std::cerr << std::format("File path [{}] is not present", i_filePath)
+                  << std::endl;
+        return std::unexpected(ErrorCode::FILE_NOT_FOUND);
+    }
+
+    if (std::filesystem::is_directory(i_filePath, l_ec))
+    {
+        if (l_ec)
+        {
+            std::cerr
+                << std::format(
+                       "Failed to check if the input path [{}] is a directory, reason : {}",
+                       i_filePath, l_ec.message())
+                << std::endl;
+            return std::unexpected(ErrorCode::FILE_SYSTEM_ERROR);
+        }
+
+        std::cerr
+            << "The provided path is a directory. Please provide a file path."
+            << std::endl;
+        return std::unexpected(ErrorCode::INVALID_INPUT_PARAMETER);
     }
 
     if (std::filesystem::is_empty(i_filePath, l_ec))
