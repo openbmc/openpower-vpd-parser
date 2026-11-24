@@ -34,6 +34,24 @@
       "parentUuid": "df1474ae_fdfd8bb4",
       "revId": "bbff21199ffee7f628381d6724e5ce84d6404b7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07d94ee_c0fe6d1b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-24T15:26:33Z",
+      "side": 1,
+      "message": "We cannot justify unsafe code(in this case, using `[]` operator without `contains()` check) based on what preceding code is doing. Any future refactoring may result in the preceding code block to move.\n\nAlso, the scenario you pointed out is \"failed to determine if preAction is required or not\". In this scenario, I think we should still attempt to collect VPD as per RAS philosophy.",
+      "parentUuid": "df1474ae_fdfd8bb4",
+      "revId": "bbff21199ffee7f628381d6724e5ce84d6404b7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
