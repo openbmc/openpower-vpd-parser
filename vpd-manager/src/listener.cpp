@@ -291,11 +291,20 @@ void Listener::presentPropertyChangeCallback(
                     commonUtility::getErrCodeMsg(l_chassisJsonResult.error())));
             }
 
-            *l_present
-                ? Worker{}.collectSingleFruVpd(
-                      l_chassisJsonResult.value().get(), l_objectPath)
-                : Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
-                                        l_objectPath);
+            if (*l_present)
+            {
+                /* @todo: read error code returned by
+                collectSingleFruVpd and throw appropriate exception to catch
+                block.*/
+                [[maybe_unused]] const auto l_collectResult =
+                    Worker{}.collectSingleFruVpd(
+                        l_chassisJsonResult.value().get(), l_objectPath);
+            }
+            else
+            {
+                Worker{}.deleteFruVpd(l_chassisJsonResult.value().get(),
+                                      l_objectPath);
+            }
         }
         else
         {

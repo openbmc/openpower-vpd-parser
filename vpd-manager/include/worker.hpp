@@ -111,10 +111,14 @@ class Worker
      * @param[in] i_isCMFlow - Flag which indicates whether this API is being
      * invoked during concurrent maintenance flow. Default value is considered
      * as true.
+     *
+     * @return Returns an object of type std::expected which holds void on
+     * success, otherwise holds error code on failure.
      */
-    void collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
-                             const sdbusplus::object_path& i_dbusObjPath,
-                             const bool i_isCMFlow = true);
+    std::expected<void, error_code> collectSingleFruVpd(
+        const nlohmann::json& i_configJsonObj,
+        const sdbusplus::object_path& i_dbusObjPath,
+        const bool i_isCMFlow = true);
 
     /**
      * @brief  Perform VPD recollection
