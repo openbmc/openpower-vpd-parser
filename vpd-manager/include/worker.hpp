@@ -96,9 +96,9 @@ class Worker
      *
      * @throw std::runtime_error if given input path is empty.
      */
-    void deleteFruVpd(const nlohmann::json& i_configJsonObj,
-                      const std::string& i_dbusObjPath,
-                      const bool i_isCMFlow = true);
+    std::expected<void, error_code> deleteFruVpd(
+        const nlohmann::json& i_configJsonObj, const std::string& i_dbusObjPath,
+        const bool i_isCMFlow = true) noexcept;
 
     /**
      * @brief Collect single FRU VPD
