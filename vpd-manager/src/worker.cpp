@@ -1472,9 +1472,9 @@ void Worker::performVpdRecollection(
     }
 }
 
-void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
-                                 const sdbusplus::object_path& i_dbusObjPath,
-                                 const bool i_isCMFlow)
+std::expected<void, error_code> Worker::collectSingleFruVpd(
+    const nlohmann::json& i_configJsonObj,
+    const sdbusplus::object_path& i_dbusObjPath, const bool i_isCMFlow)
 {
     std::string l_fruPath{};
     uint16_t l_errCode = 0;
@@ -1487,7 +1487,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             m_logger->logMessage(
                 "Empty configuration JSON provided. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
-            return;
+            return std::unexpected(error_code::INVALID_JSON);
         }
 
         // Get FRU path for the given D-bus object path from JSON
@@ -1502,13 +1502,13 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
                     std::string(i_dbusObjPath) +
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
                     " Aborting single FRU VPD collection.");
-                return;
+                return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
             }
 
             m_logger->logMessage(
                 "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
-            return;
+            return std::unexpected(error_code::PATH_NOT_FOUND_IN_JSON);
         }
 
         // Check if VPD collection is allowed for the FRU
@@ -1523,7 +1523,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
                 std::string(i_dbusObjPath),
                 commonUtility::getErrCodeMsg(
                     l_fruOperationCheckResult.error())));
-            return;
+            return std::unexpected(l_fruOperationCheckResult.error());
         }
 
         if (!l_fruOperationCheckResult.value())
@@ -1531,7 +1531,7 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
             m_logger->logMessage(std::format(
                 "VPD collection is not allowed for [{}]. Single FRU VPD collection is not performed.",
                 std::string(i_dbusObjPath)));
-            return;
+            return std::unexpected(error_code::VPD_COLLECTION_NOT_ALLOWED);
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
@@ -1635,7 +1635,11 @@ void Worker::collectSingleFruVpd(const nlohmann::json& i_configJsonObj,
         }
         // TODO: Log PEL
         m_logger->logMessage(l_errMsg + std::string(l_error.what()));
+
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
+
+    return {};
 }
 
 void Worker::checkAndExecutePostFailAction(
