@@ -563,7 +563,7 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
         m_logger->logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
             std::string(i_dbusObjPath));
-        return;
+        throw types::DbusNotAllowed();
     }
 
     const auto l_configJsonResult =
@@ -575,7 +575,7 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
             "Failed to get JSON for path {}. Error: {}, can't collect VPD.",
             std::string(i_dbusObjPath),
             commonUtility::getErrCodeMsg(l_configJsonResult.error())));
-        return;
+        throw types::InternalFailure();
     }
 
     /* @todo: read error code returned by
