@@ -593,13 +593,13 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                                  const bool i_isCMFlow)
 {
-    if (std::string(i_dbusObjPath).empty())
-    {
-        throw types::DbusInvalidArgument();
-    }
-
     try
     {
+        if (std::string(i_dbusObjPath).empty())
+        {
+            throw types::DbusInvalidArgument();
+        }
+
         if (!m_configManager)
         {
             throw std::runtime_error(std::format(
@@ -618,11 +618,16 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                 commonUtility::getErrCodeMsg(l_configJsonResult.error())));
         }
 
-        /* @todo: read the error code from deleteFruVpd and throw appropriate
+        /* read the error code from deleteFruVpd and throw appropriate
          exception to D-Bus caller*/
-        [[maybe_unused]] const auto l_deleteResult =
+        const auto l_deleteResult =
             Worker{}.deleteFruVpd(l_configJsonResult.value().get(),
                                   std::string(i_dbusObjPath), i_isCMFlow);
+
+        if (!l_deleteResult)
+        {
+            commonUtility::throwDbusError(l_deleteResult.error());
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -637,6 +642,9 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt, std::nullopt});
+
+        // re-throw the exception to D-Bus caller
+        throw;
     }
 }
 
