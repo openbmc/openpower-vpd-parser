@@ -247,8 +247,9 @@ void VpdToolHelp::printValidateRedundantEepromHelp() const noexcept
         const types::TableInputData errData = {
             {"-2", "Invalid input parameter"},
             {"-5", "D-Bus call failed"},
-            {"-13", "Received invalid data type value from DBus"},
-            {"-14", "Operation is not allowed"}};
+            {"-8", "Standard exception"},
+            {"-14", "Operation is not allowed"},
+            {"-19", "Internal Failure"}};
 
         errTable.print(errData);
     }

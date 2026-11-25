@@ -1108,7 +1108,7 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
         m_logger->logMessage(std::format(
             "Failed to validate redundant Eeprom path for [{}] because ConfigManager is not initialized",
             i_fruPath));
-        return l_rc;
+        throw types::InternalFailure();
     }
 
     const auto l_jsonObjResult = m_configManager->getJsonObj(i_fruPath);

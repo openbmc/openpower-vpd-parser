@@ -1870,6 +1870,7 @@ int VpdTool::validateRedundantEeprom(
     const std::string& i_fruPath) const noexcept
 {
     int l_rc = constants::FAILURE;
+    std::string l_errMsg;
 
     try
     {
@@ -1889,12 +1890,42 @@ int VpdTool::validateRedundantEeprom(
                 i_fruPath);
         }
     }
+
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        const std::string l_errName = l_ex.name() ? l_ex.name() : "";
+
+        if (l_errName == constants::InvalidArgument)
+        {
+            l_rc = static_cast<int>(ErrorCode::INVALID_INPUT_PARAMETER);
+        }
+        else if (l_errName == constants::InternalFailure)
+        {
+            l_rc = static_cast<int>(ErrorCode::INTERNAL_FAILURE);
+        }
+        else
+        {
+            l_rc = static_cast<int>(ErrorCode::DBUS_CALL_FAILED);
+        }
+        l_errMsg = l_ex.what();
+    }
+    catch (const std::invalid_argument& l_ex)
+    {
+        l_rc = static_cast<int>(ErrorCode::INVALID_INPUT_PARAMETER);
+        l_errMsg = l_ex.what();
+    }
     catch (const std::exception& l_ex)
+    {
+        l_rc = static_cast<int>(ErrorCode::STANDARD_EXCEPTION);
+        l_errMsg = l_ex.what();
+    }
+
+    if (!l_errMsg.empty())
     {
         std::println(
             stderr,
-            "Failed to validate EEPROM [{}] against its redundant EEPROM. Error: {}",
-            i_fruPath, l_ex.what());
+            "Failed to validate EEPROM [{}] against its redundant EEPROM. Error: {} See journal logs for more information.",
+            i_fruPath, l_errMsg);
     }
     return l_rc;
 }

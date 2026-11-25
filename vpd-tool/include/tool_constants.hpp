@@ -78,6 +78,11 @@ constexpr auto ubootValFieldModeFalse = "false";
 constexpr auto ubootValVpdModeFile = "file";
 constexpr auto ubootValVpdModeHardware = "hardware";
 
+constexpr auto InvalidArgument =
+    "xyz.openbmc_project.Common.Error.InvalidArgument";
+constexpr auto InternalFailure =
+    "xyz.openbmc_project.Common.Error.InternalFailure";
+
 // Valid IM values list.
 static std::vector<std::string> validImValues{
     "0x50001000", "0x50001001", "0x50001002", "0x50003000", "0x50004000",

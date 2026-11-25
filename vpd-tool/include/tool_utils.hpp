@@ -269,13 +269,13 @@ inline std::expected<types::DbusVariantType, ErrorCode> readKeywordFromHardware(
  *
  * @return - true if validation succeeds, false otherwise
  *
- * @throw sdbusplus::exception::SdBusError, std::runtime_error
+ * @throw sdbusplus::exception::SdBusError, std::invalid_argument
  */
 inline bool validateRedundantEeprom(const std::string& i_fruPath)
 {
     if (i_fruPath.empty())
     {
-        throw std::runtime_error("Empty EEPROM path");
+        throw std::invalid_argument("Empty EEPROM path");
     }
 
     auto l_bus = sdbusplus::bus::new_default();

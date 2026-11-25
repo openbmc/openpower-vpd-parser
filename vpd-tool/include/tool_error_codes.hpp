@@ -25,6 +25,7 @@ enum class ErrorCode
     NOT_ALLOWED = -14,
     CHASSIS_ID_NOT_PROVIDED = -15,
     SYS_CMD_FAILED = -16,
-    NOT_FOUND = -17
+    NOT_FOUND = -17,
+    INTERNAL_FAILURE = -19
 };
 } // namespace vpd
