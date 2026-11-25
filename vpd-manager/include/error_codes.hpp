@@ -146,5 +146,7 @@ inline const std::unordered_map<int, void (*)()> errorCodeToDbusErrorMap = {
 
     // Not allowed
     {error_code::VPD_COLLECTION_NOT_ALLOWED,
+     &throwErrorOfType<types::DbusNotAllowed>},
+    {error_code::VPD_DELETION_NOT_ALLOWED,
      &throwErrorOfType<types::DbusNotAllowed>}};
 } // namespace vpd
