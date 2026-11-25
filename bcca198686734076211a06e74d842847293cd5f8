@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada989df_685c4354",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-25T04:52:30Z",
+      "side": 1,
+      "message": "Please wrap it in one line and also update the brief as the function itself does not restrict to be called only on failure of primary EEPROM",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e651f417_6a034047",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-25T04:52:30Z",
+      "side": 1,
+      "message": "With this change function moves beyond 300 lines of code. Please see if it can be broken further.",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d37729ed_05c3b2b6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1531,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-25T04:52:30Z",
+      "side": 1,
+      "message": "PEL may not be required in this scenario. Just a logging should be fine. Given that CM failure will be instantly caught by the caller.",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfdf1086_9a878418",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-25T04:52:30Z",
+      "side": 1,
+      "message": "Why not check if the given EEPROM qualifies for a redundant EEPROM path here itself and return early and proceed further only if it has a path?",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
