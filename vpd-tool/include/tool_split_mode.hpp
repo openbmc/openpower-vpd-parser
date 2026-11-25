@@ -28,8 +28,7 @@ class SplitMode
      * 1. Check if the system VPD file path is accessible.
      * 2. Copy the system VPD file to the file-mode location if a source path is
      * provided; otherwise, verify that the file exists at the file-mode path.
-     * 3. Set the U-Boot environment variables "fieldmmode" as false and
-     * "vpdmode" to file.
+     * 3. Set the U-Boot environment variable "vpdmode" to file.
      * 4. Validate that the U-Boot environment variables are correctly set.
      *
      * @param[in] i_filePath - Path of the source file to be copied(Optional).
@@ -45,7 +44,7 @@ class SplitMode
      * Resets the system changes done while setting up the system in split mode.
      * Performs the following tasks -
      * - Removes the system file copied to file mode location.
-     * - Set U-Boot variables "fieldmmode" as false and "vpdmode" to hardware.
+     * - Set U-Boot variable "vpdmode" to hardware.
      *
      * @return 0 on success. Corresponding error code on failure.
      */

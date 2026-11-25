@@ -111,20 +111,52 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
+        const auto l_ubootFieldModeValueRes =
+            utils::readUbootVariableValue(constants::ubootVarFieldMode);
 
-        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
+        if (!l_ubootFieldModeValueRes.has_value())
         {
             std::cerr
-                << std::format(
-                       "Failed to set U-boot variable [{}] to [{}]. Aborting split mode setup.",
-                       constants::ubootVarFieldMode,
-                       constants::ubootValFieldModeFalse)
+                << "Failed to read fieldmode U-boot variable. Assuming field mode is not defined, setting field mode to false."
                 << std::endl;
-            return (!l_ubootFieldModeSetResult)
-                       ? static_cast<int>(l_ubootFieldModeSetResult.error())
-                       : constants::FAILURE;
+        }
+        else if (l_ubootFieldModeValueRes.value() == "true")
+        {
+            char l_userChoice{};
+            std::cout
+                << "System is in field mode. Setting the system in split mode will change the system configuration from field mode to lab mode."
+                << std::endl;
+            std::cout << "Want to continue setting system in split mode [y/n]: "
+                      << std::flush;
+            std::cin >> l_userChoice;
+
+            if (std::tolower(static_cast<unsigned char>(l_userChoice)) != 'y')
+            {
+                std::cout << "Aborting split mode setup" << std::endl;
+                return static_cast<int>(ErrorCode::NOT_ALLOWED);
+            }
+        }
+
+        if (!l_ubootFieldModeValueRes.has_value() ||
+            l_ubootFieldModeValueRes.value() == "true")
+        {
+            const auto l_ubootFieldModeSetResult =
+                utils::setAndValidateUbootVar(
+                    constants::ubootVarFieldMode,
+                    constants::ubootValFieldModeFalse);
+
+            if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
+            {
+                std::cerr
+                    << std::format(
+                           "Failed to set U-boot variable [{}] to [{}]. Aborting split mode setup.",
+                           constants::ubootVarFieldMode,
+                           constants::ubootValFieldModeFalse)
+                    << std::endl;
+                return (!l_ubootFieldModeSetResult)
+                           ? static_cast<int>(l_ubootFieldModeSetResult.error())
+                           : constants::FAILURE;
+            }
         }
 
         const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
@@ -190,19 +222,6 @@ int SplitMode::exitSplitMode() const noexcept
                       << std::endl;
             // Note: Continuing despite the error, as the presence of the file
             // does not impact normal operations.
-        }
-
-        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
-
-        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
-        {
-            std::cerr << std::format("U-boot variable [{}] is not set to [{}].",
-                                     constants::ubootVarFieldMode,
-                                     constants::ubootValFieldModeFalse)
-                      << std::endl;
-            // Note: Continuing despite the error, as the field-mode value does
-            // not impact normal operations.
         }
 
         const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
