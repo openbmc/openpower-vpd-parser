@@ -111,20 +111,22 @@ int SplitMode::enterSplitMode(
             }
         }
 
-        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
+        const auto l_ubootFieldModeValueRes = utils::readUbootVariableValue(
+            constants::ubootVarFieldMode);
 
-        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
+        if (!l_ubootFieldModeValueRes.has_value())
         {
             std::cerr
                 << std::format(
-                       "Failed to set U-boot variable [{}] to [{}]. Aborting split mode setup.",
-                       constants::ubootVarFieldMode,
-                       constants::ubootValFieldModeFalse)
+                       "Failed to read U-boot variable [{}]. Assuming field mode is not defined, considering as lab mode and continuing with split mode setup.",
+                       constants::ubootVarFieldMode)
                 << std::endl;
-            return (!l_ubootFieldModeSetResult)
-                       ? static_cast<int>(l_ubootFieldModeSetResult.error())
-                       : constants::FAILURE;
+        }
+
+        if (l_ubootFieldModeValueRes == "true")
+        {
+            std::cerr << "System is in field mode. Cannot enter split mode." << std::endl;
+            return constants::FAILURE;
         }
 
         const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
@@ -190,19 +192,6 @@ int SplitMode::exitSplitMode() const noexcept
                       << std::endl;
             // Note: Continuing despite the error, as the presence of the file
             // does not impact normal operations.
-        }
-
-        const auto l_ubootFieldModeSetResult = utils::setAndValidateUbootVar(
-            constants::ubootVarFieldMode, constants::ubootValFieldModeFalse);
-
-        if (!l_ubootFieldModeSetResult || !(*l_ubootFieldModeSetResult))
-        {
-            std::cerr << std::format("U-boot variable [{}] is not set to [{}].",
-                                     constants::ubootVarFieldMode,
-                                     constants::ubootValFieldModeFalse)
-                      << std::endl;
-            // Note: Continuing despite the error, as the field-mode value does
-            // not impact normal operations.
         }
 
         const auto l_ubootVpdModeSetResult = utils::setAndValidateUbootVar(
