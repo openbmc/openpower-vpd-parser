@@ -150,6 +150,8 @@ class Manager
      * as true.
      *
      * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::NotAllowed
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure
      */
     void deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath,
                             const bool i_isCMFlow = true);
