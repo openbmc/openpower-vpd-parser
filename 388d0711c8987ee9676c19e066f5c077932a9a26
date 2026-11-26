@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9f9582d_1aef13b2",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "The purpose behind this document is to captures the structure of new backup and restore JSON based on which backup and restore code flow will eventually get updated.\n\nThis document is not intended to capture support provided by the existing code flow.\nI\u0027ll update the commit message for better clarity of the intent behind this document.",
+      "parentUuid": "f570f381_f234ab73",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "101641c7_7d5c1f11",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 4
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "124ed8c9_2d7f43ed",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "As stated above the idea behind this document is just to capture new structure of backup and restore JSON file and what can or cannot be included in the JSON file. We will have documents explaining functionalities supported by the repository there in the backup and restore section, will list down code limitations.",
+      "parentUuid": "101641c7_7d5c1f11",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "952241de_e102c155",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2026-11-23T05:40:49Z",
       "side": 1,
       "message": "Could we clarify the “only on D-Bus” statement? The manager resolves an inventory path to a FRU path, and the backup path can call syncIpzData() to write that FRU.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5921b1c1_87641d3e",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "Yes, correct it has been wrongly phrased. Will fix it.",
+      "parentUuid": "952241de_e102c155",
       "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a23b9f94_6fd5363b",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "\u003e  I could not find a reader for this flag in the manager or tool.\n\nCorrect as this file does not capture what is supported in the code. Instead the file captures structure of new JSON and hence list down the flags which are being introduced by the new JSON file and will be eventually supported by the code.",
+      "parentUuid": "4d2df9e3_51215a63",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb87210b_d7cd9b00",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 4
@@ -82,6 +154,24 @@
       "writtenOn": "2026-11-23T05:40:49Z",
       "side": 1,
       "message": "Could we clarify that isPelRequired gates the both-default case? For unequal, non-default values, the current code logs a mismatch PEL without checking this flag.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb8a2b4c_ed1b2ec0",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "\u003e Could we clarify that isPelRequired gates the both-default case?\n\n\nIt is covered where it mentions \"double-uninitialized condition is detected\"\n\n\u003e For unequal, non-default values, the current code logs a mismatch PEL without checking this flag.\n\nCorrect for existing code, going forward it will check for this flag.",
+      "parentUuid": "fb87210b_d7cd9b00",
       "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f7841ee_dedde8b6",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "Correct for existing code, going forward it will check for this flag in both the case.",
+      "parentUuid": "303a9a1e_b899ea7e",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ccfe5d_543b550b",
         "filename": "docs/backup-restore-json_README.md",
         "patchSetId": 4
@@ -116,6 +224,24 @@
       "writtenOn": "2026-11-23T05:40:49Z",
       "side": 1,
       "message": "Could we describe this flag in the manufacturing-clean context? The tool reads it when manufacturing reset is required and BIOS synchronization was requested; it does not trigger synchronization on every keyword update.",
+      "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91c287e_9c29185d",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e6ccfe5d_543b550b",
       "revId": "388d0711c8987ee9676c19e066f5c077932a9a26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

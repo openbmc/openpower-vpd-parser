@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f0654e7_645a4bfd",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1355138a_638bfd0f",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ac0282c_2ea2d62c",
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "on genesis boot data will not be there in dbus, so destination(empty) length will be considered zero in that case.",
       "parentUuid": "45f423fe_357125e4",
+      "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42219c73_43de1963",
+        "filename": "docs/backup-restore-json_README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-26T13:39:02Z",
+      "side": 1,
+      "message": "It will be handled the same way the length mismatch case will be handled.",
+      "parentUuid": "c544a69c_ec7eba82",
       "revId": "7bec14cc197bff96c6830230366e3da342f855bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
