@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc66b978_9d938905",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-11-27T06:06:48Z",
+      "side": 1,
+      "message": "Returning error code from the API and logging as well will not lead to double logging in the flow for same reason? If returning error code then why not let just caller log at their end?",
+      "revId": "d89efb37b7844a27346f80a6e098b48f3733e0cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
