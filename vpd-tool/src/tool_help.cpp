@@ -84,31 +84,28 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
     {
         Table helpTable(' ', '|', true);
         helpTable.addColumn("Usage", 25);
+        helpTable.addColumn("Example", 60);
         helpTable.addColumn("Description", 60);
         helpTable.addColumn("Requires", 25);
-        helpTable.addColumn("Example", 60);
         helpTable.addColumn("Return", 50);
 
         const types::TableInputData helpData{
             {"Write keyword using -V",
-             "Updates value on both hardware and D-Bus.", "-w -O -K -R -V",
              "vpd-tool -w -O <Object Path> -R <Record Name> -K <Keyword Name> -V <Value>",
+             "Updates value on both hardware and D-Bus.", "-w -O -K -R -V",
              "Success: Number of bytes written is returned. Failure: Error code is returned, and the error message is displayed on the console."},
             {"Write keyword using --file",
-             "File should contain the value to be written. Updates value on both hardware and D-Bus.",
-             "-w --file -O -K -R",
              "vpd-tool -w --file <File Path> -O <Object Path> -R <Record Name> -K <Keyword Name>",
-             "Same as above"},
+             "File should contain the value to be written. Updates value on both hardware and D-Bus.",
+             "-w --file -O -K -R", "Same as above"},
             {"Write keyword to hardware using -V",
-             "CAUTION: -H is developer-only option. Updates data only on the hardware path provided. Data is not synced between primary and redundant EEPROMs.",
-             "-w -H -O -K [-R] -V",
              "vpd-tool -w -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> -V <Value>",
-             "Same as above"},
+             "CAUTION: -H is developer-only option. Updates data only on the hardware path provided. Data is not synced between primary and redundant EEPROMs.",
+             "-w -H -O -K [-R] -V", "Same as above"},
             {"Write keyword to hardware using --file",
-             "File should contain the value to be written. Updates data only on the hardware path provided. CAUTION: -H is developer-only option. Data is not synced between primary and redundant EEPROMs.",
-             "-w -H --file -O -K [-R]",
              "vpd-tool -w -H --file <File path> -O <EEPROM path> -R <Record Name> -K <Keyword Name>",
-             "Same as above"},
+             "File should contain the value to be written. Updates data only on the hardware path provided. CAUTION: -H is developer-only option. Data is not synced between primary and redundant EEPROMs.",
+             "-w -H --file -O -K [-R]", "Same as above"},
         };
 
         helpTable.print(helpData, true);
@@ -156,33 +153,30 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
     {
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 28);
+        usageTable.addColumn("Example", 50);
         usageTable.addColumn("Description", 46);
         usageTable.addColumn("Requires", 24);
-        usageTable.addColumn("Example", 50);
         usageTable.addColumn("Return", 50);
 
         const types::TableInputData usageData = {
             {"Read keyword",
+             "vpd-tool -r -O <Object Path> -R <Record Name> -K <Keyword name>",
              "Reads keyword value from DBus for the given record.",
              "-r -O -K -R",
-             "vpd-tool -r -O <Object Path> -R <Record Name> -K <Keyword name>",
              "Success: Number of bytes read is returned, and the keyword value is displayed on the console. "
              "Failure: Error code is returned, and the error message is displayed on the console."},
             {"Read keyword using -H",
-             "Reads keyword value from hardware. Reads data directly from the hardware path provided.",
-             "-r -H -O -K [-R]",
              "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name>",
-             "Same as above"},
+             "Reads keyword value from hardware. Reads data directly from the hardware path provided.",
+             "-r -H -O -K [-R]", "Same as above"},
             {"Read keyword using --file",
-             "Reads keyword value and saves it to the file path provided.",
-             "-r -O -K -R --file",
              "vpd-tool -r -O <Object path> -R <Record name> -K <Keyword Name> --file <File path>",
-             "Same as above"},
+             "Reads keyword value and saves it to the file path provided.",
+             "-r -O -K -R --file", "Same as above"},
             {"Read keyword using -H, --file",
-             "Reads keyword value from hardware and saves it to the file path provided.",
-             "-r -H -O -K [-R] --file",
              "vpd-tool -r -H -O <EEPROM Path> -R <Record Name> -K <Keyword Name> --file <File path>",
-             "Same as above"}};
+             "Reads keyword value from hardware and saves it to the file path provided.",
+             "-r -H -O -K [-R] --file", "Same as above"}};
 
         usageTable.print(usageData, true);
 
@@ -266,28 +260,29 @@ void VpdToolHelp::printDumpInventoryHelp() const noexcept
     {
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 25);
+        usageTable.addColumn("Example", 25);
         usageTable.addColumn("Description", 60);
         usageTable.addColumn("Requires", 20);
-        usageTable.addColumn("Example", 25);
         usageTable.addColumn("Return", 53);
 
         const types::TableInputData usageData = {
-            {"Dump inventory using -i",
+            {"Dump inventory using -i", "vpd-tool -i",
              "Dumps inventory data for the FRUs present in the system to the console in JSON format.",
-             "-i", "vpd-tool -i",
+             "-i",
              "Success: Dumps inventory data to the console. "
              "Failure: Error code is returned and the error message is displayed on the console."},
-            {"Dump inventory using -t",
+            {"Dump inventory using -t", "vpd-tool -i -t",
              "Dumps inventory data for the FRUs present in the system to the console in tabular format.",
-             "-i -t", "vpd-tool -i -t", "Same as above"},
-            {"Dump chassis inventory using -c",
+             "-i -t", "Same as above"},
+            {"Dump chassis inventory using -c", "vpd-tool -i -c <Chassis ID>",
              "Dumps inventory data for the FRUs present in the specified chassis to the console in JSON format.",
-             "-i -c", "vpd-tool -i -c <Chassis ID>",
+             "-i -c",
              "Success: Dumps chassis-specific inventory data. "
              "Failure: Error code is returned and the error message is displayed on the console."},
             {"Dump chassis inventory using -c, -t",
+             "vpd-tool -i -t -c <Chassis ID>",
              "Dumps inventory data for the FRUs present in the specified chassis to the console in tabular format.",
-             "-i -c -t", "vpd-tool -i -t -c <Chassis ID>", "Same as above"},
+             "-i -c -t", "Same as above"},
         };
 
         usageTable.print(usageData, true);
@@ -328,21 +323,20 @@ void VpdToolHelp::printEnterSplitModeHelp() const noexcept
 
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 28);
+        usageTable.addColumn("Example", 50);
         usageTable.addColumn("Description", 46);
         usageTable.addColumn("Requires", 24);
-        usageTable.addColumn("Example", 50);
         usageTable.addColumn("Return", 50);
 
         const types::TableInputData usageData = {
-            {"Enter split mode",
+            {"Enter split mode", "vpd-tool --enterSplitMode",
              "Sets the system environment to enter split mode. Note : Expects system VPD file is copied to '/var/lib/vpd/file/' location.",
-             "--enterSplitMode", "vpd-tool --enterSplitMode",
+             "--enterSplitMode",
              "Success: Success message is displayed on the console. Failure: Error code is returned and error message is displayed on the console."},
             {"Enter split mode using --file",
-             "Sets the system environment to enter split mode. System VPD Path should be provided as input using --file option.",
-             "--enterSplitMode --file",
              "vpd-tool --enterSplitMode --file <System VPD Path>",
-             "Same as above"}};
+             "Sets the system environment to enter split mode. System VPD Path should be provided as input using --file option.",
+             "--enterSplitMode --file", "Same as above"}};
 
         usageTable.print(usageData, true);
 
