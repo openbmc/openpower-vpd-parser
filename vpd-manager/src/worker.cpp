@@ -1845,11 +1845,46 @@ std::expected<bool, types::ErrorType> Worker::collectFromRedundantEeprom(
     [[maybe_unused]] types::VPDMapVariant& o_parsedVpd,
     [[maybe_unused]] bool& o_fruPresenceState) noexcept
 {
-    /* @todo:
-        - check if given EEPROM path is a redundant EEPROM path
-        - if it is a redundant EEPROM path, attempt to parse VPD from it
-    */
-    return true;
+    try
+    {
+        const auto l_isRedundantEeprom =
+            jsonUtility::isRedundantEeprom(i_redundantEepromPath);
+
+        if (!l_isRedundantEeprom.has_value())
+        {
+            m_logger->logMessage(std::format(
+                "Failed to check if path [{}] is a redundant EEPROM, error : {}",
+                i_redundantEepromPath,
+                commonUtility::getErrCodeMsg(l_isRedundantEeprom.error())));
+
+            return false;
+        }
+
+        if (!l_isRedundantEeprom.value())
+        {
+            m_logger->logMessage(std::format(
+                "Path [{}] is not a redundant EEPROM. Skipping redundant EEPROM VPD collection.",
+                i_redundantEepromPath));
+
+            return false;
+        }
+
+        m_logger->logMessage(
+            std::format("Triggering VPD collection from redundant EEPROM [{}]",
+                        i_redundantEepromPath));
+
+        o_parsedVpd = parseVpdFile(i_configJsonObj, i_redundantEepromPath, true,
+                                   o_fruPresenceState);
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "VPD collection failed from redundant EEPROM [{}], error : {}",
+            i_redundantEepromPath, l_ex.what()));
+
+        return std::unexpected(EventLogger::getErrorType(l_ex));
+    }
 }
 
 bool Worker::processRedundantPreAction(
