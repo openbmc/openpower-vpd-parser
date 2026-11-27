@@ -2,6 +2,8 @@
 
 #include "tool_constants.hpp"
 
+#include <unistd.h>
+
 #include <algorithm>
 #include <iostream>
 
@@ -79,8 +81,13 @@ std::vector<std::string> Table::wrapText(const std::string& text,
     return lines;
 }
 
-void Table::printEntry(const std::string& text, std::size_t columnWidth) const
+void Table::printEntry(const std::string& text, std::size_t columnWidth,
+                       const std::string& textColor) const
 {
+    // Color only the text so that padding and alignment are unaffected.
+    const std::string color = text.empty() ? "" : textColor;
+    const std::string colorEnd = color.empty() ? "" : "\033[0m";
+
     const std::size_t textLength{text.length()};
 
     // total fill = column width - text length, minimum 2 (1 lead + 1 trail)
@@ -97,24 +104,27 @@ void Table::printEntry(const std::string& text, std::size_t columnWidth) const
         const std::size_t rightPad = totalFill > constants::VALUE_1
                                          ? totalFill - constants::VALUE_1
                                          : constants::VALUE_0;
-        std::cout << separator << fillCharacter << text
+        std::cout << separator << fillCharacter << color << text << colorEnd
                   << std::string(rightPad, fillCharacter);
     }
     else
     {
         const std::size_t half = totalFill / 2;
         std::cout << separator << std::string(totalFill - half, fillCharacter)
-                  << text << std::string(half, fillCharacter);
+                  << color << text << colorEnd
+                  << std::string(half, fillCharacter);
     }
 }
 
-int Table::addColumn(const std::string& name, std::size_t width)
+int Table::addColumn(const std::string& name, std::size_t width,
+                     const std::string& color)
 {
     if (width < name.length())
     {
         return constants::FAILURE;
     }
     columns.emplace_back(types::TableColumnNameSizePair(name, width));
+    columnColors.emplace_back(color);
     currentWidth += width;
     return constants::SUCCESS;
 }
@@ -122,6 +132,9 @@ int Table::addColumn(const std::string& name, std::size_t width)
 int Table::print(const types::TableInputData& tableData,
                  const bool rowSeparator) const
 {
+    // Colors are applied only when the output is a terminal.
+    const bool useColor = isatty(STDOUT_FILENO) != 0;
+
     printHorizontalLine();
     printHeader();
     printHorizontalLine();
@@ -154,7 +167,8 @@ int Table::print(const types::TableInputData& tableData,
                 const std::string& text = line < wrappedCells[col].size()
                                               ? wrappedCells[col][line]
                                               : "";
-                printEntry(text, columns[col].width());
+                printEntry(text, columns[col].width(),
+                           useColor ? columnColors[col] : std::string{});
             }
             std::cout << separator << std::endl;
         }

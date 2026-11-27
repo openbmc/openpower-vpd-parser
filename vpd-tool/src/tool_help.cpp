@@ -13,6 +13,9 @@
 namespace vpd
 {
 
+// ANSI escape sequence to print the text of a table column in yellow.
+static constexpr auto YELLOW = "\033[33m";
+
 bool VpdToolHelp::printHelp(int argc, char** argv) const
 {
     // Print generic help when no operation are provided.
@@ -84,7 +87,7 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
     {
         Table helpTable(' ', '|', true);
         helpTable.addColumn("Usage", 25);
-        helpTable.addColumn("Example", 60);
+        helpTable.addColumn("Example", 60, YELLOW);
         helpTable.addColumn("Description", 60);
         helpTable.addColumn("Requires", 25);
         helpTable.addColumn("Return", 50);
@@ -153,7 +156,7 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
     {
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 28);
-        usageTable.addColumn("Example", 50);
+        usageTable.addColumn("Example", 50, YELLOW);
         usageTable.addColumn("Description", 46);
         usageTable.addColumn("Requires", 24);
         usageTable.addColumn("Return", 50);
@@ -260,7 +263,7 @@ void VpdToolHelp::printDumpInventoryHelp() const noexcept
     {
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 25);
-        usageTable.addColumn("Example", 25);
+        usageTable.addColumn("Example", 25, YELLOW);
         usageTable.addColumn("Description", 60);
         usageTable.addColumn("Requires", 20);
         usageTable.addColumn("Return", 53);
@@ -323,7 +326,7 @@ void VpdToolHelp::printEnterSplitModeHelp() const noexcept
 
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 28);
-        usageTable.addColumn("Example", 50);
+        usageTable.addColumn("Example", 50, YELLOW);
         usageTable.addColumn("Description", 46);
         usageTable.addColumn("Requires", 24);
         usageTable.addColumn("Return", 50);

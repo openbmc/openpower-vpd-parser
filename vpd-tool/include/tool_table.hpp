@@ -50,9 +50,14 @@ class Table
      *
      * @param[in] width - Width to allocate for the column.
      *
+     * @param[in] color - Optional ANSI escape sequence used to color the data
+     *                    cells of this column. Applied only when stdout is a
+     *                    terminal (default: no color).
+     *
      * @return On success returns 0, otherwise returns -1.
      */
-    int addColumn(const std::string& name, std::size_t width);
+    int addColumn(const std::string& name, std::size_t width,
+                  const std::string& color = "");
 
     /**
      * @brief API to print the Table to console.
@@ -112,6 +117,9 @@ class Table
     // Array of columns
     std::vector<Column> columns;
 
+    // ANSI color sequence for each column's data cells, empty for no color
+    std::vector<std::string> columnColors;
+
     /**
      * @brief API to Print Header
      *
@@ -155,9 +163,12 @@ class Table
      *
      * @param[in] text        - text to print
      * @param[in] columnWidth - width of the column
+     * @param[in] textColor   - ANSI color sequence applied to the text only,
+     *                          not to the padding (default: no color)
      *
      * @throw std::out_of_range, std::length_error, std::bad_alloc
      */
-    void printEntry(const std::string& text, std::size_t columnWidth) const;
+    void printEntry(const std::string& text, std::size_t columnWidth,
+                    const std::string& textColor = "") const;
 };
 } // namespace vpd
