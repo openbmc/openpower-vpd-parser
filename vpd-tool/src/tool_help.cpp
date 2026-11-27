@@ -82,13 +82,6 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
 {
     try
     {
-        std::cout
-            << "Note:\n"
-            << "  1. Options in [] are optional.\n"
-            << "     If -R is omitted, keyword VPD format is assumed.\n"
-            << "  2. Keyword value should be in ASCII or hexadecimal format.\n"
-            << "     ASCII example: 01234; hexadecimal example: 0x30313233\n\n";
-
         Table helpTable(' ', '|', true);
         helpTable.addColumn("Usage", 25);
         helpTable.addColumn("Description", 60);
@@ -119,6 +112,13 @@ void VpdToolHelp::printWriteKeywordHelp() const noexcept
         };
 
         helpTable.print(helpData, true);
+
+        std::cout
+            << "\nNote:\n"
+            << "  1. Options in [] are optional.\n"
+            << "     If -R is omitted, keyword VPD format is assumed.\n"
+            << "  2. Keyword value should be in ASCII or hexadecimal format.\n"
+            << "     ASCII example: 01234; hexadecimal example: 0x30313233\n";
 
         std::cout << "\nError codes for the write keyword operation\n";
 
@@ -154,10 +154,6 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
 {
     try
     {
-        std::cout << "Note:\n"
-                  << "  Options in [] are optional.\n"
-                  << "  If -R is omitted, keyword VPD format is assumed.\n";
-
         Table usageTable(' ', '|', true);
         usageTable.addColumn("Usage", 28);
         usageTable.addColumn("Description", 46);
@@ -189,6 +185,10 @@ void VpdToolHelp::printReadKeywordHelp() const noexcept
              "Same as above"}};
 
         usageTable.print(usageData, true);
+
+        std::cout << "\nNote:\n"
+                  << "  Options in [] are optional.\n"
+                  << "  If -R is omitted, keyword VPD format is assumed.\n";
 
         std::cout << "\nError codes for the read keyword operation\n";
 
