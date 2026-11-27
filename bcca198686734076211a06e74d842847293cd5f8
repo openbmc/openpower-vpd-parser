@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ba0323_33402762",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-27T06:59:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ada989df_685c4354",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e651f417_6a034047",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-25T04:52:30Z",
       "side": 1,
       "message": "With this change function moves beyond 300 lines of code. Please see if it can be broken further.",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd03ad2_188e4339",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-27T06:59:20Z",
+      "side": 1,
+      "message": "Done. `collectFromRedundantEeprom` is stubbed out in this patch. Shall be implemented in subsequent patch.",
+      "parentUuid": "e651f417_6a034047",
       "revId": "bcca198686734076211a06e74d842847293cd5f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa9924a_f625d649",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1531,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-27T06:59:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d37729ed_05c3b2b6",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfdf1086_9a878418",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-11-25T04:52:30Z",
       "side": 1,
       "message": "Why not check if the given EEPROM qualifies for a redundant EEPROM path here itself and return early and proceed further only if it has a path?",
+      "revId": "bcca198686734076211a06e74d842847293cd5f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0270872_6d5ef9e7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-11-27T06:59:20Z",
+      "side": 1,
+      "message": "Done. Redundant EEPROM check existence is done inside lambda `l_collectFromRedundant` and the lambda returns if there is none.\nThe reason for not directly checking for redundant EEPROM existence here is to avoid duplication of code in 1672, 1678.",
+      "parentUuid": "bfdf1086_9a878418",
       "revId": "bcca198686734076211a06e74d842847293cd5f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
